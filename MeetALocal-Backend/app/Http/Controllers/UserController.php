@@ -59,6 +59,10 @@ class UserController extends Controller
         ], 201);
     }
     public function getSavedEvents(){
-        
+        $data= Auth::user()->savedEvents()->get();
+        return response()->json([
+            'message' => 'ok',
+            'data' => $data,
+        ], 201);
     }
 }
