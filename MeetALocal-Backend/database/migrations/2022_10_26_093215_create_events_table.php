@@ -10,8 +10,8 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('organizer_id')->constrained('users');
-            $table->foreignId('country_id')->constrained('countries');
+            $table->foreignId('organizer_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('country_id')->constrained('countries')->onUpdate('cascade')->onDelete('cascade');
             $table->string('title');
             $table->string('details');
             $table->string('place');

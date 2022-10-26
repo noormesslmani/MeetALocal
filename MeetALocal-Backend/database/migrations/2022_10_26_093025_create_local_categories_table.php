@@ -11,8 +11,8 @@ class CreateLocalCategoriesTable extends Migration
     {
         Schema::create('local_categories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('local_id')->constrained('users');
-            $table->foreignId('category_id')->constrained('categories');
+            $table->foreignId('local_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 

@@ -11,7 +11,7 @@ class CreateHighlightsTable extends Migration
     {
         Schema::create('highlights', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('photo');
             $table->timestamp('uploaded_at');
         });

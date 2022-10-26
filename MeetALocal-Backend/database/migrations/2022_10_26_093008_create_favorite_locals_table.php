@@ -10,8 +10,8 @@ class CreateFavoriteLocalsTable extends Migration
     {
         Schema::create('favorite_locals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('local_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('local_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamp('favorited_at');
         });
     }

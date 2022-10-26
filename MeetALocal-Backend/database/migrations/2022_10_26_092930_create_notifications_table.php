@@ -10,8 +10,8 @@ class CreateNotificationsTable extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('from_id')->constrained('users');
-            $table->foreignId('to_id')->constrained('users');
+            $table->foreignId('from_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('to_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('content');
             $table->timestamp('created_at');
         });
