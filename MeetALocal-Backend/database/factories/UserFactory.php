@@ -19,7 +19,7 @@ class UserFactory extends Factory
             'nationality_id' => $this->faker->randomElement([1,2,3,4,5,6]),
             'residence_id' => $this->faker->randomElement([1,2,3,4,5,6]),
             'gender' => $this->faker->randomElement(['Male','Female']),
-            'phone' => $this->faker->randomNumber(8, true),
+            'phone' => $this->faker->randomNumber(15, false),
             'date_of_birth' => $this->faker->date(),   
         ];
     }

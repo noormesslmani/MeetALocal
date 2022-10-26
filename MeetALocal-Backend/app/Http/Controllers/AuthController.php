@@ -3,6 +3,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Category;
+use App\Models\Comment;
+use App\Models\Country;
+use App\Models\Event_category;
+use App\Models\Event;
+use App\Models\Favorite_local;
+use App\Models\Highlight;
+use App\Models\Local_category;
+use App\Models\Message;
+use App\Models\Notification;
+use App\Models\PostCategory;
+use App\Models\Post;
+use App\Models\Saved_event;
+use App\Models\User_type;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 
@@ -48,8 +62,12 @@ class AuthController extends Controller
         }
         $user = User::create(array_merge(
                     $validator->validated(),
-                    ['password' => bcrypt($request->password)]
-                ));
+                    ['password' => bcrypt($request->password),
+                    'type_id' => User_type::where('user_type',$request->type)->pluck('id')[0],
+                    'nationality_id'=> Country::where('country',$request->nationality)->pluck('id')[0],
+                    'residence_id'=> Country::where('country',$request->residence)->pluck('id')[0],
+                    ]
+            ));
         return response()->json([
             'message' => 'User successfully registered',
             'user' => $user
