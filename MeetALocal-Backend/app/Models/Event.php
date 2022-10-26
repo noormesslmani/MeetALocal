@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $fillable = [
         'title',
         'details',
