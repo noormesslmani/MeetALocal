@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Country extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     public function nationals(){
         return $this->hasMany(User::class, 'nationality_id');
     }

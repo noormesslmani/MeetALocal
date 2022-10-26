@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Ban extends Model
 {
     use HasFactory;
+    public $timestamps = false;
 }
