@@ -13,6 +13,8 @@ Route::group(['prefix' => 'v1.0.0'], function () {
         Route::group(['prefix' => 'user'], function () {
             Route::get('/locals/{country}/{fees}/{category}', [UserController::class, 'getLocals']);
             Route::get('/events/{country}/{fees}/{category}', [UserController::class, 'getEvents']);
+            Route::post('/events/saved', [UserController::class, 'toggleSavedEvents']);
+            Route::get('/events/saved', [UserController::class, 'getSavedEvents']);
         });
         Route::group(['prefix' => 'local'], function () {
             

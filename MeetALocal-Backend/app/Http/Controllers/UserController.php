@@ -18,7 +18,7 @@ use App\Models\Post;
 use App\Models\SavedEvent;
 use App\Models\UserType;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
     public function getLocals($country, $fees, $category){
@@ -43,5 +43,22 @@ class UserController extends Controller
             'message' => 'ok',
             'data' => $data
         ], 201);
+    }
+
+    public function toggleSavedEvents(Request $request){
+        if(SavedEvent::where('user_id',Auth::id())->where('event_id',$request->event_id)->exists())
+            SavedEvent::where('user_id',Auth::id())->where('event_id',$request->event_id)->delete();
+        else{
+            SavedEvent::create([
+                'user_id' => Auth::id(),
+                'event_id'=> $request->event_id,
+            ]);
+        }
+        return response()->json([
+            'message' => 'ok',
+        ], 201);
+    }
+    public function getSavedEvents(){
+        
     }
 }
