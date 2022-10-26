@@ -10,9 +10,9 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('type_id')->constrained('user_types');
-            $table->foreignId('nationality_id')->constrained('countries');
-            $table->foreignId('residence_id')->constrained('countries');
+            $table->foreignId('type_id')->constrained('user_types')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('nationality_id')->constrained('countries')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('residence_id')->constrained('countries')->onUpdate('cascade')->onDelete('cascade');
             $table->string('email')->unique();
             $table->string('password');
             $table->string('name');

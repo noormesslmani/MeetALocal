@@ -11,8 +11,8 @@ class CreateSavedEventsTable extends Migration
     {
         Schema::create('saved_events', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('event_id')->constrained('events');
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('event_id')->constrained('events')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamp('saved_at');
         });
     }

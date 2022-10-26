@@ -11,8 +11,8 @@ class CreateBansTable extends Migration
     {
         Schema::create('bans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('banner_id')->constrained('users');
-            $table->foreignId('banned_id')->constrained('users');
+            $table->foreignId('banner_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('banned_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamp('banned_at');
         });
     }

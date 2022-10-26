@@ -11,8 +11,8 @@ class CreateMessagesTable extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sender_id')->constrained('users');
-            $table->foreignId('reciever_id')->constrained('users');
+            $table->foreignId('sender_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('reciever_id')->constrained('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string('content');
             $table->timestamp('sent_at');
         });
