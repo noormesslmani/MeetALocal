@@ -22,11 +22,23 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function getLocals($country, $fees, $category){
-        $country!='All'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
-        if($fees=='All')
+        $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
+        if($fees=='all')
             $fees=100;
-        $category!='All'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
+        $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
         $data= User::join('local_categories','users.id','=','local_id')->where('users.type_id',1)->whereIn('users.residence_id',$country_id)->where('users.fees','<=',$fees)->whereIn('local_categories.category_id',$category_id)->get();
+        return response()->json([
+            'message' => 'ok',
+            'data' => $data
+        ], 201);
+    }
+
+    public function getEvents($country, $fees, $category){
+        $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
+        if($fees=='all')
+            $fees=100;
+        $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
+        $data= Event::join('event_categories','events.id','=','event_id')->whereIn('events.country_id',$country_id)->where('events.fees','<=',$fees)->whereIn('event_categories.category_id',$category_id)->get();
         return response()->json([
             'message' => 'ok',
             'data' => $data
