@@ -9,4 +9,8 @@ class SavedEvent extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $fillable = [
+        'user_id',
+        'event_id'
+    ];
 }
