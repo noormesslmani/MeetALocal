@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Validator;
 
 class AuthController extends Controller
@@ -15,7 +16,7 @@ class AuthController extends Controller
     public function login(Request $request){
     	$validator = Validator::make($request->all(), [
             'email' => 'required|email',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:8',
         ]);
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
@@ -30,7 +31,17 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
-            'password' => 'required|string|confirmed|min:6',
+            'password' => 'required|string|min:8',
+            'type' => 'required|string|in:Local,Foreigner',
+            'nationality' => 'required|string',
+            'residence' => 'required|string',
+            'gender' =>'required|in:Male,Female',
+            'phone' =>'required|integer',
+            'date_of_birth' => 'required|date',
+            'about' => 'string',
+            'location' => 'string',
+            'profile_picture' => 'string',
+            'fees' => 'integer',
         ]);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
