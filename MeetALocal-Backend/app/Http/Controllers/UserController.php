@@ -21,13 +21,12 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function getLocals($country= null, $fees=null, $category=null){
-        $country? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
-        if(!$fees){
-            $fees=0;
-        }
-        
-        $data= User::where('type_id',1)->whereIn('residence_id',$country_id)->where('fees','>=',$fees)->get();
+    public function getLocals($country, $fees, $category){
+        $country!='All'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
+        if($fees=='All')
+            $fees=100;
+        $category!='All'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
+        $data= User::join('local_categories','users.id','=','local_id')->where('users.type_id',1)->whereIn('users.residence_id',$country_id)->where('users.fees','<=',$fees)->whereIn('local_categories.category_id',$category_id)->get();
         return response()->json([
             'message' => 'ok',
             'data' => $data

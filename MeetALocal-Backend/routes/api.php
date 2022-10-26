@@ -11,7 +11,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::group(['prefix' => 'user'], function () {
-            Route::get('/locals/{country?}{fees?}{category?}', [UserController::class, 'getLocals']);
+            Route::get('/locals/{country}/{fees}/{category}', [UserController::class, 'getLocals']);
         });
         Route::group(['prefix' => 'local'], function () {
             
