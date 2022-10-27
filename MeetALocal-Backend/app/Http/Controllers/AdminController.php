@@ -93,6 +93,17 @@ class AdminController extends Controller
     }
     public function getLocalsStat(){
         $locals=User::where('type_id',1);
+        $young=0;
+        $middle=0;
+        $old=0;
+        foreach($locals->get() as $local){
+            if($local->age()<30)
+                $young ++;
+            else if($local->age()>=60)
+                $middle ++;
+            else 
+                $old ++;
+        }
         $total=$locals->count();
         $males=$locals->where('gender','Male')->count();
         $females=$total-$males;
@@ -103,7 +114,8 @@ class AdminController extends Controller
             'male%' => $males/$total*100,
             'female%' => $females/$total*100,
             'top_categories' => $top_categories,
-            'top_languages' =>$top_languages
+            'top_languages' =>$top_languages,
+            'ages' =>[$young, $middle, $old]
         );
         return response()->json([
             'message' => 'ok',
