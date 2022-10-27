@@ -16,9 +16,10 @@ use App\Models\PostCategory;
 use App\Models\Post;
 use App\Models\SavedEvent;
 use App\Models\UserType;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class LocalController extends Controller
 {
-    //
+    
 }

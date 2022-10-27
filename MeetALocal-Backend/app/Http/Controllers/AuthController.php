@@ -48,6 +48,7 @@ class AuthController extends Controller
             'gender' =>'required|in:Male,Female',
             'phone' =>'required|integer',
             'date_of_birth' => 'required|date',
+            'categories' =>'array',
             'about' => 'string',
             'location' => 'string',
             'profile_picture' => 'string',
@@ -59,11 +60,19 @@ class AuthController extends Controller
         $user = User::create(array_merge(
                     $validator->validated(),
                     ['password' => bcrypt($request->password),
-                    'type_id' => User_type::where('user_type',$request->type)->pluck('id')[0],
+                    'type_id' => UserType::where('user_type',$request->type)->pluck('id')[0],
                     'nationality_id'=> Country::where('country',$request->nationality)->pluck('id')[0],
                     'residence_id'=> Country::where('country',$request->residence)->pluck('id')[0],
                     ]
-            ));
+                ));
+        if($request->type=='Local'){
+            foreach($request->categories as $category){
+                LocalCategory::create([
+                    'local_id' => $user->id,
+                    'category_id'=> Category::where('category',$category)->pluck('id')[0]
+                ]);
+            }
+        }
         return response()->json([
             'message' => 'User successfully registered',
             'user' => $user
