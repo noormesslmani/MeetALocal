@@ -28,7 +28,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::post('/event', [LocalController::class, 'createEvent']);
         });
         Route::group(['prefix' => 'admins'], function () {
-        
+            Route::post('/ban', [AdminController::class, 'banUser']);
         });
         Route::group(['prefix' => 'foreigners'], function () {
         
