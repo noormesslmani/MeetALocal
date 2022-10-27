@@ -23,13 +23,16 @@ class UserController extends Controller
 {
     public function getLocals($country, $fees, $category){
         $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
-        if($fees=='all')
-            $fees=100;
+        $fees=='all'? $fees=100:$fees='all';
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
-        $data= User::join('local_categories','users.id','=','local_id')->where('users.type_id',1)->whereIn('users.residence_id',$country_id)->where('users.fees','<=',$fees)->whereIn('local_categories.category_id',$category_id)->get();
+        $locals= User::join('local_categories','users.id','=','local_id')->join('categories','local_categories.category_id','=','categories.id')->join('countries','users.residence_id','=','countries.id')->where('type_id',1)->where('users.fees','<=',$fees)->whereIn('users.residence_id',$country_id)->whereIn('local_categories.category_id',$category_id)->select('users.*','countries.country')->distinct()->get();
+        foreach($locals as $local){
+            $category= $local->categories()->pluck('category');
+            $local['categories']=$category;
+        }
         return response()->json([
             'message' => 'ok',
-            'data' => $data
+            'data' => $locals
         ], 201);
     }
 
