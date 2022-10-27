@@ -25,7 +25,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::post('/chat', [UserController::class, 'createChat']);
         });
         Route::group(['prefix' => 'locals'], function () {
-            
+          
         });
         Route::group(['prefix' => 'admins'], function () {
         
