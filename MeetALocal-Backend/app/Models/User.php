@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Carbon\Carbon;
 class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -89,8 +90,9 @@ class User extends Authenticatable implements JWTSubject
     public function savedEvents(){
         return $this->belongsToMany(Event::class, 'saved_events', 'user_id', 'event_id');
     }
-    // public function commentsPost(){
-    //     return $this->belongsToMany(Post::class, 'comments', 'user_id', 'post_id');
-    // }
+    public function age()
+    {
+        return Carbon::parse($this->attributes['date_of_birth'])->age;
+    }
 
 }
