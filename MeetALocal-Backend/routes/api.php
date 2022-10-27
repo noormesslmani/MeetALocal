@@ -10,7 +10,7 @@ use App\Http\Controllers\AuthController;
 Route::group(['prefix' => 'v1.0.0'], function () {
 
     Route::group(['middleware' => 'auth:api'], function () {
-        Route::group(['prefix' => 'user'], function () {
+        Route::group(['prefix' => 'users'], function () {
             Route::get('/locals/{country}/{fees}/{category}', [UserController::class, 'getLocals']);
             Route::get('/user/{id}', [UserController::class, 'getUser']);
             Route::get('/events/{country}/{fees}/{category}', [UserController::class, 'getEvents']);
@@ -24,13 +24,13 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::get('/chats/{id?}', [UserController::class, 'getChats']);
             Route::post('/chat', [UserController::class, 'createChat']);
         });
-        Route::group(['prefix' => 'local'], function () {
+        Route::group(['prefix' => 'locals'], function () {
             
         });
-        Route::group(['prefix' => 'admin'], function () {
+        Route::group(['prefix' => 'admins'], function () {
         
         });
-        Route::group(['prefix' => 'foreigner'], function () {
+        Route::group(['prefix' => 'foreigners'], function () {
         
         });
         Route::group(['prefix' => 'auth'], function ($router) { 
