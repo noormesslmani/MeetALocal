@@ -73,4 +73,11 @@ class AdminController extends Controller
             'data' => $data,
         ], 201);
     }
+    public function getLocals(){
+        $locals=User::join('countries','residence_id','countries.id')->where('type_id',1)->select('users.id','name','email','created_at','country')->orderBy('created_at', 'desc')->get();
+        return response()->json([
+            'message' => 'ok',
+            'data' => $locals,
+        ], 201);
+    }
 }
