@@ -97,6 +97,7 @@ class UserController extends Controller
             $category= $post->categories()->pluck('category');
             $post['categories']=$category;
         }
+        
         return response()->json([
             'message' => 'ok',
             'data' => $posts,
@@ -110,7 +111,6 @@ class UserController extends Controller
         $post['user']=$user;
         $post['country']=$country;
         $post['categories']=$categories;
-        
         return response()->json([
             'message' => 'ok',
             'data' => $post,
