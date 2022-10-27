@@ -118,6 +118,17 @@ class UserController extends Controller
             'data' => $post,
         ], 201);
     }
+    public function addComment(Request $request){
+        $comment = Comment::create([
+            'post_id'=> $request->post_id,
+            'user_id' => Auth::id(),
+            'content' => $request->content,
+        ]);
+        return response()->json([
+            'message' => 'ok',
+            'data' => $comment,
+        ], 201);
+    }
     public function createPost(Request $request){
         $post = Post::create([
             'user_id' => Auth::id(),
