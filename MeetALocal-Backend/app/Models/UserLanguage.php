@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserLanguage extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $fillable = [
         'user_id',
         'language_id'
