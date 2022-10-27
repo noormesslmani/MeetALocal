@@ -35,7 +35,13 @@ class UserController extends Controller
             'data' => $locals
         ], 201);
     }
-
+    public function getUser($id){
+        $user= User::find($id);
+        return response()->json([
+            'message' => 'ok',
+            'data' => $user
+        ], 201);
+    }
     public function getEvents($country, $fees, $category){
         $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
         $fees=='all'? $fees=100:$fees='all';

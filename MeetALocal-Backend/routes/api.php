@@ -12,6 +12,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::group(['prefix' => 'user'], function () {
             Route::get('/locals/{country}/{fees}/{category}', [UserController::class, 'getLocals']);
+            Route::get('/user/{id}', [UserController::class, 'getUser']);
             Route::get('/events/{country}/{fees}/{category}', [UserController::class, 'getEvents']);
             Route::get('/event/{id}', [UserController::class, 'getEvent']);
             Route::post('/event/saved', [UserController::class, 'toggleSavedEvents']);
