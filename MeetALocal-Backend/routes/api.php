@@ -30,6 +30,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
         Route::group(['prefix' => 'admins'], function () {
             Route::post('/ban', [AdminController::class, 'banUser']);
             Route::post('/unban', [AdminController::class, 'unbanUser']);
+            Route::get('/get-bans', [AdminController::class, 'getBans']);
         });
         Route::group(['prefix' => 'foreigners'], function () {
         
