@@ -122,4 +122,33 @@ class AdminController extends Controller
             'data' => $data,
         ], 201);
     }
+    public function getForeignersStat(){
+        $foreigners=User::where('type_id',2);
+        $young=0;
+        $middle=0;
+        $old=0;
+        foreach($foreigners->get() as $foreigner){
+            if($foreigner->age()<30)
+                $young ++;
+            else if($foreigner->age()>=60)
+                $middle ++;
+            else 
+                $old ++;
+        }
+        $total=$foreigners->count();
+        $males=$foreigners->where('gender','Male')->count();
+        $females=$total-$males;
+        $top_languages=UserLanguage::join('languages','languages.id','language_id')->selectRaw('language, COUNT(*) as count') ->groupBy('language')->orderBy('count', 'desc')->take(3)->get();
+        $data = array(
+            'locals_nb' => $total,
+            'male%' => $males/$total*100,
+            'female%' => $females/$total*100,
+            'top_languages' =>$top_languages,
+            'ages' =>[$young, $middle, $old]
+        );
+        return response()->json([
+            'message' => 'ok',
+            'data' => $data,
+        ], 201);
+    }
 }
