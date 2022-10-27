@@ -17,6 +17,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::get('/events/saved', [UserController::class, 'getSavedEvents']);
             Route::get('/posts/{country}/{category}', [UserController::class, 'getPosts']);
             Route::post('/posts', [UserController::class, 'createPost']);
+            Route::get('/chats', [UserController::class, 'getChats']);
         });
         Route::group(['prefix' => 'local'], function () {
             
