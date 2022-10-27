@@ -106,4 +106,15 @@ class UserController extends Controller
             'data' => $messages,
         ], 201);
     }
+    public function createChats(Request $request){
+        $message = Message::create([
+            'sender_id' => Auth::id(),
+            'reciever_id'=>$request->reciever_id,
+            'content'=> $request->content,
+        ]);
+        return response()->json([
+            'message' => 'ok',
+            'data' => $message,
+        ], 201);
+    }
 }
