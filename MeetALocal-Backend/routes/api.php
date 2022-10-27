@@ -33,6 +33,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::get('/get-bans', [AdminController::class, 'getBans']);
             Route::get('/app-stat', [AdminController::class, 'getAppStat']);
             Route::get('/locals-stat', [AdminController::class, 'getLocalsStat']);
+            Route::get('/foreigners-stat', [AdminController::class, 'getForeignersStat']);
             Route::get('/users/{type}', [AdminController::class, 'getUsers']);
         });
         Route::group(['prefix' => 'foreigners'], function () {
