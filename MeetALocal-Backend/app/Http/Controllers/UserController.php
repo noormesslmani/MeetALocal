@@ -100,6 +100,20 @@ class UserController extends Controller
             'data' => $posts,
         ], 201);
     }
+    public function getPost($id){
+        $post=Post::find($id);
+        $user= $post->user()->get(['name'])[0]['name'];
+        $country=$post->country()->get(['country'])[0]['country'];
+        $categories=Post::find($id)->categories()->pluck('category');
+        $post['user']=$user;
+        $post['country']=$country;
+        $post['categories']=$categories;
+        
+        return response()->json([
+            'message' => 'ok',
+            'data' => $post,
+        ], 201);
+    }
     public function createPost(Request $request){
         $post = Post::create([
             'user_id' => Auth::id(),
