@@ -13,13 +13,13 @@ Route::group(['prefix' => 'v1.0.0'], function () {
         Route::group(['prefix' => 'user'], function () {
             Route::get('/locals/{country}/{fees}/{category}', [UserController::class, 'getLocals']);
             Route::get('/events/{country}/{fees}/{category}', [UserController::class, 'getEvents']);
-            Route::post('/events/saved', [UserController::class, 'toggleSavedEvents']);
+            
+            Route::post('/event/saved', [UserController::class, 'toggleSavedEvents']);
             Route::get('/events/saved', [UserController::class, 'getSavedEvents']);
             Route::get('/posts/{country}/{category}', [UserController::class, 'getPosts']);
-            Route::post('/posts', [UserController::class, 'createPost']);
+            Route::post('/post', [UserController::class, 'createPost']);
             Route::get('/chats/{id?}', [UserController::class, 'getChats']);
-           
-            Route::post('/chats', [UserController::class, 'createChats']);
+            Route::post('/chat', [UserController::class, 'createChat']);
         });
         Route::group(['prefix' => 'local'], function () {
             

@@ -35,8 +35,7 @@ class UserController extends Controller
 
     public function getEvents($country, $fees, $category){
         $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
-        if($fees=='all')
-            $fees=100;
+        $fees=='all'? $fees=100:$fees='all';
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
         $events= Event::join('event_categories','events.id','=','event_id')->join('categories','event_categories.category_id','=','categories.id')->join('countries','events.country_id','=','countries.id')->join('users','events.organizer_id','=','users.id')->where('events.fees','<=',$fees)->whereIn('events.country_id',$country_id)->whereIn('event_categories.category_id',$category_id)->orderBy('events.id', 'desc')->select('events.*','countries.country','users.name')->distinct()->get();
         foreach($events as $event){
@@ -106,7 +105,7 @@ class UserController extends Controller
             'data' => $messages,
         ], 201);
     }
-    public function createChats(Request $request){
+    public function createChat(Request $request){
         $message = Message::create([
             'sender_id' => Auth::id(),
             'reciever_id'=>$request->reciever_id,
