@@ -9,4 +9,8 @@ class Ban extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $fillable = [
+        'banner_id',
+        'banned_id'
+    ];
 }
