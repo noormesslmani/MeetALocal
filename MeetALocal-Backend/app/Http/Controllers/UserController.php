@@ -59,8 +59,10 @@ class UserController extends Controller
     public function getEvent($id){
         $event=Event::find($id);
         $organizer= $event->organizer()->get(['name'])[0]['name'];
+        $country=$event->country()->get(['country'])[0]['country'];
         $categories=Event::find($id)->categories()->pluck('category');
         $event['organizer']=$organizer;
+        $event['country']=$country;
         $event['categories']=$categories;
         return response()->json([
             'message' => 'ok',
