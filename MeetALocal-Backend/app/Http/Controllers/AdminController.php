@@ -50,4 +50,11 @@ class AdminController extends Controller
             'message' => 'ok',
         ], 201);
     }
+    public function getBans(){
+        $bans=Ban::join('users','users.id','banned_id')->get();
+        return response()->json([
+            'message' => 'ok',
+            'data' => $bans,
+        ], 201);
+    }
 }
