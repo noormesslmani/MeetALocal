@@ -67,7 +67,7 @@ class UserController extends Controller
     public function getPosts($country, $category){
         $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
-        $data= Post::distinct()->join('post_categories','posts.id','=','post_id')->whereIn('posts.country_id',$country_id)->whereIn('post_categories.category_id',$category_id)->get();
+        $data= Post::join('post_categories','posts.id','=','post_id')->join('categories','post_categories.category_id','=','categories.id')->join('countries','posts.country_id','=','countries.id')->join('users','posts.user_id','=','users.id')->whereIn('posts.country_id',$country_id)->whereIn('post_categories.category_id',$category_id)->orderBy('posts.id', 'desc')->select('posts.*','post_categories.category_id','categories.category','countries.country','users.name')->distinct()->get();
         return response()->json([
             'message' => 'ok',
             'data' => $data,
