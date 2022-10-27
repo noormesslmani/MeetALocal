@@ -108,9 +108,11 @@ class UserController extends Controller
         $user= $post->user()->get(['name'])[0]['name'];
         $country=$post->country()->get(['country'])[0]['country'];
         $categories=Post::find($id)->categories()->pluck('category');
+        $comments = Comment::where('post_id',$id)->join('users','comments.user_id','users.id')->select('comments.content','comments.created_at','users.name','users.type_id')->get();
         $post['user']=$user;
         $post['country']=$country;
         $post['categories']=$categories;
+        $post['comments']=$comments;
         return response()->json([
             'message' => 'ok',
             'data' => $post,
