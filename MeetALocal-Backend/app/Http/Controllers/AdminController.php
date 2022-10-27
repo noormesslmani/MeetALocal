@@ -73,11 +73,19 @@ class AdminController extends Controller
             'data' => $data,
         ], 201);
     }
-    public function getLocals(){
-        $locals=User::join('countries','residence_id','countries.id')->where('type_id',1)->select('users.id','name','email','created_at','country')->orderBy('created_at', 'desc')->get();
+   
+    public function getUsers($type){
+        $validator = Validator::make(['type' => $type], [
+            'type' => 'required|in:Local,Foreigner',
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
+        $type_id=UserType::where('user_type',$type)->pluck('id')[0];
+        $users=User::join('countries','residence_id','countries.id')->where('type_id',$type_id)->select('users.id','name','email','created_at','country')->orderBy('created_at', 'desc')->get();
         return response()->json([
             'message' => 'ok',
-            'data' => $locals,
+            'data' => $users,
         ], 201);
     }
 }
