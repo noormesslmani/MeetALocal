@@ -64,4 +64,13 @@ class UserController extends Controller
             'data' => $data,
         ], 201);
     }
+    public function getPosts($country, $category){
+        $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
+        $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
+        $data= Post::join('post_categories','posts.id','=','post_id')->whereIn('posts.country_id',$country_id)->whereIn('post_categories.category_id',$category_id)->get();
+        return response()->json([
+            'message' => 'ok',
+            'data' => $data
+        ], 201);
+    }
 }
