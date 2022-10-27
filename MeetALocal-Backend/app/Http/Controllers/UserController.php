@@ -99,4 +99,11 @@ class UserController extends Controller
             'data' => $post,
         ], 201);
     }
+    public function getChats(){
+        $messages= Message::where('sender_id',Auth::id())->orWhere('reciever_id',Auth::id())->latest('sent_at')->get();
+        return response()->json([
+            'message' => 'ok',
+            'data' => $messages,
+        ], 201);
+    }
 }
