@@ -48,6 +48,7 @@ class AuthController extends Controller
             'gender' =>'required|in:Male,Female',
             'phone' =>'required|integer',
             'date_of_birth' => 'required|date',
+            'languages' =>'required|array',
             'categories' =>'array',
             'about' => 'string',
             'location' => 'string',
@@ -72,6 +73,12 @@ class AuthController extends Controller
                     'category_id'=> Category::where('category',$category)->pluck('id')[0]
                 ]);
             }
+        }
+        foreach($request->languages as $language){
+            UserLanguage::create([
+                'user_id' => $user->id,
+                'language_id'=> Language::where('language',$language)->pluck('id')[0]
+            ]);
         }
         return response()->json([
             'message' => 'User successfully registered',
