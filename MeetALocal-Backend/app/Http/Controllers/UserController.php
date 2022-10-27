@@ -44,7 +44,6 @@ class UserController extends Controller
             'data' => $data
         ], 201);
     }
-
     public function toggleSavedEvents(Request $request){
         if(SavedEvent::where('user_id',Auth::id())->where('event_id',$request->event_id)->exists())
             SavedEvent::where('user_id',Auth::id())->where('event_id',$request->event_id)->delete();
