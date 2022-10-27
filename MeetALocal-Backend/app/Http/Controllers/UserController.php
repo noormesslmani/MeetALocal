@@ -38,10 +38,14 @@ class UserController extends Controller
         if($fees=='all')
             $fees=100;
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
-        $data= Event::join('event_categories','events.id','=','event_id')->whereIn('events.country_id',$country_id)->where('events.fees','<=',$fees)->whereIn('event_categories.category_id',$category_id)->get();
+        $events= Event::join('event_categories','events.id','=','event_id')->join('categories','event_categories.category_id','=','categories.id')->join('countries','events.country_id','=','countries.id')->join('users','events.organizer_id','=','users.id')->where('events.fees','<=',$fees)->whereIn('events.country_id',$country_id)->whereIn('event_categories.category_id',$category_id)->orderBy('events.id', 'desc')->select('events.*','countries.country','users.name')->distinct()->get();
+        foreach($events as $event){
+            $category= $event->categories()->pluck('category');
+            $event['categories']=$category;
+        }
         return response()->json([
             'message' => 'ok',
-            'data' => $data
+            'data' => $events
         ], 201);
     }
     public function toggleSavedEvents(Request $request){
