@@ -47,6 +47,17 @@ class UserController extends Controller
             'data' => $events
         ], 201);
     }
+    public function getEvent($id){
+        $event=Event::find($id);
+        $organizer= $event->organizer()->get(['name'])[0]['name'];
+        $categories=Event::find($id)->categories()->pluck('category');
+        $event['organizer']=$organizer;
+        $event['categories']=$categories;
+        return response()->json([
+            'message' => 'ok',
+            'data' => $event,
+        ], 201);
+    }
     public function toggleSavedEvents(Request $request){
         if(SavedEvent::where('user_id',Auth::id())->where('event_id',$request->event_id)->exists())
             SavedEvent::where('user_id',Auth::id())->where('event_id',$request->event_id)->delete();

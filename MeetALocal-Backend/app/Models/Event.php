@@ -17,8 +17,8 @@ class Event extends Model
         'fees',
         'photo'
     ];
-    public function user(){
-        return $this->belongsTo(User::class, 'user_id');
+    public function organizer(){
+        return $this->belongsTo(User::class, 'organizer_id');
     }
     public function country(){
         return $this->belongsTo(Country::class, 'country_id');
