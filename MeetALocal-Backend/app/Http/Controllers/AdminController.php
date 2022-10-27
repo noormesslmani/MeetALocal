@@ -57,4 +57,20 @@ class AdminController extends Controller
             'data' => $bans,
         ], 201);
     }
+    public function getAppStat(){
+        $users=User::count();
+        $events=Event::count();
+        $posts=Post::count();
+        $comments=Comment::count();
+        $data = array(
+            'users_nb' => $users,
+            'events_nb' => $events,
+            'posts_nb' => $posts,
+            'comments_nb' => $comments,
+        );
+        return response()->json([
+            'message' => 'ok',
+            'data' => $data,
+        ], 201);
+    }
 }
