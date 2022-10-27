@@ -9,4 +9,8 @@ class EventCategory extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $fillable = [
+        'event_id',
+        'category_id'
+    ];
 }
