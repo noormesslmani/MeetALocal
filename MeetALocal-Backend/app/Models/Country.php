@@ -20,5 +20,7 @@ class Country extends Model
     {
         return $this->hasMany(Event::class, 'country_id');
     }
-    
+    public function posts(){
+        return $this->hasMany(Post::class, 'country_id');
+    }
 }

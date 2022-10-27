@@ -17,6 +17,9 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function country(){
+        return $this->belongsTo(Country::class, 'country_id');
+    }
     public function categories(){
         return $this->belongsToMany(Category::class, 'post_categories', 'post_id', 'category_id');
     }
