@@ -44,4 +44,10 @@ class AdminController extends Controller
             'data' => $ban,
         ], 201);
     }
+    public function unbanUser(Request $request){
+        Ban::where('banned_id',$request->user_id)->delete();
+        return response()->json([
+            'message' => 'ok',
+        ], 201);
+    }
 }
