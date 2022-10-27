@@ -17,6 +17,8 @@ use App\Models\PostCategory;
 use App\Models\Post;
 use App\Models\SavedEvent;
 use App\Models\UserType;
+use App\Models\Language;
+use App\Models\UserLanguage;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Http\Request;
@@ -88,5 +90,23 @@ class AdminController extends Controller
             'data' => $users,
         ], 201);
     }
-    
+    public function getLocalsStat(){
+        $locals=User::where('type_id',1);
+        $total=$locals->count();
+        $males=$locals->where('gender','Male')->count();
+        $females=$total-$males;
+        $top_categories=LocalCategory::join('categories','categories.id','category_id')->selectRaw('category, COUNT(*) as count') ->groupBy('category')->orderBy('count', 'desc')->take(3)->get();
+        $top_languages=UserLanguage::join('languages','languages.id','language_id')->selectRaw('language, COUNT(*) as count') ->groupBy('language')->orderBy('count', 'desc')->take(3)->get();
+        $data = array(
+            'locals_nb' => $total,
+            'male%' => $males/$total*100,
+            'female%' => $females/$total*100,
+            'top_categories' => $top_categories,
+            'top_languages' =>$top_languages
+        );
+        return response()->json([
+            'message' => 'ok',
+            'data' => $data,
+        ], 201);
+    }
 }
