@@ -55,6 +55,9 @@ class LocalController extends Controller
     }
     public function getMyEvents(){
         $events=Auth::user()->events()->get();
+        foreach($events as $event){
+            $event['country']=Country::find($event['country_id'])['country'];
+        }
         return response()->json([
             'message' => 'ok',
             'data' => $events,
