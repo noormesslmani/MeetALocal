@@ -50,6 +50,9 @@ const styles = StyleSheet.create({
     },
     link:{
         color:"#8C57BA"
+    },
+    signUp:{
+        height:windowHeight* 0.7,
     }
 });
 

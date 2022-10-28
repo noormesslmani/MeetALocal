@@ -12,7 +12,7 @@ const SignupScreen = ({navigation}) => {
   const [next, setNext]=useState(false);
   return (
     <View style={styles.background}>
-        <View style={[styles.formContainer, styles.shadowProp]}>
+        <View style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
           <Text style={styles.signIn}>SignUp</Text>
           <View style={styles.inputContainer}>
             <Text>Full Name</Text>
