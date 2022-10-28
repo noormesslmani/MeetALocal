@@ -4,7 +4,9 @@ import styles from './Authstyles';
 import LoginForm from '../../components/LoginForm';
 import { useState, useEffect } from "react";
 import AuthButton from '../../components/AuthButton';
-const SigninScreen= ()=> {
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+const SigninScreen= ({ navigation })=> {
   const [email, setEmail]=useState('');
   const [password, setPassword]=useState('');
   const [submit, setSubmit]=useState(false);
@@ -23,7 +25,7 @@ const SigninScreen= ()=> {
           </View>
           <AuthButton title={'Submit'} setSubmit={setSubmit} ></AuthButton>
           <Text style={styles.text}>Dont have an account yet?
-            <Text style={styles.link}>
+            <Text style={styles.link} onPress={() => navigation.navigate('signup-first')}>
                 Create a new one
             </Text> 
           </Text>
