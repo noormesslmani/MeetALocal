@@ -26,6 +26,9 @@ Route::group(['prefix' => 'v1.0.0'], function () {
         });
         Route::group(['prefix' => 'locals'], function () {
             Route::post('/event', [LocalController::class, 'createEvent']);
+            Route::get('/events', [LocalController::class, 'getMyEvents']);
+            //edit profile
+            //map view
         });
         Route::group(['prefix' => 'admins'], function () {
             Route::post('/ban', [AdminController::class, 'banUser']);
@@ -37,7 +40,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::get('/users/{type}', [AdminController::class, 'getUsers']);
         });
         Route::group(['prefix' => 'foreigners'], function () {
-        
+        //edit profile
         });
         Route::group(['prefix' => 'auth'], function ($router) { 
             Route::post('/logout', [AuthController::class, 'logout']);
