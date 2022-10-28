@@ -1,10 +1,14 @@
-import { View, Text, Button } from 'react-native'
+import { Pressable, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
-
-export default function AuthButton() {
+import styles from './ComponentsStyles/ButtonStyles'
+export default function AuthButton({title, setSubmit}) {
+  const handleSubmit=()=>{
+    setSubmit(true)
+  }
   return (
-    <View>
-      <Text>AuthButton</Text>
-    </View>
+    <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+      <Text>{title}</Text>
+    </TouchableOpacity>
+
   )
 }

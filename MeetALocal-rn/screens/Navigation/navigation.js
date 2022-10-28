@@ -17,11 +17,6 @@ export default function RootNavigation() {
         <Stack.Screen name="signin" 
         options={{
           headerTitle: () => <Logo/>,
-          headerStyle: {
-            justifyContent: "center",
-            alignItems: "center",
-          },
-          headerTintColor: '#fff',
         }}
         component={SigninScreen} />
         <Stack.Screen name="signup-first" component={SignupScreen} />
