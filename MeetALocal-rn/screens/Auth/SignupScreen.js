@@ -5,11 +5,13 @@ import { useState, useEffect } from "react";
 import AuthButton from '../../components/AuthButton';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 const SignupScreen = ({navigation}) => {
   const [fullName, setFullName]=useState('');
   const [phone, setPhone]=useState('');
   const [gender, setGender]=useState('');
   const [submit, setSubmit]=useState(false);
+  
   if(submit){
     navigation.navigate('signup-second')
   }
@@ -30,11 +32,11 @@ const SignupScreen = ({navigation}) => {
             <TextInput placeholder="placeholder" style={styles.input} onChangeText={setGender} value={gender}></TextInput>
           </View>
           <AuthButton title={'Next'} setSubmit={setSubmit} ></AuthButton>
-          <Text style={styles.text}>Already have an acoount?
-            <Text style={styles.link} onPress={() => navigation.navigate('signin')}>
-                Login
-            </Text> 
+          <Text style={styles.text}>Already have an acount? 
           </Text>
+          <Text style={styles.link} onPress={() => navigation.navigate('signin')}>
+                Login
+          </Text> 
         </View>
     </View>
   )
