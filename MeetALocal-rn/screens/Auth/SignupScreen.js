@@ -9,7 +9,10 @@ const SignupScreen = ({navigation}) => {
   const [fullName, setFullName]=useState('');
   const [phone, setPhone]=useState('');
   const [gender, setGender]=useState('');
-  const [next, setNext]=useState(false);
+  const [submit, setSubmit]=useState(false);
+  if(submit){
+    navigation.navigate('signup-second')
+  }
   return (
     <View style={styles.background}>
         <View style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
@@ -26,7 +29,7 @@ const SignupScreen = ({navigation}) => {
             <Text>Gender</Text>
             <TextInput placeholder="placeholder" style={styles.input} onChangeText={setGender} value={gender}></TextInput>
           </View>
-          <AuthButton title={'Next'} ></AuthButton>
+          <AuthButton title={'Next'} setSubmit={setSubmit} ></AuthButton>
           <Text style={styles.text}>Already have an acoount?
             <Text style={styles.link} onPress={() => navigation.navigate('signin')}>
                 Login
