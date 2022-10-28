@@ -53,4 +53,11 @@ class LocalController extends Controller
             'data' => $event,
         ], 201);
     }
+    public function getMyEvents(){
+        $events=Auth::user()->events()->get();
+        return response()->json([
+            'message' => 'ok',
+            'data' => $events,
+        ], 201);
+    }
 }
