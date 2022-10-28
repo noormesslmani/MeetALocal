@@ -1,7 +1,7 @@
 import { Pressable, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import styles from './ComponentsStyles/ButtonStyles'
-export default function AuthButton({title, setSubmit}) {
+export default function AuthButton({title}) {
   const handleSubmit=()=>{
     setSubmit(true)
   }

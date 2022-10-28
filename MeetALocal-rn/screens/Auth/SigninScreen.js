@@ -1,7 +1,6 @@
-import { View, Text, Button, TextInput } from 'react-native'
+import { View, Text, TextInput } from 'react-native'
 import React from 'react'
 import styles from './Authstyles';
-import LoginForm from '../../components/LoginForm';
 import { useState, useEffect } from "react";
 import AuthButton from '../../components/AuthButton';
 import { NavigationContainer } from '@react-navigation/native';
@@ -23,7 +22,7 @@ const SigninScreen= ({ navigation })=> {
             <Text>Password</Text>
             <TextInput placeholder="placeholder" style={styles.input} onChangeText={setPassword} value={password}></TextInput>
           </View>
-          <AuthButton title={'Submit'} setSubmit={setSubmit} ></AuthButton>
+          <AuthButton title={'Submit'} ></AuthButton>
           <Text style={styles.text}>Dont have an account yet?
             <Text style={styles.link} onPress={() => navigation.navigate('signup-first')}>
                 Create a new one
