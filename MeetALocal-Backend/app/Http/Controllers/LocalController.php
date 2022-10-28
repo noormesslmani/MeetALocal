@@ -63,4 +63,16 @@ class LocalController extends Controller
             'data' => $events,
         ], 201);
     }
+    public function deleteEvent(Request $request){
+        $event=Event::find($request->event_id);
+        if(Auth::id()==$event->organizer()->pluck('id')[0]){
+            $event->delete();
+            return response()->json([
+                'message' => 'ok',
+            ], 201);
+        }
+        return response()->json([
+            'message' => 'action forbidden',
+        ], 403);
+    }
 }

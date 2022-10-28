@@ -26,6 +26,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
         });
         Route::group(['prefix' => 'locals'], function () {
             Route::post('/event', [LocalController::class, 'createEvent']);
+            Route::delete('/event', [LocalController::class, 'deleteEvent']);
             Route::get('/events', [LocalController::class, 'getMyEvents']);
             //edit profile
             //map view
