@@ -121,7 +121,8 @@ const styles = StyleSheet.create({
     selectCategory:{
         fontSize:20,
         alignSelf:"flex-start",
-        marginLeft:10
+        marginLeft:20,
+        marginTop:10
     },
     categoryContainer:{
         alignItems:'center',
@@ -143,6 +144,15 @@ const styles = StyleSheet.create({
     },
     categoryLabel:{
         color:"blue",
+    },
+    fees:{
+        fontSize:18,
+        marginTop:20
+    },
+    slider:{
+        width: windowWidth * 0.45, 
+        height: 40,
+        transform: [{ scaleX: 2 }, { scaleY: 2 }]
     }
 
 });
