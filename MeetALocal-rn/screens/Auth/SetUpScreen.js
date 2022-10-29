@@ -11,6 +11,7 @@ const SetUpScreen=({navigation})=> {
   const [gender, setGender]=useState('')
   const [genderunset, setGenderUnset]=useState(false)
   const handleSubmit=()=>{
+    
     if(gender==''){
       setGenderUnset(true)
     }
