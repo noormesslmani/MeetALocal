@@ -1,20 +1,28 @@
-import { View, Text, TextInput } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect } from "react";
 import AuthButton from '../../components/AuthButton';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import DateTimePicker from '@react-native-community/datetimepicker';
+import Icon from 'react-native-vector-icons/AntDesign'
 const SignupScreen = ({navigation}) => {
   const [fullName, setFullName]=useState('');
   const [phone, setPhone]=useState('');
-  const [dateofBirth, setDateofBirth]=useState('');
-  
+  const [datePicker, setDatePicker] = useState(false);
+  const [date, setDate] = useState(new Date());
   const handleSubmit=()=>{
     console.log('submitted')
     navigation.navigate('signup-second')
   }
+  const handleDate=(event, value)=>{
+    // setDate(value);
+    setDatePicker(false); 
+  }
+  // console.log(date.getFullYear())
+  // console.log(date.getMonth())
+  // console.log(date.getDate())
   return (
     <View style={styles.background}>
         <View style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
@@ -29,7 +37,7 @@ const SignupScreen = ({navigation}) => {
           </View>
           <View style={styles.inputContainer}>
             <Text>Date of birth</Text>
-            <TextInput placeholder="placeholder" style={styles.input} onChangeText={setDateofBirth} value={dateofBirth}></TextInput>
+            <TouchableOpacity onPress={()=>setDatePicker(true)} style={{alignSelf:'center', marginTop:10}}><Icon name="calendar" size={30}/></TouchableOpacity>
           </View>
           <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>
           <Text style={styles.text}>Already have an account? 
@@ -37,6 +45,13 @@ const SignupScreen = ({navigation}) => {
           <Text style={styles.link} onPress={() => navigation.navigate('signin')}>
                 Login
           </Text> 
+          { datePicker && <DateTimePicker
+            value={date}
+            mode={'date'}
+            is24Hour={true}
+            onChange={handleDate}
+            maximumDate={new Date(2022, 1, 1)}
+          />}
         </View>
     </View>
   )

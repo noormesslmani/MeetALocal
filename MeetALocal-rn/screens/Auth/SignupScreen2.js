@@ -8,7 +8,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const SignupScreen2 = ({navigation}) => {
-  const [selectedLanguage, setSelectedLanguage] = useState();
   const [nationality, setNationality]=useState(null);
   const [country, setCountry]=useState(null);
   const [language, setLanguage]=useState([]);
@@ -63,6 +62,10 @@ const SignupScreen2 = ({navigation}) => {
             containerStyle={styles.dropDownContainer}
             style={styles.dropDown}
             listMode="MODAL"
+            placeholder="Select a country"
+            placeholderStyle={{
+              color: "grey"
+            }}
             />
           </View>
           <View style={styles.inputContainer}>
@@ -78,6 +81,10 @@ const SignupScreen2 = ({navigation}) => {
             containerStyle={styles.dropDown}
             style={styles.dropDown}
             listMode="MODAL"
+            placeholder="Select a country"
+            placeholderStyle={{
+              color: "grey"
+            }}
             />
           </View>
           <View style={styles.inputContainer}>
@@ -94,6 +101,10 @@ const SignupScreen2 = ({navigation}) => {
             containerStyle={styles.dropDown}
             style={styles.dropDown}
             listMode="MODAL"
+            placeholder="Select languages"
+            placeholderStyle={{
+              color: "grey"
+            }}
             />
           </View>
           <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>
