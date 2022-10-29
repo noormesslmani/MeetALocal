@@ -18,7 +18,7 @@ const SignupScreen = ({navigation}) => {
   return (
     <View style={styles.background}>
         <View style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
-          <Text style={styles.signIn}>SignUp</Text>
+          <Text style={styles.signIn}>Register</Text>
           <View style={styles.inputContainer}>
             <Text>Full Name</Text>
             <TextInput placeholder="placeholder" style={styles.input} onChangeText={setFullName} value={fullName}></TextInput>

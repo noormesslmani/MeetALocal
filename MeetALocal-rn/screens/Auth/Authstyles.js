@@ -53,6 +53,12 @@ const styles = StyleSheet.create({
     },
     signUp:{
         height:windowHeight* 0.7,
+    },
+    error:{
+        marginTop:2,
+        fontSize:11,
+        color:"red",
+        textAlign:"center"
     }
 });
 

@@ -15,7 +15,7 @@ const SignupScreen3 = ({navigation}) => {
   return (
     <View style={styles.background}>
         <View style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
-          <Text style={styles.signIn}>SignUp</Text>
+          <Text style={styles.signIn}>Register</Text>
           <View style={styles.inputContainer}>
             <Text>Email</Text>
             <TextInput placeholder="placeholder" style={styles.input} onChangeText={setEmail} value={email}></TextInput>
@@ -28,7 +28,7 @@ const SignupScreen3 = ({navigation}) => {
             <Text>Confirm Password</Text>
             <TextInput placeholder="placeholder" style={styles.input} onChangeText={setConfirmPassword} value={confirmPassword}></TextInput>
           </View>
-          <AuthButton title={'Next'} setSubmit={setSubmit} ></AuthButton>
+          <AuthButton title={'Register'} setSubmit={setSubmit} ></AuthButton>
           <Text style={styles.text}>Already have an acount?
           </Text>
           <Text style={styles.link} onPress={() => navigation.navigate('signin')}>
