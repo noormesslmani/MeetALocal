@@ -152,8 +152,23 @@ const styles = StyleSheet.create({
     slider:{
         width: windowWidth * 0.45, 
         height: 40,
-        transform: [{ scaleX: 2 }, { scaleY: 2 }]
-    }
+        transform: [{ scaleX: 2 }, { scaleY: 2 }],
+        marginBottom:30
+    },
+    dropDown:{
+        width: windowWidth * 0.6,
+        borderTopLeftRadius: 0, 
+        borderTopRightRadius: 0,
+        borderBottomLeftRadius: 0, 
+        borderBottomRightRadius: 0,
+        borderTopWidth:0,
+        borderRightWidth:0,
+        borderLeftWidth:0,
+        borderColor:"rgba(75, 176, 249, 0.5)",
+    },
+    dropDownContainer:{
+        width: windowWidth * 0.6,
+    },
 
 });
 
