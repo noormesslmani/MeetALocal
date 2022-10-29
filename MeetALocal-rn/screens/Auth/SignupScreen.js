@@ -9,7 +9,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const SignupScreen = ({navigation}) => {
   const [fullName, setFullName]=useState('');
   const [phone, setPhone]=useState('');
-  const [gender, setGender]=useState('');
+  const [dateofBirth, setDateofBirth]=useState('');
   
   const handleSubmit=()=>{
     console.log('submitted')
@@ -28,8 +28,8 @@ const SignupScreen = ({navigation}) => {
             <TextInput placeholder="placeholder" style={styles.input} onChangeText={setPhone} value={phone}></TextInput>
           </View>
           <View style={styles.inputContainer}>
-            <Text>Gender</Text>
-            <TextInput placeholder="placeholder" style={styles.input} onChangeText={setGender} value={gender}></TextInput>
+            <Text>Date of birth</Text>
+            <TextInput placeholder="placeholder" style={styles.input} onChangeText={setDateofBirth} value={dateofBirth}></TextInput>
           </View>
           <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>
           <Text style={styles.text}>Already have an account? 
