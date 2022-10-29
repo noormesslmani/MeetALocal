@@ -32,7 +32,7 @@ const SignupScreen = ({navigation}) => {
             <TextInput placeholder="placeholder" style={styles.input} onChangeText={setGender} value={gender}></TextInput>
           </View>
           <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>
-          <Text style={styles.text}>Already have an acount? 
+          <Text style={styles.text}>Already have an account? 
           </Text>
           <Text style={styles.link} onPress={() => navigation.navigate('signin')}>
                 Login
