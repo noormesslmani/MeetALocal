@@ -46,7 +46,6 @@ class AuthController extends Controller
             'password' => 'required|string|min:8',
             'nationality' => 'required|string',
             'residence' => 'required|string',
-            'gender' =>'required|in:Male,Female',
             'phone' =>'required|integer',
             'languages' =>'required|array',
             'date_of_birth' => 'required|date',
@@ -81,6 +80,7 @@ class AuthController extends Controller
     public function setUp(Request $request){
         $validator = Validator::make($request->all(), [
             'type' => 'required|string|in:Local,Foreigner',
+            'gender' =>'required|in:Male,Female',
             'categories' =>'array',
             'about' => 'string',
             'location' => 'string',
