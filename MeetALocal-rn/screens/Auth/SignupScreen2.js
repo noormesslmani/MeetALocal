@@ -11,6 +11,9 @@ const SignupScreen2 = ({navigation}) => {
   const [nationality, setNationality]=useState(null);
   const [country, setCountry]=useState(null);
   const [language, setLanguage]=useState([]);
+  const [invalidCountry, setInvalidCountry]=useState(false)
+  const [invalidNationality, setInvalidNationality]=useState(false)
+  const [invalidlanguage, setInvalidLanguage]=useState(false)
   const [openNationality, setOpenNationality] = useState(false);
   const [openCountry, setOpenCountry] = useState(false);
   const [openLanguages, setOpenLanguages] = useState(false);
@@ -41,8 +44,21 @@ const SignupScreen2 = ({navigation}) => {
     {label: 'Persian', value: 'Persian'},
   ]);
   const handleSubmit=()=>{
-    console.log('submitted')
-    navigation.navigate('signup-third')
+    setInvalidCountry(false)
+    setInvalidNationality(false)
+    setInvalidLanguage(false)
+    if(! nationality){
+      setInvalidNationality(true)
+    }
+    else if(! country){
+      setInvalidCountry(true)
+    }
+    else if(language.length==0){
+      setInvalidLanguage(true)
+    }
+    else{
+      navigation.navigate('signup-third')
+    }
   }
 
   return (
@@ -67,6 +83,7 @@ const SignupScreen2 = ({navigation}) => {
               color: "grey"
             }}
             />
+            {invalidNationality && <Text style={styles.error}>Please select your nationality</Text>}
           </View>
           <View style={styles.inputContainer}>
             <Text>Country of Residence</Text>
@@ -86,6 +103,7 @@ const SignupScreen2 = ({navigation}) => {
               color: "grey"
             }}
             />
+            {invalidCountry && <Text style={styles.error}>Please select your country of residence</Text>}
           </View>
           <View style={styles.inputContainer}>
             <Text>Languages</Text>
@@ -106,6 +124,7 @@ const SignupScreen2 = ({navigation}) => {
               color: "grey"
             }}
             />
+            {invalidlanguage && <Text style={styles.error}>Please select your spoken languages</Text>}
           </View>
           <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>
           <Text style={styles.text}>Already have an account?
