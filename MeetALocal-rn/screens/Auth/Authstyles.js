@@ -83,8 +83,38 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         marginTop: 10,
-        
-    }
+    },
+    profilePic:{
+        width:160,
+        height:160,
+        borderRadius:80
+    },
+    picContainer:{
+        position:"relative"
+    },
+    addIcon:{
+        position:"absolute",
+        top:120,
+        left:120
+    },
+    genderContainer:{
+        flexDirection:'row'
+    },
+    gender:{
+        fontSize: 20,
+        marginTop: 40,
+        marginBottom:10
+    },
+    genderIcon:{
+        width:80,
+        height:80,
+        borderRadius:40,
+        margin:20,
+        marginBottom:40,
+        borderWidth:1,
+        borderColor:'#D9D9D9'
+    },
+
 });
 
 export default styles;
