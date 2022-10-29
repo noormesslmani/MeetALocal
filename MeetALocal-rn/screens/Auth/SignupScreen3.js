@@ -10,8 +10,9 @@ const SignupScreen3 = ({navigation}) => {
   const [email, setEmail]=useState('');
   const [password, setPassword]=useState('');
   const [confirmPassword, setConfirmPassword]=useState([]);
-  const [submit, setSubmit]=useState(false);
-  
+  const handleSubmit=()=>{
+    console.log('submitted')
+  }
   return (
     <View style={styles.background}>
         <View style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
@@ -28,7 +29,7 @@ const SignupScreen3 = ({navigation}) => {
             <Text>Confirm Password</Text>
             <TextInput placeholder="placeholder" style={styles.input} onChangeText={setConfirmPassword} value={confirmPassword}></TextInput>
           </View>
-          <AuthButton title={'Register'} setSubmit={setSubmit} ></AuthButton>
+          <AuthButton title={'Register'} handleSubmit={handleSubmit} ></AuthButton>
           <Text style={styles.text}>Already have an acount?
           </Text>
           <Text style={styles.link} onPress={() => navigation.navigate('signin')}>
