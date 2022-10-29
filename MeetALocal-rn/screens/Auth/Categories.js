@@ -6,9 +6,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthButton from '../../components/AuthButton';
 import Icon from 'react-native-vector-icons/Ionicons'
-
+import Slider from '@react-native-community/slider';
 const Categories=({navigation})=> {
     const [categories, setCategories]=useState([])
+    const [fees, setFees]=useState(0)
     const handleTourism=()=>{
         categories.includes("Tourism")?setCategories(arr => [...arr].filter(item => item !== "Tourism")):setCategories(arr => [...arr, "Tourism"])
     }
@@ -36,7 +37,7 @@ const Categories=({navigation})=> {
     const handleOther=()=>{
         categories.includes("Other")?setCategories(arr => [...arr].filter(item => item !== "Other")):setCategories(arr => [...arr, "Other"])
     }
-    console.log(categories)
+    
     return (
     <View style={styles.background} >
         <Text style={styles.selectCategory}>Select at least 1 category</Text> 
@@ -84,6 +85,18 @@ const Categories=({navigation})=> {
                 </TouchableOpacity>
             </View>
         </View>
+        
+        <Text style={styles.selectCategory}>Fees per hour?</Text> 
+        <Text style={styles.fees}>{fees && +fees} $/h</Text>
+        <Slider
+            step={1}
+            style={styles.slider}
+            minimumValue={0}
+            maximumValue={100}
+            minimumTrackTintColor="#FFFFFF"
+            thumbTintColor='rgba(75, 176, 249, 0.75)'
+            onValueChange={setFees}
+        />
     </View>
   )
 }
