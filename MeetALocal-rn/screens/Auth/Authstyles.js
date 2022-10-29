@@ -150,9 +150,8 @@ const styles = StyleSheet.create({
         marginTop:20
     },
     slider:{
-        width: windowWidth * 0.45, 
+        width: windowWidth * 0.8, 
         height: 40,
-        transform: [{ scaleX: 2 }, { scaleY: 2 }],
         marginBottom:30
     },
     dropDown:{
@@ -169,7 +168,7 @@ const styles = StyleSheet.create({
     dropDownContainer:{
         width: windowWidth * 0.6,
     },
-
+    
 });
 
 export default styles;
