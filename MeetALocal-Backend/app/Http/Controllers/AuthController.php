@@ -17,6 +17,8 @@ use App\Models\PostCategory;
 use App\Models\Post;
 use App\Models\SavedEvent;
 use App\Models\UserType;
+use App\Models\UserLanguage;
+use App\Models\Language;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 
@@ -42,13 +44,43 @@ class AuthController extends Controller
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|min:8',
-            'type' => 'required|string|in:Local,Foreigner',
             'nationality' => 'required|string',
             'residence' => 'required|string',
             'gender' =>'required|in:Male,Female',
             'phone' =>'required|integer',
-            'date_of_birth' => 'required|date',
             'languages' =>'required|array',
+            'date_of_birth' => 'required|date',
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
+        $user = User::create(array_merge(
+                    $validator->validated(),
+                    ['password' => bcrypt($request->password),
+                    'nationality_id'=> Country::where('country',$request->nationality)->pluck('id')[0],
+                    'residence_id'=> Country::where('country',$request->residence)->pluck('id')[0],
+                    'type_id'=>1
+                    ]
+                ));
+        
+        foreach($request->languages as $language){
+            UserLanguage::create([
+                'user_id' => $user->id,
+                'language_id'=> Language::where('language',$language)->pluck('id')[0]
+            ]);
+        }
+        $credentials = $request->only('email', 'password');
+        $token= auth()->attempt($credentials);
+        return response()->json([
+            'message' => 'ok',
+            'user' => $user,
+            'token'=> $token
+        ], 201);
+    }
+
+    public function setUp(Request $request){
+        $validator = Validator::make($request->all(), [
+            'type' => 'required|string|in:Local,Foreigner',
             'categories' =>'array',
             'about' => 'string',
             'location' => 'string',
@@ -58,34 +90,24 @@ class AuthController extends Controller
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
         }
-        $user = User::create(array_merge(
-                    $validator->validated(),
-                    ['password' => bcrypt($request->password),
-                    'type_id' => UserType::where('user_type',$request->type)->pluck('id')[0],
-                    'nationality_id'=> Country::where('country',$request->nationality)->pluck('id')[0],
-                    'residence_id'=> Country::where('country',$request->residence)->pluck('id')[0],
-                    ]
-                ));
+        Auth::user()->update(array_merge(
+            $validator->validated(),
+            [
+            'type_id' => UserType::where('user_type',$request->type)->pluck('id')[0],
+            ])
+        );
         if($request->type=='Local'){
             foreach($request->categories as $category){
                 LocalCategory::create([
-                    'local_id' => $user->id,
+                    'local_id' => Auth::id(),
                     'category_id'=> Category::where('category',$category)->pluck('id')[0]
                 ]);
             }
         }
-        foreach($request->languages as $language){
-            UserLanguage::create([
-                'user_id' => $user->id,
-                'language_id'=> Language::where('language',$language)->pluck('id')[0]
-            ]);
-        }
         return response()->json([
-            'message' => 'User successfully registered',
-            'user' => $user
+            'message' => 'ok',
         ], 201);
     }
-
     public function logout() {
         auth()->logout();
         return response()->json(['message' => 'User successfully signed out']);
