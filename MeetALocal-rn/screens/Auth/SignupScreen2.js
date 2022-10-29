@@ -10,9 +10,9 @@ const SignupScreen2 = ({navigation}) => {
   const [nationality, setNationality]=useState('');
   const [country, setCountry]=useState('');
   const [languages, setLanguages]=useState([]);
-  const [submit, setSubmit]=useState(false);
   
-  if(submit){
+  const handleSubmit=()=>{
+    console.log('submitted')
     navigation.navigate('signup-third')
   }
   return (
@@ -31,7 +31,7 @@ const SignupScreen2 = ({navigation}) => {
             <Text>Languages</Text>
             <TextInput placeholder="placeholder" style={styles.input} onChangeText={setLanguages} value={languages}></TextInput>
           </View>
-          <AuthButton title={'Next'} setSubmit={setSubmit} ></AuthButton>
+          <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>
           <Text style={styles.text}>Already have an acount?
           </Text>
           <Text style={styles.link} onPress={() => navigation.navigate('signin')}>
