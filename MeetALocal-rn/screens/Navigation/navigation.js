@@ -10,6 +10,7 @@ import SigninScreen from '../Auth/SigninScreen';
 import Logo from './Logo';
 import UserTypeScreen from '../Auth/UserTypeScreen';
 import SetUpScreen from '../Auth/SetUpScreen';
+import Categories from '../Auth/Categories';
 export default function RootNavigation() {
 
   const Stack = createNativeStackNavigator();
@@ -22,6 +23,7 @@ export default function RootNavigation() {
         <Stack.Screen name="signup-third" component={SignupScreen3} />
         <Stack.Screen name="user-type" component={UserTypeScreen} />
         <Stack.Screen name="setup" component={SetUpScreen} />
+        <Stack.Screen name="categories" component={Categories} />
       </Stack.Navigator>
     </NavigationContainer>
   );

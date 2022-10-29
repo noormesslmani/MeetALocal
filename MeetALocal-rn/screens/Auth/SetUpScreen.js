@@ -9,8 +9,15 @@ import Icon from 'react-native-vector-icons/Ionicons'
 
 const SetUpScreen=({navigation})=> {
   const [gender, setGender]=useState('')
+  const [genderunset, setGenderUnset]=useState(false)
   const handleSubmit=()=>{
-    console.log('submitted')
+    if(gender==''){
+      setGenderUnset(true)
+    }
+    else{
+      setGenderUnset(false)
+      navigation.navigate('categories')
+    }
   }
   const handleMale=()=>{
     setGender('Male')
@@ -28,6 +35,7 @@ const SetUpScreen=({navigation})=> {
         <Text style={styles.gender}>Location</Text>
         <Icon name="location-sharp"  size={30}/>
         <Text style={styles.gender}>Gender</Text>
+        {genderunset?<Text style={styles.error}>Please select you gender</Text>:null}
         <View style={styles.genderContainer}>
           <TouchableOpacity onPress={handleMale}><Image source={require('../../assets/male.png')} style={[styles.genderIcon, gender=='Male'?styles.selectedIcon:null]} /></TouchableOpacity>
           <TouchableOpacity onPress={handleFemale}><Image source={require('../../assets/female.png')} style={[styles.genderIcon, gender=='Female'?styles.selectedIcon:null]} /></TouchableOpacity>
