@@ -117,7 +117,31 @@ const styles = StyleSheet.create({
     selectedIcon:{
         borderWidth:3,
         borderColor:"rgba(75, 176, 249, 0.75)" 
+    },
+    selectCategory:{
+        fontSize:20,
+        alignSelf:"flex-start",
+        marginLeft:10
+    },
+    categoryContainer:{
+        alignItems:'center',
+        marginTop:50,
+        width:windowWidth * 0.8,
+    },
+    categoryRow:{
+        flexDirection:'row',
+        justifyContent:"space-between",
+        width:windowWidth * 0.7,
+        marginBottom:20
+    },
+    iconContainer:{
+        alignItems:"center"
+    },
+    categoryIcon:{
+        width:60,
+        height:60
     }
+
 });
 
 export default styles;
