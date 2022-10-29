@@ -8,20 +8,18 @@ import SignupScreen2 from '../Auth/SignupScreen2';
 import SignupScreen3 from '../Auth/SignupScreen3';
 import SigninScreen from '../Auth/SigninScreen';
 import Logo from './Logo';
+import UserTypeScreen from '../Auth/UserTypeScreen';
 export default function RootNavigation() {
 
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="signin">
-        <Stack.Screen name="signin" 
-        options={{
-          headerTitle: () => <Logo/>,
-        }}
-        component={SigninScreen} />
+        <Stack.Screen name="signin" options={{headerTitle: () => <Logo/>,}} component={SigninScreen} />
         <Stack.Screen name="signup-first" component={SignupScreen} />
         <Stack.Screen name="signup-second" component={SignupScreen2} />
         <Stack.Screen name="signup-third" component={SignupScreen3} />
+        <Stack.Screen name="user-type" component={UserTypeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

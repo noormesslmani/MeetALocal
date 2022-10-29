@@ -17,6 +17,16 @@ const styles = StyleSheet.create({
         padding:40,
         borderRadius:20,
     },
+    backgroundUserType:{
+        backgroundColor: "rgba(140, 87, 186, 0.34)",
+        flex: 1,
+        alignItems: "center",
+        paddingTop: 100
+    },
+    welcome:{
+        fontSize: 40,
+        paddingBottom: 50
+    },
     signIn:{
         fontSize:30,
         paddingBottom: 50,
@@ -54,11 +64,26 @@ const styles = StyleSheet.create({
     signUp:{
         height:windowHeight* 0.7,
     },
+    userType:{
+        height:windowHeight* 0.4,
+    },
     error:{
         marginTop:2,
         fontSize:11,
         color:"red",
         textAlign:"center"
+    },
+    typeBtn:{
+        width:150,
+        height: 50,
+        borderRadius: 20,
+        borderColor: "#8C57BA",
+        borderWidth:1,
+        backgroundColor:'white',
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 10,
+        
     }
 });
 
