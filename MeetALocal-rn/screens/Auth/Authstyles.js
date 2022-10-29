@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
         color:"#8C57BA"
     },
     signUp:{
-        height:windowHeight* 0.7,
+        height:windowHeight* 0.73,
     },
     userType:{
         height:windowHeight* 0.4,
