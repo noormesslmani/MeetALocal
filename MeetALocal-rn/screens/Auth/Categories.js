@@ -37,7 +37,9 @@ const Categories=({navigation})=> {
     const handleOther=()=>{
         categories.includes("Other")?setCategories(arr => [...arr].filter(item => item !== "Other")):setCategories(arr => [...arr, "Other"])
     }
-    
+    const handleSubmit=()=>{
+        console.log(fees)
+    }
     return (
     <View style={styles.background} >
         <Text style={styles.selectCategory}>Select at least 1 category</Text> 
@@ -97,6 +99,7 @@ const Categories=({navigation})=> {
             thumbTintColor='rgba(75, 176, 249, 0.75)'
             onValueChange={setFees}
         />
+        <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>
     </View>
   )
 }
