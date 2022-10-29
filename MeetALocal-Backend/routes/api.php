@@ -46,6 +46,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
         Route::group(['prefix' => 'auth'], function ($router) { 
             Route::post('/logout', [AuthController::class, 'logout']);
             Route::post('/refresh', [AuthController::class, 'refresh']);
+            Route::post('/setup', [AuthController::class, 'setUp']);   
             Route::get('/user-profile', [AuthController::class, 'userProfile']);    
         });
     });
