@@ -114,7 +114,10 @@ const styles = StyleSheet.create({
         borderWidth:1,
         borderColor:'#D9D9D9'
     },
-
+    selectedIcon:{
+        borderWidth:3,
+        borderColor:"rgba(75, 176, 249, 0.75)" 
+    }
 });
 
 export default styles;

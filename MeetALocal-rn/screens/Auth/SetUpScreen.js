@@ -8,8 +8,15 @@ import AuthButton from '../../components/AuthButton';
 import Icon from 'react-native-vector-icons/Ionicons'
 
 const SetUpScreen=({navigation})=> {
+  const [gender, setGender]=useState('')
   const handleSubmit=()=>{
     console.log('submitted')
+  }
+  const handleMale=()=>{
+    setGender('Male')
+  }
+  const handleFemale=()=>{
+    setGender('Female')
   }
   return (
     <View style={styles.background} >
@@ -22,8 +29,8 @@ const SetUpScreen=({navigation})=> {
         <Icon name="location-sharp"  size={30}/>
         <Text style={styles.gender}>Gender</Text>
         <View style={styles.genderContainer}>
-          <Image source={require('../../assets/male.png')} style={styles.genderIcon} />
-          <Image source={require('../../assets/female.png')} style={styles.genderIcon} />
+          <TouchableOpacity onPress={handleMale}><Image source={require('../../assets/male.png')} style={[styles.genderIcon, gender=='Male'?styles.selectedIcon:null]} /></TouchableOpacity>
+          <TouchableOpacity onPress={handleFemale}><Image source={require('../../assets/female.png')} style={[styles.genderIcon, gender=='Female'?styles.selectedIcon:null]} /></TouchableOpacity>
         </View>
         <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>
         
