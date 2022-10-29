@@ -44,43 +44,43 @@ const Categories=({navigation})=> {
             <View style={styles.categoryRow}>
                 <TouchableOpacity style={styles.iconContainer} onPress={handleTourism}>
                     <Image source={require('../../assets/tourism.png')} style={styles.categoryIcon}/>
-                    <Text>Tourism</Text>
+                    <Text style={[categories.includes("Tourism")?styles.categoryLabel:null]}>Tourism</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.iconContainer} onPress={handleLanguage}>
                     <Image source={require('../../assets/languages.png')} style={styles.categoryIcon}/>
-                    <Text>Language</Text>
+                    <Text style={[categories.includes("Language")?styles.categoryLabel:null]}>Language</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.iconContainer} onPress={handleHistory}>
                     <Image source={require('../../assets/history.png')} style={styles.categoryIcon}/>
-                    <Text>History</Text>
+                    <Text style={[categories.includes("History")?styles.categoryLabel:null]}>History</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.categoryRow}>
                 <TouchableOpacity style={styles.iconContainer} onPress={handleHousing}>
                     <Image source={require('../../assets/house.png')} style={styles.categoryIcon}/>
-                    <Text>Housing</Text>
+                    <Text style={[categories.includes("Housing")?styles.categoryLabel:null]}>Housing</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.iconContainer} onPress={handleJobs}>
                     <Image source={require('../../assets/suitcase.png')} style={styles.categoryIcon}/>
-                    <Text>Jobs</Text>
+                    <Text style={[categories.includes("Jobs")?styles.categoryLabel:null]}>Jobs</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.iconContainer} onPress={handleEducation}>
                     <Image source={require('../../assets/education.png')} style={styles.categoryIcon}/>
-                    <Text>Education</Text>
+                    <Text style={[categories.includes("Education")?styles.categoryLabel:null]}>Education</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.categoryRow}>
                 <TouchableOpacity style={styles.iconContainer} onPress={handleCulture}>
                     <Image source={require('../../assets/cultures.png')} style={styles.categoryIcon}/>
-                    <Text>Culture</Text>
+                    <Text style={[categories.includes("Culture")?styles.categoryLabel:null]}>Culture</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.iconContainer} onPress={handleGuidance}>
                     <Image source={require('../../assets/guidance.png')} style={styles.categoryIcon}/>
-                    <Text>Guidance</Text>
+                    <Text style={[categories.includes("Guidance")?styles.categoryLabel:null]}>Guidance</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.iconContainer} onPress={handleOther}>
                     <Image source={require('../../assets/more.png')} style={styles.categoryIcon}/>
-                    <Text>Other</Text>
+                    <Text style={[categories.includes("Other")?styles.categoryLabel:null]}>Other</Text>
                 </TouchableOpacity>
             </View>
         </View>

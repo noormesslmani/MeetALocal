@@ -140,6 +140,9 @@ const styles = StyleSheet.create({
     categoryIcon:{
         width:60,
         height:60
+    },
+    categoryLabel:{
+        color:"blue",
     }
 
 });
