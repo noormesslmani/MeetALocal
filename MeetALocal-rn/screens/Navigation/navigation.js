@@ -11,6 +11,7 @@ import Logo from './Logo';
 import UserTypeScreen from '../Auth/UserTypeScreen';
 import SetUpScreen from '../Auth/SetUpScreen';
 import Categories from '../Auth/Categories';
+import ForeignerHome from '../Foreigners/Home';
 export default function RootNavigation() {
 
   const Stack = createNativeStackNavigator();
@@ -24,6 +25,7 @@ export default function RootNavigation() {
         <Stack.Screen name="user-type" component={UserTypeScreen} />
         <Stack.Screen name="setup" component={SetUpScreen} />
         <Stack.Screen name="categories" component={Categories} />
+        <Stack.Screen name="foreigner-home" component={ForeignerHome} />
       </Stack.Navigator>
     </NavigationContainer>
   );
