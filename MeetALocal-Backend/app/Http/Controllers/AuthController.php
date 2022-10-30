@@ -137,7 +137,14 @@ class AuthController extends Controller
     }
    
     public function userProfile() {
-        return response()->json(auth()->user());
+        $user=Auth::user();
+        $imagedata = file_get_contents($user->profile_picture);
+        $base64 = base64_encode($imagedata);
+        return response()->json([
+            'user'=>Auth::user(),
+            'message' => 'ok',
+            'base64' =>$base64,
+        ], 201);
     }
     
     protected function createNewToken($token){
