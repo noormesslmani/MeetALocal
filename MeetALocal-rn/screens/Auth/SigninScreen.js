@@ -40,8 +40,10 @@ const SigninScreen= ({ navigation })=> {
     })
     .then(async (response)=> {
       await AsyncStorage.setItem("@token", response.data['access_token']);
-      const token = await AsyncStorage.getItem('@token')
-      console.log(token)
+      await AsyncStorage.setItem("@user", JSON.stringify(response.data['user']));
+      if(response.data['user']['type_id']==2){
+        navigation.navigate('foreigner-home')
+      }
       return response.data;
     })
     .catch(function (error) {
