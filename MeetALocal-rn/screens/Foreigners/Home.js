@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { useState, useEffect, useContext } from "react";
 import { NavigationContainer } from '@react-navigation/native';
@@ -8,9 +8,11 @@ import { useRoute } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserContext } from '../../App'
+import HomeCard from '../../components/Home/HomeCards';
 const ForeignerHome=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
-    
+    const [name, setName]=useState('')
+    const [photo, setPhoto]=useState('')
     useEffect(()=>{
         profile()
       },[])
@@ -22,8 +24,10 @@ const ForeignerHome=({navigation})=> {
           url:"http://192.168.1.7:8000/api/v1.0.0/auth/user-profile",
         })
         .then((response)=> {
-          setUser(response.data)
-          console.log(user)
+          
+          console.log(response.data.user)
+          setUser(response.data.user)
+          setPhoto(response.data.base64)
           return response;
         })
         .catch(function (error) {
@@ -33,6 +37,8 @@ const ForeignerHome=({navigation})=> {
   return (
     <View style={HomeStyles.container}>
         <Text style={HomeStyles.welcome}>Welcome</Text>
+        <Text style={HomeStyles.name}>{user['name']}</Text>
+        <Image source={{uri:`data:image/jpg;base64,${photo}`}} style={HomeStyles.photo }/>
     </View>
   )
 }
