@@ -6,6 +6,7 @@ import AuthButton from '../../components/AuthButton';
 import axios from 'axios';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const baseURL='http://127.0.0.1:8000/api/v1.0.0/';
 const SigninScreen= ({ navigation })=> {
   const [email, setEmail]=useState('');
@@ -32,14 +33,15 @@ const SigninScreen= ({ navigation })=> {
       email: email,
       password: password,
     };
-    console.log('hi')
     axios({
       method: "post",
       data,
       url:"http://192.168.1.7:8000/api/v1.0.0/auth/login",
     })
-    .then(function (response) {
-      console.log(response.data['access_token'])
+    .then(async (response)=> {
+      await AsyncStorage.setItem("@token", response.data['access_token']);
+      const token = await AsyncStorage.getItem('@token')
+      console.log(token)
       return response.data;
     })
     .catch(function (error) {
