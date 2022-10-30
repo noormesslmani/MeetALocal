@@ -51,6 +51,7 @@ const SignupScreen3 = ({navigation}) => {
       date_of_birth: dob,
       languages: language,
     };
+    console.log(data)
     axios({
       method: "post",
       data,
@@ -58,7 +59,7 @@ const SignupScreen3 = ({navigation}) => {
     })
     .then(async (response)=> {
       await AsyncStorage.setItem("@token", response.data['token']);
-      const token = await AsyncStorage.getItem('@token')
+      const token = await AsyncStorage.getItem("@token")
       console.log(token)
       navigation.navigate('user-type')
       return response.data;
