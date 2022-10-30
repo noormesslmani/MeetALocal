@@ -14,8 +14,19 @@ const SignupScreen = ({navigation}) => {
   const [invalidPhone, setInvalidPhone]=useState(false);
   const [datePicker, setDatePicker] = useState(false);
   const [date, setDate] = useState(new Date());
+  const [dob, setdob]=useState('')
   const [invalidDate, setinvalidDate] = useState(false);
   const [dateSelected, setDateSelected] = useState(false);
+  
+  const handleDate= (event, value)=>{
+    setDate(value)
+    setinvalidDate(false)
+    setDatePicker(false)
+  }
+  useEffect(()=>{
+    setDateSelected(true)
+    setdob(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`)
+  },[date])
   const handleSubmit=()=>{
     setinvalidDate(false)
     setInvalidName(false)
@@ -30,33 +41,24 @@ const SignupScreen = ({navigation}) => {
       setinvalidDate(true)
     }
     else{
-      console.log('submitted')
       navigation.navigate('signup-second', {
-        fullName, phone, date,
-      });
+        fullName, phone, dob,
+      })
     }
   }
-  const handleDate=(event, value)=>{
-    setDate(value);
-    setinvalidDate(false)
-    setDateSelected(true)
-    setDatePicker(false); 
-  }
-  // console.log(date.getFullYear())
-  // console.log(date.getMonth())
-  // console.log(date.getDate())
+  console.log(datePicker)
   return (
     <View style={styles.background}>
         <View style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
           <Text style={styles.signIn}>Register</Text>
           <View style={styles.inputContainer}>
             <Text>Full Name</Text>
-            <TextInput placeholder="Andrew Smith" style={styles.input} onChangeText={setFullName} value={fullName}></TextInput>
+            <TextInput placeholder="ex: Andrew Smith" style={styles.input} onChangeText={setFullName} value={fullName}></TextInput>
             {invalidName && <Text style={styles.error}>Please enter your name</Text>}
           </View>
           <View style={styles.inputContainer}>
             <Text>Phone Number</Text>
-            <TextInput placeholder="0096171100200" style={styles.input} onChangeText={setPhone} value={phone} keyboardType={'numeric'}></TextInput>
+            <TextInput placeholder="ex: 0096171100200" style={styles.input} onChangeText={setPhone} value={phone} keyboardType={'numeric'}></TextInput>
             {invalidPhone && <Text style={styles.error}>Please enter your phone number</Text>}
           </View>
           <View style={styles.inputContainer}>
