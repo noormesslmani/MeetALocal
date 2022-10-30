@@ -19,13 +19,13 @@ export default function RootNavigation() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="signin">
         <Stack.Screen name="signin" options={{headerTitle: () => <Logo/>,}} component={SigninScreen} />
-        <Stack.Screen name="signup-first" component={SignupScreen} />
-        <Stack.Screen name="signup-second" component={SignupScreen2} />
-        <Stack.Screen name="signup-third" component={SignupScreen3} />
-        <Stack.Screen name="user-type" component={UserTypeScreen} />
-        <Stack.Screen name="setup" component={SetUpScreen} />
-        <Stack.Screen name="categories" component={Categories} />
-        <Stack.Screen name="foreigner-home" component={ForeignerHome} />
+        <Stack.Screen name="signup-first" options={{headerTitle: () => <Logo/>,}} component={SignupScreen} />
+        <Stack.Screen name="signup-second" options={{headerTitle: () => <Logo/>,}} component={SignupScreen2} />
+        <Stack.Screen name="signup-third" options={{headerTitle: () => <Logo/>,}} component={SignupScreen3} />
+        <Stack.Screen name="user-type" options={{headerTitle: () => <Logo/>,}} component={UserTypeScreen} />
+        <Stack.Screen name="setup" options={{headerTitle: () => <Logo/>,}}  component={SetUpScreen} />
+        <Stack.Screen name="categories" options={{headerTitle: () => <Logo/>,}} component={Categories} />
+        <Stack.Screen name="foreigner-home" options={{headerTitle: () => <Logo/>, headerBackVisible:false}} component={ForeignerHome} />
       </Stack.Navigator>
     </NavigationContainer>
   );
