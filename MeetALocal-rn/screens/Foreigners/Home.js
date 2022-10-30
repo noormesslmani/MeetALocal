@@ -7,9 +7,10 @@ import HomeStyles from './Styles/HomeStyles';
 import { useRoute } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { UserContext } from '../../Context/UserContext';
+import { UserContext } from '../../App'
 const ForeignerHome=({navigation})=> {
-    const { setId, setToken, setName, setGender,setEmail, setNationality, setResidence, setDOB, setLanguages, setUserType, setAbout, setPhoto } = useContext(UserContext);
+    const { user, setUser} = useContext(UserContext);
+    
     useEffect(()=>{
         profile()
       },[])
@@ -21,7 +22,8 @@ const ForeignerHome=({navigation})=> {
           url:"http://192.168.1.7:8000/api/v1.0.0/auth/user-profile",
         })
         .then((response)=> {
-          console.log(response.data)
+          setUser(response.data)
+          console.log(user)
           return response;
         })
         .catch(function (error) {
