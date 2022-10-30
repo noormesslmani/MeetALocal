@@ -8,11 +8,13 @@ const UserTypeScreen=({navigation})=> {
   const [type, setType]=useState('');
   const handleLocal=()=>{
     setType('Local')
-    navigation.navigate('setup')
+    navigation.navigate('setup',{
+      type,})
   }
   const handleForeigner=()=>{
     setType('Foreigner')
-    navigation.navigate('setup')
+    navigation.navigate('setup', {
+      type})
   }
   console.log(type)
   return (
