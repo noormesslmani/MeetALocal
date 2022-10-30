@@ -39,6 +39,9 @@ const ForeignerHome=({navigation})=> {
         <Text style={HomeStyles.welcome}>Welcome</Text>
         <Text style={HomeStyles.name}>{user['name']}</Text>
         <Image source={{uri:`data:image/jpg;base64,${photo}`}} style={HomeStyles.photo }/>
+        <HomeCard label={'Locals'}/>
+        <HomeCard label={'Events'}/>
+        <HomeCard label={'Posts'}/>
     </View>
   )
 }

@@ -16,19 +16,34 @@ const HomeStyles = StyleSheet.create({
         margin:5,
     },
     photo:{
-        width: 0.5*windowWidth,
-        height: 0.5*windowWidth,
-        borderRadius: 0.25*windowWidth,
-        margin:20
+        width: 0.4*windowWidth,
+        height: 0.4*windowWidth,
+        borderRadius: 0.2*windowWidth,
+        margin:15
     },
     cardContainer:{
         alignItems:"center",
-        width: 0.8*windowWidth,
-        height: 0.2*windowHeight,
+    },
+    cardItems:{
+        flexDirection:"row",
+        justifyContent:"space-between",
+        width:"60%"
     },
     card:{
-        backgroundColor:"rgba(140, 87, 186, 0.34)"
+        backgroundColor:"rgba(140, 87, 186, 0.34)",
+        width: 0.7*windowWidth,
+        height: 0.12*windowHeight,
+        borderRadius:10,
+        margin:5,
+        alignItems:"center",
+        justifyContent:"center"
+    },
+    label:{
+        fontSize:30,
+        color:"white",
+        fontWeight:'900'
     }
+   
 });
 
 export default HomeStyles;
