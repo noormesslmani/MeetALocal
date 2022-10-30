@@ -4,12 +4,27 @@ import { useState, useEffect, useContext } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeStyles from '../../screens/Foreigners/Styles/HomeStyles';
-const HomeCard=({navigation})=> {
-    
+import Icon from 'react-native-vector-icons/FontAwesome5'
+const HomeCard=({navigation, label})=> {
+    const [icon, setIcon]=useState('')
+    useEffect(()=>{
+        if(label=='Locals'){
+            setIcon('user')
+        }
+        else if(label=='Events'){
+            setIcon('calendar')
+        }
+        else{
+            setIcon('comment-alt')
+        }
+    },[])
   return (
     <View style={HomeStyles.cardContainer}>
-        <TouchableOpacity style={HomeStyles.card}>
-
+        <TouchableOpacity style={[HomeStyles.card]}>
+            <View style={HomeStyles.cardItems}>
+                <Text style={HomeStyles.label}>{label}</Text>
+                <Icon name={icon} size={50} color="white"/>
+            </View>
         </TouchableOpacity>
     </View>
   )
