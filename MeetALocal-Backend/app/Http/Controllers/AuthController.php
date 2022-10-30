@@ -58,10 +58,11 @@ class AuthController extends Controller
                     ['password' => bcrypt($request->password),
                     'nationality_id'=> Country::where('country',$request->nationality)->pluck('id')[0],
                     'residence_id'=> Country::where('country',$request->residence)->pluck('id')[0],
-                    'type_id'=>1
+                    'type_id'=>1,
+                    'gender'=>'Male'
                     ]
                 ));
-        
+       
         foreach($request->languages as $language){
             UserLanguage::create([
                 'user_id' => $user->id,
@@ -84,16 +85,22 @@ class AuthController extends Controller
             'categories' =>'array',
             'about' => 'string',
             'location' => 'string',
-            'profile_picture' => 'string',
+            'photo' => 'string',
             'fees' => 'integer',
         ]);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
         }
+        $extension=$request->ext;
+        $image_64 = $request->photo; //your base64 encoded data
+        $img = base64_decode($image_64);
+        $path = uniqid() . "." . $extension;
+        file_put_contents($path, $img);
         Auth::user()->update(array_merge(
             $validator->validated(),
             [
             'type_id' => UserType::where('user_type',$request->type)->pluck('id')[0],
+            'profile_picture'=>$path,
             ])
         );
         if($request->type=='Local'){
@@ -105,9 +112,11 @@ class AuthController extends Controller
             }
         }
         return response()->json([
+            'user'=>Auth::user(),
             'message' => 'ok',
         ], 201);
     }
+    
     public function logout() {
         auth()->logout();
         return response()->json(['message' => 'User successfully signed out']);
