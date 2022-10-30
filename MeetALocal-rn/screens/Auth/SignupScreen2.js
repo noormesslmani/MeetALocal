@@ -6,8 +6,12 @@ import AuthButton from '../../components/AuthButton';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DropDownPicker from 'react-native-dropdown-picker';
-
+import { useRoute } from '@react-navigation/native';
 const SignupScreen2 = ({navigation}) => {
+  const route = useRoute();
+  const fullName= route.params.fullName
+  const phone= route.params.phone
+  const date =route.params.date
   const [nationality, setNationality]=useState(null);
   const [country, setCountry]=useState(null);
   const [language, setLanguage]=useState([]);
@@ -57,7 +61,9 @@ const SignupScreen2 = ({navigation}) => {
       setInvalidLanguage(true)
     }
     else{
-      navigation.navigate('signup-third')
+      navigation.navigate('signup-second', {
+        fullName, phone, date, nationality, country, language,
+      });
     }
   }
 

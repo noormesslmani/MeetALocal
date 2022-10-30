@@ -3,8 +3,10 @@ import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect } from "react";
 import AuthButton from '../../components/AuthButton';
+import axios from 'axios';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+const baseURL='http://127.0.0.1:8000/api/v1.0.0/';
 const SigninScreen= ({ navigation })=> {
   const [email, setEmail]=useState('');
   const [password, setPassword]=useState('');
@@ -21,8 +23,28 @@ const SigninScreen= ({ navigation })=> {
       setInvalidPassword(true)
     }
     else{
-      console.log('success')
+      signin()
     }
+  }
+  
+  function signin(){
+    const data = {
+      email: email,
+      password: password,
+    };
+    console.log('hi')
+    axios({
+      method: "post",
+      data,
+      url:"http://192.168.1.7:8000/api/v1.0.0/auth/login",
+    })
+    .then(function (response) {
+      console.log(response.data['access_token'])
+      return response.data;
+    })
+    .catch(function (error) {
+      console.warn(error)
+    });
   }
   useEffect
   return (
