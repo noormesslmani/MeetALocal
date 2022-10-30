@@ -1,13 +1,15 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeStyles from './Styles/HomeStyles';
 import { useRoute } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { UserContext } from '../../Context/UserContext';
 const ForeignerHome=({navigation})=> {
+    const { setId, setToken, setName, setGender,setEmail, setNationality, setResidence, setDOB, setLanguages, setUserType, setAbout, setPhoto } = useContext(UserContext);
     useEffect(()=>{
         profile()
       },[])
