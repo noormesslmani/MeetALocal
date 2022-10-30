@@ -11,7 +11,8 @@ const SignupScreen2 = ({navigation}) => {
   const route = useRoute();
   const fullName= route.params.fullName
   const phone= route.params.phone
-  const date =route.params.date
+  const dob =route.params.dob
+  
   const [nationality, setNationality]=useState(null);
   const [country, setCountry]=useState(null);
   const [language, setLanguage]=useState([]);
@@ -61,8 +62,8 @@ const SignupScreen2 = ({navigation}) => {
       setInvalidLanguage(true)
     }
     else{
-      navigation.navigate('signup-second', {
-        fullName, phone, date, nationality, country, language,
+      navigation.navigate('signup-third', {
+        fullName, phone, dob, nationality, country, language,
       });
     }
   }

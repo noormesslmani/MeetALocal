@@ -5,8 +5,17 @@ import { useState, useEffect } from "react";
 import AuthButton from '../../components/AuthButton';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import { useRoute } from '@react-navigation/native';
+import axios from 'axios';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const SignupScreen3 = ({navigation}) => {
+  const route = useRoute();
+  const fullName= route.params.fullName
+  const phone= route.params.phone
+  const dob =route.params.dob
+  const country= route.params.country
+  const nationality =route.params.nationality
+  const language = route.params.language
   const [email, setEmail]=useState('');
   const [password, setPassword]=useState('');
   const [confirmPassword, setConfirmPassword]=useState([]);
@@ -28,8 +37,35 @@ const SignupScreen3 = ({navigation}) => {
       setUnmatchedPassword(true)
     }
     else{
-      navigation.navigate('user-type')
+      register()
     }
+  }
+  function register(){
+    const data = {
+      name: fullName,
+      email: email,
+      password: password,
+      nationality: nationality,
+      residence: country,
+      phone: parseInt(phone),
+      date_of_birth: dob,
+      languages: language,
+    };
+    axios({
+      method: "post",
+      data,
+      url:"http://192.168.1.7:8000/api/v1.0.0/auth/register",
+    })
+    .then(async (response)=> {
+      await AsyncStorage.setItem("@token", response.data['token']);
+      const token = await AsyncStorage.getItem('@token')
+      console.log(token)
+      navigation.navigate('user-type')
+      return response.data;
+    })
+    .catch(function (error) {
+      console.warn(error)
+    });
   }
   return (
     <View style={styles.background}>
