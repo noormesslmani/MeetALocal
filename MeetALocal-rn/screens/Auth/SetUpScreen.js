@@ -15,7 +15,8 @@ const SetUpScreen=({navigation})=> {
   const type= route.params.type
   const [gender, setGender]=useState('')
   const [genderunset, setGenderUnset]=useState(false)
-
+  const [base64, setBase64]=useState(null)
+  const [ext, setext]=useState(null)
   const handleSubmit=()=>{
     if(gender==''){
       setGenderUnset(true)
@@ -34,12 +35,14 @@ const SetUpScreen=({navigation})=> {
   const handleFemale=()=>{
     setGender('Female')
   }
+
   async function setUp(){
     const data = {
       type: type,
       gender: gender,
+      photo: base64,
+      ext: ext
     };
-    console.log(data)
     const token = await AsyncStorage.getItem('@token')
     axios({
       method: "post",
@@ -48,22 +51,21 @@ const SetUpScreen=({navigation})=> {
       url:"http://192.168.1.7:8000/api/v1.0.0/auth/setup",
     })
     .then(async (response)=> {
+      console.log(response.data)
       await AsyncStorage.setItem("@user", JSON.stringify(response.data['user']));
-      // const user = await AsyncStorage.getItem('@user')
-      // console.log(user)
       return response.data;
     })
     .catch(function (error) {
       console.warn(error)
     });
   }
+  console.log(ext)
+  
   return (
     <View style={styles.background} >
         <Text style={styles.welcome}>Welcome</Text>
         <View style={styles.picContainer}>
-            <UploadImage/>
-            {/* <Image source={require('../../assets/blank-profile.webp')} style={styles.profilePic} />
-            <Icon name="add-circle" style={styles.addIcon} size={35}/> */}
+            <UploadImage setBase64={setBase64} setext={setext} />
         </View>
         <Text style={styles.gender}>Location</Text>
         <Icon name="location-sharp"  size={30}/>

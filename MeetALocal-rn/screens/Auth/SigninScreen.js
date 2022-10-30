@@ -48,7 +48,7 @@ const SigninScreen= ({ navigation })=> {
       console.warn(error)
     });
   }
-  useEffect
+  
   return (
     <View style={styles.background}>
         <View style={[styles.formContainer, styles.shadowProp]}>
