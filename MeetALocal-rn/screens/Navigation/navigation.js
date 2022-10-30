@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, Image, TouchableWithoutFeedback } from 'react-native';
 import * as React from 'react';
+import { createContext, useState } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SignupScreen from '../Auth/SignupScreen';
@@ -12,10 +13,12 @@ import UserTypeScreen from '../Auth/UserTypeScreen';
 import SetUpScreen from '../Auth/SetUpScreen';
 import Categories from '../Auth/Categories';
 import ForeignerHome from '../Foreigners/Home';
+
 export default function RootNavigation() {
 
   const Stack = createNativeStackNavigator();
   return (
+    
     <NavigationContainer>
       <Stack.Navigator initialRouteName="signin">
         <Stack.Screen name="signin" options={{headerTitle: () => <Logo/>,}} component={SigninScreen} />
@@ -28,5 +31,6 @@ export default function RootNavigation() {
         <Stack.Screen name="foreigner-home" options={{headerTitle: () => <Logo/>, headerBackVisible:false}} component={ForeignerHome} />
       </Stack.Navigator>
     </NavigationContainer>
+    
   );
 }
