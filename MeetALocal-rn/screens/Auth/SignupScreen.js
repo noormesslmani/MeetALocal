@@ -31,7 +31,9 @@ const SignupScreen = ({navigation}) => {
     }
     else{
       console.log('submitted')
-      navigation.navigate('signup-second')
+      navigation.navigate('signup-second', {
+        fullName, phone, date,
+      });
     }
   }
   const handleDate=(event, value)=>{
