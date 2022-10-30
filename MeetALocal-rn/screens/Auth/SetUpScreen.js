@@ -9,6 +9,7 @@ import { useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons'
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import UploadImage from '../../components/UploadImage';
 const SetUpScreen=({navigation})=> {
   const route = useRoute();
   const type= route.params.type
@@ -60,8 +61,9 @@ const SetUpScreen=({navigation})=> {
     <View style={styles.background} >
         <Text style={styles.welcome}>Welcome</Text>
         <View style={styles.picContainer}>
-            <Image source={require('../../assets/blank-profile.webp')} style={styles.profilePic} />
-            <Icon name="add-circle" style={styles.addIcon} size={35}/>
+            <UploadImage/>
+            {/* <Image source={require('../../assets/blank-profile.webp')} style={styles.profilePic} />
+            <Icon name="add-circle" style={styles.addIcon} size={35}/> */}
         </View>
         <Text style={styles.gender}>Location</Text>
         <Icon name="location-sharp"  size={30}/>
