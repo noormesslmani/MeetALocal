@@ -91,18 +91,28 @@ class AuthController extends Controller
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
         }
-        $extension=$request->ext;
-        $image_64 = $request->photo; //your base64 encoded data
-        $img = base64_decode($image_64);
-        $path = uniqid() . "." . $extension;
-        file_put_contents($path, $img);
-        Auth::user()->update(array_merge(
-            $validator->validated(),
-            [
-            'type_id' => UserType::where('user_type',$request->type)->pluck('id')[0],
-            'profile_picture'=>$path,
-            ])
-        );
+        if($request->photo){
+            $extension=$request->ext;
+            $image_64 = $request->photo; //your base64 encoded data
+            $img = base64_decode($image_64);
+            $path = uniqid() . "." . $extension;
+            file_put_contents($path, $img);
+            Auth::user()->update(array_merge(
+                $validator->validated(),
+                [
+                'type_id' => UserType::where('user_type',$request->type)->pluck('id')[0],
+                'profile_picture'=>$path,
+                ])
+            );
+        }
+        else{
+            Auth::user()->update(array_merge(
+                $validator->validated(),
+                [
+                'type_id' => UserType::where('user_type',$request->type)->pluck('id')[0],
+                ])
+            );
+        }
         if($request->type=='Local'){
             foreach($request->categories as $category){
                 LocalCategory::create([
@@ -116,7 +126,7 @@ class AuthController extends Controller
             'message' => 'ok',
         ], 201);
     }
-    
+
     public function logout() {
         auth()->logout();
         return response()->json(['message' => 'User successfully signed out']);
