@@ -12,7 +12,7 @@ import Logo from './Logo';
 import UserTypeScreen from '../Auth/UserTypeScreen';
 import SetUpScreen from '../Auth/SetUpScreen';
 import Categories from '../Auth/Categories';
-import ForeignerHome from '../Foreigners/Home';
+import Home from '../Foreigners/Home';
 import Profile from '../Foreigners/Profile';
 import Chats from '../Foreigners/Chats';
 import Icon from 'react-native-vector-icons/FontAwesome5'
