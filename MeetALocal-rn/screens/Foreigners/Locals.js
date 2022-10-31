@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView } from 'react-native'
+import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, Modal, Pressable, StyleSheet } from 'react-native'
 import React from 'react'
 import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext } from "react";
@@ -7,9 +7,11 @@ import LocalsStyles from './Styles/LocalsPageStyles';
 import LocalCard from '../../components/Home/LocalsCard';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
+import FilterModal from '../../components/Home/FilterModal';
 const Locals=({navigation})=> {
     const [viewFav, setViewFav]=useState(false)
     const [data, setdata]=useState([])
+    const [modalVisible, setModalVisible] = useState(false)
     const { user, setUser} = useContext(UserContext);
     console.log(user.id)
     useEffect(()=>{
@@ -58,12 +60,13 @@ const Locals=({navigation})=> {
   return (
       <View style={HomeStyles.container}>
         <Text style={LocalsStyles.title}>Locals</Text>
-        <View style={LocalsStyles.view}>
-            <TouchableOpacity onPress={()=>setViewFav(false)} >{user.type_id==2 && <Text style={[LocalsStyles.options,viewFav? null: LocalsStyles.selected ]}>View All</Text>}</TouchableOpacity>
-            <TouchableOpacity onPress={()=>setViewFav(true)}>{user.type_id==2 && <Text style={[LocalsStyles.options, viewFav? LocalsStyles.selected: null]}>Favorites</Text>}</TouchableOpacity>
-        </View>
+        {user.type_id==2 && <View style={LocalsStyles.view}>
+            <TouchableOpacity onPress={()=>setViewFav(false)} >{ <Text style={[LocalsStyles.options,viewFav? null: LocalsStyles.selected ]}>View All</Text>}</TouchableOpacity>
+            <TouchableOpacity onPress={()=>setViewFav(true)}>{ <Text style={[LocalsStyles.options, viewFav? LocalsStyles.selected: null]}>Favorites</Text>}</TouchableOpacity>
+        </View>}
+        <TouchableOpacity onPress={()=>{setModalVisible(true)}}><Text style={{color:'grey', marginBottom:5}}>Filter</Text></TouchableOpacity>
+        <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible}/>
         <View style={LocalsStyles.separator}/>
-        <Text>Filter</Text>
         <SafeAreaView>
           <FlatList
             data={data}
@@ -76,5 +79,5 @@ const Locals=({navigation})=> {
       </View>
     )
 }
-
+ 
 export default Locals
