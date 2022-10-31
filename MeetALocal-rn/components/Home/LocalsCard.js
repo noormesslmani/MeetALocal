@@ -4,7 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LocalCardStyles from '../ComponentsStyles/LocalCardStyles';
-import Icon from 'react-native-vector-icons/FontAwesome5'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import tourism from '../../assets/tourism.png'
 import cultures from '../../assets/cultures.png'
 import education from '../../assets/education.png'
@@ -14,7 +14,9 @@ import house from '../../assets/house.png'
 import languages from '../../assets/languages.png'
 import more from '../../assets/more.png'
 import jobs from '../../assets/suitcase.png'
+
 const LocalCard=({navigation, item})=> {
+    
     const [categories, setCategories]=useState([])
     const [icons, setIcons]=useState([])
     useEffect(()=>{
@@ -59,15 +61,19 @@ const LocalCard=({navigation, item})=> {
         <View style={LocalCardStyles.infoContainer}>
             <Text style={LocalCardStyles.name}>{item.name}</Text>
             <Text style={LocalCardStyles.country}>{item.country}</Text>
-            <Text style={LocalCardStyles.likes}>Likes</Text>
+            
         </View>
-        <View style={LocalCardStyles.fees}>
-                <Text style={{fontSize:12, fontWeight:"900"}}>{item.fees}$/hr</Text>
+        <View style={LocalCardStyles.feesContainer}>
+            <Text style={{fontSize:12, fontWeight:"900"}}>{item.fees}$/hr</Text>
+        </View>
+        <View style={LocalCardStyles.likesContainer}>
+            <Text style={{fontSize:13, fontWeight:"700", marginRight:5}}>{item.likes}</Text>
+            <Icon name="heart" color="#8C57BA" size={15} /> 
         </View>
         <View style={LocalCardStyles.categoryContainer}>
             <View style={{alignItems:"center", flexDirection:"row"}}>
 
-                {icons.map((icon)=><Image source={icon} style={{width:35, height:35, margin:15}} />)}
+                {icons.map((icon)=><Image source={icon} style={{width:30, height:30, margin:15}} />)}
             </View>
         </View>
     </TouchableOpacity>

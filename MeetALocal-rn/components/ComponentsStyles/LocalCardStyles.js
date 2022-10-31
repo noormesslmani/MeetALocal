@@ -25,18 +25,23 @@ const LocalCardStyles = StyleSheet.create({
         justifyContent:"center"
     },
     name:{
-        fontSize:15,
+        fontSize:14,
         fontWeight:"500"
     },
     country:{
-        fontSize:12
+        fontSize:13,
     },
-    likes:{
-        fontSize:10
-    },
-    fees:{
+    feesContainer:{
         position:'absolute',
         right:0.12*windowWidth,
+        top: 0.25*windowHeight
+    },
+    likesContainer:{
+        flexDirection:"row",
+        alignItems:"center",
+        justifyContent:"center",
+        position:'absolute',
+        left:0.12*windowWidth,
         top: 0.25*windowHeight
     },
     categoryContainer:{
