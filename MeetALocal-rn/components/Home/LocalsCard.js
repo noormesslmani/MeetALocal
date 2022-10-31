@@ -14,18 +14,20 @@ import house from '../../assets/house.png'
 import languages from '../../assets/languages.png'
 import more from '../../assets/more.png'
 import jobs from '../../assets/suitcase.png'
-const LocalCard=({navigation})=> {
+const LocalCard=({navigation, item})=> {
+    const [icons, setIcons]=useState([])
+    console.log(item.categories)
   return (
     
     <TouchableOpacity style={LocalCardStyles.card}>
         <Image source={require('../../assets/profile.jpg')} style={LocalCardStyles.image}/>
         <View style={LocalCardStyles.infoContainer}>
-            <Text style={LocalCardStyles.name}>Name</Text>
-            <Text style={LocalCardStyles.country}>Country</Text>
+            <Text style={LocalCardStyles.name}>{item.name}</Text>
+            <Text style={LocalCardStyles.country}>{item.country}</Text>
             <Text style={LocalCardStyles.likes}>Likes</Text>
         </View>
         <View style={LocalCardStyles.fees}>
-                <Text >Fees</Text>
+                <Text style={{fontSize:12, fontWeight:"900"}}>{item.fees}$/hr</Text>
         </View>
         <View style={LocalCardStyles.categoryContainer}>
             <View style={{alignItems:"center"}}>

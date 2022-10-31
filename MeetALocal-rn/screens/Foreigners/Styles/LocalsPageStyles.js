@@ -25,6 +25,9 @@ const LocalsStyles = StyleSheet.create({
         borderBottomWidth: 0.3,
         width: 0.9*windowWidth,
         marginBottom: 20
-      }
+    },
+    list:{
+        width:windowWidth,
+    }
 });
 export default LocalsStyles;
