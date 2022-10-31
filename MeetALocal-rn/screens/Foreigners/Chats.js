@@ -2,11 +2,11 @@ import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import HomeStyles from './Styles/HomeStyles';
 
-const Profile=({navigation})=> {
+const Chats=({navigation})=> {
   return (
     <View style={HomeStyles.container}>
-        <Text>Profile Page</Text>
+        <Text>Chat Page</Text>
     </View>
   )
 }
-export default Profile
+export default Chats

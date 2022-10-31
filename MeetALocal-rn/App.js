@@ -3,7 +3,7 @@ import RootNavigation from "./screens/Navigation/navigation";
 import { createContext, useState } from "react";
 export const UserContext = createContext();
 export default function App() {
-  const [user,setUser]=useState(null)
+  const [user,setUser]=useState({})
   return(
     <UserContext.Provider value={{user, setUser}}>
       <RootNavigation/>
