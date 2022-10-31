@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeStyles from '../../screens/Foreigners/Styles/HomeStyles';
 import Icon from 'react-native-vector-icons/FontAwesome5'
-const HomeCard=({navigation, label})=> {
+const HomeCard=({navigation, label, handlePress})=> {
     const [icon, setIcon]=useState('')
     useEffect(()=>{
         if(label=='Locals'){
@@ -20,7 +20,7 @@ const HomeCard=({navigation, label})=> {
     },[])
   return (
     <View style={HomeStyles.cardContainer}>
-        <TouchableOpacity style={[HomeStyles.card]}>
+        <TouchableOpacity style={[HomeStyles.card]} onPress={handlePress} >
             <View style={HomeStyles.cardItems}>
                 <Text style={HomeStyles.label}>{label}</Text>
                 <Icon name={icon} size={50} color="white"/>

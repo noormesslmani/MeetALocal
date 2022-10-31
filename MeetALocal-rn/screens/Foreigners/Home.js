@@ -11,6 +11,7 @@ import { UserContext } from '../../App'
 import HomeCard from '../../components/Home/HomeCards';
 import Events from './Events';
 import Posts from './Posts';
+import Locals from './Locals';
 const Home=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const [name, setName]=useState('')
@@ -36,14 +37,23 @@ const Home=({navigation})=> {
           console.warn(error)
         });
     }
+    const handleLocals=()=>{
+        navigation.navigate('locals')
+    }
+    const handlePosts=()=>{
+        navigation.navigate('posts')
+    }
+    const handleEvents=()=>{
+        navigation.navigate('events')
+    }
   return (
     <View style={HomeStyles.container}>
         <Text style={HomeStyles.welcome}>Welcome</Text>
         <Text style={HomeStyles.name}>{user['name']}</Text>
         <Image source={{uri:`data:image/jpg;base64,${photo}`}} style={HomeStyles.photo }/>
-        <HomeCard label={'Locals'}/>
-        <HomeCard label={'Events'}/>
-        <HomeCard label={'Posts'}/>
+        <HomeCard label={'Locals'} handlePress={handleLocals}/>
+        <HomeCard label={'Events'} handlePress={handleEvents}/>
+        <HomeCard label={'Posts'} handlePress={handlePosts} />
     </View>
   )
 }
