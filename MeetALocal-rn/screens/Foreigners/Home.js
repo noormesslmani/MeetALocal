@@ -9,7 +9,9 @@ import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserContext } from '../../App'
 import HomeCard from '../../components/Home/HomeCards';
-const ForeignerHome=({navigation})=> {
+import Events from './Events';
+import Posts from './Posts';
+const Home=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const [name, setName]=useState('')
     const [photo, setPhoto]=useState('')
@@ -45,4 +47,4 @@ const ForeignerHome=({navigation})=> {
     </View>
   )
 }
-export default ForeignerHome
+export default Home
