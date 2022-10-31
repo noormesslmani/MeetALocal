@@ -22,6 +22,14 @@ class ForeignerController extends Controller
 {
     public function getFavorites(){
         $favorites=Auth::user()->favorites()->get();
+        foreach($favorites as $local){
+            $category= $local->categories()->pluck('category');
+            $likes= FavoriteLocal::where('local_id',$local->id)->count();
+            $local['likes']=$likes;
+            $local['categories']=$category;
+            $country=Country::where('countries.id',$local->residence_id)->pluck('country')[0];
+            $local['country']=$country;
+        }
         return response()->json([
             'message' => 'ok',
             'favorites'=>$favorites
