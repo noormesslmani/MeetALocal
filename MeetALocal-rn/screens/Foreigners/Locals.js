@@ -10,18 +10,21 @@ const Locals=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     console.log(user.type_id)
   return (
-    <View style={HomeStyles.container}>
-        <Text style={LocalsStyles.title}>Locals</Text>
-        <View style={LocalsStyles.view}>
-            <TouchableOpacity onPress={()=>setViewFav(false)} >{user.type_id==2 && <Text style={[LocalsStyles.options,viewFav? null: LocalsStyles.selected ]}>View All</Text>}</TouchableOpacity>
-            <TouchableOpacity onPress={()=>setViewFav(true)}>{user.type_id==2 && <Text style={[LocalsStyles.options, viewFav? LocalsStyles.selected: null]}>Favorites</Text>}</TouchableOpacity>
-        </View>
-        <View style={LocalsStyles.separator}/>
-        <Text>Filter</Text>
-        <LocalCard/>
-              
-        
-    </View>
+
+      <View style={HomeStyles.container}>
+          <Text style={LocalsStyles.title}>Locals</Text>
+          <View style={LocalsStyles.view}>
+              <TouchableOpacity onPress={()=>setViewFav(false)} >{user.type_id==2 && <Text style={[LocalsStyles.options,viewFav? null: LocalsStyles.selected ]}>View All</Text>}</TouchableOpacity>
+              <TouchableOpacity onPress={()=>setViewFav(true)}>{user.type_id==2 && <Text style={[LocalsStyles.options, viewFav? LocalsStyles.selected: null]}>Favorites</Text>}</TouchableOpacity>
+          </View>
+          <View style={LocalsStyles.separator}/>
+          <Text>Filter</Text>
+          
+          <LocalCard/>  
+       
+          
+      </View>
+ 
   )
 }
 export default Locals
