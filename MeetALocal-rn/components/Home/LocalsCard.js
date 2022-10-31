@@ -15,8 +15,43 @@ import languages from '../../assets/languages.png'
 import more from '../../assets/more.png'
 import jobs from '../../assets/suitcase.png'
 const LocalCard=({navigation, item})=> {
+    const [categories, setCategories]=useState([])
     const [icons, setIcons]=useState([])
-    console.log(item.categories)
+    useEffect(()=>{
+        setIcons([])
+        setCategories(item.categories)
+    },[])
+    useEffect(()=>{
+        for(let category of categories){
+            switch(category) {
+                case 'Tourism':
+                    setIcons((icons)=>[...icons, tourism])
+                  break;
+                case 'Language':
+                    setIcons((icons)=>[...icons, languages])
+                  break;
+                case 'Culture':
+                setIcons((icons)=>[...icons, cultures])
+                    break;
+                case 'History':
+                    setIcons((icons)=>[...icons, history])
+                    break;
+                case 'Education':
+                    setIcons((icons)=>[...icons, education])
+                    break;
+                case 'Jobs':
+                    setIcons((icons)=>[...icons, jobs])
+                    break;
+                case 'Housing':
+                    setIcons((icons)=>[...icons, house])
+                break;
+                case 'Guidance':
+                    setIcons((icons)=>[...icons, guidance])
+                break;
+            }
+        }
+    },[categories])
+    
   return (
     
     <TouchableOpacity style={LocalCardStyles.card}>
@@ -30,8 +65,9 @@ const LocalCard=({navigation, item})=> {
                 <Text style={{fontSize:12, fontWeight:"900"}}>{item.fees}$/hr</Text>
         </View>
         <View style={LocalCardStyles.categoryContainer}>
-            <View style={{alignItems:"center"}}>
-                <Image source={tourism} style={{width:35, height:35}} />
+            <View style={{alignItems:"center", flexDirection:"row"}}>
+
+                {icons.map((icon)=><Image source={icon} style={{width:35, height:35, margin:15}} />)}
             </View>
         </View>
     </TouchableOpacity>
