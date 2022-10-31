@@ -13,7 +13,9 @@ import UserTypeScreen from '../Auth/UserTypeScreen';
 import SetUpScreen from '../Auth/SetUpScreen';
 import Categories from '../Auth/Categories';
 import ForeignerHome from '../Foreigners/Home';
-
+import Profile from '../Foreigners/Profile';
+import Chats from '../Foreigners/Chats';
+import Icon from 'react-native-vector-icons/FontAwesome5'
 export default function RootNavigation() {
 
   const Stack = createNativeStackNavigator();
@@ -28,9 +30,56 @@ export default function RootNavigation() {
         <Stack.Screen name="user-type" options={{headerTitle: () => <Logo/>,}} component={UserTypeScreen} />
         <Stack.Screen name="setup" options={{headerTitle: () => <Logo/>,}}  component={SetUpScreen} />
         <Stack.Screen name="categories" options={{headerTitle: () => <Logo/>,}} component={Categories} />
-        <Stack.Screen name="foreigner-home" options={{headerTitle: () => <Logo/>, headerBackVisible:false}} component={ForeignerHome} />
+        <Stack.Screen name="tabs" options={{headerTitle: () => <Logo/>,  headerBackVisible:false}} component={MyTabs} />
       </Stack.Navigator>
     </NavigationContainer>
     
+  );
+}
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+const Tab = createBottomTabNavigator();
+
+function MyTabs() {
+  return (
+    <Tab.Navigator
+      initialRouteName="home"
+      screenOptions={{
+        tabBarActiveTintColor: "#4BB0F9",
+        headerShown: false
+      }}
+      >
+      <Tab.Screen
+        name="home"
+        component={ForeignerHome}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="home" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="profile"
+        component={Profile}
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="user" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="chats"
+        component={Chats}
+        options={{
+          tabBarLabel: 'Chats',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="chat" color={color} size={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 }

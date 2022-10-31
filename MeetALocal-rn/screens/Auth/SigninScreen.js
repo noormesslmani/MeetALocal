@@ -41,7 +41,7 @@ const SigninScreen= ({ navigation })=> {
     .then(async (response)=> {
       await AsyncStorage.setItem("@token", response.data['access_token']);
       if(response.data['user']['type_id']==2){
-        navigation.navigate('foreigner-home')
+        navigation.navigate('tabs')
       }
       return response.data;
     })
