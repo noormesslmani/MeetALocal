@@ -41,7 +41,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::get('/users/{type}', [AdminController::class, 'getUsers']);
         });
         Route::group(['prefix' => 'foreigners'], function () {
-        //edit profile
+            Route::get('/favorites', [ForeignerController::class, 'getFavorites']);
         });
         Route::group(['prefix' => 'auth'], function ($router) { 
             Route::post('/logout', [AuthController::class, 'logout']);

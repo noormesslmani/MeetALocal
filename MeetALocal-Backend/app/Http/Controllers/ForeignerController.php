@@ -17,8 +17,14 @@ use App\Models\Post;
 use App\Models\SavedEvent;
 use App\Models\UserType;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 class ForeignerController extends Controller
 {
-    //
+    public function getFavorites(){
+        $favorites=Auth::user()->favorites()->get();
+        return response()->json([
+            'message' => 'ok',
+            'favorites'=>$favorites
+        ], 201);
+    }
 }
