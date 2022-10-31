@@ -9,4 +9,8 @@ class FavoriteLocal extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $fillable = [
+        'user_id',
+        'local_id'
+    ];
 }
