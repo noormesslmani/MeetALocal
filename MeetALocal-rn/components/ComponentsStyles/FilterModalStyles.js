@@ -13,7 +13,7 @@ const ModalStyles = StyleSheet.create({
         margin: 20,
         backgroundColor: "white",
         width:0.7*windowWidth,
-        height:0.5*windowHeight,
+        height:0.45*windowHeight,
         borderRadius: 20,
         padding: 20,
         alignItems: "center",
@@ -30,7 +30,8 @@ const ModalStyles = StyleSheet.create({
         borderRadius: 20,
         padding: 10,
         elevation: 2,
-        backgroundColor:"grey"
+        marginTop:50,
+        backgroundColor:"rgba(140, 87, 186, 0.5)"
       },
       textStyle: {
         color: "white",
