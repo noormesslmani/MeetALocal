@@ -32,22 +32,29 @@ const Locals=({navigation})=> {
         console.warn(error)
       });
   }
-  return (
 
+  const renderItem = ({ item }) => (
+    <LocalCard item={item} />);
+  
+  return (
       <View style={HomeStyles.container}>
-          <Text style={LocalsStyles.title}>Locals</Text>
-          <View style={LocalsStyles.view}>
-              <TouchableOpacity onPress={()=>setViewFav(false)} >{user.type_id==2 && <Text style={[LocalsStyles.options,viewFav? null: LocalsStyles.selected ]}>View All</Text>}</TouchableOpacity>
-              <TouchableOpacity onPress={()=>setViewFav(true)}>{user.type_id==2 && <Text style={[LocalsStyles.options, viewFav? LocalsStyles.selected: null]}>Favorites</Text>}</TouchableOpacity>
-          </View>
-          <View style={LocalsStyles.separator}/>
-          <Text>Filter</Text>
-          
-          <LocalCard/>  
-       
-          
+        <Text style={LocalsStyles.title}>Locals</Text>
+        <View style={LocalsStyles.view}>
+            <TouchableOpacity onPress={()=>setViewFav(false)} >{user.type_id==2 && <Text style={[LocalsStyles.options,viewFav? null: LocalsStyles.selected ]}>View All</Text>}</TouchableOpacity>
+            <TouchableOpacity onPress={()=>setViewFav(true)}>{user.type_id==2 && <Text style={[LocalsStyles.options, viewFav? LocalsStyles.selected: null]}>Favorites</Text>}</TouchableOpacity>
+        </View>
+        <View style={LocalsStyles.separator}/>
+        <Text>Filter</Text>
+        <View>
+          <FlatList
+            data={locals}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            style={LocalsStyles.list}
+          />
+        </View>
       </View>
- 
-  )
+    )
 }
+
 export default Locals

@@ -4,17 +4,19 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const LocalCardStyles = StyleSheet.create({
     card:{
-        margin:50,
+        marginTop:40,
+        width: windowWidth,
+        alignItems:"center"
     },
     image:{
         borderTopLeftRadius:5,
         borderTopRightRadius:5,
-        width: 0.75*windowWidth,
+        width: 0.8*windowWidth,
         height: 0.3*windowHeight,
         position: "relative"
     },
     infoContainer:{
-        width: 0.75*windowWidth,
+        width: 0.8*windowWidth,
         height: 0.07*windowHeight,
         backgroundColor:"rgba(217, 217, 217, 0.75)",
         position:'absolute',
@@ -34,19 +36,19 @@ const LocalCardStyles = StyleSheet.create({
     },
     fees:{
         position:'absolute',
-        right:0.02*windowWidth,
+        right:0.12*windowWidth,
         top: 0.25*windowHeight
     },
     categoryContainer:{
         flexDirection:"row",
         alignItems:"center",
         justifyContent:"center",
-        width: 0.75*windowWidth,
-        height: 0.06*windowHeight,
-        backgroundColor:"rgba(140, 87, 186, 0.34)",
+        width: 0.8*windowWidth,
+        height: 0.07*windowHeight,
+        backgroundColor:"rgba(140, 87, 186, 0.25)",
         borderBottomLeftRadius:5,
         borderBottomRightRadius:5
-    }
+    },
    
 });
 export default LocalCardStyles;
