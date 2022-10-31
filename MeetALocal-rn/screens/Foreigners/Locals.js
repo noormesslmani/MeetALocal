@@ -5,10 +5,33 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'
 import LocalsStyles from './Styles/LocalsPageStyles';
 import LocalCard from '../../components/Home/LocalsCard';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from 'axios';
 const Locals=({navigation})=> {
     const [viewFav, setViewFav]=useState(false)
+    const [locals, setLocals]=useState({})
     const { user, setUser} = useContext(UserContext);
-    console.log(user.type_id)
+    console.log(user.id)
+    useEffect(()=>{
+      console.log('hi')
+      getLocals()
+    },[])
+
+    async function getLocals(){
+      const token = await AsyncStorage.getItem('@token')
+      axios({
+        method: "get",
+        headers: { Authorization: `Bearer ${token}`},
+        url:"http://192.168.1.7:8000/api/v1.0.0/users/locals/all/all/all",
+      })
+      .then((response)=> {
+        setLocals(response.data.data)
+        return response;
+      })
+      .catch(function (error) {
+        console.warn(error)
+      });
+  }
   return (
 
       <View style={HomeStyles.container}>
