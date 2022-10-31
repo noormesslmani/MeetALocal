@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native'
+import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView } from 'react-native'
 import React from 'react'
 import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext } from "react";
@@ -9,13 +9,17 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 const Locals=({navigation})=> {
     const [viewFav, setViewFav]=useState(false)
-    const [locals, setLocals]=useState({})
+    const [data, setdata]=useState([])
     const { user, setUser} = useContext(UserContext);
     console.log(user.id)
     useEffect(()=>{
       console.log('hi')
-      getLocals()
-    },[])
+      if(!viewFav){
+        getLocals()}
+      else{
+        getFavorites()
+      }
+    },[viewFav])
 
     async function getLocals(){
       const token = await AsyncStorage.getItem('@token')
@@ -25,12 +29,27 @@ const Locals=({navigation})=> {
         url:"http://192.168.1.7:8000/api/v1.0.0/users/locals/all/all/all",
       })
       .then((response)=> {
-        setLocals(response.data.data)
+        setdata(response.data.data)
         return response;
       })
       .catch(function (error) {
         console.warn(error)
       });
+  }
+  async function getFavorites(){
+    const token = await AsyncStorage.getItem('@token')
+    axios({
+      method: "get",
+      headers: { Authorization: `Bearer ${token}`},
+      url:"http://192.168.1.7:8000/api/v1.0.0/foreigners/favorites",
+    })
+    .then((response)=> {
+      setdata(response.data.favorites)
+      return response;
+    })
+    .catch(function (error) {
+      console.warn(error)
+    });
   }
 
   const renderItem = ({ item }) => (
@@ -45,14 +64,15 @@ const Locals=({navigation})=> {
         </View>
         <View style={LocalsStyles.separator}/>
         <Text>Filter</Text>
-        <View>
+        <SafeAreaView>
           <FlatList
-            data={locals}
+            data={data}
             renderItem={renderItem}
             keyExtractor={item => item.id}
             style={LocalsStyles.list}
+            contentContainerStyle={{ paddingBottom: 300}}
           />
-        </View>
+        </SafeAreaView>
       </View>
     )
 }
