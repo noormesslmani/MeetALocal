@@ -15,10 +15,10 @@ import house from '../../assets/house.png'
 import languages from '../../assets/languages.png'
 import more from '../../assets/more.png'
 import jobs from '../../assets/suitcase.png'
-const FilterModal=({navigation, modalVisible, setModalVisible})=> {
-    const [country, setCountry]=useState('all');
-    const [openNationality, setOpenNationality] = useState(false);
-    const [category, setCategory]=useState('all');
+const FilterModal=({navigation, modalVisible, setModalVisible, setCountry, setCategory})=> {
+    const [selectedCountry, setSelectedCountry]=useState('all')
+    const [selectedCategory, setSelectedCategory]=useState('all')
+    const [openCountry, setOpenCountry] = useState(false);
     const [openCategory, setOpenCategory] = useState(false);
     const [countries, setcountries] = useState([
         {label: 'All countries', value: 'all'},
@@ -39,17 +39,21 @@ const FilterModal=({navigation, modalVisible, setModalVisible})=> {
       ]); 
     const [categories, setCategories] = useState([
     {label: 'All categories', value: 'all'},
-    {label: 'Tourism', value: 'tourism', icon: () => <Image source={tourism} style={{width:20, height:20}} />},
-    {label: 'Languages', value: 'languages', icon: () => <Image source={languages} style={{width:20, height:20}}/>},
-    {label: 'Culture', value: 'culture', icon: () => <Image source={cultures} style={{width:20, height:20}}/>},
-    {label: 'Education', value: 'education', icon: () => <Image source={education} style={{width:20, height:20}}/>},
-    {label: 'History', value: 'history', icon: () => <Image source={history} style={{width:20, height:20}}/>},
-    {label: 'Guidance', value: 'guidance', icon: () => <Image source={guidance} style={{width:20, height:20}}/>},
-    {label: 'Jobs', value: 'jobs', icon: () => <Image source={jobs} style={{width:20, height:20}}/>},
-    {label: 'Housing', value: 'housing', icon: () => <Image source={house} style={{width:20, height:20}}/>},
-    {label: 'Other', value: 'other', icon: () => <Image source={more} style={{width:20, height:20}}/>},
+    {label: 'Tourism', value: 'Tourism', icon: () => <Image source={tourism} style={{width:20, height:20}} />},
+    {label: 'Languages', value: 'Languages', icon: () => <Image source={languages} style={{width:20, height:20}}/>},
+    {label: 'Culture', value: 'Culture', icon: () => <Image source={cultures} style={{width:20, height:20}}/>},
+    {label: 'Education', value: 'Education', icon: () => <Image source={education} style={{width:20, height:20}}/>},
+    {label: 'History', value: 'History', icon: () => <Image source={history} style={{width:20, height:20}}/>},
+    {label: 'Guidance', value: 'Guidance', icon: () => <Image source={guidance} style={{width:20, height:20}}/>},
+    {label: 'Jobs', value: 'Jobs', icon: () => <Image source={jobs} style={{width:20, height:20}}/>},
+    {label: 'Housing', value: 'Housing', icon: () => <Image source={house} style={{width:20, height:20}}/>},
+    {label: 'Other', value: 'Other', icon: () => <Image source={more} style={{width:20, height:20}}/>},
     ]);
-    console.log(category)
+    const handleSave=()=>{
+        setModalVisible(!modalVisible)
+        setCountry(selectedCountry)
+        setCategory(selectedCategory)
+    }
   return (
     <Modal
         animationType="fade"
@@ -65,12 +69,12 @@ const FilterModal=({navigation, modalVisible, setModalVisible})=> {
             style={{marginTop:30}}
             zIndex={3000}
             zIndexInverse={1000}
-            open={openNationality}
-            value={country}
+            open={openCountry}
+            value={selectedCountry}
             dropDownDirection="BOTTOM"
             items={countries}
-            setOpen={setOpenNationality}
-            setValue={setCountry}
+            setOpen={setOpenCountry}
+            setValue={setSelectedCountry}
             setItems={setcountries}
             listMode="SCROLLVIEW"
             placeholder="Select a country"
@@ -87,11 +91,11 @@ const FilterModal=({navigation, modalVisible, setModalVisible})=> {
             zIndex={2000}
             zIndexInverse={2000}
             open={openCategory}
-            value={category}
+            value={selectedCategory}
             dropDownDirection="BOTTOM"
             items={categories}
             setOpen={setOpenCategory}
-            setValue={setCategory}
+            setValue={setSelectedCategory}
             setItems={setCategories}
             listMode="SCROLLVIEW"
             placeholder="Select a category"
@@ -106,8 +110,8 @@ const FilterModal=({navigation, modalVisible, setModalVisible})=> {
             />
             <Pressable
             style={ModalStyles.button}
-            onPress={() => setModalVisible(!modalVisible)}>
-            <Text style={ModalStyles.textStyle}>Save Changes</Text>
+            onPress={handleSave}>
+            <Text style={ModalStyles.textStyle}>Apply Filters</Text>
             </Pressable>
         </View>
         </View>

@@ -9,26 +9,27 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import FilterModal from '../../components/Home/FilterModal';
 const Locals=({navigation})=> {
+    const [country, setCountry]=useState('all');
+    const [category, setCategory]=useState('all');
     const [viewFav, setViewFav]=useState(false)
     const [data, setdata]=useState([])
     const [modalVisible, setModalVisible] = useState(false)
     const { user, setUser} = useContext(UserContext);
     console.log(user.id)
     useEffect(()=>{
-      console.log('hi')
       if(!viewFav){
         getLocals()}
       else{
         getFavorites()
       }
-    },[viewFav])
-
+    },[viewFav, country, category])
+    
     async function getLocals(){
       const token = await AsyncStorage.getItem('@token')
       axios({
         method: "get",
         headers: { Authorization: `Bearer ${token}`},
-        url:"http://192.168.1.7:8000/api/v1.0.0/users/locals/all/all/all",
+        url:`http://192.168.1.7:8000/api/v1.0.0/users/locals/${country}/${category}`,
       })
       .then((response)=> {
         setdata(response.data.data)
@@ -38,6 +39,7 @@ const Locals=({navigation})=> {
         console.warn(error)
       });
   }
+
   async function getFavorites(){
     const token = await AsyncStorage.getItem('@token')
     axios({
@@ -65,7 +67,7 @@ const Locals=({navigation})=> {
             <TouchableOpacity onPress={()=>setViewFav(true)}>{ <Text style={[LocalsStyles.options, viewFav? LocalsStyles.selected: null]}>Favorites</Text>}</TouchableOpacity>
         </View>}
         <TouchableOpacity onPress={()=>{setModalVisible(true)}}><Text style={{color:'grey', marginBottom:5}}>Filter</Text></TouchableOpacity>
-        <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible}/>
+        <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
         <View style={LocalsStyles.separator}/>
         <SafeAreaView>
           <FlatList
