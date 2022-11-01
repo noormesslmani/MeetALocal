@@ -15,13 +15,17 @@ import languages from '../../assets/languages.png'
 import more from '../../assets/more.png'
 import jobs from '../../assets/suitcase.png'
 import image from '../../assets/Baalbeck.jpg'
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from 'axios';
 const EventModal=({navigation, modalVisible, setModalVisible, item})=> {
    console.log(item) 
    const [categories, setCategories]=useState([])
     const [icons, setIcons]=useState([])
+    const [isSaved, setIsSaved]=useState(false)
     useEffect(()=>{
         setIcons([])
         setCategories(item.categories)
+        isEventSaved()
     },[])
     useEffect(()=>{
         for(let category of categories){
@@ -53,6 +57,23 @@ const EventModal=({navigation, modalVisible, setModalVisible, item})=> {
             }
         }
     },[categories])
+
+    async function isEventSaved(){
+      const token = await AsyncStorage.getItem('@token')
+      axios({
+        method: "get",
+        headers: { Authorization: `Bearer ${token}`},
+        url:`http://192.168.1.7:8000/api/v1.0.0/users/event/is-saved/${item.id}`,
+      })
+      .then((response)=> {
+        console.log(response.data.data)
+        response.data.data? setIsSaved(true): setIsSaved(false)
+        return response;
+      })
+      .catch(function (error) {
+        console.warn(error)
+      });
+    }
   return (
     <Modal
         animationType="fade"
@@ -66,7 +87,9 @@ const EventModal=({navigation, modalVisible, setModalVisible, item})=> {
             <Image source={image} style={EventModalStyles.image}/>
             <View style={EventModalStyles.titleContainer}>
               <Text style={{fontSize:20, fontWeight:"600"}}>{item.title}</Text>
-              <Pressable><Icon name="star-o" color="#FFD700" size={30} /></Pressable>
+              <Pressable>
+                {isSaved?<Icon name="star" color="#FFD700" size={30} />: <Icon name="star-o" color="#FFD700" size={30} />}
+              </Pressable>
             </View>
             <View style={EventModalStyles.infoContainer}>
               <Text style={{fontSize:13}}>By: {item.name}</Text>

@@ -32,7 +32,6 @@ const Events=({navigation})=> {
       url:`http://192.168.1.7:8000/api/v1.0.0/users/events/${country}/${category}`,
     })
     .then((response)=> {
-      console.log(response.data.data)
       setdata(response.data.data)
       return response;
     })
@@ -57,8 +56,7 @@ const Events=({navigation})=> {
     });
   }
   const renderItem = ({ item }) => (
-    <View style={EventsStyles.cardsContainer}>
-      <EventCard item={item} />
+    <View>
       <EventCard item={item} />
     </View>
   )
@@ -77,6 +75,8 @@ const Events=({navigation})=> {
           <FlatList
             data={data}
             renderItem={renderItem}
+            numColumns={2}
+            Key={2}
             keyExtractor={item => item.id}
             style={EventsStyles.list}
             contentContainerStyle={{paddingTop:20, paddingBottom: 300}}
