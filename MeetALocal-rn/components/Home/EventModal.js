@@ -57,7 +57,29 @@ const EventModal=({navigation, modalVisible, setModalVisible, item})=> {
             }
         }
     },[categories])
-
+    const handleSave=()=>{
+      toggleSave()
+    }
+    async function toggleSave(){
+      const token = await AsyncStorage.getItem('@token')
+      const data = {
+        event_id: item.id,
+      };
+      axios({
+        method: "post",
+        data,
+        headers: { Authorization: `Bearer ${token}`},
+        url:`http://192.168.1.7:8000/api/v1.0.0/users/event/saved`,
+      })
+      .then((response)=> {
+        console.log(response.data.data)
+        setIsSaved(! isSaved)
+        return response;
+      })
+      .catch(function (error) {
+        console.warn(error)
+      });
+    }
     async function isEventSaved(){
       const token = await AsyncStorage.getItem('@token')
       axios({
@@ -87,7 +109,7 @@ const EventModal=({navigation, modalVisible, setModalVisible, item})=> {
             <Image source={image} style={EventModalStyles.image}/>
             <View style={EventModalStyles.titleContainer}>
               <Text style={{fontSize:20, fontWeight:"600"}}>{item.title}</Text>
-              <Pressable>
+              <Pressable onPress={handleSave}>
                 {isSaved?<Icon name="star" color="#FFD700" size={30} />: <Icon name="star-o" color="#FFD700" size={30} />}
               </Pressable>
             </View>
