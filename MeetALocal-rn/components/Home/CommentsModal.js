@@ -11,13 +11,14 @@ import axios from 'axios';
 import CommentsModalStyles from '../ComponentsStyles/CommentsModalStyles';
 import Comment from './Comment';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-const CommentsModal=({navigation, modalVisible, setModalVisible, item})=> {
+const CommentsModal=({navigation, modalVisible, setModalVisible, item, totalComments, setTotalComments})=> {
     const [data, setData]= useState([])
     const [newComment, setNewComment]=useState(null)
     const [commentAdded, setCommentAdded]=useState(false)
     useEffect(()=>{
-        console.log(newComment)
-        getComments()
+        if(modalVisible){
+            getComments()
+        }
     },[commentAdded])
 
     const handleComment=()=>{
@@ -55,6 +56,7 @@ const CommentsModal=({navigation, modalVisible, setModalVisible, item})=> {
       })
       .then((response)=> {
         setCommentAdded(true)
+        setTotalComments(totalComments+1)
         return response;
       })
       .catch(function (error) {
@@ -82,7 +84,7 @@ const CommentsModal=({navigation, modalVisible, setModalVisible, item})=> {
                 </View>
                 <Text style={CommentsModalStyles.details}>{item.details}</Text>
                     <View style={{alignItems:"center"}}>
-                        <Text style={{fontSize:10, fontWeight:"300", marginBottom:3,marginLeft:10, alignSelf:"flex-start"}}>{item.comments} comments</Text>
+                        <Text style={{fontSize:10, fontWeight:"300", marginBottom:3,marginLeft:10, alignSelf:"flex-start"}}>{totalComments} comments</Text>
                     <View style={CommentsModalStyles.separator}/>
                 </View>
                 <ScrollView style={{marginBottom:10}}>
