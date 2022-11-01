@@ -30,5 +30,17 @@ const PostsStyles = StyleSheet.create({
         width:windowWidth,
         flex: 1
     },
+    scrollContainer:{
+        height:600,
+    },
+    addComment:{
+        backgroundColor:"white",
+        height:50,
+        justifyContent:"center",
+        padding:5,
+        position:"absolute",
+        top:windowHeight-150,
+        width:windowWidth
+    }
 });
 export default PostsStyles;
