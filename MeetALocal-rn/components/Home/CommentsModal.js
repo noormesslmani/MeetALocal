@@ -15,14 +15,15 @@ const CommentsModal=({navigation, modalVisible, setModalVisible, item})=> {
     const [data, setData]= useState([])
     const [newComment, setNewComment]=useState(null)
     const [commentAdded, setCommentAdded]=useState(false)
-
     useEffect(()=>{
+        console.log(newComment)
         getComments()
-        console.log(data.length)
     },[commentAdded])
+
     const handleComment=()=>{
       if(newComment){
         addComment()
+        setNewComment(null)
       }
     }
     async function getComments(){
@@ -33,7 +34,6 @@ const CommentsModal=({navigation, modalVisible, setModalVisible, item})=> {
           url:`http://192.168.1.7:8000/api/v1.0.0/users/comments/${item.id}`,
         })
         .then((response)=> {
-          console.log(response.data)
           setData(response.data.data)
           return response;
         })
@@ -85,15 +85,15 @@ const CommentsModal=({navigation, modalVisible, setModalVisible, item})=> {
                         <Text style={{fontSize:10, fontWeight:"300", marginBottom:3,marginLeft:10, alignSelf:"flex-start"}}>{item.comments} comments</Text>
                     <View style={CommentsModalStyles.separator}/>
                 </View>
-                <ScrollView style={{marginBottom:70}}>
+                <ScrollView style={{marginBottom:10}}>
                     {data.map((comment)=><Comment comment={comment}/>)}
                 </ScrollView>
-                <KeyboardAvoidingView style={CommentsModalStyles.addComment}>
+                <View style={CommentsModalStyles.addComment}>
                 <TextInput placeholder='Add a comment' onChangeText={setNewComment} value={newComment} />
                 <TouchableOpacity style={{position:"absolute", right:20}} onPress={handleComment}>
                     <Icon name="send" color="blue" size={20}/>
                 </TouchableOpacity>
-                </KeyboardAvoidingView>
+                </View>
             </View>
         </View>
     </Modal>
