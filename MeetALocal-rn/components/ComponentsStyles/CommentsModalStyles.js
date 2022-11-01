@@ -39,7 +39,7 @@ const CommentsModalStyles = StyleSheet.create({
     },
     details:{
       fontSize:11, 
-      marginLeft:70, 
+      marginLeft:"20%", 
       fontWeight:"300", 
       alignSelf:"flex-start",
       marginBottom:10
@@ -50,13 +50,15 @@ const CommentsModalStyles = StyleSheet.create({
     width: 1*windowWidth,
 },
 addComment:{
-  backgroundColor:"white",
   height:50,
   justifyContent:"center",
   padding:5,
   position:"absolute",
-  top:windowHeight-150,
-  width:windowWidth
+  top:"90%",
+  width:"95%",
+  borderRadius:10,
+  borderColor:"grey",
+  borderWidth:0.5
 }
 
 });

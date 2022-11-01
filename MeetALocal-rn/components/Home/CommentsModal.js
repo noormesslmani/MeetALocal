@@ -85,7 +85,7 @@ const CommentsModal=({navigation, modalVisible, setModalVisible, item})=> {
                         <Text style={{fontSize:10, fontWeight:"300", marginBottom:3,marginLeft:10, alignSelf:"flex-start"}}>{item.comments} comments</Text>
                     <View style={CommentsModalStyles.separator}/>
                 </View>
-                <ScrollView style={{marginBottom:150}}>
+                <ScrollView style={{marginBottom:70}}>
                     {data.map((comment)=><Comment comment={comment}/>)}
                 </ScrollView>
                 <KeyboardAvoidingView style={CommentsModalStyles.addComment}>
