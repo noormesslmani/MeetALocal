@@ -19,7 +19,6 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import Posts from '../Foreigners/Posts';
 import Events from '../Foreigners/Events';
 import Locals from '../Foreigners/Locals';
-import Post from '../Foreigners/Post';
 export default function RootNavigation() {
 
   const Stack = createNativeStackNavigator();
@@ -36,7 +35,6 @@ export default function RootNavigation() {
         <Stack.Screen name="categories" options={{headerTitle: () => <Logo/>,}} component={Categories} />
         <Stack.Screen name="tabs" options={{headerTitle: () => <Logo/>,  headerBackVisible:false}} component={MyTabs} />
         <Stack.Screen  name="posts" component={Posts} options={{headerTitle: () => <Logo/>,}}/>
-        <Stack.Screen  name="post" component={Post} options={{headerTitle: () => <Logo/>,}}/>
         <Stack.Screen  name="events" component={Events} options={{headerTitle: () => <Logo/>,}}/>
         <Stack.Screen  name="locals" component={Locals} options={{headerTitle: () => <Logo/>,}}/>
       </Stack.Navigator>
