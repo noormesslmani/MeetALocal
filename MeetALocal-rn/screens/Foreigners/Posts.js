@@ -38,7 +38,7 @@ const Posts=({navigation})=> {
    });
   }
   const renderItem = ({ item }) => (
-    <PostCard item={item} />);
+    <PostCard item={item} navigation={navigation} />);
   return (
       <View style={HomeStyles.container}>
         <Text style={PostsStyles.title}>Posts</Text>
