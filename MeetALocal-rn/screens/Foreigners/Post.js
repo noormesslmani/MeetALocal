@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, Modal, Pressable, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, Modal, Pressable, StyleSheet, ScrollView } from 'react-native'
 import React from 'react'
 import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext } from "react";
@@ -20,11 +20,12 @@ import { useRoute } from '@react-navigation/native';
 import image from '../../assets/profile.jpg'
 import Comment from '../../components/Home/Comment';
 const Post=({navigation})=> {
-    const [data, setData]= useState({})
+    const [data, setData]= useState([])
     const route = useRoute();
     const item= route.params.item
     useEffect(()=>{
         getComments()
+        console.log(data.length)
     },[])
     async function getComments(){
         const token = await AsyncStorage.getItem('@token')
@@ -34,18 +35,13 @@ const Post=({navigation})=> {
           url:`http://192.168.1.7:8000/api/v1.0.0/users/comments/${item.id}`,
         })
         .then((response)=> {
-          setData(response.data)
+          setData(response.data.data)
           return response;
         })
         .catch(function (error) {
           console.warn(error)
         });
       }
-    const renderItem = ({ item }) => (
-    <View>
-        <Comment item={item} />
-    </View>
-    )
   return (
     <View style={PostsStyles.eventContainer}>
         <View style={PostCardStyles.headerContainer}>
@@ -62,17 +58,10 @@ const Post=({navigation})=> {
           <Text style={{fontSize:10, fontWeight:"200", marginBottom:3,marginLeft:10, alignSelf:"flex-start"}}>{item.comments} comments</Text>
           <View style={PostsStyles.separator}/>
         </View>
-        <Comment/>
-        {/* <SafeAreaView>
-          <FlatList
-            data={data}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-            style={PostsStyles.list}
-            contentContainerStyle={{paddingTop:20, paddingBottom: 300}}
-          />
-        </SafeAreaView> */}
-
+        <ScrollView>
+          {data.map((comment)=><Comment comment={comment}/>)}
+        </ScrollView>
+      
     </View>
     )
 }

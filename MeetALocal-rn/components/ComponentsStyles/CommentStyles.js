@@ -7,7 +7,7 @@ const CommentStyles = StyleSheet.create({
         flexDirection:"row",
         justifyContent:"space-between",
         width:0.9*windowWidth,
-        padding:5,
+        padding:10,
     },
     image:{
         width:50,
