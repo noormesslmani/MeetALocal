@@ -19,6 +19,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::get('/event/is-saved/{id}', [UserController::class, 'isSaved']);
             Route::get('/events/saved', [UserController::class, 'getSavedEvents']);
             Route::get('/posts/{country}/{category}', [UserController::class, 'getPosts']);
+            Route::get('/posts', [UserController::class, 'getOwnPosts']);
             Route::get('/post/{id}', [UserController::class, 'getPost']);
             Route::post('/comment', [UserController::class, 'addComment']);
             Route::get('/comments/{id}', [UserController::class, 'getComments']);

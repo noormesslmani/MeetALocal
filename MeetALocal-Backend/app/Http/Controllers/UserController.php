@@ -121,6 +121,20 @@ class UserController extends Controller
             'data' => $posts,
         ], 201);
     }
+    public function getOwnPosts(){
+        $posts= Auth::user()->posts()->get();
+        foreach($posts as $post){
+            $comments=Comment::where('post_id',$post->id)->count();
+            $post['comments']= $comments;
+            $category= $post->categories()->pluck('category');
+            $post['categories']=$category;
+        }
+        return response()->json([
+            'message' => 'ok',
+            'data'=>$posts
+        ], 201);
+
+    }
     public function getPost($id){
         $post=Post::find($id);
         $user= $post->user()->get(['name'])[0]['name'];
@@ -153,7 +167,6 @@ class UserController extends Controller
             $user=User::where('id', $comment->user_id)->get()[0];
             $comment['user']=$user;
         }
-        print($comments);
         return response()->json([
             'message' => 'ok',
             'data' => $comments,
