@@ -14,12 +14,7 @@ const Events=({navigation})=> {
   const [category, setCategory]=useState('all');
   const [data, setdata]=useState([])
 
-  const renderItem = ({ item }) => (
-    <View style={{flexDirection:"row"}}>
-      <EventCard item={item} />
-      <EventCard item={item} />
-    </View>
-  )
+  
   useEffect(()=>{
     if(!viewSaved){
       getEvents()}
@@ -41,6 +36,14 @@ const Events=({navigation})=> {
       console.warn(error)
     });
   }
+
+  const renderItem = ({ item }) => (
+    <View style={EventsStyles.cardsContainer}>
+      <EventCard item={item} />
+      <EventCard item={item} />
+    </View>
+  )
+
   return (
     <View style={HomeStyles.container}>
         <Text style={EventsStyles.title}>Events</Text>
@@ -52,18 +55,14 @@ const Events=({navigation})=> {
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
         <View style={EventsStyles.separator}/>
         <SafeAreaView>
-          {/* <FlatList
+          <FlatList
             data={data}
             renderItem={renderItem}
             keyExtractor={item => item.id}
-            style={LocalsStyles.list}
-            contentContainerStyle={{ paddingBottom: 300}}
-          /> */}
+            style={EventsStyles.list}
+            contentContainerStyle={{paddingTop:20, paddingBottom: 300}}
+          />
         </SafeAreaView>
-        <View style={{flexDirection:"row"}}>
-          <EventCard />
-          <EventCard />
-        </View>
       </View>
   )
 }
