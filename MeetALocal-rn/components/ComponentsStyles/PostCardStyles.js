@@ -42,6 +42,20 @@ const PostCardStyles = StyleSheet.create({
         flexDirection:"row",
         alignItems:"center",
         justifyContent:"center"
+    },
+    commentsContainer:{
+        position:"absolute",
+        top:"98%",
+        left:"93%",
+        flexDirection:"row",
+        alignItems:"center",
+        justifyContent:"center"
+    },
+    comments:{
+        fontSize:11, 
+        fontWeight:"300", 
+        margin:2,
+        fontWeight:"100"
     }
    
 });

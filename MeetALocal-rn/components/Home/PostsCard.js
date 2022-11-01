@@ -16,7 +16,7 @@ import more from '../../assets/more.png'
 import jobs from '../../assets/suitcase.png'
 import image from '../../assets/profile.jpg'
 const PostCard=({navigation, item})=> {
-    
+
     const [categories, setCategories]=useState([])
     const [icons, setIcons]=useState([])
     const handlePost=()=>{
@@ -34,6 +34,10 @@ const PostCard=({navigation, item})=> {
             </View>
         </View>
         <Text style={{fontSize:11, marginLeft:60, fontWeight:"200", alignSelf:"flex-start"}}>{item.details}</Text>
+        <View style={PostCardStyles.commentsContainer}>
+            <Text style={PostCardStyles.comments}>{item.comments}</Text>
+            <Icon name="comment-o" color="rgba(140, 87, 186, 0.34)" size={15} /> 
+        </View>
     </TouchableOpacity>
   )
 }

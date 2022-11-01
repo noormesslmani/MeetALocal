@@ -3,7 +3,6 @@ import React from 'react'
 import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'
-import LocalCard from '../../components/Home/LocalsCard';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import PostsStyles from './Styles/PostsStyles';
