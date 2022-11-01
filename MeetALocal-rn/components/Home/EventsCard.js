@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import EventCardStyles from '../ComponentsStyles/EventCardStyles';
 import image from '../../assets/Baalbeck.jpg'
 const EventCard=({navigation, item})=> {
-    console.log(item.title)
+   
   return (
     
     <TouchableOpacity style={EventCardStyles.cardContainer}>

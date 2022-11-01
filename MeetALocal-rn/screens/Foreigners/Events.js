@@ -17,7 +17,11 @@ const Events=({navigation})=> {
   
   useEffect(()=>{
     if(!viewSaved){
-      getEvents()}
+      getEvents()
+    }
+    else{
+      getSavedEvents()
+    }
   },[viewSaved, country, category])
   
   async function getEvents(){
@@ -37,6 +41,22 @@ const Events=({navigation})=> {
     });
   }
 
+  async function getSavedEvents(){
+    const token = await AsyncStorage.getItem('@token')
+    axios({
+      method: "get",
+      headers: { Authorization: `Bearer ${token}`},
+      url:`http://192.168.1.7:8000/api/v1.0.0/users/events/saved`,
+    })
+    .then((response)=> {
+      console.log(response.data.data)
+      setdata(response.data.data)
+      return response;
+    })
+    .catch(function (error) {
+      console.warn(error)
+    });
+  }
   const renderItem = ({ item }) => (
     <View style={EventsStyles.cardsContainer}>
       <EventCard item={item} />
