@@ -43,11 +43,10 @@ class UserController extends Controller
             'data' => $user
         ], 201);
     }
-    public function getEvents($country, $fees, $category){
+    public function getEvents($country, $category){
         $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
-        $fees=='all'? $fees=100:$fees='all';
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
-        $events= Event::join('event_categories','events.id','=','event_id')->join('categories','event_categories.category_id','=','categories.id')->join('countries','events.country_id','=','countries.id')->join('users','events.organizer_id','=','users.id')->where('events.fees','<=',$fees)->whereIn('events.country_id',$country_id)->whereIn('event_categories.category_id',$category_id)->orderBy('events.id', 'desc')->select('events.*','countries.country','users.name')->distinct()->latest()->get();
+        $events= Event::join('event_categories','events.id','=','event_id')->join('categories','event_categories.category_id','=','categories.id')->join('countries','events.country_id','=','countries.id')->join('users','events.organizer_id','=','users.id')->whereIn('events.country_id',$country_id)->whereIn('event_categories.category_id',$category_id)->orderBy('events.id', 'desc')->select('events.*','countries.country','users.name')->distinct()->latest()->get();
         foreach($events as $event){
             $category= $event->categories()->pluck('category');
             $event['categories']=$category;
@@ -88,6 +87,18 @@ class UserController extends Controller
         return response()->json([
             'message' => 'ok',
             'data' => $data,
+        ], 201);
+    }
+    public function isSaved($id){
+        if(Auth::user()->savedEvents()->where('event_id',$id)->exists()){
+            return response()->json([
+                'message' => 'ok',
+                'data'=>true
+            ], 201);
+        }
+        return response()->json([
+            'message' => 'ok',
+            'data'=>false
         ], 201);
     }
     public function getPosts($country, $category){
