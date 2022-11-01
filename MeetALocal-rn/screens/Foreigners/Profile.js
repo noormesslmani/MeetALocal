@@ -5,7 +5,7 @@ import HomeStyles from './Styles/HomeStyles';
 const Profile=({navigation})=> {
   return (
     <View style={HomeStyles.container}>
-        <Text>Profile Page</Text>
+        <Text>Profile Page 123</Text>
     </View>
   )
 }

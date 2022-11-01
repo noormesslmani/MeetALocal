@@ -127,7 +127,9 @@ const EventModal=({navigation, modalVisible, setModalVisible, item})=> {
             </View>
             <View style={EventModalStyles.detailsContianer}>
               <Text style={{fontWeight:"400"}}>Categories:</Text>
+              <View style={{flexDirection:"row"}}>
               {icons.map((icon)=><Image source={icon} style={{width:35, height:35, margin:15}} />)}
+              </View>
             </View>
             
         </View>
