@@ -83,10 +83,14 @@ class UserController extends Controller
         ], 201);
     }
     public function getSavedEvents(){
-        $data= Auth::user()->savedEvents()->get();
+        $events= Auth::user()->savedEvents()->get();
+        foreach($events as $event){
+            $category= $event->categories()->pluck('category');
+            $event['categories']=$category;
+        }
         return response()->json([
             'message' => 'ok',
-            'data' => $data,
+            'data' => $events,
         ], 201);
     }
     public function isSaved($id){
