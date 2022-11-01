@@ -53,12 +53,11 @@ addComment:{
   height:50,
   justifyContent:"center",
   padding:5,
-  position:"absolute",
-  top:"90%",
   width:"95%",
   borderRadius:10,
   borderColor:"grey",
-  borderWidth:0.5
+  borderWidth:0.5,
+  marginBottom:10
 }
 
 });
