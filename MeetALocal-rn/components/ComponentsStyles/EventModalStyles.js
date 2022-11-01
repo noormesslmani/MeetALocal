@@ -43,7 +43,7 @@ const EventModalStyles = StyleSheet.create({
       },
       image:{
         width:0.9*windowWidth,
-        flex:0.5,
+        height:0.25*windowHeight,
         borderTopLeftRadius:20,
         borderTopRightRadius:20,
         marginBottom:10
@@ -51,8 +51,18 @@ const EventModalStyles = StyleSheet.create({
       titleContainer:{
         flexDirection:"row",
         width:0.8*windowWidth,
-        justifyContent:"space-between"
-      }
+        justifyContent:"space-between",
+        marginBottom:10
+      },
+      infoContainer:{
+        alignSelf:"flex-start",
+        width:0.8*windowWidth,
+        marginLeft:0.05*windowWidth
+      },
+      detailsContianer:{
+        marginTop:30,
+        width:0.8*windowWidth,
+      },
 
 });
 export default EventModalStyles;
