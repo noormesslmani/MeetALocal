@@ -15,14 +15,17 @@ import languages from '../../assets/languages.png'
 import more from '../../assets/more.png'
 import jobs from '../../assets/suitcase.png'
 import image from '../../assets/profile.jpg'
+import CommentsModal from './CommentsModal';
+
 const PostCard=({navigation, item})=> {
 
     const [categories, setCategories]=useState([])
     const [icons, setIcons]=useState([])
+    const [modalVisible, setModalVisible]=useState(false)
     const handlePost=()=>{
-        navigation.navigate('post', {item})
-    }
-  return (
+    console.log('pressed')
+    setModalVisible(true)}
+  return (<>
     <TouchableOpacity style={PostCardStyles.card} onPress={handlePost}>
         <View style={PostCardStyles.headerContainer}>
             <View style={{flexDirection:"row"}}>
@@ -39,6 +42,8 @@ const PostCard=({navigation, item})=> {
             <Icon name="comment-o" color="rgba(140, 87, 186, 0.34)" size={15} /> 
         </View>
     </TouchableOpacity>
+    <CommentsModal modalVisible={modalVisible} setModalVisible={setModalVisible} item={item}/>
+    </>
   )
 }
 export default PostCard
