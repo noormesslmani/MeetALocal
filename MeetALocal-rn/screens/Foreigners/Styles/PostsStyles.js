@@ -29,6 +29,9 @@ const PostsStyles = StyleSheet.create({
     list:{
         width:windowWidth,
         flex: 1
+    },
+    eventContainer:{
+        padding:20
     }
 });
 export default PostsStyles;
