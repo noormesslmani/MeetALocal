@@ -27,7 +27,13 @@ const EventsStyles = StyleSheet.create({
     },
     list:{
         width:windowWidth,
-        flex: 1
+        flex: 1,
+    },
+    cardsContainer:{
+        width:windowWidth,
+        flexDirection:"row",
+        alignItems:"center",
+        justifyContent:"center"
     }
 });
 export default EventsStyles;

@@ -5,7 +5,7 @@ const windowHeight = Dimensions.get("window").height;
 const EventCardStyles = StyleSheet.create({
     cardContainer:{
         margin:5,
-        marginTop:40,
+        marginTop:15,
         borderRadius:20,
         width:0.43*windowWidth,
         height:0.43*windowWidth,
@@ -27,7 +27,9 @@ const EventCardStyles = StyleSheet.create({
     },
     title:{
         fontSize:15,
-        marginLeft:7
+        marginLeft:7,
+        fontWeight:"400",
+        marginBottom:1
     },
     info:{
         fontSize:10,
