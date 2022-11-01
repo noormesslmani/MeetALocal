@@ -6,6 +6,7 @@ import EventsStyles from './Styles/EventsPageStyles';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import FilterModal from '../../components/Home/FilterModal';
+import EventCard from '../../components/Home/EventsCard';
 const Events=({navigation})=> {
   const [viewSaved, setViewSaved]=useState(false)
   const [modalVisible, setModalVisible] = useState(false)
@@ -59,6 +60,10 @@ const Events=({navigation})=> {
             contentContainerStyle={{ paddingBottom: 300}}
           /> */}
         </SafeAreaView>
+        <View style={{flexDirection:"row"}}>
+          <EventCard />
+          <EventCard />
+        </View>
       </View>
   )
 }
