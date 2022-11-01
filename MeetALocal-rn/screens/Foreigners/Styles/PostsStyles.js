@@ -24,14 +24,11 @@ const PostsStyles = StyleSheet.create({
     separator:{
         borderBottomColor: 'grey',
         borderBottomWidth: 0.3,
-        width: 0.9*windowWidth,
+        width: 1*windowWidth,
     },
     list:{
         width:windowWidth,
         flex: 1
     },
-    eventContainer:{
-        padding:20
-    }
 });
 export default PostsStyles;

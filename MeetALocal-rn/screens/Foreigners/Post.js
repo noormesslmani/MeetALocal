@@ -18,11 +18,11 @@ import more from '../../assets/more.png'
 import jobs from '../../assets/suitcase.png'
 import { useRoute } from '@react-navigation/native';
 import image from '../../assets/profile.jpg'
+import Comment from '../../components/Home/Comment';
 const Post=({navigation})=> {
-    const [comments, setComments]= useState({})
+    const [data, setData]= useState({})
     const route = useRoute();
     const item= route.params.item
-    console.log(item)
     useEffect(()=>{
         getComments()
     },[])
@@ -34,13 +34,18 @@ const Post=({navigation})=> {
           url:`http://192.168.1.7:8000/api/v1.0.0/users/comments/${item.id}`,
         })
         .then((response)=> {
-          setComments(response.data)
+          setData(response.data)
           return response;
         })
         .catch(function (error) {
           console.warn(error)
         });
       }
+    const renderItem = ({ item }) => (
+    <View>
+        <Comment item={item} />
+    </View>
+    )
   return (
     <View style={PostsStyles.eventContainer}>
         <View style={PostCardStyles.headerContainer}>
@@ -53,8 +58,21 @@ const Post=({navigation})=> {
             </View>
         </View>
         <Text style={PostCardStyles.details}>{item.details}</Text>
-        <Text style={{fontSize:10, fontWeight:"200", marginBottom:2}}>{item.comments} comments</Text>
-        <View style={PostsStyles.separator}/>
+        <View style={{alignItems:"center"}}>
+          <Text style={{fontSize:10, fontWeight:"200", marginBottom:3,marginLeft:10, alignSelf:"flex-start"}}>{item.comments} comments</Text>
+          <View style={PostsStyles.separator}/>
+        </View>
+        <Comment/>
+        {/* <SafeAreaView>
+          <FlatList
+            data={data}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            style={PostsStyles.list}
+            contentContainerStyle={{paddingTop:20, paddingBottom: 300}}
+          />
+        </SafeAreaView> */}
+
     </View>
     )
 }
