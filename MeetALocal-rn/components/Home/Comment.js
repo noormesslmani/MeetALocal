@@ -8,7 +8,7 @@ import image from '../../assets/profile.jpg'
 import EventModal from './EventModal';
 import CommentStyles from '../ComponentsStyles/CommentStyles';
 const Comment=({navigation, item, comment})=> {
-  console.log(comment)
+  
   return (
     <View style={CommentStyles.commentContainer}>
         <View style={CommentStyles.headerContainer}>

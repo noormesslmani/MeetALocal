@@ -26,6 +26,7 @@
     "react-native-dropdown-picker": "^5.4.2",
     "react-native-dropdown-select-list": "^1.0.23",
     "react-native-gesture-handler": "~2.5.0",
+    "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-modal-datetime-picker": "^14.0.0",
     "react-native-multiselect-dropdown-picker": "^1.0.2",
     "react-native-picker-select": "^8.0.4",
