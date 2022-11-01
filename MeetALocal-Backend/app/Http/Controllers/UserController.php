@@ -128,6 +128,8 @@ class UserController extends Controller
             $post['comments']= $comments;
             $category= $post->categories()->pluck('category');
             $post['categories']=$category;
+            $post['name']=Auth::user()->name;
+            $post['country']=Auth::user()->residence['country'];
         }
         return response()->json([
             'message' => 'ok',
