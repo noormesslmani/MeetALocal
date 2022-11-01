@@ -49,7 +49,6 @@ const Events=({navigation})=> {
       url:`http://192.168.1.7:8000/api/v1.0.0/users/events/saved`,
     })
     .then((response)=> {
-      console.log(response.data.data)
       setdata(response.data.data)
       return response;
     })
