@@ -19,9 +19,11 @@ const PostCard=({navigation, item})=> {
     
     const [categories, setCategories]=useState([])
     const [icons, setIcons]=useState([])
-    console.log(item)
+    const handlePost=()=>{
+        navigation.navigate('post', {item})
+    }
   return (
-    <TouchableOpacity style={PostCardStyles.card}>
+    <TouchableOpacity style={PostCardStyles.card} onPress={handlePost}>
         <View style={PostCardStyles.headerContainer}>
             <View style={{flexDirection:"row"}}>
                 <Image source={image} style={PostCardStyles.image} />
@@ -31,7 +33,7 @@ const PostCard=({navigation, item})=> {
                 </View>
             </View>
         </View>
-        <Text style={{fontSize:11, marginLeft:60, fontWeight:"200"}}>{item.details}</Text>
+        <Text style={{fontSize:11, marginLeft:60, fontWeight:"200", alignSelf:"flex-start"}}>{item.details}</Text>
     </TouchableOpacity>
   )
 }
