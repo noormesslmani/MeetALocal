@@ -56,6 +56,13 @@ const PostCardStyles = StyleSheet.create({
         fontWeight:"300", 
         margin:2,
         fontWeight:"100"
+    },
+    details:{
+        fontSize:11, 
+        marginLeft:70, 
+        fontWeight:"200", 
+        alignSelf:"flex-start",
+        marginBottom:40
     }
    
 });
