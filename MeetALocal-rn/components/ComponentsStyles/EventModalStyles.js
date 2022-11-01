@@ -62,6 +62,7 @@ const EventModalStyles = StyleSheet.create({
       detailsContianer:{
         marginTop:30,
         width:0.8*windowWidth,
+        height:0.15*windowHeight
       },
 
 });
