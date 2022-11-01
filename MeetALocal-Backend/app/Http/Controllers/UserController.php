@@ -110,6 +110,8 @@ class UserController extends Controller
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
         $posts= Post::join('post_categories','posts.id','=','post_id')->join('categories','post_categories.category_id','=','categories.id')->join('countries','posts.country_id','=','countries.id')->join('users','posts.user_id','=','users.id')->whereIn('posts.country_id',$country_id)->whereIn('post_categories.category_id',$category_id)->orderBy('posts.id', 'desc')->select('posts.*','countries.country','users.name')->distinct()->latest()->get();
         foreach($posts as $post){
+            $comments=Comment::where('post_id',$post->id)->count();
+            $post['comments']= $comments;
             $category= $post->categories()->pluck('category');
             $post['categories']=$category;
         }
