@@ -19,9 +19,28 @@ import jobs from '../../assets/suitcase.png'
 import { useRoute } from '@react-navigation/native';
 import image from '../../assets/profile.jpg'
 const Post=({navigation})=> {
+    const [comments, setComments]= useState({})
     const route = useRoute();
     const item= route.params.item
     console.log(item)
+    useEffect(()=>{
+        getComments()
+    },[])
+    async function getComments(){
+        const token = await AsyncStorage.getItem('@token')
+        axios({
+          method: "get",
+          headers: { Authorization: `Bearer ${token}`},
+          url:`http://192.168.1.7:8000/api/v1.0.0/users/comments/${item.id}`,
+        })
+        .then((response)=> {
+          setComments(response.data)
+          return response;
+        })
+        .catch(function (error) {
+          console.warn(error)
+        });
+      }
   return (
     <View style={PostsStyles.eventContainer}>
         <View style={PostCardStyles.headerContainer}>
