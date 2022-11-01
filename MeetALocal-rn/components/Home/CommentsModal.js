@@ -15,11 +15,13 @@ const CommentsModal=({navigation, modalVisible, setModalVisible, item, totalComm
     const [data, setData]= useState([])
     const [newComment, setNewComment]=useState(null)
     const [commentAdded, setCommentAdded]=useState(false)
+  
     useEffect(()=>{
         if(modalVisible){
+            console.log('hello')
             getComments()
         }
-    },[commentAdded])
+    },[commentAdded, modalVisible])
 
     const handleComment=()=>{
       if(newComment){
