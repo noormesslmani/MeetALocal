@@ -39,7 +39,7 @@ const Events=({navigation})=> {
       console.warn(error)
     });
   }
-
+  
   async function getSavedEvents(){
     const token = await AsyncStorage.getItem('@token')
     axios({

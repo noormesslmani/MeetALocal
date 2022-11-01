@@ -20,7 +20,7 @@ const PostCard=({navigation, item})=> {
     const [categories, setCategories]=useState([])
     const [icons, setIcons]=useState([])
     const handlePost=()=>{
-        navigation.navigate('post', {item})
+        navigation.navigate('post-details', {item})
     }
   return (
     <TouchableOpacity style={PostCardStyles.card} onPress={handlePost}>

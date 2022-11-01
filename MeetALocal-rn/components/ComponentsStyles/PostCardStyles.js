@@ -25,8 +25,8 @@ const PostCardStyles = StyleSheet.create({
         flexDirection:"row",
         justifyContent:"space-between",
         width:0.9*windowWidth,
-        paddingLeft:10,
-        paddingRight:10
+        padding:10,
+        paddingBottom:0
     },
     image:{
         width:50,
@@ -60,9 +60,9 @@ const PostCardStyles = StyleSheet.create({
     details:{
         fontSize:11, 
         marginLeft:70, 
-        fontWeight:"200", 
+        fontWeight:"300", 
         alignSelf:"flex-start",
-        marginBottom:40
+        marginBottom:10
     }
    
 });

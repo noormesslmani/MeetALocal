@@ -37,6 +37,7 @@ const Posts=({navigation})=> {
       console.warn(error)
    });
   }
+  
   const renderItem = ({ item }) => (
     <PostCard item={item} navigation={navigation} />);
   return (

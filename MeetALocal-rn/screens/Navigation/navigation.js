@@ -36,7 +36,7 @@ export default function RootNavigation() {
         <Stack.Screen name="categories" options={{headerTitle: () => <Logo/>,}} component={Categories} />
         <Stack.Screen name="tabs" options={{headerTitle: () => <Logo/>,  headerBackVisible:false}} component={MyTabs} />
         <Stack.Screen  name="posts" component={Posts} options={{headerTitle: () => <Logo/>,}}/>
-        <Stack.Screen  name="post" component={Post} options={{headerTitle: () => <Logo/>,}}/>
+        <Stack.Screen  name="post-details" component={Post} options={{headerTitle: () => <Logo/>,}}/>
         <Stack.Screen  name="events" component={Events} options={{headerTitle: () => <Logo/>,}}/>
         <Stack.Screen  name="locals" component={Locals} options={{headerTitle: () => <Logo/>,}}/>
       </Stack.Navigator>

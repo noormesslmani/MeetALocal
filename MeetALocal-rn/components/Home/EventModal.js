@@ -18,7 +18,7 @@ import image from '../../assets/Baalbeck.jpg'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 const EventModal=({navigation, modalVisible, setModalVisible, item})=> {
-   console.log(item) 
+  
    const [categories, setCategories]=useState([])
     const [icons, setIcons]=useState([])
     const [isSaved, setIsSaved]=useState(false)
@@ -72,7 +72,6 @@ const EventModal=({navigation, modalVisible, setModalVisible, item})=> {
         url:`http://192.168.1.7:8000/api/v1.0.0/users/event/saved`,
       })
       .then((response)=> {
-        console.log(response.data.data)
         setIsSaved(! isSaved)
         return response;
       })
@@ -88,7 +87,6 @@ const EventModal=({navigation, modalVisible, setModalVisible, item})=> {
         url:`http://192.168.1.7:8000/api/v1.0.0/users/event/is-saved/${item.id}`,
       })
       .then((response)=> {
-        console.log(response.data.data)
         response.data.data? setIsSaved(true): setIsSaved(false)
         return response;
       })
