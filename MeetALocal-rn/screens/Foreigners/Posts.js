@@ -14,6 +14,29 @@ const Posts=({navigation})=> {
   const [category, setCategory]=useState('all');
   const [data, setdata]=useState([])
   const [modalVisible, setModalVisible] = useState(false)
+  useEffect(()=>{
+    if(!viewOwn){
+      getPosts()}
+    // else{
+    //   getFavorites()
+    // }
+  },[viewOwn, country, category])
+  async function getPosts(){
+    const token = await AsyncStorage.getItem('@token')
+    axios({
+      method: "get",
+      headers: { Authorization: `Bearer ${token}`},
+      url:`http://192.168.1.7:8000/api/v1.0.0/users/posts/${country}/${category}`,
+    })
+    .then((response)=> {
+      console.log(response.data.data)
+      setdata(response.data.data)
+      return response;
+    })
+    .catch(function (error) {
+      console.warn(error)
+    });
+}
   return (
       <View style={HomeStyles.container}>
         <Text style={PostsStyles.title}>Posts</Text>
