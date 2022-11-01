@@ -21,6 +21,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::get('/posts/{country}/{category}', [UserController::class, 'getPosts']);
             Route::get('/post/{id}', [UserController::class, 'getPost']);
             Route::post('/comment', [UserController::class, 'addComment']);
+            Route::get('/comments/{id}', [UserController::class, 'getComments']);
             Route::post('/post', [UserController::class, 'createPost']);
             Route::get('/chats/{id?}', [UserController::class, 'getChats']);
             Route::post('/chat', [UserController::class, 'createChat']);
