@@ -41,6 +41,11 @@ const PostsStyles = StyleSheet.create({
         position:"absolute",
         top:windowHeight-150,
         width:windowWidth
+    },
+    newPost:{
+        margin:10,
+        fontSize:12,
+        color:"#8C57BA"
     }
 });
 export default PostsStyles;

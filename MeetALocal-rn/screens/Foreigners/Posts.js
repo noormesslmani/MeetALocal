@@ -9,15 +9,19 @@ import axios from 'axios';
 import FilterModal from '../../components/Home/FilterModal';
 import PostsStyles from './Styles/PostsStyles';
 import PostCard from '../../components/Home/PostsCard';
+import NewPostModal from '../../components/Home/NewPostModal';
 const Posts=({navigation})=> {
   const [viewOwn, setViewOwn]=useState(false)
   const [country, setCountry]=useState('all');
   const [category, setCategory]=useState('all');
   const [data, setdata]=useState([])
   const [modalVisible, setModalVisible] = useState(false)
+  const [newPostModalVisible, setNewPostModalVisible] = useState(false)
   useEffect(()=>{
     if(!viewOwn){
-      getPosts()}
+      getPosts()
+      console.log('hi')
+    }
     else{
       getOwnPosts()
     }
@@ -30,6 +34,7 @@ const Posts=({navigation})=> {
       url:`http://192.168.1.7:8000/api/v1.0.0/users/posts/${country}/${category}`,
     })
     .then((response)=> {
+      console.log(response.data.data)
       setdata(response.data.data)
       return response;
     })
@@ -64,6 +69,11 @@ const Posts=({navigation})=> {
         <TouchableOpacity onPress={()=>{setModalVisible(true)}}><Text style={{color:'grey', marginBottom:5}}>Filter</Text></TouchableOpacity>
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
         <View style={PostsStyles.separator}/>
+
+        <TouchableOpacity onPress={()=>{setNewPostModalVisible(true)}}>
+          <Text style={PostsStyles.newPost}>New Post</Text>
+        </TouchableOpacity>
+        <NewPostModal modalVisible={newPostModalVisible} setModalVisible={setNewPostModalVisible}/>
         <SafeAreaView>
           <FlatList
             data={data}
