@@ -4,7 +4,8 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const PostCardStyles = StyleSheet.create({
     card:{
-        marginTop:40,
+        alignSelf:"center",
+        marginTop:15,
         width: 0.9*windowWidth,
         alignItems:"center",
         height:0.17*windowHeight,
@@ -16,7 +17,7 @@ const PostCardStyles = StyleSheet.create({
         },
         shadowOpacity: 0.1,
         shadowRadius: 5,
-        elevation: 5,
+        elevation: 3,
         borderRadius:20,
         padding:10
     },
@@ -31,8 +32,17 @@ const PostCardStyles = StyleSheet.create({
         width:50,
         height:50,
         borderRadius:25
+    },
+    list:{
+        width:windowWidth,
+        flex: 1,
+    },
+    cardsContainer:{
+        width:windowWidth,
+        flexDirection:"row",
+        alignItems:"center",
+        justifyContent:"center"
     }
-    
    
 });
 export default PostCardStyles;

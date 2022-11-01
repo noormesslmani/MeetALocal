@@ -25,5 +25,15 @@ const EventsStyles = StyleSheet.create({
         borderBottomWidth: 0.3,
         width: 0.9*windowWidth,
     },
+    list:{
+        width:windowWidth,
+        flex: 1,
+    },
+    cardsContainer:{
+        width:windowWidth,
+        flexDirection:"row",
+        alignItems:"center",
+        justifyContent:"center"
+    }
 });
 export default EventsStyles;
