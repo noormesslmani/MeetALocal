@@ -19,19 +19,19 @@ const PostCard=({navigation, item})=> {
     
     const [categories, setCategories]=useState([])
     const [icons, setIcons]=useState([])
-    
+    console.log(item)
   return (
     <TouchableOpacity style={PostCardStyles.card}>
         <View style={PostCardStyles.headerContainer}>
             <View style={{flexDirection:"row"}}>
                 <Image source={image} style={PostCardStyles.image} />
                 <View>
-                    <Text style={{fontSize:10, marginLeft:10, fontWeight:"600"}}>Nour Messlmani <Text style={{fontSize:10, fontWeight:"300"}}>2hrs</Text></Text>
-                    <Text style={{fontSize:10, marginLeft:10}}>Labanon</Text>
+                    <Text style={{fontSize:10, marginLeft:10, fontWeight:"600"}}>{item.name}</Text>
+                    <Text style={{fontSize:10, marginLeft:10}}>{item.country}</Text>
                 </View>
             </View>
         </View>
-        <Text style={{fontSize:11, marginLeft:60}}>Nostrum doloremque et voluptatum ut. Consequuntur eum repellat odio a deleniti. Et et alias quaerat facere sit dicta unde. Mollitia ratione vitae dolor sint</Text>
+        <Text style={{fontSize:11, marginLeft:60, fontWeight:"200"}}>{item.details}</Text>
     </TouchableOpacity>
   )
 }

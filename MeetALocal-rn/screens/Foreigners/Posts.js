@@ -49,16 +49,15 @@ const Posts=({navigation})=> {
         <TouchableOpacity onPress={()=>{setModalVisible(true)}}><Text style={{color:'grey', marginBottom:5}}>Filter</Text></TouchableOpacity>
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
         <View style={PostsStyles.separator}/>
-        {/* <SafeAreaView>
+        <SafeAreaView>
           <FlatList
             data={data}
             renderItem={renderItem}
             keyExtractor={item => item.id}
-            style={LocalsStyles.list}
+            style={PostsStyles.list}
             contentContainerStyle={{ paddingBottom: 300}}
           />
-        </SafeAreaView> */}
-        <PostCard/>
+        </SafeAreaView>
       </View>
     )
 }
