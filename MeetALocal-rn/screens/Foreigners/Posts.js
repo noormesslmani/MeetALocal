@@ -18,9 +18,9 @@ const Posts=({navigation})=> {
   useEffect(()=>{
     if(!viewOwn){
       getPosts()}
-    // else{
-    //   getFavorites()
-    // }
+    else{
+      getOwnPosts()
+    }
   },[viewOwn, country, category])
   async function getPosts(){
     const token = await AsyncStorage.getItem('@token')
@@ -37,7 +37,21 @@ const Posts=({navigation})=> {
       console.warn(error)
    });
   }
-  
+  async function getOwnPosts(){
+    const token = await AsyncStorage.getItem('@token')
+    axios({
+      method: "get",
+      headers: { Authorization: `Bearer ${token}`},
+      url:'http://192.168.1.7:8000/api/v1.0.0/users/posts',
+    })
+    .then((response)=> {
+      setdata(response.data.data)
+      return response;
+    })
+    .catch(function (error) {
+      console.warn(error)
+   });
+  }
   const renderItem = ({ item }) => (
     <PostCard item={item} navigation={navigation} />);
   return (
