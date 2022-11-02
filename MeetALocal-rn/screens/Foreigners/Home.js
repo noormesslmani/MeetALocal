@@ -12,6 +12,8 @@ import HomeCard from '../../components/Home/HomeCards';
 import Events from './Events';
 import Posts from './Posts';
 import Locals from './Locals';
+import MapView from 'react-native-maps';
+import GetLocation from 'react-native-get-location'
 const Home=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const [name, setName]=useState('')
@@ -46,6 +48,19 @@ const Home=({navigation})=> {
     const handleEvents=()=>{
         navigation.navigate('events')
     }
+    // GetLocation.getCurrentPosition({
+    //     enableHighAccuracy: true,
+    //     timeout: 15000,
+    // })
+    // .then(location => {
+    //     console.log('hi')
+    //     console.log(location);
+    // })
+    // .catch(error => {
+    //     const { code, message } = error;
+    //     console.warn(code, message);
+    // })
+    
   return (
     <View style={HomeStyles.container}>
         <Text style={HomeStyles.welcome}>Welcome</Text>
@@ -54,6 +69,17 @@ const Home=({navigation})=> {
         <HomeCard label={'Locals'} handlePress={handleLocals}/>
         <HomeCard label={'Events'} handlePress={handleEvents}/>
         <HomeCard label={'Posts'} handlePress={handlePosts} />
+        {/* <View style={{width:300, height:400}}>
+          <MapView
+          style={{minHeight:500}}
+          initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+          }}
+          />
+        </View> */}
     </View>
   )
 }
