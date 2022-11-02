@@ -84,7 +84,8 @@ class AuthController extends Controller
             'gender' =>'required|in:Male,Female',
             'categories' =>'array',
             'about' => 'string',
-            'location' => 'string',
+            'latitude' =>"numeric",
+            'longitude' =>"numeric",
             'photo' => 'string',
             'fees' => 'integer',
         ]);
@@ -113,6 +114,7 @@ class AuthController extends Controller
                 ])
             );
         }
+       
         if($request->type=='Local'){
             foreach($request->categories as $category){
                 LocalCategory::create([
