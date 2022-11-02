@@ -177,6 +177,14 @@ const styles = StyleSheet.create({
     dropDownContainer:{
         width: windowWidth * 0.6,
     },
+    mapContainer:{
+        width:"100%",
+        height:"100%"
+      },
+      map:{
+        width:"100%",
+        height:"100%"
+      }
     
 });
 

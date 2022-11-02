@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image, Modal } from 'react-native'
 import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect } from "react";
@@ -10,8 +10,8 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import UploadImage from '../../components/UploadImage';
-import MapView from 'react-native-maps';
 import * as Location from 'expo-location';
+
 const SetUpScreen=({navigation})=> {
   const route = useRoute();
   const type= route.params.type
@@ -19,25 +19,7 @@ const SetUpScreen=({navigation})=> {
   const [genderunset, setGenderUnset]=useState(false)
   const [base64, setBase64]=useState(null)
   const [ext, setext]=useState(null)
-  const [location, setLocation] = useState(null);
-  const [latitude, setLatitude]=useState(null)
-  const [longitude, setLongitude]=useState(null)
-  const [errorMsg, setErrorMsg] = useState(null);
-
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-        return;
-      }
-      let location = await Location.getCurrentPositionAsync({});
-        setLocation(location);
-        setLatitude(location.coords.latitude)
-        setLongitude(location.coords.longitude)
-    })();
-  }, []);
-
+  
   const handleSubmit=()=>{
     if(gender==''){
       setGenderUnset(true)
@@ -47,7 +29,7 @@ const SetUpScreen=({navigation})=> {
       if(type=='Foreigner'){
         setUp()
       }
-      else{navigation.navigate('categories')}
+      else{navigation.navigate('setup-map')}
     }
   }
   const handleMale=()=>{
@@ -74,6 +56,7 @@ const SetUpScreen=({navigation})=> {
     .then(async (response)=> {
       console.log(response.data)
       await AsyncStorage.setItem("@user", JSON.stringify(response.data['user']));
+      navigation.navigate('tabs')
       return response.data;
     })
     .catch(function (error) {
@@ -88,29 +71,13 @@ const SetUpScreen=({navigation})=> {
         <View style={styles.picContainer}>
             <UploadImage setBase64={setBase64} setext={setext} />
         </View>
-        <Text style={styles.gender}>Location</Text>
-        <Icon name="location-sharp"  size={25}/>
         <Text style={styles.gender}>Gender</Text>
         {genderunset?<Text style={styles.error}>Please select you gender</Text>:null}
         <View style={styles.genderContainer}>
           <TouchableOpacity onPress={handleMale}><Image source={require('../../assets/male.png')} style={[styles.genderIcon, gender=='Male'?styles.selectedIcon:null]} /></TouchableOpacity>
           <TouchableOpacity onPress={handleFemale}><Image source={require('../../assets/female.png')} style={[styles.genderIcon, gender=='Female'?styles.selectedIcon:null]} /></TouchableOpacity>
         </View>
-
-        {/* <View style={{width:300, height:400}}>
-          <MapView
-          style={{minHeight:500}}
-          region={{
-          latitude:  latitude,
-          longitude: longitude,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,}}>
-            <Marker coordinate={{latitude: latitude,
-              longitude:longitude}}
-              pinColor='blue'>
-            </Marker>
-          </MapView>
-        </View> */}
+        
         <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>
         
     </View>
