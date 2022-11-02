@@ -26,6 +26,7 @@ const MapModal=({navigation, modalVisible, setModalVisible, data})=> {
         <View style={MapModalStyles.centeredView}>
             <View style={MapModalStyles.modalView}>
                 <Text style={MapModalStyles.title}>Map View</Text>
+                <Pressable style={MapModalStyles.close} onPress={()=>setModalVisible(false)}><Icon name="close" size={20} color='grey' /></Pressable>
                 <MapView
                 style={MapModalStyles.map}
                 loadingEnabled={true}
@@ -39,9 +40,9 @@ const MapModal=({navigation, modalVisible, setModalVisible, data})=> {
                 pinColor='red'
                 >
                 <Callout style={{width:80, height:"auto"}}>
-                    <Text style={{fontSize:7}} >Name: {local.name}</Text>
-                    <Text style={{fontSize:7}}>Gender: {local.gender}</Text>
-                    <Text style={{fontSize:7}}>About: {local.about}</Text>
+                    <Text style={{fontSize:7}}> <Text style={{fontWeight:"600"}}>Name:</Text> {local.name}</Text>
+                    <Text style={{fontSize:7}}> <Text style={{fontWeight:"600"}}>Gender:</Text> {local.gender}</Text>
+                    <Text style={{fontSize:7}}> <Text style={{fontWeight:"600"}}>About:</Text> {local.about}</Text>
                 </Callout>
                 </Marker>
                 ))}   

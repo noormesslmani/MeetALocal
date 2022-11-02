@@ -45,6 +45,11 @@ const MapModalStyles = StyleSheet.create({
         color:"#8C57BA",
         fontSize:22,
       },
+      close:{
+        position:"absolute",
+        left:"100%",
+        top:"4%"
+      }
      
 });
 export default MapModalStyles;
