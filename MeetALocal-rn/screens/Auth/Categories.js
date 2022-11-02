@@ -7,7 +7,15 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthButton from '../../components/AuthButton';
 import Icon from 'react-native-vector-icons/Ionicons'
 import Slider from '@react-native-community/slider';
+import { useRoute } from '@react-navigation/native';
 const Categories=({navigation})=> {
+    const route = useRoute();
+    const base64= route.params.base64
+    const gender= route.params.gender
+    const ext= route.params.ext
+    const latitude=route.params.latitude
+    const longitude= route.params.longitude
+    console.log(latitude)
     const [categories, setCategories]=useState([])
     const [fees, setFees]=useState(0)
     const handleTourism=()=>{
