@@ -19,26 +19,36 @@ const SignupScreen = ({navigation}) => {
   const [dateSelected, setDateSelected] = useState(false);
   
   const handleDate= (event, value)=>{
+    setDatePicker(false)
     setDate(value)
     setinvalidDate(false)
-    setDatePicker(false)
   }
   useEffect(()=>{
     setDateSelected(true)
     setdob(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`)
   },[date])
+ 
   const handleSubmit=()=>{
     setinvalidDate(false)
     setInvalidName(false)
     setInvalidPhone(false)
     if(fullName==''){
       setInvalidName(true)
+      setTimeout(() => {
+        setInvalidName(false);
+      }, 1500);
     }
     else if(phone==0){
       setInvalidPhone(true)
+      setTimeout(() => {
+        setInvalidPhone(false);
+      }, 1500);
     }
     else if(! dateSelected){
       setinvalidDate(true)
+      setTimeout(() => {
+        setinvalidDate(false);
+      }, 1500);
     }
     else{
       navigation.navigate('signup-second', {
@@ -78,7 +88,8 @@ const SignupScreen = ({navigation}) => {
             is24Hour={true}
             onChange={handleDate}
             maximumDate={new Date(2022, 1, 1)}
-          />}
+            minimumDate={new Date(1900, 0, 1)}
+            />}
         </View>
     </View>
   )
