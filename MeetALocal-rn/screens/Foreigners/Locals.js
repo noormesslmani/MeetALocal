@@ -71,7 +71,7 @@ const Locals=({navigation})=> {
         <TouchableOpacity onPress={()=>{setModalVisible(true)}}><Text style={{color:'grey', marginBottom:5}}>Filter</Text></TouchableOpacity>
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
         {user.type_id==2 && <TouchableOpacity onPress={()=>{setMapVisible(true)}}><Text style={{color:'#8C57BA', margin:10}}>View on map</Text></TouchableOpacity>}
-        <MapModal modalVisible={mapVisible} setModalVisible={setMapVisible} data={data}/>
+        <MapModal modalVisible={mapVisible} setModalVisible={setMapVisible} data={data} />
         <View style={LocalsStyles.separator}/>
         <SafeAreaView>
           <FlatList
