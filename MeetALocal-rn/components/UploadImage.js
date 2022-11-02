@@ -25,7 +25,7 @@ export default function UploadImage({setBase64, setext}) {
   return (
             <View style={imageUploaderStyles.container}>
                 {
-                    image  && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+                    image  && <Image source={{ uri: image }} style={{ width: 180, height: 180 }} />
                 }
                     <View style={imageUploaderStyles.uploadBtnContainer}>
                         <TouchableOpacity onPress={addImage} style={imageUploaderStyles.uploadBtn} >

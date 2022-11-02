@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     },
     welcome:{
         fontSize: 40,
-        paddingBottom: 50
+        paddingBottom: 20
     },
     signIn:{
         fontSize:30,
@@ -101,8 +101,8 @@ const styles = StyleSheet.create({
         flexDirection:'row'
     },
     gender:{
-        fontSize: 20,
-        marginTop: 40,
+        fontSize: 18,
+        marginTop: 30,
         marginBottom:10
     },
     genderIcon:{
@@ -110,7 +110,6 @@ const styles = StyleSheet.create({
         height:80,
         borderRadius:40,
         margin:20,
-        marginBottom:40,
         borderWidth:1,
         borderColor:'#D9D9D9'
     },
@@ -119,7 +118,7 @@ const styles = StyleSheet.create({
         borderColor:"rgba(75, 176, 249, 0.75)" 
     },
     selectCategory:{
-        fontSize:20,
+        fontSize:18,
         alignSelf:"flex-start",
         marginLeft:20,
         marginTop:10
@@ -128,6 +127,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
         marginTop:50,
         width:windowWidth * 0.8,
+        marginBottom:20
     },
     categoryRow:{
         flexDirection:'row',
@@ -139,14 +139,24 @@ const styles = StyleSheet.create({
         alignItems:"center"
     },
     categoryIcon:{
+        width:43,
+        height:43,
+       
+    },
+    circle:{
         width:60,
-        height:60
+        height:60,
+        borderRadius:30,
+        backgroundColor:'white',
+        position:'relative',
+        alignItems:"center",
+        justifyContent:"center"
     },
     categoryLabel:{
         color:"blue",
     },
     fees:{
-        fontSize:18,
+        fontSize:14,
         marginTop:20
     },
     slider:{

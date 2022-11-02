@@ -137,6 +137,7 @@ const SignupScreen2 = ({navigation}) => {
             <DropDownPicker
             open={openLanguages}
             multiple={true}
+            mode="BADGE"
             value={language}
             zIndex={1000}
             zIndexInverse={3000}
