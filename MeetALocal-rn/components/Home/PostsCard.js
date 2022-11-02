@@ -5,15 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PostCardStyles from '../ComponentsStyles/PostCardStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
-import tourism from '../../assets/tourism.png'
-import cultures from '../../assets/cultures.png'
-import education from '../../assets/education.png'
-import guidance from '../../assets/guidance.png'
-import history from '../../assets/history.png'
-import house from '../../assets/house.png'
-import languages from '../../assets/languages.png'
-import more from '../../assets/more.png'
-import jobs from '../../assets/suitcase.png'
+
 import image from '../../assets/profile.jpg'
 import CommentsModal from './CommentsModal';
 

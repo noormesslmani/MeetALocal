@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, Modal } from 'react-native'
+import { View, Text, TouchableOpacity, Image, Modal, TextInput } from 'react-native'
 import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect } from "react";
@@ -19,9 +19,13 @@ const SetUpScreen=({navigation})=> {
   const [genderunset, setGenderUnset]=useState(false)
   const [base64, setBase64]=useState(null)
   const [ext, setext]=useState(null)
+  const [about, setAbout]= useState(null)
   const handleSubmit=()=>{
     if(gender==''){
       setGenderUnset(true)
+      setTimeout(() => {
+        setGenderUnset(false);
+      }, 1500);
     }
     else{
       setGenderUnset(false)
@@ -29,7 +33,7 @@ const SetUpScreen=({navigation})=> {
         setUp()
       }
       else{
-        navigation.navigate('setup-map',{gender, base64, ext})
+        navigation.navigate('setup-map',{gender, base64, ext, about})
       }
     }
   }
@@ -68,12 +72,16 @@ const SetUpScreen=({navigation})=> {
   
   return (
     <View style={styles.background} >
-        <Text style={styles.welcome}>Welcome</Text>
+        <Text style={styles.welcome}>Setup your account</Text>
         <View style={styles.picContainer}>
             <UploadImage setBase64={setBase64} setext={setext} />
         </View>
-        <Text style={styles.gender}>Gender</Text>
-        {genderunset?<Text style={styles.error}>Please select you gender</Text>:null}
+        <View style={styles.aboutContainer}>
+          <Text>About</Text>
+          <TextInput placeholder='Write something about your self' multiline={true} value={about} onChangeText={setAbout} style={styles.aboutInput}></TextInput>
+        </View>
+        <Text style={styles.gender}>Gender *</Text>
+        {genderunset?<Text style={styles.error}>Please select your gender</Text>:null}
         <View style={styles.genderContainer}>
           <TouchableOpacity onPress={handleMale}><Image source={require('../../assets/male.png')} style={[styles.genderIcon, gender=='Male'?styles.selectedIcon:null]} /></TouchableOpacity>
           <TouchableOpacity onPress={handleFemale}><Image source={require('../../assets/female.png')} style={[styles.genderIcon, gender=='Female'?styles.selectedIcon:null]} /></TouchableOpacity>

@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         paddingTop: 100
     },
     welcome:{
-        fontSize: 40,
+        fontSize: 20,
         paddingBottom: 20
     },
     signIn:{
@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
         marginTop:2,
         fontSize:11,
         color:"red",
-        textAlign:"center"
+        textAlign:"center",
+        fontWeight:"500"
     },
     typeBtn:{
         width:150,
@@ -102,8 +103,7 @@ const styles = StyleSheet.create({
     },
     gender:{
         fontSize: 18,
-        marginTop: 30,
-        marginBottom:10
+        marginTop: 20,
     },
     genderIcon:{
         width:80,
@@ -203,6 +203,15 @@ const styles = StyleSheet.create({
         backgroundColor:'#8C57BA',
         alignItems: "center",
         justifyContent: "center",
+      },
+      aboutContainer:{
+        width:"80%",
+        margin:40,
+      },
+      aboutInput:{
+        height:50,
+        borderBottomWidth:0.5,
+        borderColor:"white"
       }
     
 });
