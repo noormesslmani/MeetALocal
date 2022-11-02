@@ -57,6 +57,9 @@ class LocalController extends Controller
         $events=Auth::user()->events()->get();
         foreach($events as $event){
             $event['country']=Country::find($event['country_id'])['country'];
+            $category= $event->categories()->pluck('category');
+            $event['categories']=$category;
+            $event['name']=Auth::user()->name;
         }
         return response()->json([
             'message' => 'ok',
