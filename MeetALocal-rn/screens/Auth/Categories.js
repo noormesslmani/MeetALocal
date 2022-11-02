@@ -8,6 +8,8 @@ import AuthButton from '../../components/AuthButton';
 import Icon from 'react-native-vector-icons/Ionicons'
 import Slider from '@react-native-community/slider';
 import { useRoute } from '@react-navigation/native';
+import axios from 'axios';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const Categories=({navigation})=> {
     const route = useRoute();
     const base64= route.params.base64
@@ -15,7 +17,6 @@ const Categories=({navigation})=> {
     const ext= route.params.ext
     const latitude=route.params.latitude
     const longitude= route.params.longitude
-    console.log(latitude)
     const [categories, setCategories]=useState([])
     const [fees, setFees]=useState(0)
     const handleTourism=()=>{
@@ -46,9 +47,38 @@ const Categories=({navigation})=> {
         categories.includes("Other")?setCategories(arr => [...arr].filter(item => item !== "Other")):setCategories(arr => [...arr, "Other"])
     }
     const handleSubmit=()=>{
-        console.log(fees)
-        console.log(categories)
+        setUp()
     }
+
+    async function setUp(){
+        const data = {
+          type: 'Local',
+          gender: gender,
+          photo: base64,
+          ext: ext,
+          fees: fees,
+          categories: categories,
+          latitude:latitude,
+          longitude:longitude
+        };
+        const token = await AsyncStorage.getItem('@token')
+        axios({
+          method: "post",
+          data,
+          headers: { Authorization: `Bearer ${token}`},
+          url:"http://192.168.1.7:8000/api/v1.0.0/auth/setup",
+        })
+        .then(async (response)=> {
+          console.log(response.data)
+          await AsyncStorage.setItem("@user", JSON.stringify(response.data['user']));
+          navigation.navigate('tabs')
+          return response.data;
+        })
+        .catch(function (error) {
+          console.warn(error)
+        });
+      }
+    
     return (
     <View style={styles.background} >
         <Text style={styles.selectCategory}>Select at least 1 category</Text> 

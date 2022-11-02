@@ -44,6 +44,32 @@ const SetUpMap=({navigation})=> {
         console.log('hi')
         navigation.navigate('categories',{gender, base64, ext, latitude, longitude})
     }
+
+    async function setUp(){
+        const data = {
+          type: type,
+          gender: gender,
+          photo: base64,
+          ext: ext,
+          
+        };
+        const token = await AsyncStorage.getItem('@token')
+        axios({
+          method: "post",
+          data,
+          headers: { Authorization: `Bearer ${token}`},
+          url:"http://192.168.1.7:8000/api/v1.0.0/auth/setup",
+        })
+        .then(async (response)=> {
+          console.log(response.data)
+          await AsyncStorage.setItem("@user", JSON.stringify(response.data['user']));
+          navigation.navigate('tabs')
+          return response.data;
+        })
+        .catch(function (error) {
+          console.warn(error)
+        });
+      }
   return (
 
     <View style={styles.mapContainer}>
