@@ -25,7 +25,8 @@ const MapModalStyles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5,
-        padding:20
+        padding:20,
+        justifyContent:"space-between"
       },
       mapContainer:{
         width:windowWidth,
@@ -38,22 +39,12 @@ const MapModalStyles = StyleSheet.create({
       },
       map:{
         width:"100%",
-        height:"85%",
+        height:"90%",
       },
       title:{
         color:"#8C57BA",
-        fontSize:30,
+        fontSize:22,
       },
-      saveBtn:{
-        position:"absolute",
-        top:"97%",
-        width:100,
-        height: 35,
-        borderRadius: 10,
-        backgroundColor:'#8C57BA',
-        alignItems: "center",
-        justifyContent: "center",
-      }
      
 });
 export default MapModalStyles;
