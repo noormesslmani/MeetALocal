@@ -140,8 +140,11 @@ class AuthController extends Controller
    
     public function userProfile() {
         $user=Auth::user();
-        $imagedata = file_get_contents($user->profile_picture);
-        $base64 = base64_encode($imagedata);
+        $base64= null;
+        if($user->profile_picture){
+            $imagedata = file_get_contents($user->profile_picture);
+            $base64 = base64_encode($imagedata);
+        }
         return response()->json([
             'user'=>Auth::user(),
             'message' => 'ok',
