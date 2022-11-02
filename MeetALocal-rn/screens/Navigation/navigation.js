@@ -19,6 +19,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import Posts from '../Foreigners/Posts';
 import Events from '../Foreigners/Events';
 import Locals from '../Foreigners/Locals';
+import SetUpMap from '../Auth/SetUpMapScreen';
 export default function RootNavigation() {
 
   const Stack = createNativeStackNavigator();
@@ -32,6 +33,7 @@ export default function RootNavigation() {
         <Stack.Screen name="signup-third" options={{headerTitle: () => <Logo/>,}} component={SignupScreen3} />
         <Stack.Screen name="user-type" options={{headerTitle: () => <Logo/>,}} component={UserTypeScreen} />
         <Stack.Screen name="setup" options={{headerTitle: () => <Logo/>,}}  component={SetUpScreen} />
+        <Stack.Screen  name="setup-map" component={SetUpMap} options={{headerTitle: () => <Logo/>,}}/>
         <Stack.Screen name="categories" options={{headerTitle: () => <Logo/>,}} component={Categories} />
         <Stack.Screen name="tabs" options={{headerTitle: () => <Logo/>,  headerBackVisible:false}} component={MyTabs} />
         <Stack.Screen  name="posts" component={Posts} options={{headerTitle: () => <Logo/>,}}/>
