@@ -19,7 +19,6 @@ const SetUpScreen=({navigation})=> {
   const [genderunset, setGenderUnset]=useState(false)
   const [base64, setBase64]=useState(null)
   const [ext, setext]=useState(null)
-  
   const handleSubmit=()=>{
     if(gender==''){
       setGenderUnset(true)
@@ -29,7 +28,9 @@ const SetUpScreen=({navigation})=> {
       if(type=='Foreigner'){
         setUp()
       }
-      else{navigation.navigate('setup-map')}
+      else{
+        navigation.navigate('setup-map',{gender, base64, ext})
+      }
     }
   }
   const handleMale=()=>{
