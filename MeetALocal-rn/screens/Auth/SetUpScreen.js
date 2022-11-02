@@ -68,7 +68,7 @@ const SetUpScreen=({navigation})=> {
             <UploadImage setBase64={setBase64} setext={setext} />
         </View>
         <Text style={styles.gender}>Location</Text>
-        <Icon name="location-sharp"  size={30}/>
+        <Icon name="location-sharp"  size={25}/>
         <Text style={styles.gender}>Gender</Text>
         {genderunset?<Text style={styles.error}>Please select you gender</Text>:null}
         <View style={styles.genderContainer}>

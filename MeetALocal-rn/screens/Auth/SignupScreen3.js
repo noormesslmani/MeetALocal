@@ -1,4 +1,4 @@
-import { View, Text, TextInput } from 'react-native'
+import { View, Text, TextInput, KeyboardAvoidingView } from 'react-native'
 import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect } from "react";
@@ -29,12 +29,21 @@ const SignupScreen3 = ({navigation}) => {
     if(! email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
     {
       setInvalidEmail(true)
+      setTimeout(() => {
+        setInvalidEmail(false);
+      }, 1500);
     }
     else if(! password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)){
       setInvalidPassword(true)
+      setTimeout(() => {
+        setInvalidPassword(false);
+      }, 3000);
     }
     else if(password!=confirmPassword){
       setUnmatchedPassword(true)
+      setTimeout(() => {
+        setUnmatchedPassword(false);
+      }, 1500);
     }
     else{
       register()
@@ -69,7 +78,7 @@ const SignupScreen3 = ({navigation}) => {
     });
   }
   return (
-    <View style={styles.background}>
+    <KeyboardAvoidingView style={styles.background}>
         <View style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
           <Text style={styles.signIn}>Register</Text>
           <View style={styles.inputContainer}>
@@ -94,7 +103,7 @@ const SignupScreen3 = ({navigation}) => {
                 Login
           </Text> 
         </View>
-    </View>
+    </KeyboardAvoidingView>
   )
 }
 
