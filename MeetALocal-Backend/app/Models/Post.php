@@ -12,7 +12,6 @@ class Post extends Model
     protected $fillable = [
         'user_id',
         'details',
-        'price',
         'country_id'
     ];
     public function user()
