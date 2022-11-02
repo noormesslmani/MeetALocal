@@ -7,22 +7,29 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import image from '../../assets/profile.jpg'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
-import { useRoute } from '@react-navigation/native';
+import MapModalStyles from '../ComponentsStyles/MapModalStyles';
 import MapView from 'react-native-maps';
 import {Marker} from 'react-native-maps';
 import * as Location from 'expo-location';
-import MapStyles from './Styles/LocalsMapStyles';
-
-const LocalsMap=({navigation})=> {
-    const route = useRoute();
-    const data= route.params.data
-
+const MapModal=({navigation, modalVisible, setModalVisible, data})=> {
+    useEffect(()=>{
+        if(modalVisible){
+            console.log(data[0].longitude)
+        }
+    },[modalVisible])
   return (
-
-    <View style={MapStyles.mapContainer}>
-            {
+    <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+        setModalVisible(!modalVisible);
+        }}>
+        <View style={MapModalStyles.centeredView}>
+            <View style={MapModalStyles.modalView}>
+                <Text>Map</Text>
             <MapView
-            style={MapStyles.map}
+            style={MapModalStyles.map}
             loadingEnabled={true}
             region={{
                 latitude:  0,
@@ -38,9 +45,10 @@ const LocalsMap=({navigation})=> {
                 setLongitude( e.nativeEvent.coordinate.longitude)
                 }}>
                 </Marker>
-            </MapView>}
-    </View>
-             
+            </MapView>
+            </View>
+        </View>
+    </Modal>
   )
 }
-export default LocalsMap
+export default MapModal
