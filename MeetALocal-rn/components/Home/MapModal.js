@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, Modal, Pressable, StyleSheet, ScrollView, TextInput, KeyboardAvoidingView} from 'react-native'
+import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, Modal, Pressable} from 'react-native'
 import React from 'react'
 import { useState, useEffect, useContext } from "react";
 import { NavigationContainer } from '@react-navigation/native';
@@ -11,6 +11,7 @@ import MapModalStyles from '../ComponentsStyles/MapModalStyles';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import {Marker, Callout} from 'react-native-maps';
 import * as Location from 'expo-location';
+
 const MapModal=({navigation, modalVisible, setModalVisible, data})=> {
 
  
@@ -37,8 +38,10 @@ const MapModal=({navigation, modalVisible, setModalVisible, data})=> {
                 coordinate={{latitude: local.latitude, longitude: local.longitude}}
                 pinColor='red'
                 >
-                <Callout style={{width:100, height:100}}>
-                    <Text>Local</Text>
+                <Callout style={{width:80, height:"auto"}}>
+                    <Text style={{fontSize:7}} >Name: {local.name}</Text>
+                    <Text style={{fontSize:7}}>Gender: {local.gender}</Text>
+                    <Text style={{fontSize:7}}>About: {local.about}</Text>
                 </Callout>
                 </Marker>
                 ))}   
