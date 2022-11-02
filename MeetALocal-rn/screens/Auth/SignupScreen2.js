@@ -54,12 +54,21 @@ const SignupScreen2 = ({navigation}) => {
     setInvalidLanguage(false)
     if(! nationality){
       setInvalidNationality(true)
+      setTimeout(() => {
+        setInvalidNationality(false);
+      }, 1500);
     }
     else if(! country){
       setInvalidCountry(true)
+      setTimeout(() => {
+        setInvalidCountry(false);
+      }, 1500);
     }
     else if(language.length==0){
       setInvalidLanguage(true)
+      setTimeout(() => {
+        setInvalidLanguage(false);
+      }, 1500);
     }
     else{
       navigation.navigate('signup-third', {
@@ -77,18 +86,23 @@ const SignupScreen2 = ({navigation}) => {
             <DropDownPicker
             open={openNationality}
             value={nationality}
+            zIndex={3000}
+            zIndexInverse={1000}
             dropDownDirection="BOTTOM"
             items={countries}
             setOpen={setOpenNationality}
             setValue={setNationality}
             setItems={setcountries}
-            containerStyle={styles.dropDownContainer}
+            dropDownContainerStyle={{
+              marginTop:10
+            }}
             style={styles.dropDown}
-            listMode="MODAL"
             placeholder="Select a country"
             placeholderStyle={{
               color: "grey"
             }}
+            listMode="SCROLLVIEW"
+            closeAfterSelecting={true}
             />
             {invalidNationality && <Text style={styles.error}>Please select your nationality</Text>}
           </View>
@@ -97,19 +111,25 @@ const SignupScreen2 = ({navigation}) => {
             <DropDownPicker
             open={openCountry}
             value={country}
+            zIndex={2000}
+            zIndexInverse={2000}
             dropDownDirection="BOTTOM"
             items={countries}
             setOpen={setOpenCountry}
             setValue={setCountry}
             setItems={setcountries}
-            containerStyle={styles.dropDown}
-            style={styles.dropDown}
-            listMode="MODAL"
-            placeholder="Select a country"
-            placeholderStyle={{
-              color: "grey"
+            dropDownContainerStyle={{
+              marginTop:10
             }}
+            style={styles.dropDown}
+            listMode="SCROLLVIEW"
+            closeAfterSelecting={true}
+            placeholderStyle={{
+            color: "grey"
+            }}
+            placeholder="Select a country"
             />
+            
             {invalidCountry && <Text style={styles.error}>Please select your country of residence</Text>}
           </View>
           <View style={styles.inputContainer}>
@@ -118,14 +138,17 @@ const SignupScreen2 = ({navigation}) => {
             open={openLanguages}
             multiple={true}
             value={language}
+            zIndex={1000}
+            zIndexInverse={3000}
             dropDownDirection="BOTTOM"
             items={languages}
             setOpen={setOpenLanguages}
             setValue={setLanguage}
             setItems={setLanguages}
-            containerStyle={styles.dropDown}
+            dropDownContainerStyle={{
+              marginTop:10
+            }}
             style={styles.dropDown}
-            listMode="MODAL"
             placeholder="Select languages"
             placeholderStyle={{
               color: "grey"
