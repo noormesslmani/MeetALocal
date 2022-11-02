@@ -178,7 +178,6 @@ class UserController extends Controller
         $post = Post::create([
             'user_id' => Auth::id(),
             'details'=> $request->details,
-            'price' => $request->price,
             'country_id'=> Country::where('country',$request->country)->pluck('id')[0]
         ]);
         foreach($request->category as $category){
