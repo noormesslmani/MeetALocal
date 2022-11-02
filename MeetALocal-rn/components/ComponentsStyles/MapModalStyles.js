@@ -2,8 +2,32 @@ import { StyleSheet, Dimensions } from "react-native";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-const MapStyles = StyleSheet.create({
-    mapContainer:{
+const MapModalStyles = StyleSheet.create({
+    centeredView: {
+        height:windowHeight,
+        width:windowWidth,
+        justifyContent: "center",
+        alignItems: "center",
+       
+      },
+      modalView: {
+        marginTop: 0.15*windowHeight,
+        backgroundColor: "white",
+        width:windowWidth,
+        flex:1,
+        borderRadius: 20,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+        padding:20
+      },
+      mapContainer:{
         width:windowWidth,
         height:"100%",
         alignItems:"center",
@@ -30,7 +54,6 @@ const MapStyles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
       }
-   
+     
 });
-
-export default MapStyles;
+export default MapModalStyles;
