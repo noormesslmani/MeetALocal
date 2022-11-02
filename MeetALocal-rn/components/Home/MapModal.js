@@ -28,24 +28,24 @@ const MapModal=({navigation, modalVisible, setModalVisible, data})=> {
         <View style={MapModalStyles.centeredView}>
             <View style={MapModalStyles.modalView}>
                 <Text>Map</Text>
-            <MapView
-            style={MapModalStyles.map}
-            loadingEnabled={true}
-            region={{
+                <MapView
+                style={MapModalStyles.map}
+                loadingEnabled={true}
+                region={{
                 latitude:  0,
                 longitude: 0,
                 latitudeDelta: 0.0922,
                 longitudeDelta: 0.0421,}}>
-                <Marker coordinate={{latitude: 0,
-                longitude:0}}
+                {data.map((local) => (
+                <Marker
+                key={local.id}
+                coordinate={{latitude: local.latitude, longitude: local.longitude}}
+                title='local'
+                description='local'
                 pinColor='red'
-                draggable={true}
-                onDragEnd={(e)=>{
-                setLatitude( e.nativeEvent.coordinate.latitude)
-                setLongitude( e.nativeEvent.coordinate.longitude)
-                }}>
-                </Marker>
-            </MapView>
+                />
+                ))}   
+                </MapView>
             </View>
         </View>
     </Modal>
