@@ -6,7 +6,9 @@ const styles = StyleSheet.create({
         justifyContent:"center",
         alignItems:"center",
         width: windowWidth,
-        paddingRight:25
+        paddingRight:25,
+        flexDirection:"row",
+        justifyContent:"center"
     },
     logo:{
         width: 300, 

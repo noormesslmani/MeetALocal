@@ -17,11 +17,12 @@ const SetUpMap=({navigation})=> {
     const base64= route.params.base64
     const gender= route.params.gender
     const ext= route.params.ext
+    const about= route.params.about
     const [location, setLocation] = useState(null);
     const [latitude, setLatitude]=useState(null)
     const [longitude, setLongitude]=useState(null)
     const [errorMsg, setErrorMsg] = useState(null);
-
+    console.log(about)
     useEffect(() => {
         getLocation()
       }, []);
