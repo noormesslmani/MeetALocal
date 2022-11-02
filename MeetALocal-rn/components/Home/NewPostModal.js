@@ -24,7 +24,9 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
     const [selectedCategory, setSelectedCategory]=useState([])
     const [openCountry, setOpenCountry] = useState(false);
     const [openCategory, setOpenCategory] = useState(false);
+    const [details, setDetails]= useState(null)
     const [countries, setcountries] = useState([
+        {label: 'Select a country', value: null},
         {label: 'Lebanon', value: 'Lebanon'},
         {label: 'USA', value: 'USA'},
         {label: 'Syria', value: 'Syria'},
@@ -42,7 +44,7 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
       ]); 
     const [categories, setCategories] = useState([
     {label: 'Tourism', value: 'Tourism', icon: () => <Image source={tourism} style={{width:20, height:20}} />},
-    {label: 'Languages', value: 'Languages', icon: () => <Image source={languages} style={{width:20, height:20}}/>},
+    {label: 'Language', value: 'Language', icon: () => <Image source={languages} style={{width:20, height:20}}/>},
     {label: 'Culture', value: 'Culture', icon: () => <Image source={cultures} style={{width:20, height:20}}/>},
     {label: 'Education', value: 'Education', icon: () => <Image source={education} style={{width:20, height:20}}/>},
     {label: 'History', value: 'History', icon: () => <Image source={history} style={{width:20, height:20}}/>},
@@ -51,7 +53,38 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
     {label: 'Housing', value: 'Housing', icon: () => <Image source={house} style={{width:20, height:20}}/>},
     {label: 'Other', value: 'Other', icon: () => <Image source={more} style={{width:20, height:20}}/>},
     ]);
-  
+    const handleSubmit=()=>{
+        console.log(selectedCategory)
+        console.log(selectedCountry)
+        console.log(details)
+        if(details && selectedCountry && selectedCategory.length>0){
+            createPost()
+            
+        }
+    }
+    async function createPost(){
+        const token = await AsyncStorage.getItem('@token')
+        const data = {
+          details: details,
+          country: selectedCountry,
+          category: selectedCategory
+        }
+        console.log(data)
+        axios({
+          method: "post",
+          data,
+          headers: { Authorization: `Bearer ${token}`},
+          url:'http://192.168.1.7:8000/api/v1.0.0/users/post',
+        })
+        .then((response)=> {
+          console.log(response.data)
+          setModalVisible(false)
+          return response;
+        })
+        .catch(function (error) {
+          console.warn(error)
+        });
+      }
   return (
     <Modal
         animationType="fade"
@@ -65,11 +98,12 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                 <Text style={PostModalStyles.title}>Create New Post</Text>
                 <View style={PostModalStyles.contentContainer}>
                     <Text>Post *</Text>
-                    <TextInput placeholder='new post' style={PostModalStyles.input} multiline={true}></TextInput>
+                    <TextInput placeholder='new post' style={PostModalStyles.input} multiline={true} value={details} onChangeText={setDetails}></TextInput>
                 </View>
                 <View style={{width:"80%"}}>
                     <Text style={{fontSize:12}}>Select a country *</Text>
                     <DropDownPicker
+                    defaultValue={null}
                     style={PostModalStyles.optionsContainer}
                     zIndex={3000}
                     zIndexInverse={1000}
@@ -119,8 +153,7 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                     }}
                     />
                 </View>
-                <Pressable
-                style={PostModalStyles.button}>
+                <Pressable style={PostModalStyles.button} onPress={handleSubmit}>
                 <Text style={PostModalStyles.textStyle}>Submit</Text>
                 </Pressable>
             </View>
