@@ -155,16 +155,15 @@ const styles = StyleSheet.create({
         marginBottom:30
     },
     dropDown:{
-        width: windowWidth * 0.6,
-        borderTopLeftRadius: 0, 
-        borderTopRightRadius: 0,
-        borderBottomLeftRadius: 0, 
-        borderBottomRightRadius: 0,
+        marginTop:10,
         borderTopWidth:0,
-        borderRightWidth:0,
         borderLeftWidth:0,
-        borderColor:"rgba(75, 176, 249, 0.5)",
-    },
+        borderRightWidth:0,
+        borderBottomRightRadius:0,
+        borderBottomLeftRadius:0,
+        borderBottomColor:"#4BB0F9",
+        borderBottomWidth:0.5
+      },
     dropDownContainer:{
         width: windowWidth * 0.6,
     },
