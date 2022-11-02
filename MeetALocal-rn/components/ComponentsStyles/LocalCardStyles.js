@@ -3,24 +3,36 @@ import { StyleSheet, Dimensions } from "react-native";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const LocalCardStyles = StyleSheet.create({
-    card:{
+    container:{
         marginTop:40,
-        width: windowWidth,
-        alignItems:"center"
+        alignItems:"center",
+        width:windowWidth, 
+    },
+    card:{
+        width: 0.8*windowWidth,
+        height: 0.4*windowHeight,
+        borderRadius:10,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 2,
+            height: 2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 5,
     },
     image:{
-        borderTopLeftRadius:5,
-        borderTopRightRadius:5,
+        borderRadius:10,
         width: 0.8*windowWidth,
-        height: 0.3*windowHeight,
-        position: "relative"
+        height: 0.4*windowHeight,
+        position: "relative",
     },
     infoContainer:{
         width: 0.8*windowWidth,
-        height: 0.07*windowHeight,
+        height: 0.09*windowHeight,
         backgroundColor:"rgba(217, 217, 217, 0.75)",
         position:'absolute',
-        top: 0.23*windowHeight,
+        bottom:0,
         alignItems:"center",
         justifyContent:"center"
     },
@@ -33,16 +45,14 @@ const LocalCardStyles = StyleSheet.create({
     },
     feesContainer:{
         position:'absolute',
-        right:0.12*windowWidth,
-        top: 0.25*windowHeight
+        left:5,
+        bottom: 0.035*windowHeight
     },
     likesContainer:{
         flexDirection:"row",
         alignItems:"center",
         justifyContent:"center",
-        position:'absolute',
-        left:0.12*windowWidth,
-        top: 0.25*windowHeight
+        marginTop:2
     },
     categoryContainer:{
         flexDirection:"row",
