@@ -14,14 +14,13 @@ import Posts from './Posts';
 import Locals from './Locals';
 import MapView from 'react-native-maps';
 import GetLocation from 'react-native-get-location'
-
-
 import * as Location from 'expo-location';
+import profile from '../../assets/profile.jpg'
 const Home=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const [name, setName]=useState('')
     const [photo, setPhoto]=useState('')
-    
+    const [source, setSource]=useState()
     
     useEffect(()=>{
         profile()
@@ -59,7 +58,7 @@ const Home=({navigation})=> {
     <View style={HomeStyles.container}>
         <Text style={HomeStyles.welcome}>Welcome</Text>
         <Text style={HomeStyles.name}>{user['name']}</Text>
-        <Image source={{uri:`data:image/jpg;base64,${photo}`}} style={HomeStyles.photo }/>
+        <Image source={photo?{ uri:`data:image/jpg;base64,${photo}`}: require('../../assets/blank-profile.webp')} style={HomeStyles.photo }/>
         <HomeCard label={'Locals'} handlePress={handleLocals}/>
         <HomeCard label={'Events'} handlePress={handleEvents}/>
         <HomeCard label={'Posts'} handlePress={handlePosts} />
