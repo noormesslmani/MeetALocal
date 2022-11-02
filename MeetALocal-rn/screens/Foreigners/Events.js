@@ -18,6 +18,7 @@ const Events=({navigation})=> {
   useEffect(()=>{
     if(!viewSaved){
       getEvents()
+      console.log('hi')
     }
     else{
       getSavedEvents()
@@ -71,7 +72,7 @@ const Events=({navigation})=> {
         <TouchableOpacity onPress={()=>{setModalVisible(true)}}><Text style={{color:'grey', marginBottom:5}}>Filter</Text></TouchableOpacity>
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
         <View style={EventsStyles.separator}/>
-        <SafeAreaView>
+        <SafeAreaView style={EventsStyles.listContainer}>
           <FlatList
             data={data}
             renderItem={renderItem}

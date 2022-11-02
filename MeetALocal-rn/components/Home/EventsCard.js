@@ -20,7 +20,7 @@ const EventCard=({navigation, item})=> {
         <Text style={EventCardStyles.title}>{item.title}</Text>
         <View style={{flexDirection:"row", justifyContent:"space-between"}}>
             <Text style={EventCardStyles.info}>{item.date}</Text>
-            <Text style={EventCardStyles.info}>{item.fees}$</Text>
+            <Text style={EventCardStyles.info}>{item.fees}$ nnn</Text>
         </View>
     </TouchableOpacity>
     <EventModal modalVisible={modalVisible} setModalVisible={setModalVisible} item={item}/>

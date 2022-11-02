@@ -20,6 +20,7 @@ import Posts from '../Foreigners/Posts';
 import Events from '../Foreigners/Events';
 import Locals from '../Foreigners/Locals';
 import SetUpMap from '../Auth/SetUpMapScreen';
+import LocalsMap from '../Foreigners/LocalsMapView';
 export default function RootNavigation() {
 
   const Stack = createNativeStackNavigator();
@@ -39,6 +40,7 @@ export default function RootNavigation() {
         <Stack.Screen  name="posts" component={Posts} options={{headerTitle: () => <Logo/>,}}/>
         <Stack.Screen  name="events" component={Events} options={{headerTitle: () => <Logo/>,}}/>
         <Stack.Screen  name="locals" component={Locals} options={{headerTitle: () => <Logo/>,}}/>
+        <Stack.Screen  name="locals-map" component={LocalsMap} options={{headerTitle: () => <Logo/>,}}/>
       </Stack.Navigator>
     </NavigationContainer>
     

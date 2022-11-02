@@ -55,28 +55,29 @@ const LocalCard=({navigation, item})=> {
     },[categories])
     
   return (
-    
-    <TouchableOpacity style={LocalCardStyles.card}>
-        <Image source={require('../../assets/profile.jpg')} style={LocalCardStyles.image}/>
-        <View style={LocalCardStyles.infoContainer}>
-            <Text style={LocalCardStyles.name}>{item.name}</Text>
-            <Text style={LocalCardStyles.country}>{item.country}</Text>
-            
-        </View>
-        <View style={LocalCardStyles.feesContainer}>
-            <Text style={{fontSize:12, fontWeight:"900"}}>{item.fees}$/hr</Text>
-        </View>
-        <View style={LocalCardStyles.likesContainer}>
-            <Text style={{fontSize:13, fontWeight:"700", marginRight:5}}>{item.likes}</Text>
-            <Icon name="heart" color="#8C57BA" size={15} /> 
-        </View>
-        <View style={LocalCardStyles.categoryContainer}>
-            <View style={{alignItems:"center", flexDirection:"row"}}>
-
-                {icons.map((icon)=><Image source={icon} style={{width:30, height:30, margin:15}} />)}
+    <View style={LocalCardStyles.container}>
+        <TouchableOpacity style={LocalCardStyles.card}>
+            <Image source={require('../../assets/profile.jpg')} style={LocalCardStyles.image}/>
+            <View style={LocalCardStyles.infoContainer}>
+                <Text style={LocalCardStyles.name}>{item.name}</Text>
+                <Text style={LocalCardStyles.country}>{item.country}</Text>
+                <View style={LocalCardStyles.likesContainer}>
+                    <Text style={{fontSize:14, marginRight:5}}>{item.likes}</Text>
+                    <Icon name="heart" color="#8C57BA" size={15} /> 
+                </View>   
             </View>
-        </View>
-    </TouchableOpacity>
+            <View style={LocalCardStyles.feesContainer}>
+                <Text style={{fontSize:14, fontWeight:"900"}}>{item.fees}$/hr</Text>
+            </View>
+            
+            {/* <View style={LocalCardStyles.categoryContainer}>
+                <View style={{alignItems:"center", flexDirection:"row"}}>
+
+                    {icons.map((icon)=><Image source={icon} style={{width:30, height:30, margin:15}} />)}
+                </View>
+            </View> */}
+        </TouchableOpacity>
+    </View>
   )
 }
 export default LocalCard
