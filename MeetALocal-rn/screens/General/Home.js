@@ -52,7 +52,10 @@ const Home=({navigation})=> {
     const handleEvents=()=>{
         navigation.navigate('events')
     }
-    
+  
+
+     
+   
     
   return (
     <View style={HomeStyles.container}>

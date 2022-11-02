@@ -5,7 +5,7 @@ const windowHeight = Dimensions.get("window").height;
 const EventsStyles = StyleSheet.create({
     view:{
         flexDirection:"row",
-        width:0.6*windowWidth,
+        width:"auto",
         justifyContent:"space-between",
     },
     title:{
@@ -13,9 +13,8 @@ const EventsStyles = StyleSheet.create({
        margin:10,
     },
     options:{
-        fontSize:18,
-        marginTop:10,
-        marginBottom:25,
+        fontSize:16,
+        margin:10,
     },
     selected:{
         color:"#8C57BA"
@@ -24,6 +23,7 @@ const EventsStyles = StyleSheet.create({
         borderBottomColor: 'grey',
         borderBottomWidth: 0.3,
         width: 0.9*windowWidth,
+        margin:10,
     },
     list:{
         alignSelf:"center",
