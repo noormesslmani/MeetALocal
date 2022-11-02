@@ -24,11 +24,10 @@ import Header from './SignedInHeader';
 export default function RootNavigation() {
 
   const Stack = createNativeStackNavigator();
-
   return (
     
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="signin">
+      <Stack.Navigator initialRouteName="">
         <Stack.Screen name="signin" options={{headerTitle: () => <Logo/>,}} component={SigninScreen} />
         <Stack.Screen name="signup-first" options={{headerTitle: () => <Logo/>,}} component={SignupScreen} />
         <Stack.Screen name="signup-second" options={{headerTitle: () => <Logo/>,}} component={SignupScreen2} />
@@ -48,12 +47,13 @@ export default function RootNavigation() {
 }
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createBottomTabNavigator();
-
 function MyTabs() {
+  
   return (
-    <Tab.Navigator
+    < Tab.Navigator
       initialRouteName="home"
       screenOptions={{
         tabBarActiveTintColor: "#4BB0F9",

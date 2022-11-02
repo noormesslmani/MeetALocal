@@ -2,28 +2,32 @@ import { View, Text, TouchableOpacity, Image, SafeAreaView, FlatList } from 'rea
 import React from 'react'
 import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext } from "react";
+import { UserContext } from '../../App'
 import EventsStyles from './Styles/EventsPageStyles';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import FilterModal from '../../components/Home/FilterModal';
 import EventCard from '../../components/Home/EventsCard';
 const Events=({navigation})=> {
-  const [viewSaved, setViewSaved]=useState(false)
+  const [choice, setChoice]=useState(1)
   const [modalVisible, setModalVisible] = useState(false)
   const [country, setCountry]=useState('all');
   const [category, setCategory]=useState('all');
   const [data, setdata]=useState([])
 
+  const { user, setUser} = useContext(UserContext);
   
   useEffect(()=>{
-    if(!viewSaved){
+    if(choice==1){
       getEvents()
-      console.log('hi')
     }
-    else{
+    else if(choice==2){
       getSavedEvents()
     }
-  },[viewSaved, country, category])
+    else{
+      getOwnEvents()
+    }
+  },[choice, country, category])
   
   async function getEvents(){
     const token = await AsyncStorage.getItem('@token')
@@ -56,6 +60,23 @@ const Events=({navigation})=> {
       console.warn(error)
     });
   }
+
+  async function getOwnEvents(){
+    const token = await AsyncStorage.getItem('@token')
+    axios({
+      method: "get",
+      headers: { Authorization: `Bearer ${token}`},
+      url:'http://192.168.1.7:8000/api/v1.0.0/locals/events',
+    })
+    .then((response)=> {
+      setdata(response.data.data)
+      return response;
+    })
+    .catch(function (error) {
+      console.warn(error)
+    });
+  }
+
   const renderItem = ({ item }) => (
     <View>
       <EventCard item={item} />
@@ -66,12 +87,14 @@ const Events=({navigation})=> {
     <View style={HomeStyles.container}>
         <Text style={EventsStyles.title}>Events</Text>
         <View style={EventsStyles.view}>
-            <TouchableOpacity onPress={()=>setViewSaved(false)} >{ <Text style={[EventsStyles.options,viewSaved? null: EventsStyles.selected ]}>View All</Text>}</TouchableOpacity>
-            <TouchableOpacity onPress={()=>setViewSaved(true)}>{ <Text style={[EventsStyles.options, viewSaved? EventsStyles.selected: null]}>Saved</Text>}</TouchableOpacity>
+            <TouchableOpacity onPress={()=>setChoice(1)} >{ <Text style={[EventsStyles.options,choice==1 ? EventsStyles.selected: null ]}>All Events</Text>}</TouchableOpacity>
+            <TouchableOpacity onPress={()=>setChoice(2)}>{ <Text style={[EventsStyles.options, choice==2 ? EventsStyles.selected: null]}>Saved Events</Text>}</TouchableOpacity>
+            {user.type_id==1 && <TouchableOpacity onPress={()=>setChoice(3)}>{ <Text style={[EventsStyles.options, choice==3? EventsStyles.selected: null]}>My Events</Text>}</TouchableOpacity>}
         </View>
+        <View style={EventsStyles.separator}/>
         <TouchableOpacity onPress={()=>{setModalVisible(true)}}><Text style={{color:'grey', marginBottom:5}}>Filter</Text></TouchableOpacity>
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
-        <View style={EventsStyles.separator}/>
+        
         <SafeAreaView style={EventsStyles.listContainer}>
           <FlatList
             data={data}
