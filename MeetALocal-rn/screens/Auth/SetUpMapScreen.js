@@ -18,34 +18,50 @@ const SetUpMap=({navigation})=> {
     const [errorMsg, setErrorMsg] = useState(null);
 
     useEffect(() => {
-        (async () => {
-          let { status } = await Location.requestForegroundPermissionsAsync();
-          if (status !== 'granted') {
-            setErrorMsg('Permission to access location was denied');
-            return;
-          }
-          let location = await Location.getCurrentPositionAsync({});
-            setLocation(location);
-            setLatitude(location.coords.latitude)
-            setLongitude(location.coords.longitude)
-        })();
+        getLocation()
       }, []);
+
+    async function getLocation(){
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+    }
+    let location = await Location.getCurrentPositionAsync({});
+        setLocation(location);
+        setLatitude(location.coords.latitude)
+        setLongitude(location.coords.longitude)
+    }
+    const handleLocation=()=>{
+        getLocation()
+    }
   return (
-   
+
     <View style={styles.mapContainer}>
-        {latitude && longitude && 
-        <MapView
-        style={styles.map}
-        region={{
-            latitude:  latitude,
-            longitude: longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,}}>
-            <Marker coordinate={{latitude: latitude,
-            longitude:longitude}}
-            pinColor='blue'>
-            </Marker>
-        </MapView>}
+        <View style={{alignItems:"center"}}><Text style={styles.title}>Set Up Location</Text>
+            <Text style={{fontSize:12, color:"grey"}}>Hold and drag the marker</Text>
+        </View>
+            <TouchableOpacity onPress={handleLocation}><Text style={{color:"#8C57BA", textDecorationLine: "underline"}}>Current Location</Text></TouchableOpacity>
+            {latitude && longitude && 
+            <MapView
+            style={styles.map}
+            loadingEnabled={true}
+            region={{
+                latitude:  latitude,
+                longitude: longitude,
+                latitudeDelta: 0.0922,
+                longitudeDelta: 0.0421,}}>
+                <Marker coordinate={{latitude: latitude,
+                longitude:longitude}}
+                pinColor='red'
+                draggable={true}
+                onDragEnd={(e)=>{
+                setLatitude( e.nativeEvent.coordinate.latitude)
+                setLongitude( e.nativeEvent.coordinate.longitude)
+                }}>
+                </Marker>
+            </MapView>}
+        <TouchableOpacity style={[styles.saveBtn, styles.button]}><Text style={{color: 'white'}}>Next</Text></TouchableOpacity>
     </View>
              
   )
