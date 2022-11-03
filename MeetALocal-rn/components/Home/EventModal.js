@@ -23,10 +23,11 @@ const EventModal=({navigation, modalVisible, setModalVisible, item})=> {
     const [icons, setIcons]=useState([])
     const [isSaved, setIsSaved]=useState(false)
     useEffect(()=>{
-        setIcons([])
+        if(modalVisible)
+        {setIcons([])
         setCategories(item.categories)
-        isEventSaved()
-    },[])
+        isEventSaved()}
+    },[modalVisible])
     useEffect(()=>{
         for(let category of categories){
             switch(category) {
