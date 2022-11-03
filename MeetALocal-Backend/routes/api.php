@@ -15,7 +15,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::get('/user/{id}', [UserController::class, 'getUser']);
             Route::get('/events/{country}/{category}', [UserController::class, 'getEvents']);
             Route::get('/event/{id}', [UserController::class, 'getEvent']);
-            Route::post('/event/saved', [UserController::class, 'toggleSavedEvents']);
+            Route::post('/event/toggle-save', [UserController::class, 'toggleSavedEvents']);
             Route::get('/event/is-saved/{id}', [UserController::class, 'isSaved']);
             Route::get('/events/saved', [UserController::class, 'getSavedEvents']);
             Route::get('/posts/{country}/{category}', [UserController::class, 'getPosts']);
