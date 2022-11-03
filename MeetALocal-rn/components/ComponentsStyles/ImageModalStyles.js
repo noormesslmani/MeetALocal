@@ -13,8 +13,7 @@ const ImageModalStyles = StyleSheet.create({
         width:0.9*windowWidth,
         height:0.5*windowHeight,
         borderRadius: 20,
-        padding: 20,
-        marginTop:"30%",
+        marginTop:"25%",
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
@@ -33,7 +32,7 @@ const ImageModalStyles = StyleSheet.create({
         position:'relative',
         borderRadius:999,
         overflow:'hidden',
-        marginTop:20
+        margin:30
       },
       uploadBtnContainer:{
           opacity:0.7,
@@ -48,6 +47,21 @@ const ImageModalStyles = StyleSheet.create({
           display:'flex',
           alignItems:"center",
           justifyContent:'center'
+      },
+      imageBtn:{
+        padding:10,
+        alignItems:"center",
+        justifyContent:"center",
+        width:90,
+        margin:5,
+        borderRadius:20,
+        backgroundColor:"rgba(75, 176, 249, 0.5)"
+      },
+      btnContainer:{
+        width:"75%",
+        alignItems:"center",
+        flexDirection:"row",
+        justifyContent:"center"
       }
 });
 export default ImageModalStyles;

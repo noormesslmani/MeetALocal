@@ -7,8 +7,11 @@ import ModalStyles from '../ComponentsStyles/FilterModalStyles';
 import ImageModalStyles from '../ComponentsStyles/ImageModalStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { AntDesign } from '@expo/vector-icons';
+import { UserContext } from '../../App'
 import * as ImagePicker from 'expo-image-picker';
 const ImageModal=({modalVisible, setModalVisible, base64, setBase64, ext, setext, image, setImage})=> {
+  const [imageChange, setImageChange]=useState(false)
+  const { user, setUser} = useContext(UserContext);
   const addImage = async () => {
     let _image = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -23,6 +26,12 @@ const ImageModal=({modalVisible, setModalVisible, base64, setBase64, ext, setext
         setext(image.split('.').pop())
         setImageChange(true)
       }
+    }
+    const handleCancel=()=>{
+        setImage(user.profile_picture)
+        setBase64(base64)
+        setext(ext)
+        setModalVisible(false)
     }
   return (
     <Modal
@@ -43,6 +52,10 @@ const ImageModal=({modalVisible, setModalVisible, base64, setBase64, ext, setext
                   </TouchableOpacity>
                 </View>
             </View> 
+            <View style={ImageModalStyles.btnContainer}>
+            {imageChange && <TouchableOpacity style={ImageModalStyles.imageBtn}><Text>Save</Text></TouchableOpacity>}
+            <TouchableOpacity style={ImageModalStyles.imageBtn} onPress={handleCancel}><Text>Cancel</Text></TouchableOpacity>
+            </View>
           </View>
         </View>
     </Modal>
