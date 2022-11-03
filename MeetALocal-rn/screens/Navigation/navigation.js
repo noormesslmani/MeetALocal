@@ -21,6 +21,8 @@ import Locals from '../General/Locals';
 import Header from './SignedInHeader';
 import Categories from '../Auth/Categories';
 import SetUpMap from '../Auth/SetUpMapScreen';
+import ForeignerProfile from '../Profile/ForeignersProfile';
+import LocalProfile from '../Profile/LocalProfile'
 export default function RootNavigation() {
 
   const Stack = createNativeStackNavigator();
@@ -40,6 +42,8 @@ export default function RootNavigation() {
         <Stack.Screen  name="posts" component={Posts} options={{headerTitle: () => <Header/>,headerBackVisible:false}}/>
         <Stack.Screen  name="events" component={Events} options={{headerTitle: () => <Header/>,headerBackVisible:false}}/>
         <Stack.Screen  name="locals" component={Locals} options={{headerTitle: () => <Header/>,headerBackVisible:false}}/>
+        <Stack.Screen  name="local-profile" component={LocalProfile} options={{headerTitle: () => <Header/>,headerBackVisible:false}}/>
+        <Stack.Screen  name="foreigner-profile" component={ForeignerProfile} options={{headerTitle: () => <Header/>,headerBackVisible:false}}/>
       </Stack.Navigator>
     </NavigationContainer>
     
