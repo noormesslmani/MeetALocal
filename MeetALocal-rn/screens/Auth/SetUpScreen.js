@@ -80,8 +80,8 @@ const SetUpScreen=({navigation})=> {
             <UploadImage setBase64={setBase64} setext={setext} />
         </View>
         <View style={styles.aboutContainer}>
-          <Text>About</Text>
-          <TextInput placeholder='Write something about your self' multiline={true} value={about} onChangeText={setAbout} style={styles.aboutInput}></TextInput>
+          <Text>About <Text style={{fontSize:10, fontWeight:"300"}}>(max 200 characters)</Text></Text>
+          <TextInput placeholder='Write something about your self' multiline={true} value={about} onChangeText={setAbout} style={styles.aboutInput} maxLength={20}></TextInput>
         </View>
         <Text style={styles.gender}>Gender *</Text>
         {genderunset?<Text style={styles.error}>Please select your gender</Text>:null}
