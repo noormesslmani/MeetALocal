@@ -10,7 +10,7 @@
 - I want to make posts and view events.
 - I want to be able to chat with locals.
 
-#### &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; As a Locals:
+#### &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; As a Local:
 
 - I want to create events and posts.
 - I want foreigners to reach out for me
