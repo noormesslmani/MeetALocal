@@ -50,7 +50,13 @@ class UserController extends Controller
         foreach($events as $event){
             $category= $event->categories()->pluck('category');
             $event['categories']=$category;
+            if($event->photo){
+                $imagedata = file_get_contents($event->photo);
+                $base64 = base64_encode($imagedata);
+                $event['base64']= $base64;
+            }
         }
+        
         return response()->json([
             'message' => 'ok',
             'data' => $events

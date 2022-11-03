@@ -36,7 +36,20 @@ class AuthController extends Controller
         if (! $token = auth()->attempt($validator->validated())) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-        return $this->createNewToken($token);
+        $user=Auth::user();
+        $base64= null;
+        if($user->profile_picture){
+            $imagedata = file_get_contents($user->profile_picture);
+            $base64 = base64_encode($imagedata);
+        }
+        $user['nationality']=Country::find($user->nationality_id)->country;
+        $user['residence']=Country::find($user->residence_id)->country;
+        $user['base64']=$base64;
+        return response()->json([
+            'message' => 'ok',
+            "access_token"=>$token,
+            "user"=>$user,
+        ], 201);
     }
     
     public function register(Request $request) {
