@@ -43,7 +43,7 @@ const ForeignerProfile=({navigation})=> {
   return (
     <View style={ProfileStyles.container}>
         <TouchableOpacity style={ProfileStyles.imgContainer} onPress={handleImage}>
-          <Image source={image?{ uri:`data:image/${image.split('.').pop()};base64,${base64}`}: require('../../assets/blank-profile.webp')} style={{ width: 250, height: 250 }} />
+          <Image source={image?{ uri:`data:image/${image.split('.').pop()};base64,${base64}`}: require('../../assets/blank-profile.webp')} style={{ width: 200, height: 200 }} />
         </TouchableOpacity>
           <ImageModal modalVisible={modalVisible} setModalVisible={setModalVisible} base64={base64} setBase64={setBase64} ext={ext} setext={setext} image={image} setImage={setImage} />
     </View>

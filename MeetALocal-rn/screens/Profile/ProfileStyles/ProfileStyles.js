@@ -9,8 +9,8 @@ const ProfileStyles = StyleSheet.create({
     },
     imgContainer:{
         elevation:2,
-        height:250,
-        width:250,
+        height:200,
+        width:200,
         backgroundColor:'#efefef',
         position:'relative',
         borderRadius:999,
