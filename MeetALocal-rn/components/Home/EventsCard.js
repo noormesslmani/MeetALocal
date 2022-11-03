@@ -7,16 +7,19 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import EventCardStyles from '../ComponentsStyles/EventCardStyles';
 import image from '../../assets/Baalbeck.jpg'
 import EventModal from './EventModal';
+
+
 const EventCard=({navigation, item})=> {
   const [modalVisible, setModalVisible]=useState(false)
    const handleEvent=()=>{
     console.log('pressed')
     setModalVisible(true)
    }
+   
   return (
     <>
     <TouchableOpacity style={EventCardStyles.cardContainer} onPress={handleEvent}>
-        <Image source={image} style={EventCardStyles.image}/>
+        <Image source={item.photo?{ uri:`data:image/jpeg;base64,${item.base64}`}: require('../../assets/blank-profile.webp')} style={EventCardStyles.image}/>
         <Text style={EventCardStyles.title}>{item.title}</Text>
         <View style={{flexDirection:"row", justifyContent:"space-between"}}>
             <Text style={EventCardStyles.info}>{item.date}</Text>

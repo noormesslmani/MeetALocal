@@ -98,7 +98,6 @@ const EventsModal=({navigation, modalVisible, setModalVisible})=> {
           url:'http://192.168.1.7:8000/api/v1.0.0/locals/event',
         })
         .then((response)=> {
-          console.log(response.data)
           setTimeout(() => {
             setModalVisible(false);
           }, 2000);

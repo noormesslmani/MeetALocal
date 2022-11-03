@@ -11,7 +11,6 @@ import SigninScreen from '../Auth/SigninScreen';
 import Logo from './Logo';
 import UserTypeScreen from '../Auth/UserTypeScreen';
 import SetUpScreen from '../Auth/SetUpScreen';
-import Categories from '../Auth/Categories';
 import Home from '../General/Home';
 import Profile from '../General/Profile';
 import Chats from '../General/Chats';
@@ -19,8 +18,9 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 import Posts from '../General/Posts';
 import Events from '../General/Events';
 import Locals from '../General/Locals';
-import SetUpMap from '../Auth/SetUpMapScreen';
 import Header from './SignedInHeader';
+import Categories from '../Auth/Categories';
+import SetUpMap from '../Auth/SetUpMapScreen';
 export default function RootNavigation() {
 
   const Stack = createNativeStackNavigator();
