@@ -9,6 +9,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import CommentsModalStyles from '../ComponentsStyles/CommentsModalStyles';
 import EventsModalStyles from '../ComponentsStyles/EventsModalStyles';
+import SwipeUpDownModal from 'react-native-swipe-modal-up-down';
 import DropDownPicker from 'react-native-dropdown-picker';
 import tourism from '../../assets/tourism.png'
 import cultures from '../../assets/cultures.png'
@@ -22,27 +23,51 @@ import jobs from '../../assets/suitcase.png'
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 const EventsModal=({navigation, modalVisible, setModalVisible})=> {
  const[title, setTtitle]=useState(null)
+ const[details, setDetails]=useState(null)
+ const[fees, setFees]=useState(null)
+ const [place, setPlace]=useState(null)
  const [date, setDate]=useState(new Date());
- const [time, setTime]=useState(0);
+ const [time, setTime]=useState(new Date());
  const [datePicker, setDatePicker]=useState(false)
  const [timePicker, setTimePicker]=useState(false)
+ const [openCategory, setOpenCategory] = useState(false);
+ const [selectedCategory, setSelectedCategory]=useState([])
+ const [categories, setCategories] = useState([
+    {label: 'All categories', value: 'all'},
+    {label: 'Tourism', value: 'Tourism', icon: () => <Image source={tourism} style={{width:20, height:20}} />},
+    {label: 'Languages', value: 'Languages', icon: () => <Image source={languages} style={{width:20, height:20}}/>},
+    {label: 'Culture', value: 'Culture', icon: () => <Image source={cultures} style={{width:20, height:20}}/>},
+    {label: 'Education', value: 'Education', icon: () => <Image source={education} style={{width:20, height:20}}/>},
+    {label: 'History', value: 'History', icon: () => <Image source={history} style={{width:20, height:20}}/>},
+    {label: 'Guidance', value: 'Guidance', icon: () => <Image source={guidance} style={{width:20, height:20}}/>},
+    {label: 'Jobs', value: 'Jobs', icon: () => <Image source={jobs} style={{width:20, height:20}}/>},
+    {label: 'Housing', value: 'Housing', icon: () => <Image source={house} style={{width:20, height:20}}/>},
+    {label: 'Other', value: 'Other', icon: () => <Image source={more} style={{width:20, height:20}}/>},
+    ]);
+
  const handleDate= (event, value)=>{
     setDatePicker(false)
     setDate(value)
   }
-  const handleTime=()=>{}
+  const handleTime=(event, value)=>{
+    setTimePicker(false)
+    setTime(value)
+  }
+  const hanldePress=()=>{}
   return (
     <Modal
-        animationType="fade"
+        propagateSwipe={true}
+        animationType="slide"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
         setModalVisible(!modalVisible);
         }}>
-        <View style={EventsModalStyles.centeredView}>
-            <View style={EventsModalStyles.modalView}>
+        <KeyboardAvoidingView style={EventsModalStyles.centeredView}>
+            <KeyboardAvoidingView style={EventsModalStyles.modalView}>
                 <Text style={EventsModalStyles.title}>Create New Event</Text>
                 <View style={EventsModalStyles.container}>
                     <View style={EventsModalStyles.uploadBtnContainer}>
@@ -52,29 +77,84 @@ const EventsModal=({navigation, modalVisible, setModalVisible})=> {
                         </TouchableOpacity>
                     </View>
                 </View>
+                <ScrollView style={{width:"90%", margin:10}}
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
+                >
                 <View style={EventsModalStyles.contentContainer}>
                     <Text>Title *</Text>
                     <TextInput placeholder='Event title' style={EventsModalStyles.input} value={title} onChangeText={setTtitle}></TextInput>
                 </View>
+                
                 <View style={EventsModalStyles.contentContainer}>
-                <TouchableOpacity onPress={()=>setDatePicker(true)} style={{alignSelf:'center', marginTop:10}}><Icon name="calendar" size={30}/></TouchableOpacity>
-                    { datePicker && <DateTimePicker
-                    value={date}
-                    mode={'date'}
-                    is24Hour={true}
-                    onChange={handleDate}
-                    minimumDate={new Date()}
-                    />}
-                <TouchableOpacity onPress={()=>setTimePicker(true)} style={{alignSelf:'center', marginTop:10}}><Icon name="clock-o" size={30}/></TouchableOpacity>
-                { timePicker && <DateTimePicker
-                    value={time}
-                    mode={'time'}
-                    is24Hour={true}
-                    onChange={handleTime}
-                    />}
+                    <Text>Details *</Text>
+                    <TextInput placeholder='Event details' style={EventsModalStyles.input} value={details} onChangeText={setDetails}></TextInput>
                 </View>
-            </View>
-        </View>
+                <View style={EventsModalStyles.contentContainer}>
+                    <Text>Fees *</Text>
+                    <TextInput placeholder='Enter fees' style={EventsModalStyles.input} value={fees} onChangeText={setFees}></TextInput>
+                </View>
+                <View style={EventsModalStyles.contentContainer}>
+                    <Text>Categories*</Text>
+                    <DropDownPicker
+                    style={EventsModalStyles.optionsContainer}
+                    zIndex={2000}
+                    zIndexInverse={2000}
+                    open={openCategory}
+                    value={selectedCategory}
+                    dropDownDirection="TOP"
+                    items={categories}
+                    setOpen={setOpenCategory}
+                    setValue={setSelectedCategory}
+                    setItems={setCategories}
+                    listMode="SCROLLVIEW"
+                    multiple={true}
+                    mode="BADGE"
+                    placeholder="Select a category"
+                    placeholderStyle={{
+                    color: "grey"
+                    }}
+                
+                    closeAfterSelecting={true}
+                    dropDownContainerStyle={{
+                        width:"90%"
+                    }}
+                    />
+                </View>
+                <View style={EventsModalStyles.contentContainer}>
+                    <Text>Where *</Text>
+                    <TextInput placeholder='Event location' style={EventsModalStyles.input} value={place} onChangeText={setPlace}></TextInput>
+                </View>
+                <View style={EventsModalStyles.dateContainer}>
+                    <Text style={{marginRight:"20%"}}>When:</Text>
+                    <View style={{flexDirection:"row", alignItems:"center", marginRight:"20%"}}>
+                        <Text>Date</Text>
+                    <TouchableOpacity onPress={()=>setDatePicker(true)} style={{alignSelf:'center', marginLeft:5}}><Icon name="calendar" size={20}/></TouchableOpacity>
+                        { datePicker && <DateTimePicker
+                        value={date}
+                        mode={'date'}
+                        is24Hour={true}
+                        onChange={handleDate}
+                        minimumDate={new Date()}
+                        />}
+                    </View>
+                    <View style={{flexDirection:"row", alignItems:"center"}}>
+                        <Text>Time</Text>
+                    <TouchableOpacity onPress={()=>setTimePicker(true)} style={{alignSelf:'center', marginLeft:5}}><Icon name="clock-o" size={20}/></TouchableOpacity>
+                    { timePicker && <DateTimePicker
+                        value={time}
+                        mode={'time'}
+                        is24Hour={true}
+                        onChange={handleTime}
+                        />}
+                    </View>
+                </View>
+                </ScrollView> 
+                <TouchableOpacity style={EventsModalStyles.button} onPress={hanldePress}>
+                    <Text>Create Event</Text>
+                </TouchableOpacity>
+            </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
     </Modal>
   )
 }
