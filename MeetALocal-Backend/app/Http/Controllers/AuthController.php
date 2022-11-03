@@ -75,7 +75,6 @@ class AuthController extends Controller
                     'gender'=>'Male'
                     ]
                 ));
-       
         foreach($request->languages as $language){
             UserLanguage::create([
                 'user_id' => $user->id,
@@ -90,7 +89,8 @@ class AuthController extends Controller
             'token'=> $token
         ], 201);
     }
-
+ 
+     
     public function setUp(Request $request){
         $validator = Validator::make($request->all(), [
             'type' => 'required|string|in:Local,Foreigner',
@@ -105,29 +105,21 @@ class AuthController extends Controller
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
         }
+        $path=null;
         if($request->photo){
             $extension=$request->ext;
-            $image_64 = $request->photo; //your base64 encoded data
+            $image_64 = $request->photo; 
             $img = base64_decode($image_64);
             $path = uniqid() . "." . $extension;
             file_put_contents($path, $img);
-            Auth::user()->update(array_merge(
-                $validator->validated(),
-                [
-                'type_id' => UserType::where('user_type',$request->type)->pluck('id')[0],
-                'profile_picture'=>$path,
-                ])
-            );
         }
-        else{
-            Auth::user()->update(array_merge(
-                $validator->validated(),
-                [
-                'type_id' => UserType::where('user_type',$request->type)->pluck('id')[0],
-                ])
-            );
-        }
-       
+        Auth::user()->update(array_merge(
+            $validator->validated(),
+            [
+            'type_id' => UserType::where('user_type',$request->type)->pluck('id')[0],
+            'profile_picture'=>$path
+            ])
+        );
         if($request->type=='Local'){
             foreach($request->categories as $category){
                 LocalCategory::create([
