@@ -128,6 +128,15 @@ class AuthController extends Controller
                 ]);
             }
         }
+        $user=Auth::user();
+        $base64= null;
+        if($user->profile_picture){
+            $imagedata = file_get_contents($user->profile_picture);
+            $base64 = base64_encode($imagedata);
+        }
+        $user['nationality']=Country::find($user->nationality_id)->country;
+        $user['residence']=Country::find($user->residence_id)->country;
+        $user['base64']=$base64;
         return response()->json([
             'user'=>Auth::user(),
             'message' => 'ok',
