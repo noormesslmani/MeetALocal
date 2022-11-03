@@ -45,6 +45,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::get('/favorites', [ForeignerController::class, 'getFavorites']);
             Route::get('/is-favorite/{id}', [ForeignerController::class, 'isFavorite']);
             Route::post('/toggle-favorite', [ForeignerController::class, 'toggleFavorite']);
+            //edit profile
         });
         Route::group(['prefix' => 'auth'], function ($router) { 
             Route::post('/logout', [AuthController::class, 'logout']);
