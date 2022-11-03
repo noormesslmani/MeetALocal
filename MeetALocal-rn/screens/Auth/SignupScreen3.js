@@ -1,4 +1,4 @@
-import { View, Text, TextInput, KeyboardAvoidingView } from 'react-native'
+import { View, Text, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native'
 import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect } from "react";
@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useRoute } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 const SignupScreen3 = ({navigation}) => {
   const route = useRoute();
   const fullName= route.params.fullName
@@ -78,22 +79,22 @@ const SignupScreen3 = ({navigation}) => {
     });
   }
   return (
-    <KeyboardAvoidingView style={styles.background}>
-        <View style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
+    <View style={styles.background}>
+        <KeyboardAvoidingView style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
           <Text style={styles.signIn}>Register</Text>
           <View style={styles.inputContainer}>
             <Text>Email</Text>
-            <TextInput placeholder="placeholder" style={styles.input} onChangeText={setEmail} value={email}></TextInput>
+            <TextInput placeholder="ex: joe@email.com" style={styles.input} onChangeText={setEmail} value={email}></TextInput>
             {invalidEmail && <Text style={styles.error}>Please enter a valid email</Text>}
           </View>
           <View style={styles.inputContainer}>
             <Text>Password</Text>
-            <TextInput placeholder="placeholder" style={styles.input} onChangeText={setPassword} value={password}></TextInput>
+            <TextInput secureTextEntry={true} placeholder="ex: Sdf12*xY" style={styles.input} onChangeText={setPassword} value={password}></TextInput>
             {invalidPassword && <Text style={styles.error}>Password must contain atleast 8 characters, 1 uppercase letter, 1 lowercase letter, and 1 number</Text>}
           </View>
           <View style={styles.inputContainer}>
             <Text>Confirm Password</Text>
-            <TextInput placeholder="placeholder" style={styles.input} onChangeText={setConfirmPassword} value={confirmPassword}></TextInput>
+            <TextInput secureTextEntry={true} placeholder="placeholder" style={styles.input} onChangeText={setConfirmPassword} value={confirmPassword}></TextInput>
             {unmatchedPassword && <Text style={styles.error}>Passwords do not match!</Text>}
           </View>
           <AuthButton title={'Register'} handleSubmit={handleSubmit} ></AuthButton>
@@ -102,8 +103,8 @@ const SignupScreen3 = ({navigation}) => {
           <Text style={styles.link} onPress={() => navigation.navigate('signin')}>
                 Login
           </Text> 
-        </View>
-    </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
+    </View>
   )
 }
 

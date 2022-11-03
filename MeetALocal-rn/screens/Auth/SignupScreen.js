@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect } from "react";
@@ -58,8 +58,8 @@ const SignupScreen = ({navigation}) => {
   }
   console.log(datePicker)
   return (
-    <View style={styles.background}>
-        <View style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
+    <KeyboardAvoidingView style={styles.background}>
+        <KeyboardAvoidingView style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
           <Text style={styles.signIn}>Register</Text>
           <View style={styles.inputContainer}>
             <Text>Full Name</Text>
@@ -90,8 +90,8 @@ const SignupScreen = ({navigation}) => {
             maximumDate={new Date(2022, 1, 1)}
             minimumDate={new Date(1900, 0, 1)}
             />}
-        </View>
-    </View>
+        </KeyboardAvoidingView>
+    </KeyboardAvoidingView>
   )
 }
 
