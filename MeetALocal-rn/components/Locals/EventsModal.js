@@ -25,14 +25,14 @@ import * as ImagePicker from 'expo-image-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 const EventsModal=({navigation, modalVisible, setModalVisible})=> {
+let hours
+let min
  const[title, setTtitle]=useState(null)
  const[details, setDetails]=useState(null)
  const[fees, setFees]=useState(null)
  const [place, setPlace]=useState(null)
  const [date, setDate]=useState(new Date());
- const [time, setTime]=useState(new Date());
  const [datePicker, setDatePicker]=useState(false)
- const [timePicker, setTimePicker]=useState(false)
  const [openCategory, setOpenCategory] = useState(false);
  const [selectedCategory, setSelectedCategory]=useState([])
  const [categories, setCategories] = useState([
@@ -47,16 +47,32 @@ const EventsModal=({navigation, modalVisible, setModalVisible})=> {
     {label: 'Housing', value: 'Housing', icon: () => <Image source={house} style={{width:20, height:20}}/>},
     {label: 'Other', value: 'Other', icon: () => <Image source={more} style={{width:20, height:20}}/>},
     ]);
+    const [image, setImage] = useState(null);
+    const [base64, setBase64]= useState(null)
+    const [ext, setext]= useState(null)
+    const addImage = async () => {
+        let _image = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        base64: true,
+        allowsEditing: true,
+        aspect: [4,3],
+        quality: 1,
+        });
+        if (!_image.cancelled) {
+            setImage(_image.uri);
+        }
+        setBase64(_image.base64)
+    }
+    const handleDate= (event, value)=>{
+        setDatePicker(false)
+        setDate(value)
+    }
 
- const handleDate= (event, value)=>{
-    setDatePicker(false)
-    setDate(value)
-  }
-  const handleTime=(event, value)=>{
-    setTimePicker(false)
-    setTime(value)
-  }
-  const hanldePress=()=>{}
+    const hanldePress=()=>{
+        if(image){
+            setext(image.split('.').pop())
+        }
+    }
   return (
     <Modal
         propagateSwipe={true}
@@ -70,10 +86,13 @@ const EventsModal=({navigation, modalVisible, setModalVisible})=> {
             <KeyboardAvoidingView style={EventsModalStyles.modalView}>
                 <Text style={EventsModalStyles.title}>Create New Event</Text>
                 <View style={EventsModalStyles.container}>
+                {
+                    image  && <Image source={{ uri: image }} style={{ width: "100%", height: "100%" }} />
+                }
                     <View style={EventsModalStyles.uploadBtnContainer}>
-                        <TouchableOpacity  style={EventsModalStyles.uploadBtn} >
-                            <Text style={EventsModalStyles.image}> Image</Text>
-                            <AntDesign name="camera" size={20} />
+                        <TouchableOpacity onPress={addImage} style={EventsModalStyles.uploadBtn} >
+                            <Text>{image ? 'Edit' : 'Upload'} Image</Text>
+                            <AntDesign name="camera" size={20} color="black" />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -126,9 +145,9 @@ const EventsModal=({navigation, modalVisible, setModalVisible})=> {
                     <TextInput placeholder='Event location' style={EventsModalStyles.input} value={place} onChangeText={setPlace}></TextInput>
                 </View>
                 <View style={EventsModalStyles.dateContainer}>
-                    <Text style={{marginRight:"20%"}}>When:</Text>
-                    <View style={{flexDirection:"row", alignItems:"center", marginRight:"20%"}}>
-                        <Text>Date</Text>
+                    <Text style={{marginRight:"20%"}}>When *</Text>
+                    <View style={{flexDirection:"row", alignItems:"center", alignSelf:"center"}}>
+                        <Text style={{fontSize:12}}>Date</Text>
                     <TouchableOpacity onPress={()=>setDatePicker(true)} style={{alignSelf:'center', marginLeft:5}}><Icon name="calendar" size={20}/></TouchableOpacity>
                         { datePicker && <DateTimePicker
                         value={date}
@@ -136,16 +155,6 @@ const EventsModal=({navigation, modalVisible, setModalVisible})=> {
                         is24Hour={true}
                         onChange={handleDate}
                         minimumDate={new Date()}
-                        />}
-                    </View>
-                    <View style={{flexDirection:"row", alignItems:"center"}}>
-                        <Text>Time</Text>
-                    <TouchableOpacity onPress={()=>setTimePicker(true)} style={{alignSelf:'center', marginLeft:5}}><Icon name="clock-o" size={20}/></TouchableOpacity>
-                    { timePicker && <DateTimePicker
-                        value={time}
-                        mode={'time'}
-                        is24Hour={true}
-                        onChange={handleTime}
                         />}
                     </View>
                 </View>
