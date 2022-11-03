@@ -16,6 +16,7 @@ const PostModalStyles = StyleSheet.create({
         flex:0.9,
         borderRadius: 20,
         alignItems: "center",
+        justifyContent:"center",
         shadowColor: "#000",
         shadowOffset: {
           width: 0,
@@ -52,6 +53,11 @@ const PostModalStyles = StyleSheet.create({
         borderBottomColor:"#4BB0F9",
         borderBottomWidth:0.5
       },
+      buttonContainer:{
+        width:0.9*windowWidth,
+        alignItems:"center",
+        justifyContent:"center"
+      },
       button: {
         borderRadius: 20,
         paddingLeft: 15,
@@ -60,7 +66,9 @@ const PostModalStyles = StyleSheet.create({
         paddingBottom: 10,
         elevation: 1,
         marginTop:60,
-        backgroundColor:"rgba(75, 176, 249, 0.5)"
+        backgroundColor:"rgba(75, 176, 249, 0.5)",
+        marginBottom:50,
+        width:0.3*windowWidth,
       },
 
 
