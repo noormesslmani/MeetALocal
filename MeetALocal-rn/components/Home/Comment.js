@@ -8,7 +8,7 @@ import image from '../../assets/profile.jpg'
 import EventModal from './EventModal';
 import CommentStyles from '../ComponentsStyles/CommentStyles';
 const Comment=({navigation, item, comment})=> {
-  
+  console.log(comment)
   return (
     <View style={CommentStyles.commentContainer}>
         <View style={CommentStyles.headerContainer}>
@@ -18,7 +18,7 @@ const Comment=({navigation, item, comment})=> {
                     <Text style={{fontSize:10, fontWeight:"600"}}>{comment.user.name}</Text>
                     <View style={{flexDirection:"row", alignItems:"center"}}>
                       <Text style={{fontSize:10}}>country</Text>
-                      {comment.user.type_id==2 && <Text style={{fontSize:8, marginLeft:5, color:"#8C57BA"}}>Local</Text>}
+                      {comment.user.type_id==1 && <Text style={{fontSize:8, marginLeft:5, color:"#8C57BA"}}>Local</Text>}
                     </View>
                     <Text style={{fontSize:10, marginTop:5, fontWeight:"300"}}>{comment.content}</Text>
                 </View>

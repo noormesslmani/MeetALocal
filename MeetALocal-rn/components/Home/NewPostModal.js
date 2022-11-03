@@ -95,6 +95,7 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
         }}>
         <View style={PostModalStyles.centeredView}>
             <View style={PostModalStyles.modalView}>
+              <ScrollView style={PostModalStyles.scrollView}>
                 <Text style={PostModalStyles.title}>Create New Post</Text>
                 <View style={PostModalStyles.contentContainer}>
                     <Text>Post *</Text>
@@ -153,9 +154,12 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                     }}
                     />
                 </View>
-                <Pressable style={PostModalStyles.button} onPress={handleSubmit}>
-                <Text style={PostModalStyles.textStyle}>Submit</Text>
-                </Pressable>
+                <View style={PostModalStyles.buttonContainer}>
+                  <Pressable style={PostModalStyles.button} onPress={handleSubmit}>
+                  <Text style={PostModalStyles.textStyle}>Submit</Text>
+                  </Pressable>
+                </View>
+                </ScrollView>
             </View>
         </View>
     </Modal>
