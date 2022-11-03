@@ -35,4 +35,16 @@ class ForeignerController extends Controller
             'favorites'=>$favorites
         ], 201);
     }
+    public function isFavorite($id){
+        if(Auth::user()->favorites()->where('local_id',$id)->exists()){
+            return response()->json([
+                'message' => 'ok',
+                'data'=>true
+            ], 201);
+        }
+        return response()->json([
+            'message' => 'ok',
+            'data'=>false
+        ], 201);
+    }
 }
