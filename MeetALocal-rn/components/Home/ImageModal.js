@@ -9,6 +9,8 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { AntDesign } from '@expo/vector-icons';
 import { UserContext } from '../../App'
 import * as ImagePicker from 'expo-image-picker';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from 'axios';
 const ImageModal=({modalVisible, setModalVisible, base64, setBase64, ext, setext, image, setImage})=> {
   const [imageChange, setImageChange]=useState(false)
   const { user, setUser} = useContext(UserContext);
@@ -27,11 +29,39 @@ const ImageModal=({modalVisible, setModalVisible, base64, setBase64, ext, setext
         setImageChange(true)
       }
     }
+    const handleSave=()=>{
+      console.log('hi')
+      changePhoto()
+    }
     const handleCancel=()=>{
         setImage(user.profile_picture)
         setBase64(base64)
-        setext(ext)
+        setext(user.profile_picture.split('.').pop())
+        setImageChange(false)
         setModalVisible(false)
+    }
+    async function changePhoto(){
+      const data = {
+        base64: base64,
+        ext: ext,
+      };
+      const token = await AsyncStorage.getItem('@token')
+      axios({
+        method: "put",
+        data,
+        headers: { Authorization: `Bearer ${token}`},
+        url:"http://192.168.1.7:8000/api/v1.0.0/users/profile-photo",
+      })
+      .then(async (response)=> {
+        await AsyncStorage.setItem("@user", JSON.stringify(response.data['user']));
+        setUser(response.data.user)
+        setImageChange(false)
+        setModalVisible(false)
+        return response.data;
+      })
+      .catch(function (error) {
+        console.warn(error)
+      });
     }
   return (
     <Modal
@@ -44,7 +74,7 @@ const ImageModal=({modalVisible, setModalVisible, base64, setBase64, ext, setext
         <View style={ImageModalStyles.centeredView}>
           <View style={ImageModalStyles.modalView}>
             <View style={ImageModalStyles.imgContainer}>
-                <Image source={image?{ uri:`data:image/${image.split('.').pop()};base64,${base64}`}: require('../../assets/blank-profile.webp')} style={{ width: 250, height: 250 }} />
+                <Image source={image?{ uri:`data:image/${image.split('.').pop()};base64,${base64}`}: require('../../assets/blank-profile.webp')} style={{ width: 350, height: 350 }} />
                 <View style={ImageModalStyles.uploadBtnContainer}>
                   <TouchableOpacity onPress={addImage} style={ImageModalStyles.uploadBtn} >
                       <Text>{image ? 'Edit' : 'Upload'} Image</Text>
@@ -53,8 +83,8 @@ const ImageModal=({modalVisible, setModalVisible, base64, setBase64, ext, setext
                 </View>
             </View> 
             <View style={ImageModalStyles.btnContainer}>
-            {imageChange && <TouchableOpacity style={ImageModalStyles.imageBtn}><Text>Save</Text></TouchableOpacity>}
-            <TouchableOpacity style={ImageModalStyles.imageBtn} onPress={handleCancel}><Text>Cancel</Text></TouchableOpacity>
+            {imageChange && <TouchableOpacity style={ImageModalStyles.imageBtn} onPress={handleSave}><Text>Save</Text></TouchableOpacity>}
+            <TouchableOpacity style={ImageModalStyles.imageBtn} onPress={handleCancel} ><Text>Cancel</Text></TouchableOpacity>
             </View>
           </View>
         </View>

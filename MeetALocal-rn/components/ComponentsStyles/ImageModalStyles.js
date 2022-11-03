@@ -6,14 +6,14 @@ const ImageModalStyles = StyleSheet.create({
     centeredView: {
         flex: 1,
         alignItems: "center",
+        justifyContent:'center'
       },
       modalView: {
         margin: 20,
         backgroundColor: "white",
         width:0.9*windowWidth,
-        height:0.5*windowHeight,
+        height:0.7*windowHeight,
         borderRadius: 20,
-        marginTop:"25%",
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
@@ -26,8 +26,8 @@ const ImageModalStyles = StyleSheet.create({
       },
       imgContainer:{
         elevation:2,
-        height:250,
-        width:250,
+        height:350,
+        width:350,
         backgroundColor:'#efefef',
         position:'relative',
         borderRadius:999,
