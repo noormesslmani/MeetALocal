@@ -75,6 +75,8 @@ const Locals=({navigation})=> {
         {!viewFav && <TouchableOpacity onPress={()=>{setModalVisible(true)}}><Text style={{color:'grey', marginBottom:5}}>Filter</Text></TouchableOpacity>}
         <SafeAreaView>
           <FlatList
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
             data={data}
             renderItem={renderItem}
             key={item => item.id}

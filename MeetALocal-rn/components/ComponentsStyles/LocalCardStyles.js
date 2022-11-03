@@ -9,7 +9,7 @@ const LocalCardStyles = StyleSheet.create({
         width:windowWidth, 
     },
     card:{
-        width: 0.8*windowWidth,
+        width: 0.9*windowWidth,
         height: 0.4*windowHeight,
         borderRadius:10,
         shadowColor: "#000",
@@ -23,14 +23,14 @@ const LocalCardStyles = StyleSheet.create({
     },
     image:{
         borderRadius:10,
-        width: 0.8*windowWidth,
+        width: 0.9*windowWidth,
         height: 0.4*windowHeight,
         position: "relative",
     },
     infoContainer:{
-        width: 0.8*windowWidth,
+        width: 0.9*windowWidth,
         height: 0.09*windowHeight,
-        backgroundColor:"rgba(217, 217, 217, 0.75)",
+        backgroundColor:"rgba(217, 217, 217, 0.85)",
         position:'absolute',
         bottom:0,
         alignItems:"center",

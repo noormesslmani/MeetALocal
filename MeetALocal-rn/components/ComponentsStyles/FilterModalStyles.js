@@ -12,7 +12,7 @@ const ModalStyles = StyleSheet.create({
       modalView: {
         margin: 20,
         backgroundColor: "white",
-        width:0.7*windowWidth,
+        width:0.8*windowWidth,
         height:0.45*windowHeight,
         borderRadius: 20,
         padding: 20,
