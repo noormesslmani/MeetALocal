@@ -17,6 +17,7 @@ const SetUpScreen=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const route = useRoute();
   const type= route.params.type
+  
   const [gender, setGender]=useState('')
   const [genderunset, setGenderUnset]=useState(false)
   const [base64, setBase64]=useState(null)
@@ -34,7 +35,7 @@ const SetUpScreen=({navigation})=> {
       if(type=='Foreigner'){
         setUp()
       }
-      else{
+      else if(type=='Local'){
         navigation.navigate('setup-map',{gender, base64, ext, about})
       }
     }
