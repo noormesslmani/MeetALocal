@@ -7,11 +7,13 @@ import ProfileStyles from './ProfileStyles/ProfileStyles';
 import UploadImage from '../../components/UploadImage';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import ImageModal from '../../components/Home/ImageModal';
 const ForeignerProfile=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const [base64, setBase64]= useState(null);
   const [ext, setext]= useState(null)
   const [image, setImage]= useState(null)
+  const [modalVisible, setModalVisible]= useState(false)
   useEffect(()=>{
     if(user.profile_picture){
       setBase64(user.base64)
@@ -31,21 +33,31 @@ const ForeignerProfile=({navigation})=> {
         setImage(_image.uri)
         setBase64(_image.base64)
         setext(image.split('.').pop())
+        setImageChange(true)
       }
     }
-    
+    const handleImage=()=>{
+      setModalVisible(true)
+    }
  
   return (
     <View style={ProfileStyles.container}>
-        <View style={ProfileStyles.imgContainer}>
+        {/* <View style={ProfileStyles.imgContainer}>
             <Image source={image?{ uri:`data:image/${image.split('.').pop()};base64,${base64}`}: require('../../assets/blank-profile.webp')} style={{ width: 250, height: 250 }} />
             <View style={ProfileStyles.uploadBtnContainer}>
-                  <TouchableOpacity onPress={addImage} style={ProfileStyles.uploadBtn} >
-                      <Text>{image ? 'Edit' : 'Upload'} Image</Text>
-                      <AntDesign name="camera" size={20} color="black" />
-                  </TouchableOpacity>
+              {!imageChange &&<TouchableOpacity onPress={addImage} style={ProfileStyles.uploadBtn} >
+                  <Text>{image ? 'Edit' : 'Upload'} Image</Text>
+                  <AntDesign name="camera" size={20} color="black" />
+              </TouchableOpacity>}
+              {imageChange &&<View  style={ProfileStyles.uploadBtn} >
+                  <TouchableOpacity><Text>Save changes</Text></TouchableOpacity>
+              </View>}
             </View>
-        </View>
+        </View> */}
+        <TouchableOpacity style={ProfileStyles.imgContainer} onPress={handleImage}>
+          <Image source={image?{ uri:`data:image/${image.split('.').pop()};base64,${base64}`}: require('../../assets/blank-profile.webp')} style={{ width: 250, height: 250 }} />
+        </TouchableOpacity>
+          <ImageModal modalVisible={modalVisible} setModalVisible={setModalVisible} />
     </View>
   )
 }
