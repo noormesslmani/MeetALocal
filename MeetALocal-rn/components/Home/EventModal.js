@@ -105,7 +105,7 @@ const EventModal=({navigation, modalVisible, setModalVisible, item})=> {
         }}>
         <View style={EventModalStyles.centeredView}>
         <View style={EventModalStyles.modalView}>
-            <Image source={image} style={EventModalStyles.image}/>
+            <Image source={item.photo?{ uri:`data:image/${item.photo.split('.').pop()};base64,${item.base64}`}: require('../../assets/blank-profile.webp')} style={EventModalStyles.image}/>
             <View style={EventModalStyles.titleContainer}>
               <Text style={{fontSize:20, fontWeight:"600"}}>{item.title}</Text>
               <Pressable onPress={handleSave}>
