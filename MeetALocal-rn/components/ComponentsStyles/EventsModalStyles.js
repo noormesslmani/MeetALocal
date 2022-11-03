@@ -4,7 +4,7 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const EventsModalStyles = StyleSheet.create({
     centeredView: {
-        height:windowHeight,
+        flex:1,
         width:windowWidth,
         justifyContent: "center",
         alignItems: "center",
@@ -28,8 +28,8 @@ const EventsModalStyles = StyleSheet.create({
       },
       container:{
         elevation:2,
-        height:"30%",
-        width:0.7*windowWidth,
+        height:"25%",
+        width:0.6*windowWidth,
         backgroundColor:'#efefef',
         position:'relative',
         overflow:'hidden',
@@ -56,17 +56,42 @@ const EventsModalStyles = StyleSheet.create({
         marginBottom:40
     },
     contentContainer:{
-        marginTop:"10%",
+        marginTop:"5%",
         width:"90%"
-      },
-      input:{
-        marginTop:10,
-        height:50,
-        width:"100%",
-        borderBottomWidth:0.5,
-        borderColor:"#4BB0F9",
-        marginBottom:40
-      },
-
+    },
+    input:{
+      marginTop:10,
+      height:30,
+      width:"100%",
+      borderBottomWidth:0.5,
+      borderColor:"#4BB0F9",
+      marginBottom:20
+    },
+    dateContainer:{
+      marginTop:20,
+      width:"90%",
+      flexDirection:"row",
+      alignItems:"center"
+  },
+  optionsContainer:{
+    borderTopWidth:0,
+    borderLeftWidth:0,
+    borderRightWidth:0,
+    borderBottomRightRadius:0,
+    borderBottomLeftRadius:0,
+    borderBottomColor:"#4BB0F9",
+    borderBottomWidth:0.5,
+    marginBottom:20
+  },
+  button:{
+    borderRadius: 20,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 10,
+    paddingBottom: 10,
+    elevation: 1,
+    marginTop:30,
+    backgroundColor:"rgba(75, 176, 249, 0.5)"
+  }
 });
 export default EventsModalStyles;
