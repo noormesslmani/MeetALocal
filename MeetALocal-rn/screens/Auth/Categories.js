@@ -1,7 +1,8 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import styles from './Authstyles';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from '../../App'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthButton from '../../components/AuthButton';
@@ -11,6 +12,7 @@ import { useRoute } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const Categories=({navigation})=> {
+    const { user, setUser} = useContext(UserContext);
     const route = useRoute();
     const base64= route.params.base64
     const gender= route.params.gender
@@ -69,8 +71,8 @@ const Categories=({navigation})=> {
           url:"http://192.168.1.7:8000/api/v1.0.0/auth/setup",
         })
         .then(async (response)=> {
-          console.log(response.data)
           await AsyncStorage.setItem("@user", JSON.stringify(response.data['user']));
+          setUser(response.data.user)
           navigation.navigate('tabs')
           return response.data;
         })
