@@ -16,7 +16,7 @@ import more from '../../assets/more.png'
 import jobs from '../../assets/suitcase.png'
 
 const LocalCard=({navigation, item})=> {
-    
+    console.log(item.profile_picture)
     const [categories, setCategories]=useState([])
     const [icons, setIcons]=useState([])
     useEffect(()=>{
@@ -53,11 +53,10 @@ const LocalCard=({navigation, item})=> {
             }
         }
     },[categories])
-    
   return (
     <View style={LocalCardStyles.container}>
         <TouchableOpacity style={LocalCardStyles.card}>
-            <Image source={require('../../assets/profile.jpg')} style={LocalCardStyles.image}/>
+            <Image source={item.profile_picture?{ uri:`data:image/${item.profile_picture.split('.').pop()};base64,${item.base64}`}: require('../../assets/blank-profile.webp')} style={LocalCardStyles.image}/>
             <View style={LocalCardStyles.infoContainer}>
                 <Text style={LocalCardStyles.name}>{item.name}</Text>
                 <Text style={LocalCardStyles.country}>{item.country}</Text>
