@@ -12,8 +12,6 @@ import HomeCard from '../../components/Home/HomeCards';
 import Events from './Events';
 import Posts from './Posts';
 import Locals from './Locals';
-import MapView from 'react-native-maps';
-import GetLocation from 'react-native-get-location'
 import * as Location from 'expo-location';
 import profile from '../../assets/profile.jpg'
 const Home=({navigation})=> {
@@ -28,7 +26,6 @@ const Home=({navigation})=> {
         navigation.navigate('events')
     }
   
-    console.log(user.base64)
      
    
     

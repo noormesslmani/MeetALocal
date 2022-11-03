@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, Image, TouchableWithoutFeedback } from 'react-native';
 import * as React from 'react';
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator, createSwitchNavigator } from '@react-navigation/native-stack';
 import SignupScreen from '../Auth/SignupScreen';
@@ -12,7 +12,6 @@ import Logo from './Logo';
 import UserTypeScreen from '../Auth/UserTypeScreen';
 import SetUpScreen from '../Auth/SetUpScreen';
 import Home from '../General/Home';
-import Profile from '../General/Profile';
 import Chats from '../General/Chats';
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import Posts from '../General/Posts';
@@ -21,10 +20,11 @@ import Locals from '../General/Locals';
 import Header from './SignedInHeader';
 import Categories from '../Auth/Categories';
 import SetUpMap from '../Auth/SetUpMapScreen';
+import { UserContext } from '../../App'
 import ForeignerProfile from '../Profile/ForeignersProfile';
 import LocalProfile from '../Profile/LocalProfile'
 export default function RootNavigation() {
-
+  
   const Stack = createNativeStackNavigator();
   return (
     
@@ -52,8 +52,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Tab = createBottomTabNavigator();
+
 function MyTabs() {
-  
+  const { user, setUser} = useContext(UserContext);
   return (
     < Tab.Navigator
       initialRouteName="home"
@@ -72,16 +73,26 @@ function MyTabs() {
           ),
         }}
       />
-      <Tab.Screen
-        name="profile"
-        component={Profile}
+      {user.type_id==1 && <Tab.Screen
+        name="profile-local"
+        component={LocalProfile}
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color, size }) => (
             <Icon name="user" color={color} size={size} />
           ),
         }}
-      />
+      />}
+      {user.type_id==2 && <Tab.Screen
+        name="profile-foreigner"
+        component={ForeignerProfile}
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="user" color={color} size={size} />
+          ),
+        }}
+      />}
       <Tab.Screen
         name="chats"
         component={Chats}
