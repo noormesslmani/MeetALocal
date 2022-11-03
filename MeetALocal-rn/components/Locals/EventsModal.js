@@ -86,7 +86,7 @@ const EventsModal=({navigation, modalVisible, setModalVisible})=> {
             categories:selectedCategory,
             place: place,
             date:`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`,
-            photo: image,
+            photo: base64,
             ext: ext,
             country: user.residence
         }
@@ -99,6 +99,9 @@ const EventsModal=({navigation, modalVisible, setModalVisible})=> {
         })
         .then((response)=> {
           console.log(response.data)
+          setTimeout(() => {
+            setModalVisible(false);
+          }, 2000);
           return response;
         })
         .catch(function (error) {
