@@ -25,7 +25,7 @@ const PostCard=({navigation, item})=> {
                 <View>
                     <Text style={{fontSize:10, marginLeft:10, fontWeight:"600"}}>{item.name}</Text>
                     <Text style={{fontSize:10, marginLeft:10}}>{item.country}</Text>
-                    <Text style={PostCardStyles.details}>{item.details}</Text>
+                    <Text style={PostCardStyles.postDetails}>{item.details}</Text>
                 </View>
             </View>
         </View>

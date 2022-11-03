@@ -19,7 +19,8 @@ const PostCardStyles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 3,
         borderRadius:20,
-        padding:10
+        padding:10,
+        overflow:"hidden"
     },
     headerContainer:{
         flexDirection:"row",
@@ -63,6 +64,13 @@ const PostCardStyles = StyleSheet.create({
         fontWeight:"300", 
         alignSelf:"flex-start",
         marginBottom:10
+    },
+    postDetails:{
+        fontSize:11, 
+        marginLeft:10, 
+        fontWeight:"200", 
+        alignSelf:"flex-start",
+        width:0.7*windowWidth
     }
    
 });
