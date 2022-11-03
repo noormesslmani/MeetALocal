@@ -92,8 +92,13 @@ const EventsModalStyles = StyleSheet.create({
     paddingRight: 15,
     paddingTop: 10,
     paddingBottom: 10,
+    marginBottom:10,
+    alignSelf:"center",
     elevation: 1,
     marginTop:30,
+    width:"40%",
+    alignItems:"center",
+    justifyContent:"center",
     backgroundColor:"rgba(75, 176, 249, 0.5)"
   }
 });

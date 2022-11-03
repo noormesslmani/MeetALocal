@@ -40,7 +40,7 @@ const EventsModal=({navigation, modalVisible, setModalVisible})=> {
     const [categories, setCategories] = useState([
     {label: 'All categories', value: 'all'},
     {label: 'Tourism', value: 'Tourism', icon: () => <Image source={tourism} style={{width:20, height:20}} />},
-    {label: 'Languages', value: 'Languages', icon: () => <Image source={languages} style={{width:20, height:20}}/>},
+    {label: 'Language', value: 'Language', icon: () => <Image source={languages} style={{width:20, height:20}}/>},
     {label: 'Culture', value: 'Culture', icon: () => <Image source={cultures} style={{width:20, height:20}}/>},
     {label: 'Education', value: 'Education', icon: () => <Image source={education} style={{width:20, height:20}}/>},
     {label: 'History', value: 'History', icon: () => <Image source={history} style={{width:20, height:20}}/>},
@@ -74,6 +74,7 @@ const EventsModal=({navigation, modalVisible, setModalVisible})=> {
         if(image){
             setext(image.split('.').pop())
         }
+        console.log(selectedCategory)
         createEvent()
     }
     async function createEvent(){
@@ -81,10 +82,10 @@ const EventsModal=({navigation, modalVisible, setModalVisible})=> {
         const data = {
             title:title,
             details: details,
-            fees: fees,
+            fees: parseInt(fees),
             categories:selectedCategory,
             place: place,
-            date:date,
+            date:`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`,
             photo: image,
             ext: ext,
             country: user.residence
@@ -127,7 +128,7 @@ const EventsModal=({navigation, modalVisible, setModalVisible})=> {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <ScrollView style={{width:"90%", margin:10}}
+                <ScrollView style={{width:"90%", margin:10, alignSelf:"center"}}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
                 >
@@ -189,10 +190,10 @@ const EventsModal=({navigation, modalVisible, setModalVisible})=> {
                         />}
                     </View>
                 </View>
-                </ScrollView> 
                 <TouchableOpacity style={EventsModalStyles.button} onPress={hanldePress}>
                     <Text>Create Event</Text>
                 </TouchableOpacity>
+                </ScrollView> 
             </KeyboardAvoidingView>
         </KeyboardAvoidingView>
     </Modal>
