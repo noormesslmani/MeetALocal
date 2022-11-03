@@ -19,6 +19,7 @@ use App\Models\SavedEvent;
 use App\Models\UserType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Validator;
 class UserController extends Controller
 {
     public function getLocals($country, $category){
@@ -219,5 +220,26 @@ class UserController extends Controller
             'message' => 'ok',
             'data' => $message,
         ], 201);
+    }
+    public function changePhoto( Request $request){
+        $validator = Validator::make($request->all(), [
+            'base64' => 'required|string',
+            'ext'=>'required|string'
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        } 
+        $img = base64_decode($request->base64);
+        $path = uniqid() . "." . $request->ext;
+        file_put_contents($path, $img);
+        Auth::user()->update(['profile_picture'=>$path]);
+        $user=Auth::user();
+        $user['nationality']=Country::find($user->nationality_id)->country;
+        $user['residence']=Country::find($user->residence_id)->country;
+        $user['base64']=base64_encode(file_get_contents($path));
+        return response()->json([
+            'user'=>$user,
+            'message' => 'ok',
+        ], 201);  
     }
 }
