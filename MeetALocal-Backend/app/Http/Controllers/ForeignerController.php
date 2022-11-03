@@ -47,4 +47,17 @@ class ForeignerController extends Controller
             'data'=>false
         ], 201);
     }
+    public function toggleFavorite(Request $request){
+        if(FavoriteLocal::where('user_id',Auth::id())->where('local_id',$request->id)->exists())
+            FavoriteLocal::where('user_id',Auth::id())->where('local_id',$request->id)->delete();
+        else{
+            FavoriteLocal::create([
+                'user_id' => Auth::id(),
+                'local_id'=> $request->id,
+            ]);
+        }
+        return response()->json([
+            'message' => 'ok',
+        ], 201);
+    }
 }
