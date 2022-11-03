@@ -77,6 +77,7 @@ const Locals=({navigation})=> {
           <FlatList
             data={data}
             renderItem={renderItem}
+            key={item => item.id}
             keyExtractor={item => item.id}
             style={LocalsStyles.list}
             contentContainerStyle={{ paddingBottom: 300}}

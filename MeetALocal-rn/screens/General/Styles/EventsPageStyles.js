@@ -13,7 +13,7 @@ const EventsStyles = StyleSheet.create({
        margin:10,
     },
     options:{
-        fontSize:16,
+        fontSize:14,
         margin:10,
     },
     selected:{
