@@ -17,6 +17,16 @@ const ProfileStyles = StyleSheet.create({
         overflow:'hidden',
         marginTop:20
     },
+    name:{
+        margin:20,
+        fontSize:20
+    },
+    separator:{
+        borderBottomColor: 'grey',
+        borderBottomWidth: 0.3,
+        width: 0.9*windowWidth,
+        margin:5,
+    },
 });
 
 export default ProfileStyles;

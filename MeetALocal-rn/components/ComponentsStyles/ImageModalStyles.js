@@ -6,13 +6,13 @@ const ImageModalStyles = StyleSheet.create({
     centeredView: {
         flex: 1,
         alignItems: "center",
-        justifyContent:'center'
+        paddingTop:0.1*windowHeight
       },
       modalView: {
         margin: 20,
         backgroundColor: "white",
         width:0.9*windowWidth,
-        height:0.7*windowHeight,
+        height:0.6*windowHeight,
         borderRadius: 20,
         alignItems: "center",
         shadowColor: "#000",
@@ -22,7 +22,9 @@ const ImageModalStyles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 4,
-        elevation: 5
+        elevation: 5,
+        justifyContent:'space-around'
+
       },
       imgContainer:{
         elevation:2,
@@ -32,7 +34,6 @@ const ImageModalStyles = StyleSheet.create({
         position:'relative',
         borderRadius:999,
         overflow:'hidden',
-        margin:30
       },
       uploadBtnContainer:{
           opacity:0.7,
@@ -52,7 +53,7 @@ const ImageModalStyles = StyleSheet.create({
         padding:10,
         alignItems:"center",
         justifyContent:"center",
-        width:90,
+        width:100,
         margin:5,
         borderRadius:20,
         backgroundColor:"rgba(75, 176, 249, 0.5)"
