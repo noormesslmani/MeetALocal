@@ -30,6 +30,11 @@ class UserController extends Controller
             $likes= FavoriteLocal::where('local_id',$local->id)->count();
             $local['likes']=$likes;
             $local['categories']=$category;
+            if($local->profile_picture){
+                $imagedata = file_get_contents($local->profile_picture);
+                $base64 = base64_encode($imagedata);
+                $local['base64']= $base64;
+            }
         }
         return response()->json([
             'message' => 'ok',
