@@ -24,18 +24,20 @@ import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
+import { UserContext } from '../../App'
 const EventsModal=({navigation, modalVisible, setModalVisible})=> {
-let hours
-let min
- const[title, setTtitle]=useState(null)
- const[details, setDetails]=useState(null)
- const[fees, setFees]=useState(null)
- const [place, setPlace]=useState(null)
- const [date, setDate]=useState(new Date());
- const [datePicker, setDatePicker]=useState(false)
- const [openCategory, setOpenCategory] = useState(false);
- const [selectedCategory, setSelectedCategory]=useState([])
- const [categories, setCategories] = useState([
+    let hours
+    let min
+    const { user, setUser} = useContext(UserContext);
+    const[title, setTtitle]=useState(null)
+    const[details, setDetails]=useState(null)
+    const[fees, setFees]=useState(null)
+    const [place, setPlace]=useState(null)
+    const [date, setDate]=useState(new Date());
+    const [datePicker, setDatePicker]=useState(false)
+    const [openCategory, setOpenCategory] = useState(false);
+    const [selectedCategory, setSelectedCategory]=useState([])
+    const [categories, setCategories] = useState([
     {label: 'All categories', value: 'all'},
     {label: 'Tourism', value: 'Tourism', icon: () => <Image source={tourism} style={{width:20, height:20}} />},
     {label: 'Languages', value: 'Languages', icon: () => <Image source={languages} style={{width:20, height:20}}/>},
@@ -72,6 +74,35 @@ let min
         if(image){
             setext(image.split('.').pop())
         }
+        createEvent()
+    }
+    async function createEvent(){
+        const token = await AsyncStorage.getItem('@token')
+        const data = {
+            title:title,
+            details: details,
+            fees: fees,
+            categories:selectedCategory,
+            place: place,
+            date:date,
+            photo: image,
+            ext: ext,
+            country: user.residence
+        }
+        console.log(data)
+        axios({
+          method: "post",
+          data,
+          headers: { Authorization: `Bearer ${token}`},
+          url:'http://192.168.1.7:8000/api/v1.0.0/locals/event',
+        })
+        .then((response)=> {
+          console.log(response.data)
+          return response;
+        })
+        .catch(function (error) {
+          console.warn(error)
+        })
     }
   return (
     <Modal
