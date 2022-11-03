@@ -25,6 +25,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::post('/post', [UserController::class, 'createPost']);
             Route::get('/chats/{id?}', [UserController::class, 'getChats']);
             Route::post('/chat', [UserController::class, 'createChat']);
+            Route::put('/profile-photo', [UserController::class, 'changePhoto']);
         });
         Route::group(['prefix' => 'locals'], function () {
             Route::post('/event', [LocalController::class, 'createEvent']);
