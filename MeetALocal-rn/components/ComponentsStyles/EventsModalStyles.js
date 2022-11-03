@@ -28,27 +28,29 @@ const EventsModalStyles = StyleSheet.create({
       },
       container:{
         elevation:2,
-        height:"25%",
+        height:0.2*windowHeight,
         width:0.6*windowWidth,
         backgroundColor:'#efefef',
         position:'relative',
         overflow:'hidden',
     },
+    selectedImage:
+    {height:0.2*windowHeight,
+      width:0.6*windowWidth,
+    },
     uploadBtnContainer:{
-        opacity:0.7,
-        position:'absolute',
-        right:0,
-        bottom:0,
-        backgroundColor:'lightgrey',
-        width:'100%',
-        height:'25%',
-        alignItems:"center",
-        justifyContent:'center',
+      opacity:0.7,
+      position:'absolute',
+      right:0,
+      bottom:0,
+      backgroundColor:'lightgrey',
+      width:'100%',
+      height:'25%',
     },
     uploadBtn:{
         display:'flex',
         alignItems:"center",
-        justifyContent:'center',
+        justifyContent:'center'
     },
     title:{
         fontSize:25,
@@ -69,7 +71,8 @@ const EventsModalStyles = StyleSheet.create({
     },
     dateContainer:{
       marginTop:20,
-      width:"90%",
+      width:"55%",
+      justifyContent:"space-between",
       flexDirection:"row",
       alignItems:"center"
   },
