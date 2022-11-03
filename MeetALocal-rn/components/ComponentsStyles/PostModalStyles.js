@@ -25,15 +25,17 @@ const PostModalStyles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5,
-        padding:20
+        padding:20,
+        textAlign:"center"
       },
       title:{
         fontSize:26,
-        color:"#8C57BA"
+        color:"#8C57BA",
       },
       contentContainer:{
         marginTop:"10%",
-        width:"90%"
+        width:"90%",
+        marginBottom:40
       },
       input:{
         marginTop:20,
@@ -41,7 +43,6 @@ const PostModalStyles = StyleSheet.create({
         width:"100%",
         borderBottomWidth:0.5,
         borderColor:"#4BB0F9",
-        marginBottom:40
       },
       optionsContainer:{
         marginTop:10,
@@ -69,8 +70,15 @@ const PostModalStyles = StyleSheet.create({
         backgroundColor:"rgba(75, 176, 249, 0.5)",
         marginBottom:50,
         width:0.3*windowWidth,
+        alignItems:"center",
+        justifyContent:"center"
       },
-
+      error:{
+        marginTop:2,
+        fontSize:11,
+        color:"red",
+        fontWeight:"500"
+    },
 
 });
 export default PostModalStyles;

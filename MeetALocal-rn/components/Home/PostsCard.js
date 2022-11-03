@@ -25,10 +25,10 @@ const PostCard=({navigation, item})=> {
                 <View>
                     <Text style={{fontSize:10, marginLeft:10, fontWeight:"600"}}>{item.name}</Text>
                     <Text style={{fontSize:10, marginLeft:10}}>{item.country}</Text>
+                    <Text style={PostCardStyles.details}>{item.details}</Text>
                 </View>
             </View>
         </View>
-        <Text style={{fontSize:11, marginLeft:60, fontWeight:"200", alignSelf:"flex-start"}}>{item.details}</Text>
         <View style={PostCardStyles.commentsContainer}>
             <Text style={PostCardStyles.comments}>{totalComments}</Text>
             <Icon name="comment-o" color="rgba(140, 87, 186, 0.34)" size={15} /> 

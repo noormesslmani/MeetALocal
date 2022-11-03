@@ -25,6 +25,9 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
     const [openCountry, setOpenCountry] = useState(false);
     const [openCategory, setOpenCategory] = useState(false);
     const [details, setDetails]= useState(null)
+    const [invalidDetails, setInvalidDetails]= useState(false)
+    const [invalidCountry, setInvalidCountry]= useState(false)
+    const [invalidCategory, setInvalidCategory]= useState(false)
     const [countries, setcountries] = useState([
         {label: 'Select a country', value: null},
         {label: 'Lebanon', value: 'Lebanon'},
@@ -54,13 +57,30 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
     {label: 'Other', value: 'Other', icon: () => <Image source={more} style={{width:20, height:20}}/>},
     ]);
     const handleSubmit=()=>{
-        console.log(selectedCategory)
-        console.log(selectedCountry)
-        console.log(details)
-        if(details && selectedCountry && selectedCategory.length>0){
-            createPost()
-            
+        setInvalidCategory(false)
+        setInvalidCountry(false)
+        setInvalidDetails(false)
+        if(! details){
+          setInvalidDetails(true)
+          setTimeout(() => {
+            setInvalidDetails(false);
+          }, 1500);
         }
+        else if(! selectedCountry){
+          setInvalidCountry(true)
+          setTimeout(() => {
+            setInvalidCountry(false);
+          }, 1500);
+        }
+        else if(selectedCategory.length==0){
+          setInvalidCategory(true)
+          setTimeout(() => {
+            setInvalidCategory(false);
+          }, 1500);
+        }
+        if(details && selectedCountry && selectedCategory.length>0){
+            createPost() 
+        } 
     }
     async function createPost(){
         const token = await AsyncStorage.getItem('@token')
@@ -91,8 +111,7 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-        setModalVisible(!modalVisible);
-        }}>
+        setModalVisible(!modalVisible);}}>
         <View style={PostModalStyles.centeredView}>
             <View style={PostModalStyles.modalView}>
               <ScrollView style={PostModalStyles.scrollView}>
@@ -100,6 +119,7 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                 <View style={PostModalStyles.contentContainer}>
                     <Text>Post *</Text>
                     <TextInput placeholder='new post' style={PostModalStyles.input} multiline={true} value={details} onChangeText={setDetails}></TextInput>
+                    {invalidDetails && <Text style={PostModalStyles.error}>Please enter a valid text</Text>}
                 </View>
                 <View style={{width:"80%"}}>
                     <Text style={{fontSize:12}}>Select a country *</Text>
@@ -125,6 +145,7 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                         marginTop:10
                     }}
                     />
+                    {invalidCountry && <Text style={PostModalStyles.error}>Please select a country</Text>}
                 </View >
                 <View style={{marginTop:20, width:"80%"}}>
                     <Text style={{fontSize:12}}>Select Categories * (max 3)</Text>
@@ -153,6 +174,7 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                         marginTop:10
                     }}
                     />
+                    {invalidCategory && <Text style={PostModalStyles.error}>Please select a least 1 categroy</Text>}
                 </View>
                 <View style={PostModalStyles.buttonContainer}>
                   <Pressable style={PostModalStyles.button} onPress={handleSubmit}>
