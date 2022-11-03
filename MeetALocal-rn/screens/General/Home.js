@@ -18,31 +18,6 @@ import * as Location from 'expo-location';
 import profile from '../../assets/profile.jpg'
 const Home=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
-    const [name, setName]=useState('')
-    const [photo, setPhoto]=useState('')
-    const [source, setSource]=useState()
-    
-    useEffect(()=>{
-        profile()
-      },[])
-    async function profile(){
-        const token = await AsyncStorage.getItem('@token')
-        axios({
-          method: "get",
-          headers: { Authorization: `Bearer ${token}`},
-          url:"http://192.168.1.7:8000/api/v1.0.0/auth/user-profile",
-        })
-        .then((response)=> {
-          
-          console.log(response.data.user)
-          setUser(response.data.user)
-          setPhoto(response.data.base64)
-          return response;
-        })
-        .catch(function (error) {
-          console.warn(error)
-        });
-    }
     const handleLocals=()=>{
         navigation.navigate('locals')
     }
@@ -53,7 +28,7 @@ const Home=({navigation})=> {
         navigation.navigate('events')
     }
   
-
+    console.log(user.base64)
      
    
     
@@ -61,7 +36,7 @@ const Home=({navigation})=> {
     <View style={HomeStyles.container}>
         <Text style={HomeStyles.welcome}>Welcome</Text>
         <Text style={HomeStyles.name}>{user['name']}</Text>
-        <Image source={photo?{ uri:`data:image/jpg;base64,${photo}`}: require('../../assets/blank-profile.webp')} style={HomeStyles.photo }/>
+        <Image source={user.base64?{ uri:`data:image/jpg;base64,${user.base64}`}: require('../../assets/blank-profile.webp')} style={HomeStyles.photo }/>
         <HomeCard label={'Locals'} handlePress={handleLocals}/>
         <HomeCard label={'Events'} handlePress={handleEvents}/>
         <HomeCard label={'Posts'} handlePress={handlePosts} />

@@ -1,7 +1,8 @@
 import { View, Text, TextInput, KeyboardAvoidingView } from 'react-native'
 import React from 'react'
 import styles from './Authstyles';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from '../../App'
 import AuthButton from '../../components/AuthButton';
 import axios from 'axios';
 import { NavigationContainer } from '@react-navigation/native';
@@ -9,6 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const baseURL='http://127.0.0.1:8000/api/v1.0.0/';
 const SigninScreen= ({ navigation })=> {
+  const { user, setUser} = useContext(UserContext);
   const [email, setEmail]=useState('');
   const [password, setPassword]=useState('');
   const [invalidEmail, setInvalidEmail]= useState(false)
@@ -40,6 +42,7 @@ const SigninScreen= ({ navigation })=> {
     })
     .then(async (response)=> {
       await AsyncStorage.setItem("@token", response.data['access_token']);
+      setUser(response.data.user)
       navigation.navigate('tabs')
       return response.data;
     })

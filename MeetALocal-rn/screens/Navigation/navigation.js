@@ -42,8 +42,6 @@ export default function RootNavigation() {
         <Stack.Screen  name="posts" component={Posts} options={{headerTitle: () => <Header/>,headerBackVisible:false}}/>
         <Stack.Screen  name="events" component={Events} options={{headerTitle: () => <Header/>,headerBackVisible:false}}/>
         <Stack.Screen  name="locals" component={Locals} options={{headerTitle: () => <Header/>,headerBackVisible:false}}/>
-        <Stack.Screen  name="local-profile" component={LocalProfile} options={{headerTitle: () => <Header/>,headerBackVisible:false}}/>
-        <Stack.Screen  name="foreigner-profile" component={ForeignerProfile} options={{headerTitle: () => <Header/>,headerBackVisible:false}}/>
       </Stack.Navigator>
     </NavigationContainer>
     
