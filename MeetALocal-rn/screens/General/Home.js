@@ -14,6 +14,8 @@ import Posts from './Posts';
 import Locals from './Locals';
 import * as Location from 'expo-location';
 import profile from '../../assets/profile.jpg'
+import IImageConverter from 'react-native-image-converter'
+
 const Home=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const handleLocals=()=>{
@@ -25,9 +27,6 @@ const Home=({navigation})=> {
     const handleEvents=()=>{
         navigation.navigate('events')
     }
-  
-     
-   
     
   return (
     <View style={HomeStyles.container}>

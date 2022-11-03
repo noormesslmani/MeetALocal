@@ -70,7 +70,7 @@ const EventModal=({navigation, modalVisible, setModalVisible, item})=> {
         method: "post",
         data,
         headers: { Authorization: `Bearer ${token}`},
-        url:`http://192.168.1.7:8000/api/v1.0.0/users/event/saved`,
+        url:`http://192.168.1.7:8000/api/v1.0.0/users/event/toggle-save`,
       })
       .then((response)=> {
         setIsSaved(! isSaved)

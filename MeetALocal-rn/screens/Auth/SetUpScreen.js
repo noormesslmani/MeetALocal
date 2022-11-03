@@ -1,7 +1,8 @@
 import { View, Text, TouchableOpacity, Image, Modal, TextInput } from 'react-native'
 import React from 'react'
 import styles from './Authstyles';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from '../../App'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthButton from '../../components/AuthButton';
@@ -13,6 +14,7 @@ import UploadImage from '../../components/UploadImage';
 import * as Location from 'expo-location';
 
 const SetUpScreen=({navigation})=> {
+  const { user, setUser} = useContext(UserContext);
   const route = useRoute();
   const type= route.params.type
   const [gender, setGender]=useState('')
@@ -59,8 +61,8 @@ const SetUpScreen=({navigation})=> {
       url:"http://192.168.1.7:8000/api/v1.0.0/auth/setup",
     })
     .then(async (response)=> {
-      console.log(response.data)
       await AsyncStorage.setItem("@user", JSON.stringify(response.data['user']));
+      setUser(response.data.user)
       navigation.navigate('tabs')
       return response.data;
     })

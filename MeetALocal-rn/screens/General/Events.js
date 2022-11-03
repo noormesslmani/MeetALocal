@@ -94,7 +94,7 @@ const Events=({navigation})=> {
         </View>
         <View style={EventsStyles.separator}/>
         {user.type_id==1 && <TouchableOpacity onPress={()=>{setEventModalVisible(true)}}><Text style={{color:"#8C57BA", marginBottom:5, textDecorationLine:"underline"}}>Create an event</Text></TouchableOpacity>}
-        <TouchableOpacity onPress={()=>{setModalVisible(true)}}><Text style={{color:'grey', marginBottom:5}}>Filter</Text></TouchableOpacity>
+        {choice==1 && <TouchableOpacity onPress={()=>{setModalVisible(true)}}><Text style={{color:'grey', marginBottom:5}}>Filter</Text></TouchableOpacity>}
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
         <EventsModal modalVisible={eventModalVisible} setModalVisible={setEventModalVisible}/>
         <SafeAreaView style={EventsStyles.listContainer}>
