@@ -20,7 +20,6 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::get('/events/saved', [UserController::class, 'getSavedEvents']);
             Route::get('/posts/{country}/{category}', [UserController::class, 'getPosts']);
             Route::get('/posts', [UserController::class, 'getOwnPosts']);
-            Route::get('/post/{id}', [UserController::class, 'getPost']);
             Route::post('/comment', [UserController::class, 'addComment']);
             Route::get('/comments/{id}', [UserController::class, 'getComments']);
             Route::post('/post', [UserController::class, 'createPost']);
@@ -32,7 +31,6 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::delete('/event', [LocalController::class, 'deleteEvent']);
             Route::get('/events', [LocalController::class, 'getMyEvents']);
             //edit profile
-            //map view
         });
         Route::group(['prefix' => 'admins'], function () {
             Route::post('/ban', [AdminController::class, 'banUser']);
