@@ -10,7 +10,7 @@ const PostModalStyles = StyleSheet.create({
         marginTop: 22
       },
       modalView: {
-        marginTop: 0.15*windowHeight,
+        marginTop: 0.1*windowHeight,
         backgroundColor: "white",
         width:windowWidth,
         flex:0.9,
@@ -79,6 +79,11 @@ const PostModalStyles = StyleSheet.create({
         color:"red",
         fontWeight:"500"
     },
+    closeModal:{
+      position:"absolute",
+      top:10,
+      left:"90%"
+    }
 
 });
 export default PostModalStyles;
