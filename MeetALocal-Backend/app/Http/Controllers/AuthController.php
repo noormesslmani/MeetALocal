@@ -37,14 +37,8 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         $user=Auth::user();
-        $base64= null;
-        if($user->profile_picture){
-            $imagedata = file_get_contents($user->profile_picture);
-            $base64 = base64_encode($imagedata);
-        }
         $user['nationality']=Country::find($user->nationality_id)->country;
         $user['residence']=Country::find($user->residence_id)->country;
-        $user['base64']=$base64;
         return response()->json([
             'message' => 'ok',
             "access_token"=>$token,
@@ -129,14 +123,8 @@ class AuthController extends Controller
             }
         }
         $user=Auth::user();
-        $base64= null;
-        if($user->profile_picture){
-            $imagedata = file_get_contents($user->profile_picture);
-            $base64 = base64_encode($imagedata);
-        }
         $user['nationality']=Country::find($user->nationality_id)->country;
         $user['residence']=Country::find($user->residence_id)->country;
-        $user['base64']=$base64;
         return response()->json([
             'user'=>Auth::user(),
             'message' => 'ok',
@@ -154,13 +142,8 @@ class AuthController extends Controller
    
     public function userProfile() {
         $user=Auth::user();
-        $base64= null;
-        if($user->profile_picture){ 
-            $base64 = base64_encode(file_get_contents($user->profile_picture));
-        }
         $user['nationality']=Country::find($user->nationality_id)->country;
         $user['residence']=Country::find($user->residence_id)->country;
-        $user['base64']=$base64;
         return response()->json([
             'user'=>$user,
             'message' => 'ok',
