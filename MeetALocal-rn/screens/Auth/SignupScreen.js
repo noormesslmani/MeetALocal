@@ -58,7 +58,7 @@ const SignupScreen = ({navigation}) => {
   }
   console.log(datePicker)
   return (
-    <KeyboardAvoidingView style={styles.background}>
+    <View style={styles.background}>
         <KeyboardAvoidingView style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
           <Text style={styles.signIn}>Register</Text>
           <View style={styles.inputContainer}>
@@ -91,7 +91,7 @@ const SignupScreen = ({navigation}) => {
             minimumDate={new Date(1900, 0, 1)}
             />}
         </KeyboardAvoidingView>
-    </KeyboardAvoidingView>
+    </View>
   )
 }
 

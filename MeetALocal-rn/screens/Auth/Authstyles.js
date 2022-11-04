@@ -6,8 +6,8 @@ const styles = StyleSheet.create({
     background:{
         backgroundColor: "rgba(140, 87, 186, 0.34)",
         flex: 1,
-        paddingTop:50,
         alignItems: "center",
+        justifyContent:"center",
     },
     formContainer:{
         backgroundColor: "white",

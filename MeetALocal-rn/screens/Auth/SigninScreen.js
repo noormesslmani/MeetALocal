@@ -56,7 +56,7 @@ const SigninScreen= ({ navigation })=> {
   }
   
   return (
-    <KeyboardAvoidingView style={styles.background}>
+    <View style={styles.background}>
         <KeyboardAvoidingView style={[styles.formContainer, styles.shadowProp]}>
           <Text style={styles.signIn}>Sign In</Text>
           <View style={styles.inputContainer}>
@@ -76,7 +76,7 @@ const SigninScreen= ({ navigation })=> {
             </Text> 
           </Text>
         </KeyboardAvoidingView>
-    </KeyboardAvoidingView>
+    </View>
   )
 }
 export default SigninScreen

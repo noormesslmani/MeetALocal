@@ -1,4 +1,4 @@
-import { View, Text, TextInput } from 'react-native'
+import { View, Text, TextInput, KeyboardAvoidingView } from 'react-native'
 import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect } from "react";
@@ -79,7 +79,7 @@ const SignupScreen2 = ({navigation}) => {
 
   return (
     <View style={styles.background}>
-        <View style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
+        <KeyboardAvoidingView style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
           <Text style={styles.signIn}>Register</Text>
           <View style={styles.inputContainer}>
             <Text>Nationality</Text>
@@ -163,7 +163,7 @@ const SignupScreen2 = ({navigation}) => {
           <Text style={styles.link} onPress={() => navigation.navigate('signin')}>
                 Login
           </Text>  
-        </View>
+        </KeyboardAvoidingView>
     </View>
   )
 }
