@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import image from '../../assets/profile.jpg'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import CommentsModalStyles from '../ComponentsStyles/CommentsModalStyles';
 import PostModalStyles from '../ComponentsStyles/PostModalStyles';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -114,15 +115,16 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
         setModalVisible(!modalVisible);}}>
         <View style={PostModalStyles.centeredView}>
             <View style={PostModalStyles.modalView}>
-              <ScrollView style={PostModalStyles.scrollView}>
+            <KeyboardAwareScrollView style={{width:"100%"}}>
+              <View style={{alignItems:"center", width:"100%"}}>
                 <Text style={PostModalStyles.title}>Create New Post</Text>
                 <View style={PostModalStyles.contentContainer}>
                     <Text>Post *</Text>
                     <TextInput placeholder='new post' style={PostModalStyles.input} multiline={true} value={details} onChangeText={setDetails}></TextInput>
                     {invalidDetails && <Text style={PostModalStyles.error}>Please enter a valid text</Text>}
                 </View>
-                <View style={{width:"80%"}}>
-                    <Text style={{fontSize:12}}>Select a country *</Text>
+                <View style={{width:"90%",marginBottom:40}}>
+                    <Text >Select a country *</Text>
                     <DropDownPicker
                     defaultValue={null}
                     style={PostModalStyles.optionsContainer}
@@ -147,8 +149,8 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                     />
                     {invalidCountry && <Text style={PostModalStyles.error}>Please select a country</Text>}
                 </View >
-                <View style={{marginTop:20, width:"80%"}}>
-                    <Text style={{fontSize:12}}>Select Categories * (max 3)</Text>
+                <View style={{marginTop:10, width:"90%"}}>
+                    <Text>Select Categories * (max 3)</Text>
                     <DropDownPicker
                     multiple={true}
                     min={0}
@@ -177,11 +179,12 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                     {invalidCategory && <Text style={PostModalStyles.error}>Please select a least 1 categroy</Text>}
                 </View>
                 <View style={PostModalStyles.buttonContainer}>
-                  <Pressable style={PostModalStyles.button} onPress={handleSubmit}>
+                  <TouchableOpacity style={PostModalStyles.button} onPress={handleSubmit}>
                   <Text style={PostModalStyles.textStyle}>Submit</Text>
-                  </Pressable>
+                  </TouchableOpacity>
                 </View>
-                </ScrollView>
+                </View>
+                </KeyboardAwareScrollView>
             </View>
         </View>
     </Modal>
