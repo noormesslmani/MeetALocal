@@ -12,7 +12,7 @@ import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import UploadImage from '../../components/UploadImage';
 import * as Location from 'expo-location';
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 const SetUpScreen=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const route = useRoute();
@@ -79,13 +79,15 @@ const SetUpScreen=({navigation})=> {
   
   return (
     <View style={styles.background} >
-        <Text style={styles.welcome}>Setup your account</Text>
+      <KeyboardAwareScrollView style={styles.scrollView} scrollEnabled={false}  showsVerticalScrollIndicator={false}>
+        <View style={styles.mainContainer}>
+        <Text style={styles.setUp}>Setup your account</Text>
         <View style={styles.picContainer}>
             <UploadImage setBase64={setBase64} setext={setext} />
         </View>
         <View style={styles.aboutContainer}>
           <Text>About <Text style={{fontSize:10, fontWeight:"300"}}>(max 200 characters)</Text></Text>
-          <TextInput placeholder='Write something about your self' multiline={true} value={about} onChangeText={setAbout} style={styles.aboutInput} maxLength={20}></TextInput>
+          <TextInput placeholder='Write something about yourself' multiline={true} value={about} onChangeText={setAbout} style={styles.aboutInput} maxLength={20}></TextInput>
         </View>
         <Text style={styles.gender}>Gender *</Text>
         {genderunset?<Text style={styles.error}>Please select your gender</Text>:null}
@@ -95,7 +97,8 @@ const SetUpScreen=({navigation})=> {
         </View>
         
         <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>
-        
+        </View>
+        </KeyboardAwareScrollView>
     </View>
   )
 }

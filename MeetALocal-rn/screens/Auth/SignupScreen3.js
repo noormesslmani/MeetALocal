@@ -8,7 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useRoute } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 const SignupScreen3 = ({navigation}) => {
   const route = useRoute();
   const fullName= route.params.fullName
@@ -84,7 +84,9 @@ const SignupScreen3 = ({navigation}) => {
   }
   return (
     <View style={styles.background}>
-        <KeyboardAvoidingView style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
+      <KeyboardAwareScrollView style={styles.scrollView} scrollEnabled={false}  showsVerticalScrollIndicator={false}>
+        <View style={styles.mainContainer}>
+        <View style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
           <Text style={styles.signIn}>Register</Text>
           <View style={styles.inputContainer}>
             <Text>Email</Text>
@@ -107,7 +109,9 @@ const SignupScreen3 = ({navigation}) => {
           <Text style={styles.link} onPress={() => navigation.navigate('signin')}>
                 Login
           </Text> 
-        </KeyboardAvoidingView>
+        </View>
+        </View>
+        </KeyboardAwareScrollView>
     </View>
   )
 }

@@ -30,7 +30,7 @@ export default function RootNavigation() {
     
     <NavigationContainer>
       <Stack.Navigator initialRouteName="">
-        <Stack.Screen name="signin" options={{headerTitle: () => <Logo/>,}} component={SigninScreen} />
+        <Stack.Screen name="signin" options={{headerTitle: () => <Logo/>,headerBackVisible:false}} component={SigninScreen} />
         <Stack.Screen name="signup-first" options={{headerTitle: () => <Logo/>,}} component={SignupScreen} />
         <Stack.Screen name="signup-second" options={{headerTitle: () => <Logo/>,}} component={SignupScreen2} />
         <Stack.Screen name="signup-third" options={{headerTitle: () => <Logo/>,}} component={SignupScreen3} />

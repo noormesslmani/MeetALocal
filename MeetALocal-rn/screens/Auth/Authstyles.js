@@ -9,11 +9,20 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent:"center",
     },
+    scrollView:{
+        height:windowHeight
+    },
+    mainContainer:{
+        height:0.9*windowHeight,
+        alignItems:"center",
+        justifyContent:"center"
+    },
     formContainer:{
         backgroundColor: "white",
         height:windowHeight* 0.6,
         width: windowWidth * 0.7,
         alignItems: "center",
+        justifyContent:"center",
         padding:40,
         borderRadius:20,
     },
@@ -24,6 +33,10 @@ const styles = StyleSheet.create({
         paddingTop: 100
     },
     welcome:{
+        fontSize: 30,
+        paddingBottom: 20
+    },
+    setUp:{
         fontSize: 20,
         paddingBottom: 20
     },
@@ -211,7 +224,7 @@ const styles = StyleSheet.create({
       aboutInput:{
         height:50,
         borderBottomWidth:0.5,
-        borderColor:"white"
+        borderColor:"white",
       }
     
 });
