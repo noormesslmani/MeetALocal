@@ -5,6 +5,7 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'
 import AuthButton from '../../components/AuthButton';
 import axios from 'axios';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -57,7 +58,9 @@ const SigninScreen= ({ navigation })=> {
   
   return (
     <View style={styles.background}>
-        <KeyboardAvoidingView style={[styles.formContainer, styles.shadowProp]}>
+      <KeyboardAwareScrollView style={styles.scrollView} scrollEnabled={false}  showsVerticalScrollIndicator={false}>
+        <View style={styles.mainContainer}>
+        <View style={[styles.formContainer, styles.shadowProp]}>
           <Text style={styles.signIn}>Sign In</Text>
           <View style={styles.inputContainer}>
             <Text>Email</Text>
@@ -75,7 +78,9 @@ const SigninScreen= ({ navigation })=> {
                 Create a new one
             </Text> 
           </Text>
-        </KeyboardAvoidingView>
+        </View>
+        </View>
+        </KeyboardAwareScrollView>
     </View>
   )
 }
