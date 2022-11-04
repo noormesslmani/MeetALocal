@@ -64,6 +64,10 @@ const SetUpScreen=({navigation})=> {
     .then(async (response)=> {
       await AsyncStorage.setItem("@user", JSON.stringify(response.data['user']));
       setUser(response.data.user)
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'tabs' }],
+      })
       navigation.navigate('tabs')
       return response.data;
     })
