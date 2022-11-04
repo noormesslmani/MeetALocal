@@ -16,7 +16,7 @@ import more from '../../assets/more.png'
 import jobs from '../../assets/suitcase.png'
 
 const LocalCard=({navigation, item})=> {
-    console.log(item.profile_picture)
+ 
     const [categories, setCategories]=useState([])
     const [icons, setIcons]=useState([])
     useEffect(()=>{
@@ -56,7 +56,7 @@ const LocalCard=({navigation, item})=> {
   return (
     <View style={LocalCardStyles.container}>
         <TouchableOpacity style={LocalCardStyles.card}>
-            <Image source={item.profile_picture?{ uri:`data:image/${item.profile_picture.split('.').pop()};base64,${item.base64}`}: require('../../assets/blank-profile.webp')} style={LocalCardStyles.image}/>
+            <Image source={item.profile_picture?{ uri:`http://192.168.1.7:8000/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={LocalCardStyles.image}/>
             <View style={LocalCardStyles.infoContainer}>
                 <Text style={LocalCardStyles.name}>{item.name}</Text>
                 <Text style={LocalCardStyles.country}>{item.country}</Text>
@@ -69,12 +69,12 @@ const LocalCard=({navigation, item})=> {
                 <Text style={{fontSize:14, fontWeight:"900"}}>{item.fees}$/hr</Text>
             </View>
             
-            {/* <View style={LocalCardStyles.categoryContainer}>
+            <View style={LocalCardStyles.categoryContainer}>
                 <View style={{alignItems:"center", flexDirection:"row"}}>
 
                     {icons.map((icon)=><Image source={icon} style={{width:30, height:30, margin:15}} />)}
                 </View>
-            </View> */}
+            </View>
         </TouchableOpacity>
     </View>
   )

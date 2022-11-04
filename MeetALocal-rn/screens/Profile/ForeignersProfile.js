@@ -12,43 +12,24 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import EditModal from '../../components/Foreigners/EditProfileModal';
 const ForeignerProfile=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
-  const [base64, setBase64]= useState(null);
-  const [ext, setext]= useState(null)
   const [image, setImage]= useState(null)
   const [modalVisible, setModalVisible]= useState(false)
   const [editModal, setEditModal]= useState(false)
   useEffect(()=>{
     if(user.profile_picture){
-      setBase64(user.base64)
-      setext(user.profile_picture.split('.').pop())
       setImage(user.profile_picture)
     }
-  },[])
-  const addImage = async () => {
-    let _image = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        base64: true,
-        allowsEditing: true,
-        aspect: [4,3],
-        quality: 1,
-      });
-    if (!_image.cancelled) {
-        setImage(_image.uri)
-        setBase64(_image.base64)
-        setext(image.split('.').pop())
-        setImageChange(true)
-      }
-    }
+  },[user.profile_picture])
     const handleImage=()=>{
       setModalVisible(true)
     }
- 
+
   return (
     <View style={ProfileStyles.container}>
         <TouchableOpacity style={ProfileStyles.imgContainer} onPress={handleImage}>
-          <Image source={image?{ uri:`data:image/${image.split('.').pop()};base64,${base64}`}: require('../../assets/blank-profile.webp')} style={{ width: 200, height: 200 }} />
+          <Image source={image?{ uri:`http://192.168.1.7:8000/${image}`}: require('../../assets/blank-profile.webp')} style={{ width: 200, height: 200 }} />
         </TouchableOpacity>
-        <ImageModal modalVisible={modalVisible} setModalVisible={setModalVisible} base64={base64} setBase64={setBase64} ext={ext} setext={setext} image={image} setImage={setImage} />
+        <ImageModal modalVisible={modalVisible} setModalVisible={setModalVisible} image={image} setImage={setImage} />
         <Text style={ProfileStyles.name}>{user.name}</Text>
         <View style={{marginTop:20}}>
           <View style={{flexDirection:"row", justifyContent:"space-between"}}><Text style={{fontWeight:"500"}}>Perosnal Information</Text><TouchableOpacity onPress={()=>setEditModal(true)}><Icon name="pencil" size={20} color='grey' /></TouchableOpacity></View>
