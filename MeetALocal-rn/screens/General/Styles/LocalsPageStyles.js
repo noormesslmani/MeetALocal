@@ -24,7 +24,7 @@ const LocalsStyles = StyleSheet.create({
         borderBottomColor: 'grey',
         borderBottomWidth: 0.3,
         width: 0.9*windowWidth,
-        margin:5,
+        marginBottom:10,
     },
     list:{
         width:windowWidth,

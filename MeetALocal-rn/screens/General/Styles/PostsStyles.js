@@ -24,7 +24,8 @@ const PostsStyles = StyleSheet.create({
     separator:{
         borderBottomColor: 'grey',
         borderBottomWidth: 0.3,
-        width: 1*windowWidth,
+        width: 0.9*windowWidth,
+        marginBottom:10,
     },
     list:{
         width:windowWidth,

@@ -16,7 +16,7 @@ const LocalsHeader= ()=> {
     }
     return (
         <View style={styles.headerContainer} >
-            <Pressable style={{marginLeft:20}} onPress={() => navigation.goBack()}><Icon name="chevron-back" size={30} color="#8C57BA"/></Pressable>
+            <Pressable  onPress={() => navigation.goBack()}><Icon name="chevron-back" size={30} color="#8C57BA"/></Pressable>
             <Text style={{fontSize:26, color: "#8C57BA"}}>Locals</Text>
             <View style={{flexDirection:"row"}}>
             <Pressable onPress={handleMap} style={{marginLeft:10}}><Icon name="location-sharp" size={25} color="#8C57BA"/></Pressable> 
