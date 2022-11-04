@@ -11,8 +11,11 @@ import { UserContext } from '../../App'
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
-const ImageModal=({modalVisible, setModalVisible, base64, setBase64, ext, setext, image, setImage})=> {
+const ImageModal=({modalVisible, setModalVisible, image, setImage})=> {
   const [imageChange, setImageChange]=useState(false)
+  const [source, setSource]= useState('http://192.168.1.7:8000/'+image)
+  const [base64, setBase64]=useState(null)
+  const [ext, setext]= useState(null)
   const { user, setUser} = useContext(UserContext);
   const addImage = async () => {
     let _image = await ImagePicker.launchImageLibraryAsync({
@@ -27,6 +30,7 @@ const ImageModal=({modalVisible, setModalVisible, base64, setBase64, ext, setext
         setBase64(_image.base64)
         setext(image.split('.').pop())
         setImageChange(true)
+        setSource(_image.uri)
       }
     }
     const handleSave=()=>{
@@ -35,11 +39,10 @@ const ImageModal=({modalVisible, setModalVisible, base64, setBase64, ext, setext
     }
     const handleCancel=()=>{
         setImage(user.profile_picture)
-        setBase64(base64)
-        setext(user.profile_picture.split('.').pop())
         setImageChange(false)
         setModalVisible(false)
     }
+    console.log(source)
     async function changePhoto(){
       const data = {
         base64: base64,
@@ -74,7 +77,7 @@ const ImageModal=({modalVisible, setModalVisible, base64, setBase64, ext, setext
         <View style={ImageModalStyles.centeredView}>
           <View style={ImageModalStyles.modalView}>
             <View style={ImageModalStyles.imgContainer}>
-                <Image source={image?{ uri:`data:image/${image.split('.').pop()};base64,${base64}`}: require('../../assets/blank-profile.webp')} style={{ width: 350, height: 350 }} />
+                <Image source={image? { uri: source}: require('../../assets/blank-profile.webp')} style={{ width: 350, height: 350 }} />
                 <View style={ImageModalStyles.uploadBtnContainer}>
                   <TouchableOpacity onPress={addImage} style={ImageModalStyles.uploadBtn} >
                       <Text>{image ? 'Edit' : 'Upload'} Image</Text>

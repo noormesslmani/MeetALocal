@@ -32,7 +32,7 @@ const Home=({navigation})=> {
     <View style={HomeStyles.container}>
         <Text style={HomeStyles.welcome}>Welcome</Text>
         <Text style={HomeStyles.name}>{user['name']}</Text>
-        <Image source={user.base64?{ uri:`data:image/jpg;base64,${user.base64}`}: require('../../assets/blank-profile.webp')} style={HomeStyles.photo }/>
+        <Image source={user.profile_picture?{ uri:`http://192.168.1.7:8000/${user.profile_picture}`}: require('../../assets/blank-profile.webp')} style={HomeStyles.photo }/>
         <HomeCard label={'Locals'} handlePress={handleLocals}/>
         <HomeCard label={'Events'} handlePress={handleEvents}/>
         <HomeCard label={'Posts'} handlePress={handlePosts} />

@@ -19,7 +19,7 @@ const EventCard=({navigation, item})=> {
   return (
     <>
     <TouchableOpacity style={EventCardStyles.cardContainer} onPress={handleEvent}>
-        <Image source={item.photo?{ uri:`data:image/${item.photo.split('.').pop()};base64,${item.base64}`}: require('../../assets/blank-profile.webp')} style={EventCardStyles.image}/>
+        <Image source={item.photo?{ uri:`http://192.168.1.7:8000/${item.photo}`}: require('../../assets/blank-profile.webp')} style={EventCardStyles.image}/>
         <Text style={EventCardStyles.title}>{item.title}</Text>
         <View style={{flexDirection:"row", justifyContent:"space-between"}}>
             <Text style={EventCardStyles.info}>{item.date}</Text>
