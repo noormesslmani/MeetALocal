@@ -3,7 +3,7 @@ import React from 'react'
 import { useState, useEffect, useContext } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/Ionicons'
 import image from '../../assets/profile.jpg'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
@@ -20,6 +20,7 @@ import house from '../../assets/house.png'
 import languages from '../../assets/languages.png'
 import more from '../../assets/more.png'
 import jobs from '../../assets/suitcase.png'
+
 const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
     const [selectedCountry, setSelectedCountry]=useState(null)
     const [selectedCategory, setSelectedCategory]=useState([])
@@ -118,6 +119,7 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
             <KeyboardAwareScrollView style={{width:"100%"}}>
               <View style={{alignItems:"center", width:"100%"}}>
                 <Text style={PostModalStyles.title}>Create New Post</Text>
+                <Pressable style={PostModalStyles.closeModal} onPress={()=>setModalVisible(false)}><Icon name="close" size={25} color="grey" /></Pressable>
                 <View style={PostModalStyles.contentContainer}>
                     <Text>Post *</Text>
                     <TextInput placeholder='new post' style={PostModalStyles.input} multiline={true} value={details} onChangeText={setDetails}></TextInput>
@@ -144,7 +146,9 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                     color: "grey"
                     }}
                     dropDownContainerStyle={{
-                        marginTop:10
+                        marginTop:10,
+                        borderColor:"#4BB0F9",
+                        borderWidth:0.5
                     }}
                     />
                     {invalidCountry && <Text style={PostModalStyles.error}>Please select a country</Text>}
@@ -173,7 +177,9 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                     }}
                     closeAfterSelecting={true}
                     dropDownContainerStyle={{
-                        marginTop:10
+                        marginTop:10,
+                        borderColor:"#4BB0F9",
+                        borderWidth:0.5
                     }}
                     />
                     {invalidCategory && <Text style={PostModalStyles.error}>Please select a least 1 categroy</Text>}
