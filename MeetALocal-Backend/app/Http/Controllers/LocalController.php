@@ -41,7 +41,7 @@ class LocalController extends Controller
             $img = base64_decode($image_64);
             $path = uniqid() . "." . $extension;
             file_put_contents($path, $img);
-            }
+        }
         $event = Event::create(array_merge(
             $validator->validated(),
             [

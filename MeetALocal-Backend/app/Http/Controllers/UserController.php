@@ -29,7 +29,6 @@ class UserController extends Controller
         foreach($locals as $local){
             $local['likes']=FavoriteLocal::where('local_id',$local->id)->count();
             $local['categories']=$local->categories()->pluck('category');
-            $local->profile_picture? $local['base64']= base64_encode(file_get_contents($local->profile_picture)):$local['base64']=null;
             }
         return response()->json([
             'message' => 'ok',
@@ -49,7 +48,6 @@ class UserController extends Controller
         $events= Event::join('event_categories','events.id','=','event_id')->join('categories','event_categories.category_id','=','categories.id')->join('countries','events.country_id','=','countries.id')->join('users','events.organizer_id','=','users.id')->whereIn('events.country_id',$country_id)->whereIn('event_categories.category_id',$category_id)->orderBy('events.id', 'desc')->select('events.*','countries.country','users.name')->distinct()->latest()->get();
         foreach($events as $event){ 
             $event['categories']=$event->categories()->pluck('category');
-            $event->photo? $event['base64']= base64_encode(file_get_contents($event->photo)):$event['base64']=null;
         }
         
         return response()->json([
@@ -212,7 +210,6 @@ class UserController extends Controller
         $user=Auth::user();
         $user['nationality']=Country::find($user->nationality_id)->country;
         $user['residence']=Country::find($user->residence_id)->country;
-        $user['base64']=base64_encode(file_get_contents($path));
         return response()->json([
             'user'=>$user,
             'message' => 'ok',
