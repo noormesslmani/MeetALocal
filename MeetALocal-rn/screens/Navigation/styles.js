@@ -3,12 +3,17 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const styles = StyleSheet.create({
     container:{
-        justifyContent:"center",
         alignItems:"center",
         width: windowWidth,
         paddingRight:25,
         flexDirection:"row",
         justifyContent:"center"
+    },
+    headerContainer:{
+        flexDirection:"row",
+        alignItems:"center",
+        justifyContent:"space-between",
+        width:0.9*windowWidth,
     },
     logo:{
         width: 300, 
