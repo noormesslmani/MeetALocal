@@ -8,15 +8,15 @@ import LocalCard from '../../components/Home/LocalsCard';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import FilterModal from '../../components/Home/FilterModal';
-import MapModal from '../../components/Home/MapModal';
+
+import Icon from 'react-native-vector-icons/Ionicons'
 const Locals=({navigation})=> {
     const [country, setCountry]=useState('all');
     const [category, setCategory]=useState('all');
     const [viewFav, setViewFav]=useState(false)
     const [data, setdata]=useState([])
     const [modalVisible, setModalVisible] = useState(false)
-    const [mapVisible, setMapVisible]= useState(false)
-    const { user, setUser} = useContext(UserContext);
+    const { user, setUser, locals, setLocals} = useContext(UserContext);
     
     useEffect(()=>{
       if(!viewFav){
@@ -35,6 +35,7 @@ const Locals=({navigation})=> {
       })
       .then((response)=> {
         setdata(response.data.data)
+        setLocals(response.data.data)
         return response;
       })
       .catch(function (error) {
@@ -63,16 +64,13 @@ const Locals=({navigation})=> {
   
   return (
       <View style={HomeStyles.container}>
-        <Text style={LocalsStyles.title}>Locals</Text>
         {user.type_id==2 && <View style={LocalsStyles.view}>
             <TouchableOpacity onPress={()=>setViewFav(false)} >{ <Text style={[LocalsStyles.options,viewFav? null: LocalsStyles.selected ]}>View All</Text>}</TouchableOpacity>
             <TouchableOpacity onPress={()=>setViewFav(true)}>{ <Text style={[LocalsStyles.options, viewFav? LocalsStyles.selected: null]}>Favorites</Text>}</TouchableOpacity>
         </View>}
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
-        {user.type_id==2 && <TouchableOpacity onPress={()=>{setMapVisible(true)}}><Text style={{color:'#8C57BA', margin:10}}>View on map</Text></TouchableOpacity>}
-        <MapModal modalVisible={mapVisible} setModalVisible={setMapVisible} data={data} />
         <View style={LocalsStyles.separator}/>
-        {!viewFav && <TouchableOpacity onPress={()=>{setModalVisible(true)}}><Text style={{color:'grey', marginBottom:5}}>Filter</Text></TouchableOpacity>}
+        {!viewFav && <Pressable  onPress={()=>{setModalVisible(true)}}><Icon name="filter" size={25} color="#8C57BA"/></Pressable>}
         <SafeAreaView>
           <FlatList
             showsVerticalScrollIndicator={false}
