@@ -71,6 +71,10 @@ const SignupScreen3 = ({navigation}) => {
       await AsyncStorage.setItem("@token", response.data['token']);
       const token = await AsyncStorage.getItem("@token")
       console.log(token)
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'user-type' }],
+      });
       navigation.navigate('user-type')
       return response.data;
     })
