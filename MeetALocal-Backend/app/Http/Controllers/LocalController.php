@@ -34,31 +34,22 @@ class LocalController extends Controller
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
         }
+        $path=null;
         if($request->photo){
             $extension=$request->ext;
             $image_64 = $request->photo; //your base64 encoded data
             $img = base64_decode($image_64);
             $path = uniqid() . "." . $extension;
             file_put_contents($path, $img);
-            $event = Event::create(array_merge(
-                $validator->validated(),
-                [
-                'organizer_id' => Auth::id(),
-                'country_id'=> Country::where('country',$request->country)->pluck('id')[0],
-                'photo'=>$path
-                ]
-            ));
             }
-            else{
-                $event = Event::create(array_merge(
-                    $validator->validated(),
-                    [
-                    'organizer_id' => Auth::id(),
-                    'country_id'=> Country::where('country',$request->country)->pluck('id')[0],
-                    ]
-                ));
-            }
-        
+        $event = Event::create(array_merge(
+            $validator->validated(),
+            [
+            'organizer_id' => Auth::id(),
+            'country_id'=> Country::where('country',$request->country)->pluck('id')[0],
+            'photo'=>$path
+            ]
+        ));
         foreach($request->categories as $category){
             EventCategory::create([
                 'event_id' => $event->id,
