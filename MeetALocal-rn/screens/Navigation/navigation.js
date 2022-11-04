@@ -23,6 +23,8 @@ import SetUpMap from '../Auth/SetUpMapScreen';
 import { UserContext } from '../../App'
 import ForeignerProfile from '../Profile/ForeignersProfile';
 import LocalProfile from '../Profile/LocalProfile'
+import LocalsHeader from './localsPageHeader';
+import LocalsMap from '../General/LocalsMap';
 export default function RootNavigation() {
   
   const Stack = createNativeStackNavigator();
@@ -39,9 +41,10 @@ export default function RootNavigation() {
         <Stack.Screen  name="setup-map" component={SetUpMap} options={{headerTitle: () => <Logo/>,}}/>
         <Stack.Screen name="categories" options={{headerTitle: () => <Logo/>,}} component={Categories} />
         <Stack.Screen name="tabs" options={{headerTitle: () => <Header/>,  headerBackVisible:false}} component={MyTabs} />
-        <Stack.Screen  name="posts" component={Posts} options={{headerTitle: () => <Header/>,headerBackVisible:false}}/>
-        <Stack.Screen  name="events" component={Events} options={{headerTitle: () => <Header/>,headerBackVisible:false}}/>
-        <Stack.Screen  name="locals" component={Locals} options={{headerTitle: () => <Header/>,headerBackVisible:false}}/>
+        <Stack.Screen  name="posts" component={Posts} />
+        <Stack.Screen  name="events" component={Events} />
+        <Stack.Screen  name="locals-map" component={LocalsMap} />
+        <Stack.Screen  name="locals" component={Locals} options={{headerTitle: () => <LocalsHeader/>, headerBackVisible:false}} />
       </Stack.Navigator>
     </NavigationContainer>
     
