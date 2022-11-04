@@ -5,15 +5,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LocalCardStyles from '../ComponentsStyles/LocalCardStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
-import tourism from '../../assets/tourism.png'
-import cultures from '../../assets/cultures.png'
-import education from '../../assets/education.png'
-import guidance from '../../assets/guidance.png'
-import history from '../../assets/history.png'
-import house from '../../assets/house.png'
-import languages from '../../assets/languages.png'
-import more from '../../assets/more.png'
-import jobs from '../../assets/suitcase.png'
+import Tourism from '../../assets/tourism.png'
+import Culture from '../../assets/cultures.png'
+import Education from '../../assets/education.png'
+import Guidance from '../../assets/guidance.png'
+import History from '../../assets/history.png'
+import Housing from '../../assets/house.png'
+import Language from '../../assets/languages.png'
+import Other from '../../assets/more.png'
+import Jobs from '../../assets/suitcase.png'
 
 const LocalCard=({navigation, item})=> {
  
@@ -27,28 +27,28 @@ const LocalCard=({navigation, item})=> {
         for(let category of categories){
             switch(category) {
                 case 'Tourism':
-                    setIcons((icons)=>[...icons, tourism])
+                    setIcons((icons)=>[...icons, [Tourism,'Tourism']])
                   break;
                 case 'Language':
-                    setIcons((icons)=>[...icons, languages])
+                    setIcons((icons)=>[...icons, [Language,'Language']])
                   break;
                 case 'Culture':
-                setIcons((icons)=>[...icons, cultures])
+                setIcons((icons)=>[...icons, [Culture,'Culture']])
                     break;
                 case 'History':
-                    setIcons((icons)=>[...icons, history])
+                    setIcons((icons)=>[...icons, [History, 'History']])
                     break;
                 case 'Education':
-                    setIcons((icons)=>[...icons, education])
+                    setIcons((icons)=>[...icons, [Education, 'Education']])
                     break;
                 case 'Jobs':
-                    setIcons((icons)=>[...icons, jobs])
+                    setIcons((icons)=>[...icons, [Jobs, 'Jobs']])
                     break;
                 case 'Housing':
-                    setIcons((icons)=>[...icons, house])
+                    setIcons((icons)=>[...icons, [Housing, 'Housing']])
                 break;
                 case 'Guidance':
-                    setIcons((icons)=>[...icons, guidance])
+                    setIcons((icons)=>[...icons, [Guidance, 'Guidance']])
                 break;
             }
         }
@@ -68,12 +68,13 @@ const LocalCard=({navigation, item})=> {
             <View style={LocalCardStyles.feesContainer}>
                 <Text style={{fontSize:14, fontWeight:"900"}}>{item.fees}$/hr</Text>
             </View>
-            
             <View style={LocalCardStyles.categoryContainer}>
-                <View style={{alignItems:"center", flexDirection:"row"}}>
-
-                    {icons.map((icon)=><Image source={icon} style={{width:30, height:30, margin:15}} />)}
+                {icons.map((icon)=>
+                <View style={LocalCardStyles.CategorySubcontainer}>
+                    <Image source={icon[0]} style={{width:30, height:30}} />
+                    <Text style={LocalCardStyles.iconLabel}>{icon[1]}</Text>
                 </View>
+                )}
             </View>
         </TouchableOpacity>
     </View>
