@@ -86,7 +86,6 @@ const Events=({navigation})=> {
 
   return (
     <View style={HomeStyles.container}>
-        <Text style={EventsStyles.title}>Events</Text>
         <View style={EventsStyles.view}>
             <TouchableOpacity onPress={()=>setChoice(1)} >{ <Text style={[EventsStyles.options,choice==1 ? EventsStyles.selected: null ]}>All Events</Text>}</TouchableOpacity>
             <TouchableOpacity onPress={()=>setChoice(2)}>{ <Text style={[EventsStyles.options, choice==2 ? EventsStyles.selected: null]}>Saved Events</Text>}</TouchableOpacity>
