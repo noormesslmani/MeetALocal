@@ -27,7 +27,7 @@ const Home=({navigation})=> {
     const handleEvents=()=>{
         navigation.navigate('events')
     }
-    console.log(user.profile_picture)
+
   return (
     <View style={HomeStyles.container}>
         <Text style={HomeStyles.welcome}>Welcome</Text>

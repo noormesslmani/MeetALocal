@@ -43,6 +43,10 @@ const SigninScreen= ({ navigation })=> {
     .then(async (response)=> {
       await AsyncStorage.setItem("@token", response.data['access_token']);
       setUser(response.data.user)
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'tabs' }],
+      });
       navigation.navigate('tabs')
       return response.data;
     })
