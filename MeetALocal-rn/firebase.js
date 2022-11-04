@@ -1,17 +1,21 @@
-
+import * as firebase from "firebase/app";
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore } from "firebase/firestore";
+import "firebase/auth";
 
-// Your web app's Firebase configuration
+
 const firebaseConfig = {
-  apiKey: "AIzaSyDeMcsoBWWDx64KtmHAeo0jneKTDbQWHo8",
-  authDomain: "meetalocal-6d2ec.firebaseapp.com",
-  projectId: "meetalocal-6d2ec",
-  storageBucket: "meetalocal-6d2ec.appspot.com",
-  messagingSenderId: "529881386450",
-  appId: "1:529881386450:web:e33a9bb4c5faed16738c0b"
+  apiKey: "AIzaSyCy5eEwbDEzJoeXcX0VGyn74X5LOb4uk1s",
+  authDomain: "meet-a-local-7c296.firebaseapp.com",
+  projectId: "meet-a-local-7c296",
+  storageBucket: "meet-a-local-7c296.appspot.com",
+  messagingSenderId: "373114898802",
+  appId: "1:373114898802:web:8058a3b8c97d5b648e35eb",
+  measurementId: "G-EX88HYYK9X",
+  databaseURL: "https://meet-a-local-7c296-default-rtdb.firebaseio.com",
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
+
+initializeApp(firebaseConfig);
+export const database = getFirestore();
+
