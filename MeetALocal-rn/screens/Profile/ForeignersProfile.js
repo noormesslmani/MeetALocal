@@ -8,13 +8,15 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import ImageModal from '../../components/Home/ImageModal';
-import Ionicons from 'react-native-vector-icons/Ionicons'
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import EditModal from '../../components/Foreigners/EditProfileModal';
 const ForeignerProfile=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const [base64, setBase64]= useState(null);
   const [ext, setext]= useState(null)
   const [image, setImage]= useState(null)
   const [modalVisible, setModalVisible]= useState(false)
+  const [editModal, setEditModal]= useState(false)
   useEffect(()=>{
     if(user.profile_picture){
       setBase64(user.base64)
@@ -49,7 +51,7 @@ const ForeignerProfile=({navigation})=> {
         <ImageModal modalVisible={modalVisible} setModalVisible={setModalVisible} base64={base64} setBase64={setBase64} ext={ext} setext={setext} image={image} setImage={setImage} />
         <Text style={ProfileStyles.name}>{user.name}</Text>
         <View style={{marginTop:20}}>
-          <Text style={{fontWeight:"500"}}>Perosnal Information</Text>
+          <View style={{flexDirection:"row", justifyContent:"space-between"}}><Text style={{fontWeight:"500"}}>Perosnal Information</Text><TouchableOpacity onPress={()=>setEditModal(true)}><Icon name="pencil" size={20} color='grey' /></TouchableOpacity></View>
           <View style={ProfileStyles.separator}/>
           <View style={{flexDirection:"row",margin:5}}><Icon name="phone" size={20} color='grey' />
           <Text style={{marginLeft:5}}>{user.phone}</Text></View>
@@ -63,6 +65,7 @@ const ForeignerProfile=({navigation})=> {
           <View style={ProfileStyles.separator}/>
           <Text>{user.about}</Text>
         </View>
+        <EditModal modalVisible={editModal} setModalVisible={setEditModal}/>
     </View>
     
   )
