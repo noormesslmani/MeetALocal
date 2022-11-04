@@ -27,16 +27,10 @@ class UserController extends Controller
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
         $locals= User::join('local_categories','users.id','=','local_id')->join('categories','local_categories.category_id','=','categories.id')->join('countries','users.residence_id','=','countries.id')->where('type_id',1)->whereIn('users.residence_id',$country_id)->whereIn('local_categories.category_id',$category_id)->select('users.*','countries.country')->distinct()->inRandomOrder()->get();
         foreach($locals as $local){
-            $category= $local->categories()->pluck('category');
-            $likes= FavoriteLocal::where('local_id',$local->id)->count();
-            $local['likes']=$likes;
-            $local['categories']=$category;
-            if($local->profile_picture){
-                $imagedata = file_get_contents($local->profile_picture);
-                $base64 = base64_encode($imagedata);
-                $local['base64']= $base64;
+            $local['likes']=FavoriteLocal::where('local_id',$local->id)->count();
+            $local['categories']=$local->categories()->pluck('category');
+            $local->profile_picture? $local['base64']= base64_encode(file_get_contents($local->profile_picture)):$local['base64']=null;
             }
-        }
         return response()->json([
             'message' => 'ok',
             'data' => $locals
@@ -53,14 +47,9 @@ class UserController extends Controller
         $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
         $events= Event::join('event_categories','events.id','=','event_id')->join('categories','event_categories.category_id','=','categories.id')->join('countries','events.country_id','=','countries.id')->join('users','events.organizer_id','=','users.id')->whereIn('events.country_id',$country_id)->whereIn('event_categories.category_id',$category_id)->orderBy('events.id', 'desc')->select('events.*','countries.country','users.name')->distinct()->latest()->get();
-        foreach($events as $event){
-            $category= $event->categories()->pluck('category');
-            $event['categories']=$category;
-            if($event->photo){
-                $imagedata = file_get_contents($event->photo);
-                $base64 = base64_encode($imagedata);
-                $event['base64']= $base64;
-            }
+        foreach($events as $event){ 
+            $event['categories']=$event->categories()->pluck('category');
+            $event->photo? $event['base64']= base64_encode(file_get_contents($event->photo)):$event['base64']=null;
         }
         
         return response()->json([
@@ -70,12 +59,9 @@ class UserController extends Controller
     }
     public function getEvent($id){
         $event=Event::find($id);
-        $organizer= $event->organizer()->get(['name'])[0]['name'];
-        $country=$event->country()->get(['country'])[0]['country'];
-        $categories=Event::find($id)->categories()->pluck('category');
-        $event['organizer']=$organizer;
-        $event['country']=$country;
-        $event['categories']=$categories;
+        $event['organizer']=$event->organizer()->get(['name'])[0]['name'];
+        $event['country']=$event->country()->get(['country'])[0]['country'];
+        $event['categories']=Event::find($id)->categories()->pluck('category');
         return response()->json([
             'message' => 'ok',
             'data' => $event,
@@ -97,8 +83,7 @@ class UserController extends Controller
     public function getSavedEvents(){
         $events= Auth::user()->savedEvents()->get();
         foreach($events as $event){
-            $category= $event->categories()->pluck('category');
-            $event['categories']=$category;
+            $event['categories']=$event->categories()->pluck('category');
         }
         return response()->json([
             'message' => 'ok',
@@ -122,10 +107,8 @@ class UserController extends Controller
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
         $posts= Post::join('post_categories','posts.id','=','post_id')->join('categories','post_categories.category_id','=','categories.id')->join('countries','posts.country_id','=','countries.id')->join('users','posts.user_id','=','users.id')->whereIn('posts.country_id',$country_id)->whereIn('post_categories.category_id',$category_id)->orderBy('posts.id', 'desc')->select('posts.*','countries.country','users.name')->distinct()->latest()->get();
         foreach($posts as $post){
-            $comments=Comment::where('post_id',$post->id)->count();
-            $post['comments']= $comments;
-            $category= $post->categories()->pluck('category');
-            $post['categories']=$category;
+            $post['comments']= Comment::where('post_id',$post->id)->count();
+            $post['categories']=$post->categories()->pluck('category');
         }
         
         return response()->json([
@@ -136,10 +119,8 @@ class UserController extends Controller
     public function getOwnPosts(){
         $posts= Auth::user()->posts()->get();
         foreach($posts as $post){
-            $comments=Comment::where('post_id',$post->id)->count();
-            $post['comments']= $comments;
-            $category= $post->categories()->pluck('category');
-            $post['categories']=$category;
+            $post['comments']= Comment::where('post_id',$post->id)->count();
+            $post['categories']=$post->categories()->pluck('category');
             $post['name']=Auth::user()->name;
             $post['country']=Auth::user()->residence['country'];
         }
@@ -151,14 +132,10 @@ class UserController extends Controller
     }
     public function getPost($id){
         $post=Post::find($id);
-        $user= $post->user()->get(['name'])[0]['name'];
-        $country=$post->country()->get(['country'])[0]['country'];
-        $categories=Post::find($id)->categories()->pluck('category');
-        $comments = Comment::where('post_id',$id)->join('users','comments.user_id','users.id')->select('comments.content','comments.created_at','users.name','users.type_id')->get();
-        $post['user']=$user;
-        $post['country']=$country;
-        $post['categories']=$categories;
-        $post['comments']=$comments;
+        $post['user']=$post->user()->get(['name'])[0]['name'];
+        $post['country']=$post->country()->get(['country'])[0]['country'];
+        $post['categories']=Post::find($id)->categories()->pluck('category');
+        $post['comments']=Comment::where('post_id',$id)->join('users','comments.user_id','users.id')->select('comments.content','comments.created_at','users.name','users.type_id')->get();
         return response()->json([
             'message' => 'ok',
             'data' => $post,
@@ -178,8 +155,7 @@ class UserController extends Controller
     public function getComments($id){
         $comments = Comment::where('post_id',$id)->get();
         foreach($comments as $comment){
-            $user=User::where('id', $comment->user_id)->get()[0];
-            $comment['user']=$user;
+            $comment['user']=User::where('id', $comment->user_id)->get()[0];
         }
         return response()->json([
             'message' => 'ok',
