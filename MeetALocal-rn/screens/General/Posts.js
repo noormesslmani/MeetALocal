@@ -61,7 +61,6 @@ const Posts=({navigation})=> {
     <PostCard item={item} navigation={navigation} />);
   return (
       <View style={HomeStyles.container}>
-        <Text style={PostsStyles.title}>Posts</Text>
         <View style={PostsStyles.view}>
             <TouchableOpacity onPress={()=>setViewOwn(false)} >{ <Text style={[PostsStyles.options,viewOwn? null: PostsStyles.selected ]}>All Posts</Text>}</TouchableOpacity>
             <TouchableOpacity onPress={()=>setViewOwn(true)}>{ <Text style={[PostsStyles.options, viewOwn? PostsStyles.selected: null]}>My Posts</Text>}</TouchableOpacity>
