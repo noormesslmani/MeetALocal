@@ -2,16 +2,8 @@ import { StyleSheet, Dimensions } from "react-native";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-const MapModalStyles = StyleSheet.create({
-    centeredView: {
-        height:windowHeight,
-        width:windowWidth,
-        justifyContent: "center",
-        alignItems: "center",
-       
-      },
+const LocalsMapStyles = StyleSheet.create({
       modalView: {
-        marginTop: 0.15*windowHeight,
         backgroundColor: "white",
         width:windowWidth,
         flex:1,
@@ -25,21 +17,18 @@ const MapModalStyles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 4,
         elevation: 5,
-        padding:20,
         justifyContent:"space-between"
       },
       mapContainer:{
         width:windowWidth,
-        height:"100%",
         alignItems:"center",
         backgroundColor:"white",
         flex:1,
-        paddingTop:20,
         justifyContent:"space-between"
       },
       map:{
         width:"100%",
-        height:"90%",
+        height:"100%",
       },
       title:{
         color:"#8C57BA",
@@ -52,4 +41,4 @@ const MapModalStyles = StyleSheet.create({
       }
      
 });
-export default MapModalStyles;
+export default LocalsMapStyles;

@@ -7,33 +7,24 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import image from '../../assets/profile.jpg'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
-import MapModalStyles from '../ComponentsStyles/MapModalStyles';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import {Marker, Callout} from 'react-native-maps';
 import * as Location from 'expo-location';
+import LocalsMapStyles from './Styles/LocalMapsStyles';
+import { useRoute } from '@react-navigation/native';
+import { UserContext } from '../../App'
 
-const MapModal=({navigation, modalVisible, setModalVisible, data})=> {
-
- 
+const LocalsMap=({navigation})=> {
+    const { user, setUser, locals, setLocals} = useContext(UserContext);
   return (
-    <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-        setModalVisible(!modalVisible);
-        }}>
-        <View style={MapModalStyles.centeredView}>
-            <View style={MapModalStyles.modalView}>
-                <Text style={MapModalStyles.title}>Map View</Text>
-                <Pressable style={MapModalStyles.close} onPress={()=>setModalVisible(false)}><Icon name="close" size={20} color='grey' /></Pressable>
+            <View style={LocalsMapStyles.modalView}>
                 <MapView
-                style={MapModalStyles.map}
+                style={LocalsMapStyles.map}
                 loadingEnabled={true}
                 showsUserLocation={true}
                 provider={PROVIDER_GOOGLE}
                 >
-                {data.map((local) => (
+                {locals.map((local) => (
                 <Marker
                 key={local.id}
                 coordinate={{latitude: local.latitude, longitude: local.longitude}}
@@ -48,8 +39,6 @@ const MapModal=({navigation, modalVisible, setModalVisible, data})=> {
                 ))}   
                 </MapView>
             </View>
-        </View>
-    </Modal>
   )
 }
-export default MapModal
+export default LocalsMap
