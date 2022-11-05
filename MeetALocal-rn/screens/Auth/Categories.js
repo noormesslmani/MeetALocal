@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
 import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect, useContext } from "react";
@@ -21,6 +21,7 @@ const Categories=({navigation})=> {
     const longitude= route.params.longitude
     const [categories, setCategories]=useState([])
     const [fees, setFees]=useState(0)
+    const [isLoading, setIsLoading]= useState(false)
     const handleTourism=()=>{
         categories.includes("Tourism")?setCategories(arr => [...arr].filter(item => item !== "Tourism")):setCategories(arr => [...arr, "Tourism"])
     }
@@ -71,6 +72,7 @@ const Categories=({navigation})=> {
           url:"http://192.168.1.7:8000/api/v1.0.0/auth/setup",
         })
         .then(async (response)=> {
+            setIsLoading(true)
           await AsyncStorage.setItem("@user", JSON.stringify(response.data['user']));
           setUser(response.data.user)
           navigation.reset({
@@ -162,6 +164,7 @@ const Categories=({navigation})=> {
             thumbTintColor='rgba(75, 176, 249, 0.75)'
             onValueChange={setFees}
         />
+         {isLoading && <ActivityIndicator color="#8C57BA" />}
         <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>
     </View>
   )

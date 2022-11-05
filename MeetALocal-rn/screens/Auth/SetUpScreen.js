@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, Modal, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, Image, Modal, TextInput, ActivityIndicator } from 'react-native'
 import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect, useContext } from "react";
@@ -17,7 +17,7 @@ const SetUpScreen=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const route = useRoute();
   const type= route.params.type
-  
+  const [isLoading, setIsLoading]=useState(false)
   const [gender, setGender]=useState('')
   const [genderunset, setGenderUnset]=useState(false)
   const [base64, setBase64]=useState(null)
@@ -62,6 +62,7 @@ const SetUpScreen=({navigation})=> {
       url:"http://192.168.1.7:8000/api/v1.0.0/auth/setup",
     })
     .then(async (response)=> {
+      setIsLoading(true)
       await AsyncStorage.setItem("@user", JSON.stringify(response.data['user']));
       setUser(response.data.user)
       navigation.reset({
@@ -95,7 +96,7 @@ const SetUpScreen=({navigation})=> {
           <TouchableOpacity onPress={handleMale}><Image source={require('../../assets/male.png')} style={[styles.genderIcon, gender=='Male'?styles.selectedIcon:null]} /></TouchableOpacity>
           <TouchableOpacity onPress={handleFemale}><Image source={require('../../assets/female.png')} style={[styles.genderIcon, gender=='Female'?styles.selectedIcon:null]} /></TouchableOpacity>
         </View>
-        
+        {isLoading && <ActivityIndicator color="#8C57BA" />}
         <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>
         </View>
         </KeyboardAwareScrollView>
