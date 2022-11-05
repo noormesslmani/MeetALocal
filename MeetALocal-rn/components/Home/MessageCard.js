@@ -34,10 +34,13 @@ const MessageCard=({navigation, user})=> {
         console.warn(error)
     });
     }
-    console.log(name)
+    const handleChat=()=>{
+        console.log(user)
+        navigation.navigate('chat-screen', { user, image, name, type_id})
+    }
   return (
     <View style={MessageCardStyles.container}>
-        <TouchableOpacity style={MessageCardStyles.messageContainer} onPress={()=>console.log('hi')}>
+        <TouchableOpacity style={MessageCardStyles.messageContainer} onPress={handleChat}>
             <Image source={image?{ uri:`http://192.168.1.7:8000/${image}`}: require('../../assets/blank-profile.webp')} style={MessageCardStyles.avatar}/>
             <View>
             <Text style={{marginTop:10}}>{name}</Text>
