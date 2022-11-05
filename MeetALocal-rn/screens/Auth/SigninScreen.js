@@ -1,4 +1,4 @@
-import { View, Text, TextInput, KeyboardAvoidingView } from 'react-native'
+import { View, Text, TextInput, KeyboardAvoidingView, ActivityIndicator } from 'react-native'
 import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect, useContext } from "react";
@@ -16,6 +16,7 @@ const SigninScreen= ({ navigation })=> {
   const [password, setPassword]=useState('');
   const [invalidEmail, setInvalidEmail]= useState(false)
   const [invalidPassword, setInvalidPassword]= useState(false)
+  const [isLoading, setIsLoading]=useState(false)
   const handleSubmit=()=>{
     setInvalidEmail(false)
     setInvalidPassword(false)
@@ -42,6 +43,7 @@ const SigninScreen= ({ navigation })=> {
       url:"http://192.168.1.7:8000/api/v1.0.0/auth/login",
     })
     .then(async (response)=> {
+      setIsLoading(true)
       await AsyncStorage.setItem("@token", response.data['access_token']);
       setUser(response.data.user)
       navigation.reset({
@@ -72,6 +74,7 @@ const SigninScreen= ({ navigation })=> {
             <TextInput secureTextEntry={true} placeholder="placeholder" style={styles.input} onChangeText={setPassword} value={password}></TextInput>
             {invalidPassword?<Text style={styles.error}>Password must contain atleast 8 characters, 1 uppercase letter, 1 lowercase letter, and 1 number</Text>:null}
           </View>
+          {isLoading && <ActivityIndicator color="#8C57BA" />}
           <AuthButton title={'Submit'} handleSubmit={handleSubmit} ></AuthButton>
           <Text style={styles.text}>Dont have an account yet?
             <Text style={styles.link} onPress={() => navigation.navigate('signup-first')}>
