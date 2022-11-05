@@ -11,6 +11,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import UploadImage from '../../components/UploadImage';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import DropDownPicker from 'react-native-dropdown-picker';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from 'axios';
 const EditForeignerProfile=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const [uri, setUri]= useState(null)
@@ -61,7 +63,34 @@ const EditForeignerProfile=({navigation})=> {
         setUri(`http://192.168.1.7:8000/${user.profile_picture}`)
       }
     },[user.profile_picture])
-
+    const handleSave=async ()=>{
+        const data = {
+            name,
+            phone,
+            gender,
+            nationality,
+            residence,
+            about,
+            photo:base64,
+            ext,
+            languages:spokenLanguages
+          };
+          const token = await AsyncStorage.getItem('@token')
+          axios({
+            method: "put",
+            data,
+            headers: { Authorization: `Bearer ${token}`},
+            url:"http://192.168.1.7:8000/api/v1.0.0/users/edit-profile",
+          })
+          .then(async (response)=> {
+            console.log(response.data.data)
+            setUser(response.data.data)
+            return response.data;
+          })
+          .catch(function (error) {
+            console.warn(error)
+          });
+    }
   return (
     <View style={ProfileStyles.container}>
         <UploadImage setBase64={setBase64} setext={setext} uri={uri} />
@@ -168,7 +197,7 @@ const EditForeignerProfile=({navigation})=> {
                     />
                 </View>
                 <View style={ProfileStyles.btnContainer}>
-                    <Pressable style={ProfileStyles.btn}><Text>Save</Text></Pressable>
+                    <Pressable style={ProfileStyles.btn} onPress={handleSave}><Text>Save</Text></Pressable>
                     <Pressable style={ProfileStyles.btn} onPress={()=>navigation.navigate("profile-foreigner")}><Text>Cancel</Text></Pressable>
                 </View>
             </View>
