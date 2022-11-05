@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Image, View, Platform, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-export default function UploadImage({setBase64, setext}) {
+import { connectFirestoreEmulator } from 'firebase/firestore';
+export default function UploadImage({setBase64, setext, uri=null}) {
   const [image, setImage] = useState(null);
+  useEffect(()=>{
+    uri ? setImage(uri): null
+  })
   const addImage = async () => {
     let _image = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -20,7 +24,6 @@ export default function UploadImage({setBase64, setext}) {
   if(image){
     setext(image.split('.').pop())
   }
-
 
   return (
             <View style={imageUploaderStyles.container}>
