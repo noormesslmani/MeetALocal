@@ -26,6 +26,7 @@ const EditForeignerProfile=({navigation})=> {
     const [openLanguages, setOpenLanguages] = useState(false);
     const [openGenders, setOpenGenders] = useState(false);
     const [gender, setGender]= useState(user.gender)
+    const [about, setAbout]= useState(user.about)
     const [genders, setGenders] = useState([
         {label: 'Male', value: 'Male'},
         {label: 'Female', value: 'Female'}])
@@ -60,7 +61,7 @@ const EditForeignerProfile=({navigation})=> {
         setUri(`http://192.168.1.7:8000/${user.profile_picture}`)
       }
     },[user.profile_picture])
-   
+
   return (
     <View style={ProfileStyles.container}>
         <UploadImage setBase64={setBase64} setext={setext} uri={uri} />
@@ -73,6 +74,10 @@ const EditForeignerProfile=({navigation})=> {
                 <View style={{margin:10}}>
                     <Text>Phone Number</Text>
                     <TextInput value={phone.toString()} onChange={setPhone} style={ProfileStyles.input} keyboardType='numeric'/>
+                </View>
+                <View style={{margin:10}}>
+                    <Text>About</Text>
+                    <TextInput placeholder='Write something about yourself' multiline={true} value={about} onChangeText={setAbout} style={ProfileStyles.input} maxLength={200}/>
                 </View>
                 <View style={{margin:10}}>
                     <Text>Nationality</Text>
@@ -164,7 +169,7 @@ const EditForeignerProfile=({navigation})=> {
                 </View>
                 <View style={ProfileStyles.btnContainer}>
                     <Pressable style={ProfileStyles.btn}><Text>Save</Text></Pressable>
-                    <Pressable style={ProfileStyles.btn}><Text>Cancel</Text></Pressable>
+                    <Pressable style={ProfileStyles.btn} onPress={()=>navigation.navigate("profile-foreigner")}><Text>Cancel</Text></Pressable>
                 </View>
             </View>
         </KeyboardAwareScrollView>
