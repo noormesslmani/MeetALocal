@@ -3,8 +3,7 @@ import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native'
 import { GiftedChat } from 'react-native-gifted-chat'
 import { UserContext } from '../../App'
 import { database } from "../../firebase";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from 'axios';
+
 import MessageCard from '../../components/Home/MessageCard';
 import {
   collection,
@@ -21,7 +20,7 @@ const Chats=()=> {
   const { user, setUser} = useContext(UserContext);
   const uri=`http://192.168.1.7:8000/${user.profile_picture}`
 
-  const getMessages = () => {
+  const getMessages = async () => {
     // const docRef = doc(database, "chats", 'VUpRFeTQEifkIOwH1rkE');
     // const colRef = collection(docRef, "messages");
     const q = query(collection(database, "chats"), where("users", "array-contains", user.id));
@@ -39,16 +38,18 @@ const Chats=()=> {
 };
   useEffect(()=>{
     getMessages()
-    console.log(messages)
-    setUsers(messages.map(message=>({user: message.users.filter(id=>id!=user.id)[0], id: message._id})))
     console.log(users)
   },[])
+
+  useEffect(()=>{
+    setUsers(messages.map(message=>({user: message.users.filter(id=>id!=user.id)[0], id: message._id})))
+  },[messages])
  
   return (
             <ScrollView>
-              {users.map((user)=><Text>{user.id} {user.user}</Text>)}
               {users.map((user)=><MessageCard user={user}/>)}
             </ScrollView>
+          
   )
 }
 export default Chats
