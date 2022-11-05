@@ -3,18 +3,30 @@ import { StyleSheet, Dimensions } from "react-native";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const MessageCardStyles = StyleSheet.create({
+    container:{
+        width:windowWidth,
+        height:120,
+        justifyContent:"center"
+    },
     messageContainer:{
         width:windowWidth,
-        height:200,
+        height:110,
         flexDirection:"row",
         backgroundColor:"white",
-        padding:20
+        padding:15,
     },
     avatar:{
-        width:100,
-        height:100,
-        borderRadius:50
-    }
+        margin:10,
+        width:60,
+        height:60,
+        borderRadius:30
+    },
+    separator:{
+        borderBottomColor: 'grey',
+        borderBottomWidth: 0.3,
+        width: 0.9*windowWidth,
+        marginBottom:10,
+    },
    
 });
 export default MessageCardStyles;
