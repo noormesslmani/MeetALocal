@@ -68,7 +68,10 @@ class User extends Authenticatable implements JWTSubject
     }
 
     public function categories(){
-        return $this->belongsToMany(Category::class, 'local_categories', 'local_id', 'category_id');
+        return $this->belongsToMany(Category::class, 'user_categories', 'local_id', 'category_id');
+    }
+    public function languages(){
+        return $this->belongsToMany(Language::class, 'user_languages', 'user_id', 'language_id');
     }
     public function sentMessages(){
         return $this->belongsToMany(User::class, 'messages', 'sender_id', 'reciever_id');
