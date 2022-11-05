@@ -15,6 +15,7 @@ use App\Models\Message;
 use App\Models\Notification;
 use App\Models\PostCategory;
 use App\Models\Post;
+use App\Models\Language;
 use App\Models\SavedEvent;
 use App\Models\UserType;
 use Illuminate\Http\Request;
@@ -214,5 +215,59 @@ class UserController extends Controller
             'user'=>$user,
             'message' => 'ok',
         ], 201);  
+    }
+    public function editProfile(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|between:2,100',
+            'nationality' => 'required|string',
+            'residence' => 'required|string',
+            'phone' =>'required|integer',
+            'languages' =>'required|array',
+            'date_of_birth' => 'required|date',
+            'gender' =>'required|in:Male,Female',
+            'categories' =>'array',
+            'about' => 'string|between:0,200',
+            'latitude' =>"numeric",
+            'longitude' =>"numeric",
+            'photo' => 'string',
+            'fees' => 'integer',
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
+        $user=Auth::user();
+        $path=null;
+        if($request->photo){
+            $extension=$request->ext;
+            $image_64 = $request->photo; 
+            $img = base64_decode($image_64);
+            $path = uniqid() . "." . $extension;
+            file_put_contents($path, $img);
+        }
+        Auth::user()->update(array_merge(
+            $validator->validated(),
+            [
+            'profile_picture'=>$path
+            ])
+        );
+        $lang_ids=[];
+        $user['nationality']=$request->nationality;
+        $user['residence']=$request->residence;
+        $user['languages']=$request->languages;
+        foreach($request->languages as $language){
+            array_push($lang_ids,Language::where('language',$language)->get('id')[0]['id']);
+        }
+        $categ_ids=[];
+        if($request->categories){
+            foreach($request->categories as $category){
+                array_push($categ_ids,Category::where('category',$category)->get('id')[0]['id']);
+            }
+            $user['categories']=$request->categories;
+        }
+        Auth::user()->languages()->sync($lang_ids);
+        return response()->json([
+            'message' => 'ok',
+            'user'=>$user
+        ], 201); 
     }
 }
