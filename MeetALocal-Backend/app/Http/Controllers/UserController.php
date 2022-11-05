@@ -221,35 +221,30 @@ class UserController extends Controller
             'name' => 'required|string|between:2,100',
             'nationality' => 'required|string',
             'residence' => 'required|string',
-            'phone' =>'required|integer',
+            'phone' =>'required|numeric',
             'languages' =>'required|array',
-            'date_of_birth' => 'required|date',
+            'date_of_birth' => 'date',
             'gender' =>'required|in:Male,Female',
             'categories' =>'array',
             'about' => 'string|between:0,200',
             'latitude' =>"numeric",
             'longitude' =>"numeric",
-            'photo' => 'string',
             'fees' => 'integer',
         ]);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
         }
+        Auth::user()->update($validator->validated());
         $user=Auth::user();
-        $path=null;
         if($request->photo){
             $extension=$request->ext;
             $image_64 = $request->photo; 
             $img = base64_decode($image_64);
             $path = uniqid() . "." . $extension;
             file_put_contents($path, $img);
+            Auth::user()->update(['profile_picture'=>$path]);
         }
-        Auth::user()->update(array_merge(
-            $validator->validated(),
-            [
-            'profile_picture'=>$path
-            ])
-        );
+        
         $lang_ids=[];
         $user['nationality']=$request->nationality;
         $user['residence']=$request->residence;
@@ -267,7 +262,7 @@ class UserController extends Controller
         Auth::user()->languages()->sync($lang_ids);
         return response()->json([
             'message' => 'ok',
-            'user'=>$user
+            'data'=>$user
         ], 201); 
     }
 }
