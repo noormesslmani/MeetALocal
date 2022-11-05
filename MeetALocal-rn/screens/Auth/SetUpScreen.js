@@ -89,7 +89,7 @@ const SetUpScreen=({navigation})=> {
         </View>
         <View style={styles.aboutContainer}>
           <Text>About <Text style={{fontSize:10, fontWeight:"300"}}>(max 200 characters)</Text></Text>
-          <TextInput placeholder='Write something about yourself' multiline={true} value={about} onChangeText={setAbout} style={styles.aboutInput} maxLength={20}></TextInput>
+          <TextInput placeholder='Write something about yourself' multiline={true} value={about} onChangeText={setAbout} style={styles.aboutInput} maxLength={200}></TextInput>
         </View>
         <Text style={styles.gender}>Gender *</Text>
         {genderunset?<Text style={styles.error}>Please select your gender</Text>:null}
