@@ -6,8 +6,8 @@ import { connectFirestoreEmulator } from 'firebase/firestore';
 export default function UploadImage({setBase64, setext, uri=null}) {
   const [image, setImage] = useState(null);
   useEffect(()=>{
-    uri ? setImage(uri): null
-  })
+    setImage(uri)
+  },[uri])
   const addImage = async () => {
     let _image = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -21,10 +21,8 @@ export default function UploadImage({setBase64, setext, uri=null}) {
     }
     setBase64(_image.base64)
   }
-  if(image){
-    setext(image.split('.').pop())
-  }
-
+  useEffect(()=>{ image? setext(image.split('.').pop()):null},[image])
+  
   return (
             <View style={imageUploaderStyles.container}>
                 {
