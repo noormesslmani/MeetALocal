@@ -37,6 +37,8 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         $user=Auth::user();
+        $languages=UserLanguage::join('languages','languages.id','language_id')->where('user_id',$user->id)->pluck('language');
+        $user['languages']=$languages;
         $user['nationality']=Country::find($user->nationality_id)->country;
         $user['residence']=Country::find($user->residence_id)->country;
         return response()->json([
@@ -123,6 +125,8 @@ class AuthController extends Controller
             }
         }
         $user=Auth::user();
+        $languages=UserLanguage::join('languages','languages.id','language_id')->where('user_id',$user->id)->pluck('language');
+        $user['languages']=$languages;
         $user['nationality']=Country::find($user->nationality_id)->country;
         $user['residence']=Country::find($user->residence_id)->country;
         return response()->json([
@@ -142,6 +146,8 @@ class AuthController extends Controller
    
     public function userProfile() {
         $user=Auth::user();
+        $languages=UserLanguage::join('languages','languages.id','language_id')->where('user_id',$user->id)->pluck('language');
+        $user['languages']=$languages;
         $user['nationality']=Country::find($user->nationality_id)->country;
         $user['residence']=Country::find($user->residence_id)->country;
         return response()->json([
