@@ -37,13 +37,14 @@ const SigninScreen= ({ navigation })=> {
       email: email,
       password: password,
     };
+    setIsLoading(true)
     axios({
       method: "post",
       data,
       url:"http://192.168.1.7:8000/api/v1.0.0/auth/login",
     })
     .then(async (response)=> {
-      setIsLoading(true)
+      
       await AsyncStorage.setItem("@token", response.data['access_token']);
       setUser(response.data.user)
       navigation.reset({
@@ -54,6 +55,7 @@ const SigninScreen= ({ navigation })=> {
       return response.data;
     })
     .catch(function (error) {
+      setIsLoading(false)
       console.warn(error)
     });
   }
