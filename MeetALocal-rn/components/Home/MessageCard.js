@@ -34,12 +34,16 @@ const MessageCard=({navigation, user})=> {
         console.warn(error)
     });
     }
+    console.log(name)
   return (
-    <View>
-    <TouchableOpacity style={MessageCardStyles.messageContainer} onPress={()=>console.log('hi')}>
-        <Image source={image?{ uri:`http://192.168.1.7:8000/${image}`}: require('../../assets/blank-profile.webp')} style={MessageCardStyles.avatar}/>
-        <Text>{name}</Text>
-    </TouchableOpacity>
+    <View style={MessageCardStyles.container}>
+        <TouchableOpacity style={MessageCardStyles.messageContainer} onPress={()=>console.log('hi')}>
+            <Image source={image?{ uri:`http://192.168.1.7:8000/${image}`}: require('../../assets/blank-profile.webp')} style={MessageCardStyles.avatar}/>
+            <View>
+            <Text style={{marginTop:10}}>{name}</Text>
+            {type_id==1?<Text style={{color:"#8C57BA", fontSize:12}}>local</Text>:null}
+            </View>
+        </TouchableOpacity>
     </View>
   )
 }
