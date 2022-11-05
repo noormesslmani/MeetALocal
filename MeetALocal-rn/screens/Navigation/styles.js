@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         width: windowWidth,
         paddingRight:25,
         flexDirection:"row",
-        justifyContent:"center"
+        justifyContent:"center",
     },
     headerContainer:{
         flexDirection:"row",
@@ -19,8 +19,8 @@ const styles = StyleSheet.create({
         width:0.55*windowWidth,
     },
     logo:{
-        width: 300, 
-        height: 100
+        width: 200, 
+        height: 80
     }
 })
 export default styles;
