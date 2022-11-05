@@ -41,9 +41,28 @@ const Chats=()=> {
     console.log(messages)
     setUsers(messages.map(message=>message.users.filter(id=>id!=user.id)[0]))
     console.log(users)
-    // getUsers()
+    getUsers()
   },[])
-  
+  async function getUsers(){
+    const token = await AsyncStorage.getItem('@token')
+    const data = {
+      users,
+    }
+    console.log(data)
+    axios({
+      method: "post",
+      data,
+      headers: { Authorization: `Bearer ${token}`},
+      url:'http://192.168.1.7:8000/api/v1.0.0/users/messaged-users',
+    })
+    .then((response)=> {
+      console.log(response.data)
+      return response;
+    })
+    .catch(function (error) {
+      console.warn(error)
+    });
+  }
   return (
             <ScrollView>
               {messages.map((message)=><Text>{message.users.filter(id=>id!=user.id)}</Text>)}
