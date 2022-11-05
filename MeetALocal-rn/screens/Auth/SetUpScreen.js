@@ -55,6 +55,7 @@ const SetUpScreen=({navigation})=> {
       ext: ext
     };
     const token = await AsyncStorage.getItem('@token')
+    setIsLoading(true)
     axios({
       method: "post",
       data,
@@ -62,7 +63,6 @@ const SetUpScreen=({navigation})=> {
       url:"http://192.168.1.7:8000/api/v1.0.0/auth/setup",
     })
     .then(async (response)=> {
-      setIsLoading(true)
       await AsyncStorage.setItem("@user", JSON.stringify(response.data['user']));
       setUser(response.data.user)
       navigation.reset({
@@ -73,6 +73,7 @@ const SetUpScreen=({navigation})=> {
       return response.data;
     })
     .catch(function (error) {
+      setIsLoading(false)
       console.warn(error)
     });
   }

@@ -65,14 +65,14 @@ const Categories=({navigation})=> {
           longitude:longitude
         };
         const token = await AsyncStorage.getItem('@token')
+        setIsLoading(true)
         axios({
           method: "post",
           data,
           headers: { Authorization: `Bearer ${token}`},
           url:"http://192.168.1.7:8000/api/v1.0.0/auth/setup",
         })
-        .then(async (response)=> {
-            setIsLoading(true)
+        .then(async (response)=> { 
           await AsyncStorage.setItem("@user", JSON.stringify(response.data['user']));
           setUser(response.data.user)
           navigation.reset({
@@ -83,6 +83,7 @@ const Categories=({navigation})=> {
           return response.data;
         })
         .catch(function (error) {
+            setIsLoading(false)
           console.warn(error)
         });
       }
