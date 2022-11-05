@@ -13,7 +13,6 @@ Route::group(['prefix' => 'v1.0.0'], function () {
         Route::group(['prefix' => 'users'], function () {
             Route::get('/locals/{country}/{category}', [UserController::class, 'getLocals']);
             Route::get('/user/{id}', [UserController::class, 'getUser']);
-            Route::post('/messaged-users', [UserController::class, 'messagedUsers']);
             Route::get('/events/{country}/{category}', [UserController::class, 'getEvents']);
             Route::get('/event/{id}', [UserController::class, 'getEvent']);
             Route::post('/event/toggle-save', [UserController::class, 'toggleSavedEvents']);
@@ -27,6 +26,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::get('/chats/{id?}', [UserController::class, 'getChats']);
             Route::post('/chat', [UserController::class, 'createChat']);
             Route::put('/profile-photo', [UserController::class, 'changePhoto']);
+            Route::put('/edit-profile', [UserController::class, 'editProfile']);
         });
         Route::group(['prefix' => 'locals'], function () {
             Route::post('/event', [LocalController::class, 'createEvent']);
@@ -47,7 +47,6 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::get('/favorites', [ForeignerController::class, 'getFavorites']);
             Route::get('/is-favorite/{id}', [ForeignerController::class, 'isFavorite']);
             Route::post('/toggle-favorite', [ForeignerController::class, 'toggleFavorite']);
-            //edit profile
         });
         Route::group(['prefix' => 'auth'], function ($router) { 
             Route::post('/logout', [AuthController::class, 'logout']);

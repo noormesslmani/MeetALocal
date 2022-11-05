@@ -60,4 +60,5 @@ class ForeignerController extends Controller
             'message' => 'ok',
         ], 201);
     }
+    
 }
