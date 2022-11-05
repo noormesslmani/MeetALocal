@@ -9,23 +9,41 @@ import {
   onSnapshot,
   query,
   addDoc,
-  where
+  where,
+  doc
 } from "firebase/firestore";
 import { useRoute } from '@react-navigation/native';
 const ChatScreen=()=> {
     const route = useRoute();
-    const chadId= route.params.user.id
+    const chatId= route.params.user.id
     const image= route.params.image
     const name= route.params.name
     const type= route.params.type_id
     const [messages, setMessages] = useState([]);
     const { user, setUser} = useContext(UserContext);
     const uri=`http://192.168.1.7:8000/${user.profile_picture}`
-
   useEffect(() => {
-    
+    getMessages()
   }, []);
-  
+  console.log(chatId)
+  const getMessages = async () => {
+    const docRef = doc(database, "chats", chatId);
+    const colRef = collection(docRef, "messages");
+    const q = query(colRef, orderBy("createdAt", "desc"));
+    const unsubscribe = onSnapshot(q, (snapshot) =>
+        setMessages(
+            snapshot.docs.map((doc) => ({
+                createdAt: doc.data().createdAt.toDate(),
+                text: doc.data().text,
+                user: doc.data().user,
+            }))
+        )
+    );
+    return () => {
+        unsubscribe();
+    };
+};
+console.log(messages)
   return (
     <></>
   )
