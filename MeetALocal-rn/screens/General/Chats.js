@@ -14,7 +14,7 @@ import {
   where,
   doc
 } from "firebase/firestore";
-const Chats=()=> {
+const Chats=({navigation})=> {
   const [messages, setMessages] = useState([]);
   const [users, setUsers] = useState([]);
   const { user, setUser} = useContext(UserContext);
@@ -47,7 +47,7 @@ const Chats=()=> {
  
   return (
             <ScrollView>
-              {users.map((user)=><MessageCard user={user}/>)}
+              {users.map((user)=><MessageCard user={user} navigation={navigation}/>)}
             </ScrollView>
           
   )

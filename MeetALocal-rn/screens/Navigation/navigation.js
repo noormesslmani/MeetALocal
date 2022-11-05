@@ -19,7 +19,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import Posts from '../General/Posts';
 import Events from '../General/Events';
 import Locals from '../General/Locals';
-import Header from './SignedInHeader';
+import ChatScreen from '../General/ChatScreen';
 import Categories from '../Auth/Categories';
 import SetUpMap from '../Auth/SetUpMapScreen';
 import { UserContext } from '../../App'
@@ -48,6 +48,7 @@ export default function RootNavigation() {
         <Stack.Screen  name="posts" component={Posts} />
         <Stack.Screen  name="events" component={Events} options={{headerTitle: () => <EventsHeader/>, headerBackVisible:false}} />
         <Stack.Screen  name="locals-map" component={LocalsMap} />
+        <Stack.Screen  name="chat-screen" component={ChatScreen} />
         <Stack.Screen  name="locals" component={Locals} options={{headerTitle: () => <LocalsHeader/>, headerBackVisible:false}} />
       </Stack.Navigator>
     </NavigationContainer>
