@@ -18,6 +18,7 @@ import IImageConverter from 'react-native-image-converter'
 
 const Home=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
+    console.log(user)
     const handleLocals=()=>{
         navigation.navigate('locals')
     }

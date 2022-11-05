@@ -69,7 +69,6 @@ const ChatScreen=()=> {
                 name: user.name,
                 avatar:uri,
             }}
-            alwaysShowSend
             scrollToBottom
             renderUsernameOnMessage={true}
         />
