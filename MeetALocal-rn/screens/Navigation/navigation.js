@@ -28,7 +28,7 @@ import LocalProfile from '../Profile/LocalProfile'
 import LocalsHeader from './localsPageHeader';
 import LocalsMap from '../General/LocalsMap';
 import EventsHeader from './EventsPageHeader';
-
+import EditForeignerProfile from '../Profile/EditProfileForeigners';
 export default function RootNavigation() {
   
   const Stack = createNativeStackNavigator();
@@ -49,6 +49,7 @@ export default function RootNavigation() {
         <Stack.Screen  name="events" component={Events} options={{headerTitle: () => <EventsHeader/>, headerBackVisible:false}} />
         <Stack.Screen  name="locals-map" component={LocalsMap} />
         <Stack.Screen  name="chat-screen" component={ChatScreen} />
+        <Stack.Screen  name="edit-foreigner-profile" component={EditForeignerProfile} />
         <Stack.Screen  name="locals" component={Locals} options={{headerTitle: () => <LocalsHeader/>, headerBackVisible:false}} />
       </Stack.Navigator>
     </NavigationContainer>

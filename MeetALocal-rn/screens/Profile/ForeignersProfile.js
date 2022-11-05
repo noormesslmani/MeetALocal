@@ -23,16 +23,17 @@ const ForeignerProfile=({navigation})=> {
     const handleImage=()=>{
       setModalVisible(true)
     }
-
+    const handleEdit=()=>{
+      navigation.navigate('edit-foreigner-profile')
+    }
   return (
     <View style={ProfileStyles.container}>
-        <TouchableOpacity style={ProfileStyles.imgContainer} onPress={handleImage}>
-          <Image source={image?{ uri:`http://192.168.1.7:8000/${image}`}: require('../../assets/blank-profile.webp')} style={{ width: 200, height: 200 }} />
-        </TouchableOpacity>
+        <Image source={image?{ uri:`http://192.168.1.7:8000/${image}`}: require('../../assets/blank-profile.webp')} style={{ width: 200, height: 200, borderRadius:100 }} />
         <ImageModal modalVisible={modalVisible} setModalVisible={setModalVisible} image={image} setImage={setImage} />
         <Text style={ProfileStyles.name}>{user.name}</Text>
+        <TouchableOpacity onPress={handleEdit}><Icon name="pencil" size={18} color='grey' /></TouchableOpacity>
         <View style={{marginTop:20}}>
-          <View style={{flexDirection:"row", justifyContent:"space-between"}}><Text style={{fontWeight:"500"}}>Perosnal Information</Text><TouchableOpacity onPress={()=>setEditModal(true)}><Icon name="pencil" size={20} color='grey' /></TouchableOpacity></View>
+          <Text style={{fontWeight:"500"}}>Perosnal Information</Text>
           <View style={ProfileStyles.separator}/>
           <View style={{flexDirection:"row",margin:5}}><Icon name="phone" size={20} color='grey' />
           <Text style={{marginLeft:5}}>{user.phone}</Text></View>
