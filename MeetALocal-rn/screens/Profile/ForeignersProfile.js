@@ -35,11 +35,11 @@ const ForeignerProfile=({navigation})=> {
         <View style={{marginTop:20}}>
           <Text style={{fontWeight:"500"}}>Perosnal Information</Text>
           <View style={ProfileStyles.separator}/>
-          <View style={{flexDirection:"row",margin:5}}><Icon name="phone" size={20} color='grey' />
+          <View style={{flexDirection:"row",margin:5}}><Icon name="phone" size={20} color="rgba(75, 176, 249, 0.75)" />
           <Text style={{marginLeft:5}}>{user.phone}</Text></View>
-          <View style={{flexDirection:"row",margin:5}}><Icon name="calendar" size={20} color='grey' />
+          <View style={{flexDirection:"row",margin:5}}><Icon name="calendar" size={20} color="rgba(75, 176, 249, 0.75)" />
           <Text style={{marginLeft:5}}>{user.date_of_birth}</Text></View>
-          <View style={{flexDirection:"row",margin:5}}><Ionicons name="location-sharp" size={20} color='grey' />
+          <View style={{flexDirection:"row",margin:5}}><Ionicons name="location-sharp" size={20} color="rgba(75, 176, 249, 0.75)" />
           <Text style={{marginLeft:5}}>{user.residence}</Text></View>
         </View>
         <View style={{marginTop:40}}>
