@@ -42,13 +42,6 @@ class UserController extends Controller
             'data' => $user
         ], 201);
     }
-    public function messagedUsers(Request $request){
-        $users=User::whereIn('id',$request->users)->get(['id','name','profile_picture']);
-        return response()->json([
-            'message' => 'ok',
-            'data' => $users
-        ], 201);
-    }
     public function getEvents($country, $category){
         $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
