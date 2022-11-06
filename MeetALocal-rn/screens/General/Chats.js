@@ -10,44 +10,35 @@ import {
   orderBy,
   onSnapshot,
   query,
-  addDoc,
   where,
-  doc
+  doc,
+  getDocs,
+  limit
 } from "firebase/firestore";
 const Chats=({navigation})=> {
-  const [messages, setMessages] = useState([]);
-  const [users, setUsers] = useState([]);
+  const [chats, setChats]= useState([])
   const { user, setUser} = useContext(UserContext);
   const uri=`http://192.168.1.7:8000/${user.profile_picture}`
 
-  const getMessages = async () => {
-    // const docRef = doc(database, "chats", 'VUpRFeTQEifkIOwH1rkE');
-    // const colRef = collection(docRef, "messages");
-    const q = query(collection(database, "chats"), where("users", "array-contains", user.id));
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      setMessages(
-        snapshot.docs.map((doc) => ({
-          _id: doc.id,
-          users: doc.data().users
-        }))
-      );
-    });
-    return () => {
-        unsubscribe(); 
-    };
-};
   useEffect(()=>{
-    getMessages()
-    console.log(users)
+    setChats([])
+    test()
   },[])
 
-  useEffect(()=>{
-    setUsers(messages.map(message=>({user: message.users.filter(id=>id!=user.id)[0], id: message._id})))
-  },[messages])
- 
+  async function test(){
+  const q = query(collection(database, "chats"), where("users", "array-contains", user.id));
+  const querySnapshot = await getDocs(q);
+  querySnapshot.forEach(async (doc) => {
+    const q = query(collection(database, `chats/${doc.id}/messages`), orderBy("createdAt", "desc"), limit(1))
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach(async (doc2) => {
+        setChats((chats)=>[...chats,{ chat_id: doc.id, user_id:doc.data().users.filter(id=>id!=user.id)[0], date:doc2.data().createdAt.toDate(), text: doc2.data().text }])
+      })
+    });
+  }
   return (
             <ScrollView>
-              {users.map((user)=><MessageCard user={user} navigation={navigation}/>)}
+              {chats.map((chat)=><MessageCard chat={chat} navigation={navigation}/>)}
             </ScrollView>
           
   )
