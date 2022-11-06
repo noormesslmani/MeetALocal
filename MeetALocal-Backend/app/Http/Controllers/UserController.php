@@ -30,6 +30,8 @@ class UserController extends Controller
         foreach($locals as $local){
             $local['likes']=FavoriteLocal::where('local_id',$local->id)->count();
             $local['categories']=$local->categories()->pluck('category');
+            $local['languages']=$local->languages()->pluck('language');
+            $local['highlights']=$local->highlights()->pluck('photo');
             }
         return response()->json([
             'message' => 'ok',
