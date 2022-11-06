@@ -27,19 +27,12 @@ const LocalPage=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const [isFavorite, SetIsFavorite]=useState(false)
     const [likes, setLikes]= useState(item.likes)
-    const [chat_id, setChat_id]= useState(null)
-    const [chatExists, setChatExits]=useState(false)
+    const [chatId, setChatId]= useState(null)
     useEffect(()=>{
       checkFavorite()
     },[])
-    useEffect(()=>{
-      if(chat_id){
-        navigation.navigate('chat-screen', { chat_id})
-        setChat_id(null)
-      }
-    },[chat_id])
+
     const handleLike=()=>{
-      console.log('like')
       toggleFavorite()
     }
     const handleMessage=()=>{
@@ -82,21 +75,24 @@ const LocalPage=({navigation})=> {
         });
       }
       async function getChats(){
+        var flag=false
         const q = query(collection(database, "chats"), where("users", "array-contains", user.id));
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach(async (doc) => {
           if(doc.data().users.includes(item.id)){
-            setChat_id(doc.id)
+            flag=true
+            navigation.navigate('chat-screen', { chat_id: doc.id})
           }
         })
-        // if(! chatExists){
-        //   const newChat = await addDoc(collection(database, "chats"), {
-        //     users: [user.id, item.id],
-        //   });
-        //   console.log("Document written with ID: ", newChat.id);
-        //   setChat_id(newChat.id)
-        //   navigation.navigate('chat-screen', { chat_id})
-        }
+        if(! flag){
+        const newChat = await addDoc(collection(database, "chats"), {
+          users: [user.id, item.id],
+        });
+        console.log("ID: ", newChat.id);
+        navigation.navigate('chat-screen', { chat_id: newChat.id})
+      }
+    }
+      
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
         <View style={LocalProfileStyles.mainContainer}>
