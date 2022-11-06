@@ -11,9 +11,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 const LocalPage=({navigation})=> {
     const route = useRoute();
+    const item =route.params.item
     const { user, setUser} = useContext(UserContext);
     const [isFavorite, SetIsFavorite]=useState(false)
-    const item =route.params.item
+    const [likes, setLikes]= useState(item.likes)
     useEffect(()=>{
       checkFavorite()
     },[])
@@ -50,6 +51,7 @@ const LocalPage=({navigation})=> {
         .then(async (response)=> {
           console.log(response.data)
           checkFavorite()
+          setLikes(response.data.data)
           return response.data;
         })
         .catch(function (error) {
@@ -65,7 +67,7 @@ const LocalPage=({navigation})=> {
               <Text style={{fontSize:18, fontWeight:"600", marginBottom:3}}>{item.name}</Text>
               <Text style={{fontSize:14, fontWeight:"400", marginBottom:3}}>{item.country}</Text>
               <View style={{flexDirection:"row", alignItems:"center"}}>
-                <Text style={{fontSize:13, fontWeight:"400", marginRight:3}}>{item.likes}</Text>
+                <Text style={{fontSize:13, fontWeight:"400", marginRight:3}}>{likes}</Text>
                 <Icon name="heart" color="#8C57BA" size={15} /> 
               </View>
             </View>
