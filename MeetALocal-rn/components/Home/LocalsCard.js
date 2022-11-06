@@ -14,49 +14,17 @@ import Housing from '../../assets/house.png'
 import Language from '../../assets/languages.png'
 import Other from '../../assets/more.png'
 import Jobs from '../../assets/suitcase.png'
-
+import { categoryIcons } from '../../constants/categories';
 const LocalCard=({navigation, item})=> {
     
     const [categories, setCategories]=useState([])
-    const [icons, setIcons]=useState([])
     useEffect(()=>{
-        setIcons([])
         setCategories(item.categories)
     },[])
     const handlePress=()=>{
         console.log(item)
         navigation.navigate('local-page', {item});
     }
-    useEffect(()=>{
-        for(let category of categories){
-            switch(category) {
-                case 'Tourism':
-                    setIcons((icons)=>[...icons, [Tourism,'Tourism']])
-                  break;
-                case 'Language':
-                    setIcons((icons)=>[...icons, [Language,'Language']])
-                  break;
-                case 'Culture':
-                setIcons((icons)=>[...icons, [Culture,'Culture']])
-                    break;
-                case 'History':
-                    setIcons((icons)=>[...icons, [History, 'History']])
-                    break;
-                case 'Education':
-                    setIcons((icons)=>[...icons, [Education, 'Education']])
-                    break;
-                case 'Jobs':
-                    setIcons((icons)=>[...icons, [Jobs, 'Jobs']])
-                    break;
-                case 'Housing':
-                    setIcons((icons)=>[...icons, [Housing, 'Housing']])
-                break;
-                case 'Guidance':
-                    setIcons((icons)=>[...icons, [Guidance, 'Guidance']])
-                break;
-            }
-        }
-    },[categories])
   return (
     <View style={LocalCardStyles.container}>
         <TouchableOpacity style={LocalCardStyles.card} onPress={handlePress}>
@@ -73,10 +41,10 @@ const LocalCard=({navigation, item})=> {
                 <Text style={{fontSize:14, fontWeight:"900"}}>{item.fees}$/hr</Text>
             </View>
             <View style={LocalCardStyles.categoryContainer}>
-                {icons.map((icon)=>
+                {categories.map((category)=>
                 <View style={LocalCardStyles.CategorySubcontainer}>
-                    <Image source={icon[0]} style={{width:30, height:30}} />
-                    <Text style={LocalCardStyles.iconLabel}>{icon[1]}</Text>
+                    <Image source={categoryIcons[category]} style={{width:30, height:30}} />
+                    <Text style={LocalCardStyles.iconLabel}>{category}</Text>
                 </View>
                 )}
             </View>
