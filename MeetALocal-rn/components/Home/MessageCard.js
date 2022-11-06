@@ -8,8 +8,7 @@ import image from '../../assets/profile.jpg'
 import MessageCardStyles from '../ComponentsStyles/MessageCardStyles';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
-const MessageCard=({navigation, user})=> {
-
+const MessageCard=({navigation, chat})=> {
     const [image, setImage]=useState(null)
     const [name, setName]=useState(null)
     const [type_id, setType_id]=useState(null)
@@ -21,10 +20,10 @@ const MessageCard=({navigation, user})=> {
     axios({
         method: "get",
         headers: { Authorization: `Bearer ${token}`},
-        url:`http://192.168.1.7:8000/api/v1.0.0/users/user/${user.user}`,
+        url:`http://192.168.1.7:8000/api/v1.0.0/users/user/${chat.user_id}`,
     })
     .then((response)=> {
-        console.log(response.data)
+        // console.log(response.data)
         setName(response.data.data.name)
         setImage(response.data.data.profile_picture)
         setType_id(response.data.data.type_id)
@@ -35,8 +34,7 @@ const MessageCard=({navigation, user})=> {
     });
     }
     const handleChat=()=>{
-        console.log(user)
-        navigation.navigate('chat-screen', { user, image, name, type_id})
+        navigation.navigate('chat-screen', { chat, image, name, type_id})
     }
   return (
     <View style={MessageCardStyles.container}>
