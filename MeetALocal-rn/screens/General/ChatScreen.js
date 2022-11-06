@@ -15,10 +15,8 @@ import {
 import { useRoute } from '@react-navigation/native';
 const ChatScreen=()=> {
     const route = useRoute();
-    const chatId= route.params.chat.chat_id
-    const image= route.params.image
-    const name= route.params.name
-    const type= route.params.type_id
+    const chatId= route.params.chat_id
+   
     const [messages, setMessages] = useState([]);
     const { user, setUser} = useContext(UserContext);
     const uri=`http://192.168.1.7:8000/${user.profile_picture}`
@@ -29,7 +27,9 @@ const ChatScreen=()=> {
     const getMessages = async () => {
         const docRef = doc(database, "chats", chatId);
         const colRef = collection(docRef, "messages");
+        
         const q = query(colRef, orderBy("createdAt", "desc"));
+        console.log(q)
         const unsubscribe = onSnapshot(q, (snapshot) =>
             setMessages(
                 snapshot.docs.map((doc) => ({
