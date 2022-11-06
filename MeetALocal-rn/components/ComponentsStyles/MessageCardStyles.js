@@ -15,6 +15,11 @@ const MessageCardStyles = StyleSheet.create({
         backgroundColor:"white",
         padding:15,
     },
+    text:{
+        color:"grey",
+        fontSize:12,
+        marginTop:5
+    },
     avatar:{
         margin:10,
         width:60,
