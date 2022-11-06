@@ -16,9 +16,7 @@ const ForeignerProfile=({navigation})=> {
       setImage(user.profile_picture)
     }
   },[user.profile_picture])
-    const handleImage=()=>{
-      setModalVisible(true)
-    }
+  
     const handleEdit=()=>{
       navigation.navigate('edit-foreigner-profile')
     }
