@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, SafeAreaView, FlatList } from 'react-native'
+import { View, Text, TouchableOpacity, Image, SafeAreaView, FlatList, Pressable } from 'react-native'
 import React from 'react'
 import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext } from "react";
@@ -9,6 +9,7 @@ import axios from 'axios';
 import FilterModal from '../../components/Home/FilterModal';
 import EventCard from '../../components/Home/EventsCard';
 import EventsModal from '../../components/Locals/EventsModal';
+import Icon from 'react-native-vector-icons/Ionicons'
 const Events=({navigation})=> {
   const [choice, setChoice]=useState(1)
   const [modalVisible, setModalVisible] = useState(false)
@@ -93,7 +94,7 @@ const Events=({navigation})=> {
         </View>
         <View style={EventsStyles.separator}/>
         {user.type_id==1 && <TouchableOpacity onPress={()=>{setEventModalVisible(true)}}><Text style={{color:"#8C57BA", marginBottom:5, textDecorationLine:"underline"}}>Create an event</Text></TouchableOpacity>}
-        {choice==1 && <TouchableOpacity onPress={()=>{setModalVisible(true)}}><Text style={{color:'grey', marginBottom:5}}>Filter</Text></TouchableOpacity>}
+        {choice==1 && <Pressable  onPress={()=>{setModalVisible(true)}}><Icon name="filter" size={25} color="#8C57BA"/></Pressable>}
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
         <EventsModal modalVisible={eventModalVisible} setModalVisible={setEventModalVisible}/>
         <SafeAreaView style={EventsStyles.listContainer}>

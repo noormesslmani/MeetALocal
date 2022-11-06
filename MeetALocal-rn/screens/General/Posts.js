@@ -10,6 +10,7 @@ import FilterModal from '../../components/Home/FilterModal';
 import PostsStyles from './Styles/PostsStyles';
 import PostCard from '../../components/Home/PostsCard';
 import NewPostModal from '../../components/Home/NewPostModal';
+import Icon from 'react-native-vector-icons/Ionicons'
 const Posts=({navigation})=> {
   const [viewOwn, setViewOwn]=useState(false)
   const [country, setCountry]=useState('all');
@@ -71,7 +72,7 @@ const Posts=({navigation})=> {
           <Text style={PostsStyles.newPost}>New Post</Text>
         </TouchableOpacity>
         <View style={PostsStyles.separator}/>
-        {!viewOwn && <TouchableOpacity onPress={()=>{setModalVisible(true)}}><Text style={{color:'grey', margin:10}}>Filter</Text></TouchableOpacity>}
+        {!viewOwn && <Pressable  onPress={()=>{setModalVisible(true)}}><Icon name="filter" size={25} color="#8C57BA"/></Pressable>}
         
         <NewPostModal modalVisible={newPostModalVisible} setModalVisible={setNewPostModalVisible}/>
         <SafeAreaView>
