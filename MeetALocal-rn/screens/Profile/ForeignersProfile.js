@@ -7,14 +7,10 @@ import ProfileStyles from './ProfileStyles/ProfileStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-import ImageModal from '../../components/Home/ImageModal';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import EditModal from '../../components/Foreigners/EditProfileModal';
 const ForeignerProfile=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const [image, setImage]= useState(null)
-  const [modalVisible, setModalVisible]= useState(false)
-  const [editModal, setEditModal]= useState(false)
   useEffect(()=>{
     if(user.profile_picture){
       setImage(user.profile_picture)
@@ -29,7 +25,6 @@ const ForeignerProfile=({navigation})=> {
   return (
     <View style={ProfileStyles.container}>
         <Image source={image?{ uri:`http://192.168.1.7:8000/${image}`}: require('../../assets/blank-profile.webp')} style={{ width: 200, height: 200, borderRadius:100 }} />
-        <ImageModal modalVisible={modalVisible} setModalVisible={setModalVisible} image={image} setImage={setImage} />
         <Text style={ProfileStyles.name}>{user.name}</Text>
         <TouchableOpacity onPress={handleEdit}><Icon name="pencil" size={18} color='grey' /></TouchableOpacity>
         <View style={{marginTop:20}}>
@@ -47,7 +42,6 @@ const ForeignerProfile=({navigation})=> {
           <View style={ProfileStyles.separator}/>
           <Text>{user.about}</Text>
         </View>
-        <EditModal modalVisible={editModal} setModalVisible={setEditModal}/>
     </View>
     
   )

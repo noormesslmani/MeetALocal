@@ -62,7 +62,6 @@ const EditForeignerProfile=({navigation})=> {
         {label: 'Russian', value: 'Russian'},
         {label: 'Persian', value: 'Persian'},
       ]);
-      console.log(user.date_of_birth)
       const handleDate= (event, value)=>{
         setDatePicker(false)
         setDate(value)
