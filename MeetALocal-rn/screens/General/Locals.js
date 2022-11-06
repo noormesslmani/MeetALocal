@@ -60,8 +60,8 @@ const Locals=({navigation})=> {
   }
 
   const renderItem = ({ item }) => (
-    <LocalCard item={item} />);
-  
+    <LocalCard item={item} key={item.id} />);
+ 
   return (
       <View style={HomeStyles.container}>
         {user.type_id==2 && <View style={LocalsStyles.view}>

@@ -58,7 +58,7 @@ const Posts=({navigation})=> {
    });
   }
   const renderItem = ({ item }) => (
-    <PostCard item={item} navigation={navigation} />);
+    <PostCard item={item} navigation={navigation} key={item.id}/>);
   return (
       <View style={HomeStyles.container}>
         <View style={PostsStyles.view}>
