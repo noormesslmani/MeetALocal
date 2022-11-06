@@ -9,6 +9,7 @@ import MessageCardStyles from '../ComponentsStyles/MessageCardStyles';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 const MessageCard=({navigation, chat})=> {
+    console.log(chat.date)
     const [image, setImage]=useState(null)
     const [name, setName]=useState(null)
     const [type_id, setType_id]=useState(null)
@@ -43,6 +44,7 @@ const MessageCard=({navigation, chat})=> {
             <View>
             <Text style={{marginTop:10}}>{name}</Text>
             {type_id==1?<Text style={{color:"#8C57BA", fontSize:12}}>local</Text>:null}
+            <Text style={MessageCardStyles.text}>{chat.text}  </Text>
             </View>
         </TouchableOpacity>
     </View>
