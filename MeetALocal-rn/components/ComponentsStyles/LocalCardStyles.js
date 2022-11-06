@@ -73,6 +73,6 @@ const LocalCardStyles = StyleSheet.create({
         color:"white",
         fontWeight:"600",
     }
-   
+
 });
 export default LocalCardStyles;
