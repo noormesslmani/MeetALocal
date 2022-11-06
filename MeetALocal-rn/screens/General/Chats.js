@@ -3,7 +3,6 @@ import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native'
 import { GiftedChat } from 'react-native-gifted-chat'
 import { UserContext } from '../../App'
 import { database } from "../../firebase";
-
 import MessageCard from '../../components/Home/MessageCard';
 import {
   collection,
@@ -18,14 +17,15 @@ import {
 const Chats=({navigation})=> {
   const [chats, setChats]= useState([])
   const { user, setUser} = useContext(UserContext);
+ 
   const uri=`http://192.168.1.7:8000/${user.profile_picture}`
 
   useEffect(()=>{
     setChats([])
-    test()
+    getChats()
   },[])
-
-  async function test(){
+ 
+  async function getChats(){
   const q = query(collection(database, "chats"), where("users", "array-contains", user.id));
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach(async (doc) => {
@@ -34,7 +34,8 @@ const Chats=({navigation})=> {
     querySnapshot.forEach(async (doc2) => {
         setChats((chats)=>[...chats,{ chat_id: doc.id, user_id:doc.data().users.filter(id=>id!=user.id)[0], date:doc2.data().createdAt.toDate(), text: doc2.data().text }])
       })
-    });
+
+    })
   }
   return (
             <ScrollView>
