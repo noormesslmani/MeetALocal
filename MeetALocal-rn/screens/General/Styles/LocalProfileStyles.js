@@ -9,12 +9,12 @@ const LocalProfileStyles = StyleSheet.create({
         alignItems:"center"
     },
     imageContainer:{
-        width:0.8*windowWidth,
+        width:0.9*windowWidth,
         flexDirection:"row",
-        marginBottom:50
+        marginBottom:30
     },
     infoContainer:{
-        width:0.8*windowWidth,
+        width:0.9*windowWidth,
         flexDirection:"row",
         justifyContent:"space-between",
         marginBottom:20
@@ -31,6 +31,22 @@ const LocalProfileStyles = StyleSheet.create({
         alignItems:"center",
         justifyContent:"center",
         borderRadius:10
+    },
+    separator:{
+        width:0.9*windowWidth,
+        borderBottomColor: 'grey',
+        borderBottomWidth: 0.3,
+        marginBottom:20,
+    },
+    about:{
+        width:0.9*windowWidth,
+        marginBottom:20
+    },
+    iconContainer:{
+        alignItems:"center",
+        marginTop:20,
+        marginRight:25,
+        flexWrap:"wrap"
     }
 
 });

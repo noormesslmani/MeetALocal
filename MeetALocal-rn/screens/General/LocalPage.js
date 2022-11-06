@@ -10,6 +10,7 @@ import LocalProfileStyles from './Styles/LocalProfileStyles';
 import { database } from "../../firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
+import { categoryIcons } from '../../constants/categories';
 import {
   collection,
   orderBy,
@@ -97,7 +98,7 @@ const LocalPage=({navigation})=> {
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
         <View style={LocalProfileStyles.mainContainer}>
           <View style={LocalProfileStyles.imageContainer}>
-            <Image source={user.profile_picture?{ uri:`http://192.168.1.7:8000/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={LocalProfileStyles.image}/>
+            <Image source={item.profile_picture?{ uri:`http://192.168.1.7:8000/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={LocalProfileStyles.image}/>
             <View style={{margin:15}}>
               <Text style={{fontSize:18, fontWeight:"600", marginBottom:3}}>{item.name}</Text>
               <Text style={{fontSize:14, fontWeight:"400", marginBottom:3}}>{item.country}</Text>
@@ -111,17 +112,33 @@ const LocalPage=({navigation})=> {
             <View>
               <View style={{flexDirection:"row", alignItems:"center"}}>
                 <Icon name="phone" size={20} color="grey" />
-                <Text style={{fontSize:13, fontWeight:"400", marginLeft:10}}>{user.phone}</Text>
+                <Text style={{fontSize:13, fontWeight:"400", marginLeft:10}}>{item.phone}</Text>
               </View>
               <View style={{flexDirection:"row", alignItems:"center"}}>
                 <Ionicons name="language" size={20} color="grey" />
-                {user.languages.map((language)=><Text style={{fontSize:13, fontWeight:"400", marginLeft:10}} key={language}>{language}</Text>)}
+                {item.languages.map((language)=><Text style={{fontSize:10, fontWeight:"400", marginLeft:10}} key={language}>{language}</Text>)}
               </View>
             </View>
             <View style={{flexDirection:"row", alignItems:"center"}}>
               {user.type_id==2 && <Pressable style={{marginRight:10}} onPress={handleLike}>{isFavorite?<Icon name="heart" size={20} color="#8C57BA" />:<Icon name="heart-o" size={20} color="#8C57BA" />}</Pressable>}
               <Pressable style={LocalProfileStyles.message} onPress={handleMessage}><Text style={{color:"white"}}>Message</Text></Pressable>
             </View>
+          </View>
+          <View style={LocalProfileStyles.separator}></View>
+          {item.about && <View style={LocalProfileStyles.about}>
+            <Text style={{fontSize:16, fontWeight:"500"}}>About</Text>
+            <Text style={{fontSize:13, fontWeight:"300"}}>{item.about}</Text>
+          </View>}
+          <View style={LocalProfileStyles.about}>
+            <Text style={{fontSize:16, fontWeight:"500"}}>Categories</Text>
+            <View style={{flexDirection:"row"}}>
+              {item.categories.map((category)=>
+              <View style={LocalProfileStyles.iconContainer}>
+              <Image source={categoryIcons[category]} style={{width:25, height:25}}/>
+              <Text style={{fontSize:14}}>{category}</Text>
+              </View>
+            )}
+              </View>
           </View>
         </View>
     </ScrollView>
