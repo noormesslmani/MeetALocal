@@ -7,11 +7,34 @@ import { AntDesign } from '@expo/vector-icons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useRoute } from '@react-navigation/native';
 import LocalProfileStyles from './Styles/LocalProfileStyles';
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from 'axios';
 const LocalPage=({navigation})=> {
     const route = useRoute();
     const { user, setUser} = useContext(UserContext);
+    const [isFavorite, SetIsFavorite]=useState(false)
     const item =route.params.item
+    useEffect(()=>{
+      checkFavorite()
+    },[])
+    const handleLike=()=>{
+      console.log('like')
+    }
+    async function checkFavorite(){
+        const token = await AsyncStorage.getItem('@token')
+        axios({
+          method: "get",
+          headers: { Authorization: `Bearer ${token}`},
+          url:`http://192.168.1.7:8000/api/v1.0.0/foreigners/is-favorite/${item.id}`,
+        })
+        .then(async (response)=> {
+          SetIsFavorite(response.data.data)
+          return response.data;
+        })
+        .catch(function (error) {
+          console.warn(error)
+        });
+      }
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
         <View style={LocalProfileStyles.mainContainer}>
@@ -38,7 +61,7 @@ const LocalPage=({navigation})=> {
               </View>
             </View>
             <View style={{flexDirection:"row", alignItems:"center"}}>
-              <Pressable style={{marginRight:10}}><Icon name="heart-o" size={20} color="#8C57BA" /></Pressable>
+              {user.type_id==2 && <Pressable style={{marginRight:10}} onPress={handleLike}>{isFavorite?<Icon name="heart" size={20} color="#8C57BA" />:<Icon name="heart-o" size={20} color="#8C57BA" />}</Pressable>}
               <Pressable style={LocalProfileStyles.message}><Text style={{color:"white"}}>Message</Text></Pressable>
             </View>
           </View>
