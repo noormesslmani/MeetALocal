@@ -15,7 +15,7 @@ import {
 import { useRoute } from '@react-navigation/native';
 const ChatScreen=()=> {
     const route = useRoute();
-    const chatId= route.params.user.id
+    const chatId= route.params.chat.chat_id
     const image= route.params.image
     const name= route.params.name
     const type= route.params.type_id
@@ -44,7 +44,6 @@ const ChatScreen=()=> {
             unsubscribe();
         };
     };
-    console.log(messages)
 
     const onSend = useCallback((messages = []) => {
         setMessages((previousMessages) =>

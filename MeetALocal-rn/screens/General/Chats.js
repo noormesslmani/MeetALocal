@@ -38,7 +38,7 @@ const Chats=({navigation})=> {
   }
   return (
             <ScrollView>
-              {chats.map((chat)=><MessageCard chat={chat} navigation={navigation}/>)}
+              {chats.map((chat)=><MessageCard chat={chat} navigation={navigation} key={chat.chat_id}/>)}
             </ScrollView>
           
   )
