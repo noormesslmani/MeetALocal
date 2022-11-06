@@ -19,6 +19,7 @@ const LocalPage=({navigation})=> {
     },[])
     const handleLike=()=>{
       console.log('like')
+      toggleFavorite()
     }
     async function checkFavorite(){
         const token = await AsyncStorage.getItem('@token')
@@ -29,6 +30,26 @@ const LocalPage=({navigation})=> {
         })
         .then(async (response)=> {
           SetIsFavorite(response.data.data)
+          return response.data;
+        })
+        .catch(function (error) {
+          console.warn(error)
+        });
+      }
+      async function toggleFavorite(){
+        const token = await AsyncStorage.getItem('@token')
+        const data={
+          id:item.id
+        }
+        axios({
+          method: "post",
+          data,
+          headers: { Authorization: `Bearer ${token}`},
+          url:'http://192.168.1.7:8000/api/v1.0.0/foreigners/toggle-favorite',
+        })
+        .then(async (response)=> {
+          console.log(response.data)
+          checkFavorite()
           return response.data;
         })
         .catch(function (error) {
