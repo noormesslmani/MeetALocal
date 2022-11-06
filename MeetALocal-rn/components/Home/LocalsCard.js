@@ -16,13 +16,17 @@ import Other from '../../assets/more.png'
 import Jobs from '../../assets/suitcase.png'
 
 const LocalCard=({navigation, item})=> {
- 
+    
     const [categories, setCategories]=useState([])
     const [icons, setIcons]=useState([])
     useEffect(()=>{
         setIcons([])
         setCategories(item.categories)
     },[])
+    const handlePress=()=>{
+        console.log(item)
+        navigation.navigate('local-page', {item});
+    }
     useEffect(()=>{
         for(let category of categories){
             switch(category) {
@@ -55,7 +59,7 @@ const LocalCard=({navigation, item})=> {
     },[categories])
   return (
     <View style={LocalCardStyles.container}>
-        <TouchableOpacity style={LocalCardStyles.card}>
+        <TouchableOpacity style={LocalCardStyles.card} onPress={handlePress}>
             <Image source={item.profile_picture?{ uri:`http://192.168.1.7:8000/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={LocalCardStyles.image}/>
             <View style={LocalCardStyles.infoContainer}>
                 <Text style={LocalCardStyles.name}>{item.name}</Text>
