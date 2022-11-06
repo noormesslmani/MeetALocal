@@ -32,12 +32,17 @@ const LocalPage=({navigation})=> {
     useEffect(()=>{
       checkFavorite()
     },[])
+    useEffect(()=>{
+      if(chat_id){
+        navigation.navigate('chat-screen', { chat_id})
+        setChat_id(null)
+      }
+    },[chat_id])
     const handleLike=()=>{
       console.log('like')
       toggleFavorite()
     }
     const handleMessage=()=>{
-      console.log('message')
       getChats()
     }
     async function checkFavorite(){
@@ -77,15 +82,11 @@ const LocalPage=({navigation})=> {
         });
       }
       async function getChats(){
-        console.log(item.id)
         const q = query(collection(database, "chats"), where("users", "array-contains", user.id));
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach(async (doc) => {
-          console.log(doc.data().users)
           if(doc.data().users.includes(item.id)){
-            setChatExits(true)
             setChat_id(doc.id)
-            navigation.navigate('chat-screen', { chat_id})
           }
         })
         // if(! chatExists){
