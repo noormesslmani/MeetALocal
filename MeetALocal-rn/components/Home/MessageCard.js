@@ -35,7 +35,8 @@ const MessageCard=({navigation, chat})=> {
     });
     }
     const handleChat=()=>{
-        navigation.navigate('chat-screen', { chat, image, name, type_id})
+        const chat_id=chat.chat_id
+        navigation.navigate('chat-screen', {chat_id})
     }
   return (
     <View style={MessageCardStyles.container}>
