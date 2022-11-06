@@ -60,7 +60,7 @@ const Locals=({navigation})=> {
   }
 
   const renderItem = ({ item }) => (
-    <LocalCard item={item} key={item.id} />);
+    <LocalCard item={item} key={item} navigation={navigation} />);
  
   return (
       <View style={HomeStyles.container}>
