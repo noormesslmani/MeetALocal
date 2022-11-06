@@ -93,7 +93,6 @@ const LocalPage=({navigation})=> {
         navigation.navigate('chat-screen', { chat_id: newChat.id})
       }
     }
-      
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
         <View style={LocalProfileStyles.mainContainer}>
@@ -139,6 +138,18 @@ const LocalPage=({navigation})=> {
               </View>
             )}
               </View>
+          </View>
+          
+          <View style={LocalProfileStyles.about}>
+          <Text style={{fontSize:16, fontWeight:"500", marginBottom:20}}>Highlights</Text>
+            <View style={LocalProfileStyles.highlightImages}>
+              {item.highlights[0] && <Image source={{uri:`http://192.168.1.7:8000/${item.highlights[0]}`}} style={LocalProfileStyles.highlightimg}/>}
+              {item.highlights[1] && <Image source={{uri:`http://192.168.1.7:8000/${item.highlights[1]}`}} style={LocalProfileStyles.highlightimg}/>}
+            </View>
+            <View style={LocalProfileStyles.highlightImages}>
+              {item.highlights[2] && <Image source={{uri:`http://192.168.1.7:8000/${item.highlights[2]}`}} style={LocalProfileStyles.highlightimg}/>}
+              {item.highlights[3] && <Image source={{uri:`http://192.168.1.7:8000/${item.highlights[3]}`}} style={LocalProfileStyles.highlightimg}/>}
+            </View>
           </View>
         </View>
     </ScrollView>

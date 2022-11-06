@@ -29,6 +29,6 @@ const LocalsStyles = StyleSheet.create({
     list:{
         width:windowWidth,
         flex: 1
-    }
+    },
 });
 export default LocalsStyles;

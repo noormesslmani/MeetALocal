@@ -40,13 +40,23 @@ const LocalProfileStyles = StyleSheet.create({
     },
     about:{
         width:0.9*windowWidth,
-        marginBottom:20
+        marginBottom:40
     },
     iconContainer:{
         alignItems:"center",
         marginTop:20,
         marginRight:25,
         flexWrap:"wrap"
+    },
+    highlightImages:{
+        flexDirection:"row",
+        justifyContent:"center",
+        width: 0.9*windowWidth,
+    },
+    highlightimg:{
+        width:0.4*windowWidth,
+        height:0.35*windowWidth,
+        margin:5
     }
 
 });
