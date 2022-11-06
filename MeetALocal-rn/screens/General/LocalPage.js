@@ -7,20 +7,38 @@ import { AntDesign } from '@expo/vector-icons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useRoute } from '@react-navigation/native';
 import LocalProfileStyles from './Styles/LocalProfileStyles';
+import { database } from "../../firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
+import {
+  collection,
+  orderBy,
+  onSnapshot,
+  query,
+  where,
+  doc,
+  getDocs,
+  limit,
+  addDoc
+} from "firebase/firestore";
 const LocalPage=({navigation})=> {
     const route = useRoute();
     const item =route.params.item
     const { user, setUser} = useContext(UserContext);
     const [isFavorite, SetIsFavorite]=useState(false)
     const [likes, setLikes]= useState(item.likes)
+    const [chat_id, setChat_id]= useState(null)
+    const [chatExists, setChatExits]=useState(false)
     useEffect(()=>{
       checkFavorite()
     },[])
     const handleLike=()=>{
       console.log('like')
       toggleFavorite()
+    }
+    const handleMessage=()=>{
+      console.log('message')
+      getChats()
     }
     async function checkFavorite(){
         const token = await AsyncStorage.getItem('@token')
@@ -58,6 +76,26 @@ const LocalPage=({navigation})=> {
           console.warn(error)
         });
       }
+      async function getChats(){
+        console.log(item.id)
+        const q = query(collection(database, "chats"), where("users", "array-contains", user.id));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach(async (doc) => {
+          console.log(doc.data().users)
+          if(doc.data().users.includes(item.id)){
+            setChatExits(true)
+            setChat_id(doc.id)
+            navigation.navigate('chat-screen', { chat_id})
+          }
+        })
+        // if(! chatExists){
+        //   const newChat = await addDoc(collection(database, "chats"), {
+        //     users: [user.id, item.id],
+        //   });
+        //   console.log("Document written with ID: ", newChat.id);
+        //   setChat_id(newChat.id)
+        //   navigation.navigate('chat-screen', { chat_id})
+        }
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
         <View style={LocalProfileStyles.mainContainer}>
@@ -80,12 +118,12 @@ const LocalPage=({navigation})=> {
               </View>
               <View style={{flexDirection:"row", alignItems:"center"}}>
                 <Ionicons name="language" size={20} color="grey" />
-                {user.languages.map((language)=><Text style={{fontSize:13, fontWeight:"400", marginLeft:10}}>{language}</Text>)}
+                {user.languages.map((language)=><Text style={{fontSize:13, fontWeight:"400", marginLeft:10}} key={language}>{language}</Text>)}
               </View>
             </View>
             <View style={{flexDirection:"row", alignItems:"center"}}>
               {user.type_id==2 && <Pressable style={{marginRight:10}} onPress={handleLike}>{isFavorite?<Icon name="heart" size={20} color="#8C57BA" />:<Icon name="heart-o" size={20} color="#8C57BA" />}</Pressable>}
-              <Pressable style={LocalProfileStyles.message}><Text style={{color:"white"}}>Message</Text></Pressable>
+              <Pressable style={LocalProfileStyles.message} onPress={handleMessage}><Text style={{color:"white"}}>Message</Text></Pressable>
             </View>
           </View>
         </View>
