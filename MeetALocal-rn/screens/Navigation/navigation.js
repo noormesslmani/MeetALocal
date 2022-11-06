@@ -121,7 +121,11 @@ function MyTabs() {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="chat" color={color} size={size} />
           ),
-         
+          headerStyle: {height: 100},
+          headerLeft: () => (
+            <View style={{marginLeft:20, flexDirection:"row"}}>
+              <Image source={user.profile_picture?{ uri:`http://192.168.1.7:8000/${user.profile_picture}`}: require('../../assets/blank-profile.webp')} style={{width:40, height:40, borderRadius:20}}/>
+            </View>)
         }}
         
       />
