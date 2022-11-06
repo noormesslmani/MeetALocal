@@ -56,8 +56,10 @@ class ForeignerController extends Controller
                 'local_id'=> $request->id,
             ]);
         }
+        $counts=FavoriteLocal::where('local_id',$request->id)->count();
         return response()->json([
             'message' => 'ok',
+            'data' =>$counts
         ], 201);
     }
     
