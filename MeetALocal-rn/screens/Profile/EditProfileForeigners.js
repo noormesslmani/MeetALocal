@@ -15,6 +15,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { countriesOptions } from '../../constants/countries';
+import { languagesOptions } from '../../constants/languages';
 const EditForeignerProfile=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const [uri, setUri]= useState(null)
@@ -38,16 +39,7 @@ const EditForeignerProfile=({navigation})=> {
         {label: 'Male', value: 'Male'},
         {label: 'Female', value: 'Female'}])
     const [countries, setCountries] = useState(countriesOptions);
-      const [languages, setLanguages] = useState([
-        {label: 'English', value: 'English'},
-        {label: 'French', value: 'French'},
-        {label: 'Arabic', value: 'Arabic'},
-        {label: 'Spanish', value: 'Spanish'},
-        {label: 'Turkish', value: 'Turkish'},
-        {label: 'German', value: 'German'},
-        {label: 'Russian', value: 'Russian'},
-        {label: 'Persian', value: 'Persian'},
-      ]);
+      const [languages, setLanguages] = useState(languagesOptions);
       const handleDate= (event, value)=>{
         setDatePicker(false)
         setDate(value)

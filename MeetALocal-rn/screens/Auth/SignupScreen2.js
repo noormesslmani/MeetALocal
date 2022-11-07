@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useRoute } from '@react-navigation/native';
 import { countriesOptions } from '../../constants/countries';
+import { languagesOptions } from '../../constants/languages';
 const SignupScreen2 = ({navigation}) => {
   const route = useRoute();
   const fullName= route.params.fullName
@@ -24,16 +25,7 @@ const SignupScreen2 = ({navigation}) => {
   const [openCountry, setOpenCountry] = useState(false);
   const [openLanguages, setOpenLanguages] = useState(false);
   const [countries, setcountries] = useState(countriesOptions);
-  const [languages, setLanguages] = useState([
-    {label: 'English', value: 'English'},
-    {label: 'French', value: 'French'},
-    {label: 'Arabic', value: 'Arabic'},
-    {label: 'Spanish', value: 'Spanish'},
-    {label: 'Turkish', value: 'Turkish'},
-    {label: 'German', value: 'German'},
-    {label: 'Russian', value: 'Russian'},
-    {label: 'Persian', value: 'Persian'},
-  ]);
+  const [languages, setLanguages] = useState(languagesOptions);
   const handleSubmit=()=>{
     setInvalidCountry(false)
     setInvalidNationality(false)
