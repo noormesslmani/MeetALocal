@@ -1,15 +1,15 @@
 import { StyleSheet, Dimensions } from "react-native";
-
-const windowWidth = Dimensions.get("window").width;
+import { colors } from "../../constants/colors";
+import { widths } from "../../constants/dimensions";
 const windowHeight = Dimensions.get("window").height;
 const LocalCardStyles = StyleSheet.create({
     container:{
         marginTop:40,
         alignItems:"center",
-        width:windowWidth, 
+        width:widths.width, 
     },
     card:{
-        width: 0.9*windowWidth,
+        width: widths.width9,
         borderRadius:10,
         shadowColor: "#000",
         shadowOffset: {
@@ -22,12 +22,12 @@ const LocalCardStyles = StyleSheet.create({
     image:{
         borderTopEndRadius:10,
         borderTopRightRadius:10,
-        width: 0.9*windowWidth,
+        width: widths.width9,
         height: 0.4*windowHeight,
         position: "relative",
     },
     infoContainer:{
-        width: 0.9*windowWidth,
+        width:widths.width9,
         height: 0.09*windowHeight,
         backgroundColor:"rgba(217, 217, 217, 0.65)",
         position:'absolute',
@@ -57,9 +57,9 @@ const LocalCardStyles = StyleSheet.create({
         flexDirection:"row",
         alignItems:"center",
         justifyContent:"center",
-        width: 0.9*windowWidth,
+        width: widths.width9,
         height: 0.09*windowHeight,
-        backgroundColor:"rgba(140, 87, 186, 0.25)",
+        backgroundColor: colors.lighterViolet,
         borderBottomLeftRadius:5,
         borderBottomRightRadius:5
     },

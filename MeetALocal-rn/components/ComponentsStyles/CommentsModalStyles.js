@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { colors } from "../../constants/colors";
+import { widths } from "../../constants/dimensions";
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
 const CommentsModalStyles = StyleSheet.create({
     centeredView: {
         flex: 1,
@@ -10,9 +10,9 @@ const CommentsModalStyles = StyleSheet.create({
         marginTop: 22
       },
       modalView: {
-        marginTop: 0.15*windowHeight,
+        marginTop: 0.15*widths.width,
         backgroundColor: "white",
-        width:windowWidth,
+        width:widths.width,
         flex:0.9,
         borderRadius: 20,
         alignItems: "center",
@@ -28,7 +28,7 @@ const CommentsModalStyles = StyleSheet.create({
       headerContainer:{
         flexDirection:"row",
         justifyContent:"space-between",
-        width:0.9*windowWidth,
+        width:widths.width9,
         padding:10,
         paddingBottom:0
     },
@@ -47,7 +47,7 @@ const CommentsModalStyles = StyleSheet.create({
   separator:{
     borderBottomColor: 'grey',
     borderBottomWidth: 0.3,
-    width: 1*windowWidth,
+    width: widths.width,
 },
 addComment:{
   height:50,

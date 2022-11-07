@@ -1,12 +1,13 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { colors } from "../../../constants/colors";
+import { widths } from "../../../constants/dimensions";
 
-const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const ProfileStyles = StyleSheet.create({
     container:{
         alignItems:"center",
         padding:20,
-        width:windowWidth,
+        width:widths.width,
         height:windowHeight,
         backgroundColor:'white'
     },
@@ -27,20 +28,20 @@ const ProfileStyles = StyleSheet.create({
     separator:{
         borderBottomColor: 'grey',
         borderBottomWidth: 0.3,
-        width: 0.9*windowWidth,
+        width: widths.width9,
         margin:5,
     },
     inputContainer:{
         marginTop:30,
-        width:0.8*windowWidth,
+        width:widths.width8,
         alignItems:"center"
     },
     input:{
         color:"grey",
-        width: windowWidth * 0.8,
+        width: widths.width8,
         height: 40,
         marginTop: 5,
-        borderColor: "#4BB0F9",
+        borderColor: colors.blue,
         borderBottomWidth: 0.7,
     },
     dropDown:{
@@ -50,12 +51,12 @@ const ProfileStyles = StyleSheet.create({
         borderRightWidth:0,
         borderBottomRightRadius:0,
         borderBottomLeftRadius:0,
-        borderBottomColor:"#4BB0F9",
+        borderBottomColor:colors.blue,
         borderBottomWidth:0.5,
-        width:windowWidth * 0.8,
+        width:widths.width8,
     },
     dropDownContainer:{
-        width:windowWidth * 0.8,
+        width:widths.width8,
         borderRadius:0,
         borderWidth:0.5,
     },
@@ -71,7 +72,7 @@ const ProfileStyles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         marginTop:40,
-        backgroundColor:"rgba(75, 176, 249, 0.3)",
+        backgroundColor:colors.lightViolet,
         marginBottom:10,
         width:"45%",
         alignItems:"center",

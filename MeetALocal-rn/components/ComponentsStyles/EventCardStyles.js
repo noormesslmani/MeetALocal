@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
-
+import { colors } from "../../constants/colors";
+import { widths } from "../../constants/dimensions";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const EventCardStyles = StyleSheet.create({
@@ -7,8 +8,8 @@ const EventCardStyles = StyleSheet.create({
         margin:5,
         marginTop:15,
         borderRadius:20,
-        width:0.43*windowWidth,
-        height:0.43*windowWidth,
+        width:0.43*widths.width,
+        height:0.43*widths.width,
         backgroundColor:'white',
         shadowColor: "#000",
         shadowOffset: {
@@ -22,8 +23,8 @@ const EventCardStyles = StyleSheet.create({
     image:{
         borderTopLeftRadius:20,
         borderTopRightRadius:20,
-        width:0.43*windowWidth,
-        height: 0.3*windowWidth,
+        width:0.43*widths.width,
+        height: 0.3*widths.width,
     },
     title:{
         fontSize:15,

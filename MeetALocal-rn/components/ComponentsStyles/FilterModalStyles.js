@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { colors } from "../../constants/colors";
+import { widths } from "../../constants/dimensions";
 
-const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const ModalStyles = StyleSheet.create({
     centeredView: {
@@ -12,7 +13,7 @@ const ModalStyles = StyleSheet.create({
       modalView: {
         margin: 20,
         backgroundColor: "white",
-        width:0.8*windowWidth,
+        width:widths.width8,
         height:0.45*windowHeight,
         borderRadius: 20,
         padding: 20,
@@ -31,7 +32,7 @@ const ModalStyles = StyleSheet.create({
         padding: 10,
         elevation: 2,
         marginTop:50,
-        backgroundColor:"rgba(140, 87, 186, 0.5)"
+        backgroundColor:colors.lightViolet
       },
       textStyle: {
         color: "white",

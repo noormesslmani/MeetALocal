@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
-
-const windowWidth = Dimensions.get("window").width;
+import { colors } from "../../../constants/colors";
+import { widths } from "../../../constants/dimensions";
 const windowHeight = Dimensions.get("window").height;
 const HomeStyles = StyleSheet.create({
     container:{
@@ -9,16 +9,16 @@ const HomeStyles = StyleSheet.create({
     },
     welcome:{
         fontSize:45,
-        color:"#8C57BA",
+        color:colors.violet
     },
     name:{
         fontSize:20,
         margin:5,
     },
     photo:{
-        width: 0.4*windowWidth,
-        height: 0.4*windowWidth,
-        borderRadius: 0.2*windowWidth,
+        width: widths.width4,
+        height: widths.width4,
+        borderRadius: 0.2*widths.width,
         margin:15
     },
     cardContainer:{
@@ -30,8 +30,8 @@ const HomeStyles = StyleSheet.create({
         width:"60%"
     },
     card:{
-        backgroundColor:"rgba(140, 87, 186, 0.34)",
-        width: 0.7*windowWidth,
+        backgroundColor:colors.lightViolet,
+        width: widths.width7,
         height: 0.12*windowHeight,
         borderRadius:10,
         margin:5,

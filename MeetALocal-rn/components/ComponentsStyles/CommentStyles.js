@@ -1,12 +1,13 @@
 import { StyleSheet, Dimensions } from "react-native";
-
+import { colors } from "../../constants/colors";
+import { widths } from "../../constants/dimensions";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const CommentStyles = StyleSheet.create({
     headerContainer:{
         flexDirection:"row",
         justifyContent:"space-between",
-        width:0.9*windowWidth,
+        width:widths.width9,
         padding:10,
     },
     image:{
@@ -15,7 +16,7 @@ const CommentStyles = StyleSheet.create({
         borderRadius:25
     },
     commentContainer:{
-        width:windowWidth,
+        width:widths.width,
         height:"auto",
         backgroundColor:"white"
     },
@@ -26,7 +27,7 @@ const CommentStyles = StyleSheet.create({
         fontWeight:"100"
     },
     details:{
-        width:0.8*windowWidth,
+        width:widths.width8,
         paddingLeft:10,
     }
    
