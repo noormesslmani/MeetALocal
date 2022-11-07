@@ -11,6 +11,8 @@ import { database } from "../../firebase";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import { categoryIcons } from '../../constants/categories';
+import ImageView from "react-native-image-viewing";
+import { address } from '../../constants/address';
 import {
   collection,
   orderBy,
@@ -29,6 +31,10 @@ const LocalPage=({navigation})=> {
     const [isFavorite, SetIsFavorite]=useState(false)
     const [likes, setLikes]= useState(item.likes)
     const [chatId, setChatId]= useState(null)
+    const [visible, setIsVisible] = useState(false);
+    const [imageIndex, setImageIndex]= useState(0)
+    const images = item.highlights.map((image)=>({ uri: `${address}/${image}`}))
+    console.log(images)
     useEffect(()=>{
       checkFavorite()
       setLocals([item])
@@ -148,14 +154,19 @@ const LocalPage=({navigation})=> {
           <View style={LocalProfileStyles.about}>
           <Text style={{fontSize:16, fontWeight:"500", marginBottom:20}}>Highlights</Text>
             <View style={LocalProfileStyles.highlightImages}>
-              {item.highlights[0] && <Image source={{uri:`http://192.168.1.7:8000/${item.highlights[0]}`}} style={LocalProfileStyles.highlightimg}/>}
-              {item.highlights[1] && <Image source={{uri:`http://192.168.1.7:8000/${item.highlights[1]}`}} style={LocalProfileStyles.highlightimg}/>}
+              {item.highlights[0] && <Pressable onPress={()=>{setIsVisible(true), setImageIndex(0)}}><Image source={{uri:`${address}/${item.highlights[0]}`}} style={LocalProfileStyles.highlightimg}/></Pressable>}
+              {item.highlights[1] && <Pressable onPress={()=>{setIsVisible(true), setImageIndex(1)}}><Image source={{uri:`${address}/${item.highlights[1]}`}} style={LocalProfileStyles.highlightimg}/></Pressable>}
             </View>
             <View style={LocalProfileStyles.highlightImages}>
-              {item.highlights[2] && <Image source={{uri:`http://192.168.1.7:8000/${item.highlights[2]}`}} style={LocalProfileStyles.highlightimg}/>}
-              {item.highlights[3] && <Image source={{uri:`http://192.168.1.7:8000/${item.highlights[3]}`}} style={LocalProfileStyles.highlightimg}/>}
+              {item.highlights[2] && <Pressable onPress={()=>{setIsVisible(true), setImageIndex(2)}}><Image source={{uri:`${address}/${item.highlights[2]}`}} style={LocalProfileStyles.highlightimg}/></Pressable>}
+              {item.highlights[3] && <Pressable onPress={()=>{setIsVisible(true), setImageIndex(3)}}><Image source={{uri:`${address}/${item.highlights[3]}`}} style={LocalProfileStyles.highlightimg}/></Pressable>}
             </View>
           </View>
+          <ImageView
+          images={images}
+          imageIndex={imageIndex}
+          visible={visible}
+          onRequestClose={() => setIsVisible(false)}/>
         </View>
     </ScrollView>
     
