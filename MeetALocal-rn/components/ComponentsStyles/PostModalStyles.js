@@ -5,10 +5,11 @@ import { widths } from "../../constants/dimensions";
 const windowHeight = Dimensions.get("window").height;
 const PostModalStyles = StyleSheet.create({
     centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: 'rgb(0,0,0)',
+      backgroundColor: 'rgba(0,0,0,0.5)', 
       },
       modalView: {
         marginTop: 0.1*windowHeight,
@@ -31,7 +32,6 @@ const PostModalStyles = StyleSheet.create({
       },
       title:{
         fontSize:26,
-        color:colors.violet,
       },
       contentContainer:{
         marginTop:"10%",
@@ -68,7 +68,7 @@ const PostModalStyles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         marginTop:60,
-        backgroundColor:colors.lightViolet,
+        backgroundColor:colors.lightBlue,
         marginBottom:50,
         width:0.3*widths.width,
         alignItems:"center",

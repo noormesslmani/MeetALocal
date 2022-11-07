@@ -31,7 +31,7 @@ const EventModalStyles = StyleSheet.create({
         padding: 10,
         elevation: 2,
         marginTop:50,
-        backgroundColor: colors.lightViolet
+        backgroundColor: colors.lightBlue
       },
       textStyle: {
         color: "white",

@@ -99,7 +99,7 @@ const EventsModalStyles = StyleSheet.create({
     width:"40%",
     alignItems:"center",
     justifyContent:"center",
-    backgroundColor:colors.lightViolet
+    backgroundColor:colors.lightBlue
   }
 });
 export default EventsModalStyles;

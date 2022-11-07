@@ -57,7 +57,6 @@ const SignupScreen = ({navigation}) => {
       })
     }
   }
-  console.log(date)
   return (
     <View style={styles.background}>
       <KeyboardAwareScrollView style={styles.scrollView} scrollEnabled={false}  showsVerticalScrollIndicator={false}>

@@ -8,7 +8,8 @@ const ModalStyles = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 22
+        backgroundColor: 'rgb(0,0,0)',
+        backgroundColor: 'rgba(0,0,0,0.5)', 
       },
       modalView: {
         margin: 20,
@@ -31,17 +32,34 @@ const ModalStyles = StyleSheet.create({
         borderRadius: 20,
         padding: 10,
         elevation: 2,
-        marginTop:50,
-        backgroundColor:colors.lightViolet
+        marginTop:20,
+        backgroundColor:colors.lightBlue
       },
       textStyle: {
         color: "white",
         fontWeight: "bold",
         textAlign: "center"
       },
-      modalText: {
+      modalTitle: {
         marginBottom: 15,
-        textAlign: "center"
-      }
+        textAlign: "center",
+        fontWeight:"500",
+        fontSize:16
+      },
+      dropDown:{
+        marginTop:10,
+        borderTopWidth:0,
+        borderLeftWidth:0,
+        borderRightWidth:0,
+        borderBottomRightRadius:0,
+        borderBottomLeftRadius:0,
+        borderBottomColor:colors.blue,
+        borderBottomWidth:0.5,
+      },
+      dropDownContainer:{
+        marginBottom:30
+    },
+
+
 });
 export default ModalStyles;
