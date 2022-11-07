@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 
-import { StyleSheet, Text, View, SafeAreaView, Image, TouchableWithoutFeedback, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Image, TouchableWithoutFeedback, TouchableOpacity, Pressable } from 'react-native';
 import * as React from 'react';
 import { createContext, useState, useContext } from "react";
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
@@ -25,7 +25,6 @@ import SetUpMap from '../Auth/SetUpMapScreen';
 import { UserContext } from '../../App'
 import ForeignerProfile from '../Profile/ForeignersProfile';
 import LocalProfile from '../Profile/LocalProfile'
-import LocalsHeader from './localsPageHeader';
 import LocalsMap from '../General/LocalsMap';
 import EventsHeader from './EventsPageHeader';
 import EditForeignerProfile from '../Profile/EditProfileForeigners';
@@ -52,7 +51,10 @@ export default function RootNavigation() {
         <Stack.Screen  name="chat-screen" component={ChatScreen} />
         <Stack.Screen  name="edit-foreigner-profile" component={EditForeignerProfile} />
         <Stack.Screen  name="local-page" component={LocalPage} />
-        <Stack.Screen  name="locals" component={Locals} options={{headerTitle: () => <LocalsHeader/>, headerBackVisible:false}} />
+        <Stack.Screen  name="locals" component={Locals}   options={{ 
+            headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+            headerRight:()=>(<Pressable style={{marginLeft:10}}><Ionicons name="location-sharp" size={25} color="#8C57BA"/></Pressable> ),
+            headerBackVisible:false, headerTitleAlign: 'center'}} />
       </Stack.Navigator>
     </NavigationContainer>
     
