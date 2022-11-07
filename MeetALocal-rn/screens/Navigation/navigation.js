@@ -53,7 +53,11 @@ export default function RootNavigation() {
         <Stack.Screen  name="local-page" component={LocalPage} />
         <Stack.Screen  name="locals" component={Locals}   options={{ 
             headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
-            headerRight:()=>(<Pressable style={{marginLeft:10}}><Ionicons name="location-sharp" size={25} color="#8C57BA"/></Pressable> ),
+            headerRight:()=>(
+              <View style={{flexDirection:"row"}}>
+              <Pressable style={{marginLeft:10}}><Ionicons name="location-sharp" size={25} color="#8C57BA"/></Pressable>
+              <Pressable><Ionicons name="filter" size={25} color="#8C57BA"/></Pressable>
+            </View> ),
             headerBackVisible:false, headerTitleAlign: 'center'}} />
       </Stack.Navigator>
     </NavigationContainer>
