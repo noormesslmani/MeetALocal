@@ -65,6 +65,12 @@ const EventModalStyles = StyleSheet.create({
         width:widths.width8,
         height:0.15*windowHeight
       },
-
+      title:{fontSize:20, fontWeight:"600"},
+      info:{fontSize:13},
+      fees:{fontSize:13, fontWeight:"500"},
+      detailsTitle:{fontSize:20, fontWeight:"400"},
+      details:{fontSize:12, marginTop:5},
+      categoriesTitle:{fontWeight:"400"},
+      icons: {width:35, height:35, margin:15}
 });
 export default EventModalStyles;

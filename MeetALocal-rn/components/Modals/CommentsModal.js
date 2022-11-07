@@ -5,11 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import image from '../../assets/profile.jpg'
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from 'axios';
 import CommentsModalStyles from '../ComponentsStyles/CommentsModalStyles';
 import Comment from '../General/Comment';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { getComments, addComment } from '../../network/App';
 const CommentsModal=({navigation, modalVisible, setModalVisible, item, totalComments, setTotalComments})=> {
     const [data, setData]= useState([])
@@ -61,24 +58,24 @@ const CommentsModal=({navigation, modalVisible, setModalVisible, item, totalComm
                     <View style={{flexDirection:"row"}}>
                         <Image source={image} style={CommentsModalStyles.image} />
                         <View>
-                            <Text style={{fontSize:10, marginLeft:10, fontWeight:"600"}}>{item.name}</Text>
-                            <Text style={{fontSize:10, marginLeft:10}}>{item.country}</Text>
+                            <Text style={CommentsModalStyles.userName}>{item.name}</Text>
+                            <Text style={CommentsModalStyles.userCountry}>{item.country}</Text>
+                            <Text style={CommentsModalStyles.details}>{item.details}</Text>
                         </View>
                     </View>
                 </View>
-                <Text style={CommentsModalStyles.details}>{item.details}</Text>
-                    <View style={{alignItems:"center"}}>
-                        <Text style={{fontSize:10, fontWeight:"300", marginBottom:3,marginLeft:10, alignSelf:"flex-start"}}>{totalComments} comments</Text>
+                    <View style={CommentsModalStyles.center}>
+                        <Text style={CommentsModalStyles.totalComments}>{totalComments} comments</Text>
                     <View style={CommentsModalStyles.separator}/>
                 </View>
-                <ScrollView style={{marginBottom:10}}>
+                <ScrollView style={CommentsModalStyles.scrollView}>
                     {data.map((comment)=><Comment comment={comment}/>)}
                 </ScrollView>
                 <View style={CommentsModalStyles.addComment}>
                 <TextInput placeholder='Add a comment' onChangeText={setNewComment} value={newComment} />
-                <TouchableOpacity style={{position:"absolute", right:20}} onPress={handleComment}>
+                <Pressable style={CommentsModalStyles.pressable} onPress={handleComment}>
                     <Icon name="send" color="blue" size={20}/>
-                </TouchableOpacity>
+                </Pressable>
                 </View>
             </View>
         </View>
