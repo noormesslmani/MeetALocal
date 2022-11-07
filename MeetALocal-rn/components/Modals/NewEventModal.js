@@ -17,7 +17,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import { UserContext } from '../../App'
 import { categoriesOptions } from '../../constants/categories';
-const EventsModal=({navigation, modalVisible, setModalVisible})=> {
+const NewEventModal=({navigation, modalVisible, setModalVisible})=> {
     let hours
     let min
     const { user, setUser} = useContext(UserContext);
@@ -182,4 +182,4 @@ const EventsModal=({navigation, modalVisible, setModalVisible})=> {
     </Modal>
   )
 }
-export default EventsModal
+export default NewEventModal

@@ -7,9 +7,9 @@ import EventsStyles from './Styles/EventsPageStyles';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import FilterModal from '../../components/Modals/FilterModal';
-import EventsModal from '../../components/Modals/EventsModal';
+import NewEventModal from '../../components/Modals/NewEventModal';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import EventCard from '../../components/Cards/EventsCard'
+import EventCard from '../../components/Cards/EventCard';
 const Events=({navigation})=> {
   const [choice, setChoice]=useState(1)
   const [modalVisible, setModalVisible] = useState(false)
@@ -100,7 +100,7 @@ const Events=({navigation})=> {
         <View style={EventsStyles.separator}/>
         {user.type_id==1 && <TouchableOpacity onPress={()=>{setEventModalVisible(true)}}><Text style={{color:"#8C57BA", marginBottom:5, textDecorationLine:"underline"}}>Create an event</Text></TouchableOpacity>}
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
-        <EventsModal modalVisible={eventModalVisible} setModalVisible={setEventModalVisible}/>
+        <NewEventModal modalVisible={eventModalVisible} setModalVisible={setEventModalVisible}/>
         <SafeAreaView style={EventsStyles.listContainer}>
           <FlatList
             data={data}

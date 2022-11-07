@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/Ionicons'
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import ImageUpload from '../../components/General/UploadImage';
+import UploadImage from '../../components/General/UploadImage';
 const SetUpScreen=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const route = useRoute();
@@ -85,7 +85,7 @@ const SetUpScreen=({navigation})=> {
         <View style={styles.mainContainer}>
         <Text style={styles.setUp}>Setup your account</Text>
         <View style={styles.picContainer}>
-            <ImageUpload setBase64={setBase64} setext={setext} />
+            <UploadImage setBase64={setBase64} setext={setext} />
         </View>
         <View style={styles.aboutContainer}>
           <Text>About <Text style={{fontSize:10, fontWeight:"300"}}>(max 200 characters)</Text></Text>

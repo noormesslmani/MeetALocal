@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeStyles from '../../screens/General/Styles/HomeStyles';
 import Icon from 'react-native-vector-icons/FontAwesome5'
-const HomeCard=({navigation, label, handlePress})=> {
+const HomeCard=({label, handlePress})=> {
     const [icon, setIcon]=useState('')
     useEffect(()=>{
         if(label=='Locals'){

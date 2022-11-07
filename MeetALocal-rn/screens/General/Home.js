@@ -6,7 +6,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeStyles from './Styles/HomeStyles';
 import { UserContext } from '../../App'
 import HomeCard from '../../components/Cards/HomeCard';
-
 const Home=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const handleLocals=()=>{

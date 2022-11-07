@@ -8,7 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import FilterModal from '../../components/Modals/FilterModal';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import LocalCard from '../../components/Cards/LocalsCard';
+import LocalCard from '../../components/Cards/LocalCard';
 const Locals=({navigation})=> {
     const [country, setCountry]=useState('all');
     const [category, setCategory]=useState('all');
@@ -59,7 +59,8 @@ const Locals=({navigation})=> {
   }
   
   const renderItem = ({ item }) => (
-    <LocalCard item={item} key={item} navigation={navigation} />);
+    <LocalCard item={item} key={item} navigation={navigation} />
+    );
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (<Pressable onPress={() => navigation.goBack()}><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
