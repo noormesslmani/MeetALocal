@@ -10,7 +10,7 @@ import FilterModal from '../../components/Home/FilterModal';
 import PostsStyles from './Styles/PostsStyles';
 import PostCard from '../../components/Home/PostsCard';
 import NewPostModal from '../../components/Home/NewPostModal';
-import Icon from 'react-native-vector-icons/Ionicons'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 const Posts=({navigation})=> {
   const [viewOwn, setViewOwn]=useState(false)
   const [country, setCountry]=useState('all');
@@ -58,6 +58,12 @@ const Posts=({navigation})=> {
       console.warn(error)
    });
   }
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (<Pressable onPress={() => navigation.goBack()}><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+      headerRight:()=>(
+      <Pressable onPress={()=>{setModalVisible(true)}}><Ionicons name="filter" size={25} color="#8C57BA"/></Pressable>)}
+      )}, [navigation])
   const renderItem = ({ item }) => (
     <PostCard item={item} navigation={navigation} key={item.id}/>);
   return (
@@ -72,8 +78,6 @@ const Posts=({navigation})=> {
           <Text style={PostsStyles.newPost}>New Post</Text>
         </TouchableOpacity>
         <View style={PostsStyles.separator}/>
-        {!viewOwn && <Pressable  onPress={()=>{setModalVisible(true)}}><Icon name="filter" size={25} color="#8C57BA"/></Pressable>}
-        
         <NewPostModal modalVisible={newPostModalVisible} setModalVisible={setNewPostModalVisible}/>
         <SafeAreaView>
           <FlatList
