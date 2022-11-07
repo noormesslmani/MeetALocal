@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     formContainer:{
         backgroundColor: "white",
         height:windowHeight* 0.6,
-        width: widths.width7,
+        width: widths.width8,
         alignItems: "center",
         justifyContent:"center",
         padding:40,
