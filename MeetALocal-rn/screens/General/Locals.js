@@ -4,10 +4,10 @@ import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'
 import LocalsStyles from './Styles/LocalsPageStyles';
-import LocalCard from '../../components/Home/LocalsCard';
+import LocalCard from '../../components/Cards/LocalsCard';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
-import FilterModal from '../../components/Home/FilterModal';
+import FilterModal from '../../components/Modals/FilterModal';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Icon from 'react-native-vector-icons/Ionicons'
 const Locals=({navigation})=> {
@@ -77,7 +77,7 @@ const Locals=({navigation})=> {
             <TouchableOpacity onPress={()=>setViewFav(true)}>{ <Text style={[LocalsStyles.options, viewFav? LocalsStyles.selected: null]}>Favorites</Text>}</TouchableOpacity>
         </View>}
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
-        <View style={LocalsStyles.separator}/>
+        {user.type_id==2 && <View style={LocalsStyles.separator}/>}
         <SafeAreaView>
           <FlatList
             showsVerticalScrollIndicator={false}

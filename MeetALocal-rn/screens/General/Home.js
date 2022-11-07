@@ -8,7 +8,7 @@ import { useRoute } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserContext } from '../../App'
-import HomeCard from '../../components/Home/HomeCards';
+import HomeCard from '../../components/Cards/HomeCards';
 import Events from './Events';
 import Posts from './Posts';
 import Locals from './Locals';

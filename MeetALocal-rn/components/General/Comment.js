@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import image from '../../assets/profile.jpg'
-import EventModal from './EventModal';
+import EventModal from '../Modals/EventModal';
 import CommentStyles from '../ComponentsStyles/CommentStyles';
 const Comment=({navigation, item, comment})=> {
   console.log(comment)

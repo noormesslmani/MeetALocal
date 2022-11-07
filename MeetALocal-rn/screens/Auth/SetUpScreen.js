@@ -10,7 +10,7 @@ import { useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons'
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import UploadImage from '../../components/UploadImage';
+import UploadImage from '../../components/General/UploadImage';
 import * as Location from 'expo-location';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 const SetUpScreen=({navigation})=> {
@@ -40,6 +40,7 @@ const SetUpScreen=({navigation})=> {
       }
     }
   }
+  console.log(type)
   const handleMale=()=>{
     setGender('Male')
   }

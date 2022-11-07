@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native'
 import { GiftedChat } from 'react-native-gifted-chat'
 import { UserContext } from '../../App'
 import { database } from "../../firebase";
-import MessageCard from '../../components/Home/MessageCard';
+import MessageCard from '../../components/Cards/MessageCard';
 import {
   collection,
   orderBy,
