@@ -26,7 +26,6 @@ import { UserContext } from '../../App'
 import ForeignerProfile from '../Profile/ForeignersProfile';
 import LocalProfile from '../Profile/LocalProfile'
 import LocalsMap from '../General/LocalsMap';
-import EventsHeader from './EventsPageHeader';
 import EditForeignerProfile from '../Profile/EditProfileForeigners';
 import LocalPage from '../General/LocalPage';
 export default function RootNavigation() {
@@ -46,7 +45,10 @@ export default function RootNavigation() {
         <Stack.Screen name="categories" options={{headerTitle: () => <Logo/>,}} component={Categories} />
         <Stack.Screen name="tabs" options={{headerShown: false}} component={MyTabs} />
         <Stack.Screen  name="posts" component={Posts} />
-        <Stack.Screen  name="events" component={Events} options={{headerTitle: () => <EventsHeader/>, headerBackVisible:false}} />
+        <Stack.Screen  name="events" component={Events} options={{ 
+            headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+            headerRight:()=>(<Pressable><Ionicons name="filter" size={25} color="#8C57BA"/></Pressable>),
+            headerBackVisible:false, headerTitleAlign: 'center'}} />
         <Stack.Screen  name="locals-map" component={LocalsMap} />
         <Stack.Screen  name="chat-screen" component={ChatScreen} />
         <Stack.Screen  name="edit-foreigner-profile" component={EditForeignerProfile} />
