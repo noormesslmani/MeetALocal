@@ -10,6 +10,7 @@ import axios from 'axios';
 import CommentsModalStyles from '../ComponentsStyles/CommentsModalStyles';
 import Comment from '../General/Comment';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { getComments, addComment } from '../../network/App';
 const CommentsModal=({navigation, modalVisible, setModalVisible, item, totalComments, setTotalComments})=> {
     const [data, setData]= useState([])
     const [newComment, setNewComment]=useState(null)
@@ -17,52 +18,34 @@ const CommentsModal=({navigation, modalVisible, setModalVisible, item, totalComm
   
     useEffect(()=>{
         if(modalVisible){
-            console.log('hello')
-            getComments()
+            getPostComments()
         }
     },[commentAdded, modalVisible])
 
     const handleComment=()=>{
       if(newComment){
-        addComment()
+        addNewComment()
         setNewComment(null)
       }
     }
-    async function getComments(){
-        const token = await AsyncStorage.getItem('@token')
-        axios({
-          method: "get",
-          headers: { Authorization: `Bearer ${token}`},
-          url:`http://192.168.1.7:8000/api/v1.0.0/users/comments/${item.id}`,
-        })
-        .then((response)=> {
-          setData(response.data.data)
-          return response;
-        })
-        .catch(function (error) {
-          console.warn(error)
-        });
+    const getPostComments= async()=>{
+      const result = await getComments(item.id)
+      if (result.success){
+        setData(result.data.data)
       }
-    async function addComment(){
-      const token = await AsyncStorage.getItem('@token')
+    }
+    const addNewComment= async()=>{
       const data = {
         post_id: item.id,
         content: newComment
       };
-      axios({
-        method: "post",
-        data,
-        headers: { Authorization: `Bearer ${token}`},
-        url:`http://192.168.1.7:8000/api/v1.0.0/users/comment`,
-      })
-      .then((response)=> {
+      console.log(data)
+      const result = await addComment(data)
+      if (result.success){
         setCommentAdded(true)
         setTotalComments(totalComments+1)
-        return response;
-      })
-      .catch(function (error) {
-        console.warn(error)
-      });
+        setCommentAdded(false)
+      }
     }
   return (
     <Modal
