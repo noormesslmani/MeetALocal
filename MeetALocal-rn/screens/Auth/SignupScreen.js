@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import AuthButton from '../../components/AuthButton';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DatePicker from '../../components/General/datePicker';
 import Icon from 'react-native-vector-icons/AntDesign'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 const SignupScreen = ({navigation}) => {
@@ -57,7 +57,7 @@ const SignupScreen = ({navigation}) => {
       })
     }
   }
-  console.log(datePicker)
+  console.log(date)
   return (
     <View style={styles.background}>
       <KeyboardAwareScrollView style={styles.scrollView} scrollEnabled={false}  showsVerticalScrollIndicator={false}>
@@ -85,14 +85,7 @@ const SignupScreen = ({navigation}) => {
           <Text style={styles.link} onPress={() => navigation.navigate('signin')}>
                 Login
           </Text> 
-          { datePicker && <DateTimePicker
-            value={date}
-            mode={'date'}
-            is24Hour={true}
-            onChange={handleDate}
-            maximumDate={new Date(2022, 1, 1)}
-            minimumDate={new Date(1900, 0, 1)}
-            />}
+          { datePicker && <DatePicker date={date} handleDate={handleDate} />}
             </View>
         </View>
         </KeyboardAwareScrollView>
