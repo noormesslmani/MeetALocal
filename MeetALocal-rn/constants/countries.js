@@ -1,0 +1,17 @@
+export const countriesOptions=[
+    {label: 'All countries', value: 'all'},
+    {label: 'Lebanon', value: 'Lebanon'},
+    {label: 'USA', value: 'USA'},
+    {label: 'Syria', value: 'Syria'},
+    {label: 'Egypt', value: 'Egypt'},
+    {label: 'KSA', value: 'KSA'},
+    {label: 'Turkey', value: 'Turkey'},
+    {label: 'France', value: 'France'},
+    {label: 'Iran', value: 'Iran'},
+    {label: 'Germany', value: 'Germany'},
+    {label: 'Brazil', value: 'Brazil'},
+    {label: 'Italy', value: 'Italy'},
+    {label: 'Jordan', value: 'Jordan'},
+    {label: 'Morocco', value: 'Morocco'},
+    {label: 'Canada', value: 'Canada'},
+  ]
