@@ -44,7 +44,12 @@ export default function RootNavigation() {
         <Stack.Screen  name="setup-map" component={SetUpMap} options={{headerTitle: () => <Logo/>,}}/>
         <Stack.Screen name="categories" options={{headerTitle: () => <Logo/>,}} component={Categories} />
         <Stack.Screen name="tabs" options={{headerShown: false}} component={MyTabs} />
-        <Stack.Screen  name="posts" component={Posts} />
+        <Stack.Screen  name="posts" component={Posts} 
+          options={{ 
+            headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+            headerRight:()=>(<Pressable><Ionicons name="filter" size={25} color="#8C57BA"/></Pressable>),
+            headerBackVisible:false, headerTitleAlign: 'center'}}
+        />
         <Stack.Screen  name="events" component={Events} options={{ 
             headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
             headerRight:()=>(<Pressable><Ionicons name="filter" size={25} color="#8C57BA"/></Pressable>),
