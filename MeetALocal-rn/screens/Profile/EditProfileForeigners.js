@@ -14,6 +14,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { countriesOptions } from '../../constants/countries';
 const EditForeignerProfile=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const [uri, setUri]= useState(null)
@@ -36,22 +37,7 @@ const EditForeignerProfile=({navigation})=> {
     const [genders, setGenders] = useState([
         {label: 'Male', value: 'Male'},
         {label: 'Female', value: 'Female'}])
-    const [countries, setCountries] = useState([
-        {label: 'Lebanon', value: 'Lebanon'},
-        {label: 'USA', value: 'USA'},
-        {label: 'Syria', value: 'Syria'},
-        {label: 'Egypt', value: 'Egypt'},
-        {label: 'KSA', value: 'KSA'},
-        {label: 'Turkey', value: 'Turkey'},
-        {label: 'France', value: 'France'},
-        {label: 'Iran', value: 'Iran'},
-        {label: 'Germany', value: 'Germany'},
-        {label: 'Brazil', value: 'Brazil'},
-        {label: 'Italy', value: 'Italy'},
-        {label: 'Jordan', value: 'Jordan'},
-        {label: 'Morocco', value: 'Morocco'},
-        {label: 'Canada', value: 'Canada'},
-      ]);
+    const [countries, setCountries] = useState(countriesOptions);
       const [languages, setLanguages] = useState([
         {label: 'English', value: 'English'},
         {label: 'French', value: 'French'},

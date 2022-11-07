@@ -5,59 +5,19 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import EventModalStyles from '../ComponentsStyles/EventModalStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
-import tourism from '../../assets/tourism.png'
-import cultures from '../../assets/cultures.png'
-import education from '../../assets/education.png'
-import guidance from '../../assets/guidance.png'
-import history from '../../assets/history.png'
-import house from '../../assets/house.png'
-import languages from '../../assets/languages.png'
-import more from '../../assets/more.png'
-import jobs from '../../assets/suitcase.png'
-import image from '../../assets/Baalbeck.jpg'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
+import { categoryIcons } from '../../constants/categories';
 const EventModal=({navigation, modalVisible, setModalVisible, item})=> {
-  
    const [categories, setCategories]=useState([])
-    const [icons, setIcons]=useState([])
     const [isSaved, setIsSaved]=useState(false)
     useEffect(()=>{
         if(modalVisible)
-        {setIcons([])
+        {
         setCategories(item.categories)
         isEventSaved()}
     },[modalVisible])
-    useEffect(()=>{
-        for(let category of categories){
-            switch(category) {
-                case 'Tourism':
-                    setIcons((icons)=>[...icons, tourism])
-                  break;
-                case 'Language':
-                    setIcons((icons)=>[...icons, languages])
-                  break;
-                case 'Culture':
-                setIcons((icons)=>[...icons, cultures])
-                    break;
-                case 'History':
-                    setIcons((icons)=>[...icons, history])
-                    break;
-                case 'Education':
-                    setIcons((icons)=>[...icons, education])
-                    break;
-                case 'Jobs':
-                    setIcons((icons)=>[...icons, jobs])
-                    break;
-                case 'Housing':
-                    setIcons((icons)=>[...icons, house])
-                break;
-                case 'Guidance':
-                    setIcons((icons)=>[...icons, guidance])
-                break;
-            }
-        }
-    },[categories])
+   
     const handleSave=()=>{
       toggleSave()
     }
@@ -127,7 +87,7 @@ const EventModal=({navigation, modalVisible, setModalVisible, item})=> {
             <View style={EventModalStyles.detailsContianer}>
               <Text style={{fontWeight:"400"}}>Categories:</Text>
               <View style={{flexDirection:"row"}}>
-              {icons.map((icon)=><Image source={icon} style={{width:35, height:35, margin:15}} />)}
+              {categories.map((category)=><Image source={categoryIcons[category]} style={{width:35, height:35, margin:15}} />)}
               </View>
             </View>
             

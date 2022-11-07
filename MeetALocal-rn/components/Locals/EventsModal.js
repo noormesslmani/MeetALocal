@@ -11,20 +11,12 @@ import CommentsModalStyles from '../ComponentsStyles/CommentsModalStyles';
 import EventsModalStyles from '../ComponentsStyles/EventsModalStyles';
 import SwipeUpDownModal from 'react-native-swipe-modal-up-down';
 import DropDownPicker from 'react-native-dropdown-picker';
-import tourism from '../../assets/tourism.png'
-import cultures from '../../assets/cultures.png'
-import education from '../../assets/education.png'
-import guidance from '../../assets/guidance.png'
-import history from '../../assets/history.png'
-import house from '../../assets/house.png'
-import languages from '../../assets/languages.png'
-import more from '../../assets/more.png'
-import jobs from '../../assets/suitcase.png'
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import { UserContext } from '../../App'
+import { categoriesOptions } from '../../constants/categories';
 const EventsModal=({navigation, modalVisible, setModalVisible})=> {
     let hours
     let min
@@ -37,18 +29,7 @@ const EventsModal=({navigation, modalVisible, setModalVisible})=> {
     const [datePicker, setDatePicker]=useState(false)
     const [openCategory, setOpenCategory] = useState(false);
     const [selectedCategory, setSelectedCategory]=useState([])
-    const [categories, setCategories] = useState([
-    {label: 'All categories', value: 'all'},
-    {label: 'Tourism', value: 'Tourism', icon: () => <Image source={tourism} style={{width:20, height:20}} />},
-    {label: 'Language', value: 'Language', icon: () => <Image source={languages} style={{width:20, height:20}}/>},
-    {label: 'Culture', value: 'Culture', icon: () => <Image source={cultures} style={{width:20, height:20}}/>},
-    {label: 'Education', value: 'Education', icon: () => <Image source={education} style={{width:20, height:20}}/>},
-    {label: 'History', value: 'History', icon: () => <Image source={history} style={{width:20, height:20}}/>},
-    {label: 'Guidance', value: 'Guidance', icon: () => <Image source={guidance} style={{width:20, height:20}}/>},
-    {label: 'Jobs', value: 'Jobs', icon: () => <Image source={jobs} style={{width:20, height:20}}/>},
-    {label: 'Housing', value: 'Housing', icon: () => <Image source={house} style={{width:20, height:20}}/>},
-    {label: 'Other', value: 'Other', icon: () => <Image source={more} style={{width:20, height:20}}/>},
-    ]);
+    const [categories, setCategories] = useState(categoriesOptions);
     const [image, setImage] = useState(null);
     const [base64, setBase64]= useState(null)
     const [ext, setext]= useState(null)

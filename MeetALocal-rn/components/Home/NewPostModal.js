@@ -11,16 +11,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import CommentsModalStyles from '../ComponentsStyles/CommentsModalStyles';
 import PostModalStyles from '../ComponentsStyles/PostModalStyles';
 import DropDownPicker from 'react-native-dropdown-picker';
-import tourism from '../../assets/tourism.png'
-import cultures from '../../assets/cultures.png'
-import education from '../../assets/education.png'
-import guidance from '../../assets/guidance.png'
-import history from '../../assets/history.png'
-import house from '../../assets/house.png'
-import languages from '../../assets/languages.png'
-import more from '../../assets/more.png'
-import jobs from '../../assets/suitcase.png'
-
+import { categoriesOptions } from '../../constants/categories';
+import { countriesOptions } from '../../constants/countries';
 const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
     const [selectedCountry, setSelectedCountry]=useState(null)
     const [selectedCategory, setSelectedCategory]=useState([])
@@ -30,34 +22,8 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
     const [invalidDetails, setInvalidDetails]= useState(false)
     const [invalidCountry, setInvalidCountry]= useState(false)
     const [invalidCategory, setInvalidCategory]= useState(false)
-    const [countries, setcountries] = useState([
-        {label: 'Select a country', value: null},
-        {label: 'Lebanon', value: 'Lebanon'},
-        {label: 'USA', value: 'USA'},
-        {label: 'Syria', value: 'Syria'},
-        {label: 'Egypt', value: 'Egypt'},
-        {label: 'KSA', value: 'KSA'},
-        {label: 'Turkey', value: 'Turkey'},
-        {label: 'France', value: 'France'},
-        {label: 'Iran', value: 'Iran'},
-        {label: 'Germany', value: 'Germany'},
-        {label: 'Brazil', value: 'Brazil'},
-        {label: 'Italy', value: 'Italy'},
-        {label: 'Jordan', value: 'Jordan'},
-        {label: 'Morocco', value: 'Morocco'},
-        {label: 'Canada', value: 'Canada'},
-      ]); 
-    const [categories, setCategories] = useState([
-    {label: 'Tourism', value: 'Tourism', icon: () => <Image source={tourism} style={{width:20, height:20}} />},
-    {label: 'Language', value: 'Language', icon: () => <Image source={languages} style={{width:20, height:20}}/>},
-    {label: 'Culture', value: 'Culture', icon: () => <Image source={cultures} style={{width:20, height:20}}/>},
-    {label: 'Education', value: 'Education', icon: () => <Image source={education} style={{width:20, height:20}}/>},
-    {label: 'History', value: 'History', icon: () => <Image source={history} style={{width:20, height:20}}/>},
-    {label: 'Guidance', value: 'Guidance', icon: () => <Image source={guidance} style={{width:20, height:20}}/>},
-    {label: 'Jobs', value: 'Jobs', icon: () => <Image source={jobs} style={{width:20, height:20}}/>},
-    {label: 'Housing', value: 'Housing', icon: () => <Image source={house} style={{width:20, height:20}}/>},
-    {label: 'Other', value: 'Other', icon: () => <Image source={more} style={{width:20, height:20}}/>},
-    ]);
+    const [countries, setcountries] = useState(countriesOptions); 
+    const [categories, setCategories] = useState(categoriesOptions);
     const handleSubmit=()=>{
         setInvalidCategory(false)
         setInvalidCountry(false)
