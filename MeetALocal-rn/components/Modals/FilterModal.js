@@ -29,30 +29,35 @@ const FilterModal=({navigation, modalVisible, setModalVisible, setCountry, setCa
         }}>
         <View style={ModalStyles.centeredView}>
         <View style={ModalStyles.modalView}>
-            <Text style={ModalStyles.modalText}>Apply Filters</Text>
-            <DropDownPicker
-            style={{marginTop:30}}
-            zIndex={3000}
-            zIndexInverse={1000}
-            open={openCountry}
-            value={selectedCountry}
-            dropDownDirection="BOTTOM"
-            items={countries}
-            setOpen={setOpenCountry}
-            setValue={setSelectedCountry}
-            setItems={setcountries}
-            listMode="SCROLLVIEW"
-            placeholder="Select a country"
-            closeAfterSelecting={true}
-            placeholderStyle={{
-              color: "grey"
-            }}
-            dropDownContainerStyle={{
-                marginTop:30
+            <Text style={ModalStyles.modalTitle}>Apply Filters</Text>
+            <View style={ModalStyles.dropDownContainer}>
+              <Text>Select a country</Text>
+              <DropDownPicker
+              style={ModalStyles.dropDown}
+              zIndex={3000}
+              zIndexInverse={1000}
+              open={openCountry}
+              value={selectedCountry}
+              dropDownDirection="BOTTOM"
+              items={countries}
+              setOpen={setOpenCountry}
+              setValue={setSelectedCountry}
+              setItems={setcountries}
+              listMode="SCROLLVIEW"
+              placeholder="Select a country"
+              closeAfterSelecting={true}
+              placeholderStyle={{
+                color: "grey"
               }}
-            />
+              dropDownContainerStyle={{
+                  marginTop:10
+                }}
+              />
+            </View>
+            <View style={ModalStyles.dropDownContainer}>
+            <Text>Select a category</Text>
             <DropDownPicker
-            style={{marginTop:30}}
+            style={ModalStyles.dropDown}
             zIndex={2000}
             zIndexInverse={2000}
             open={openCategory}
@@ -67,12 +72,12 @@ const FilterModal=({navigation, modalVisible, setModalVisible, setCountry, setCa
             placeholderStyle={{
               color: "grey"
             }}
-        
             closeAfterSelecting={true}
             dropDownContainerStyle={{
-                marginTop:30
+                marginTop:10
             }}
             />
+            </View>
             <Pressable
             style={ModalStyles.button}
             onPress={handleSave}>

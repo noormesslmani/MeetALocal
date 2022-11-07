@@ -72,7 +72,7 @@ const ProfileStyles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         marginTop:40,
-        backgroundColor:colors.lightViolet,
+        backgroundColor:colors.lightBlue,
         marginBottom:10,
         width:"45%",
         alignItems:"center",
