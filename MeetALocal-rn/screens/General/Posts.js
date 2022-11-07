@@ -10,7 +10,7 @@ import PostsStyles from './Styles/PostsStyles';
 import NewPostModal from '../../components/Modals/NewPostModal';
 import PostCard from '../../components/Cards/PostCard';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-
+import { getAllPosts, getOwnPosts } from '../../network/App';
 const Posts=({navigation})=> {
   const [viewOwn, setViewOwn]=useState(false)
   const [country, setCountry]=useState('all');
@@ -19,44 +19,20 @@ const Posts=({navigation})=> {
   const [modalVisible, setModalVisible] = useState(false)
   const [newPostModalVisible, setNewPostModalVisible] = useState(false)
   useEffect(()=>{
-    if(!viewOwn){
-      getPosts()
-      console.log('hi')
-    }
-    else{
-      getOwnPosts()
-    }
+    getPosts()
   },[viewOwn, country, category])
-  async function getPosts(){
-    const token = await AsyncStorage.getItem('@token')
-    axios({
-      method: "get",
-      headers: { Authorization: `Bearer ${token}`},
-      url:`http://192.168.1.7:8000/api/v1.0.0/users/posts/${country}/${category}`,
-    })
-    .then((response)=> {
-      console.log(response.data.data)
-      setdata(response.data.data)
-      return response;
-    })
-    .catch(function (error) {
-      console.warn(error)
-   });
-  }
-  async function getOwnPosts(){
-    const token = await AsyncStorage.getItem('@token')
-    axios({
-      method: "get",
-      headers: { Authorization: `Bearer ${token}`},
-      url:'http://192.168.1.7:8000/api/v1.0.0/users/posts',
-    })
-    .then((response)=> {
-      setdata(response.data.data)
-      return response;
-    })
-    .catch(function (error) {
-      console.warn(error)
-   });
+  
+  const getPosts= async()=>{
+    let result
+    if(viewOwn){
+      result = await getOwnPosts()
+    }
+    else {
+      result = await getAllPosts(country, category)
+    }
+    if (result.success){
+      setdata(result.data.data)
+    }
   }
   useEffect(() => {
     navigation.setOptions({
