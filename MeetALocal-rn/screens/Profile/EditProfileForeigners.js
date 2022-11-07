@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/AntDesign'
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import ImageUpload from '../../components/General/UploadImage';
+import UploadImage from '../../components/General/UploadImage';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import DropDownPicker from 'react-native-dropdown-picker';
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -80,7 +80,7 @@ const EditForeignerProfile=({navigation})=> {
     }
   return (
     <View style={ProfileStyles.container}>
-        <ImageUpload setBase64={setBase64} setext={setext} uri={uri} />
+        <UploadImage setBase64={setBase64} setext={setext} uri={uri} />
         <KeyboardAwareScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
             <View style={ProfileStyles.inputContainer}>
                 <View style={{margin:10}}>
