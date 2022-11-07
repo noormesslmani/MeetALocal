@@ -48,7 +48,7 @@ const Locals=({navigation})=> {
       headerLeft: () => (<Pressable onPress={() => navigation.goBack()}><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
       headerRight:()=>(<View style={{flexDirection:"row"}}>
       <Pressable onPress={()=>{setModalVisible(true)}}><Ionicons name="filter" size={25} color="#8C57BA"/></Pressable>
-      <Pressable onPress={() => navigation.navigate('locals-map')} style={{marginLeft:10}}><Ionicons name="location-sharp" size={25} color="#8C57BA"/></Pressable>
+      <Pressable onPress={() => navigation.navigate('locals-map',{data})} style={{marginLeft:10}}><Ionicons name="location-sharp" size={25} color="#8C57BA"/></Pressable>
       </View>)
     });
   }, [navigation]);

@@ -101,14 +101,14 @@ const LocalPage=({navigation})=> {
       }
     }
     const handleMap=()=>{
-      navigation.navigate('locals-map')
+      navigation.navigate('locals-map',{data:[item]})
     }
-    console.log(locals)
+
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
         <View style={LocalProfileStyles.mainContainer}>
           <View style={LocalProfileStyles.imageContainer}>
-            <Image source={item.profile_picture?{ uri:`http://192.168.1.7:8000/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={LocalProfileStyles.image}/>
+            <Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={LocalProfileStyles.image}/>
             <View style={{margin:15}}>
               <Text style={{fontSize:18, fontWeight:"600", marginBottom:3}}>{item.name}</Text>
               <View style={{flexDirection:"row"}}><Text style={{fontSize:14, fontWeight:"400", marginBottom:3}}>{item.country}</Text><TouchableOpacity onPress={handleMap}><Ionicons name="location-sharp" size={20} color="blue"/></TouchableOpacity></View>
