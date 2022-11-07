@@ -6,7 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import EventCardStyles from '../ComponentsStyles/EventCardStyles';
 import image from '../../assets/Baalbeck.jpg'
-import EventModal from './EventModal';
+import EventModal from '../Modals/EventModal';
 
 
 const EventCard=({navigation, item})=> {

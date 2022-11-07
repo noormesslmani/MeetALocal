@@ -3,13 +3,13 @@ import React from 'react'
 import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'
-import LocalCard from '../../components/Home/LocalsCard';
+import LocalCard from '../../components/Cards/LocalsCard';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
-import FilterModal from '../../components/Home/FilterModal';
+import FilterModal from '../../components/Modals/FilterModal';
 import PostsStyles from './Styles/PostsStyles';
-import PostCard from '../../components/Home/PostsCard';
-import NewPostModal from '../../components/Home/NewPostModal';
+import PostCard from '../../components/Cards/PostsCard';
+import NewPostModal from '../../components/Modals/NewPostModal';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 const Posts=({navigation})=> {
   const [viewOwn, setViewOwn]=useState(false)

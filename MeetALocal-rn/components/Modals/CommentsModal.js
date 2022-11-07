@@ -3,13 +3,12 @@ import React from 'react'
 import { useState, useEffect, useContext } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import EventModalStyles from '../ComponentsStyles/EventModalStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import image from '../../assets/profile.jpg'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import CommentsModalStyles from '../ComponentsStyles/CommentsModalStyles';
-import Comment from './Comment';
+import Comment from '../General/Comment';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 const CommentsModal=({navigation, modalVisible, setModalVisible, item, totalComments, setTotalComments})=> {
     const [data, setData]= useState([])

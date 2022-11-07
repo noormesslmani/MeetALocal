@@ -6,9 +6,9 @@ import { UserContext } from '../../App'
 import EventsStyles from './Styles/EventsPageStyles';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
-import FilterModal from '../../components/Home/FilterModal';
-import EventCard from '../../components/Home/EventsCard';
-import EventsModal from '../../components/Locals/EventsModal';
+import FilterModal from '../../components/Modals/FilterModal';
+import EventCard from '../../components/Cards/EventsCard';
+import EventsModal from '../../components/Modals/EventsModal';
 import Icon from 'react-native-vector-icons/Ionicons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 const Events=({navigation})=> {
@@ -95,7 +95,7 @@ const Events=({navigation})=> {
     <View style={HomeStyles.container}>
         <View style={EventsStyles.view}>
             <TouchableOpacity onPress={()=>setChoice(1)} >{ <Text style={[EventsStyles.options,choice==1 ? EventsStyles.selected: null ]}>All Events</Text>}</TouchableOpacity>
-            <TouchableOpacity onPress={()=>setChoice(2)}>{ <Text style={[EventsStyles.options, choice==2 ? EventsStyles.selected: null]}>Saved Events</Text>}</TouchableOpacity>
+            {user.type_id==2 && <TouchableOpacity onPress={()=>setChoice(2)}>{ <Text style={[EventsStyles.options, choice==2 ? EventsStyles.selected: null]}>Saved Events</Text>}</TouchableOpacity>}
             {user.type_id==1 && <TouchableOpacity onPress={()=>setChoice(3)}>{ <Text style={[EventsStyles.options, choice==3? EventsStyles.selected: null]}>My Events</Text>}</TouchableOpacity>}
         </View>
         <View style={EventsStyles.separator}/>
