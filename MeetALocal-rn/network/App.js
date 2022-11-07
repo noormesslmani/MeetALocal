@@ -35,3 +35,52 @@ export async function getLocals(country, category){
       return {'success': false, error}
     }
   }
+  export async function getAllEvents(country, category){
+    const token = await AsyncStorage.getItem('@token')
+    const config = {
+      method: "get",
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}users/events/${country}/${category}`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.warn(error)
+      return {'success': false, error}
+    }
+  }
+
+  export async function getSavedEvents(){
+    const token = await AsyncStorage.getItem('@token')
+    const config = {
+      method: "get",
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}users/events/saved`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.warn(error)
+      return {'success': false, error}
+    }
+  }
+  export async function getOwnEvents(){
+    const token = await AsyncStorage.getItem('@token')
+    const config = {
+      method: "get",
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}locals/events`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.warn(error)
+      return {'success': false, error}
+    }
+  }
