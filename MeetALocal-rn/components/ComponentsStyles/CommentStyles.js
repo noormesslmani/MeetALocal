@@ -1,8 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { colors } from "../../constants/colors";
 import { widths } from "../../constants/dimensions";
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
 const CommentStyles = StyleSheet.create({
     headerContainer:{
         flexDirection:"row",
