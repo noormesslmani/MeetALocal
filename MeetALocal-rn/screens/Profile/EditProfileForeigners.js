@@ -13,7 +13,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import DropDownPicker from 'react-native-dropdown-picker';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DatePicker from '../../components/General/datePicker';
 import { countriesOptions } from '../../constants/countries';
 import { languagesOptions } from '../../constants/languages';
 const EditForeignerProfile=({navigation})=> {
@@ -99,14 +99,7 @@ const EditForeignerProfile=({navigation})=> {
                     <Text>Date of birth</Text>
                     <TouchableOpacity onPress={()=>setDatePicker(true)} style={{alignSelf:'center', marginTop:10}}><Icon name="calendar" size={25}/></TouchableOpacity>
                 </View>
-                { datePicker && <DateTimePicker
-                  value={date}
-                  mode={'date'}
-                  is24Hour={true}
-                  onChange={handleDate}
-                  maximumDate={new Date(2022, 1, 1)}
-                  minimumDate={new Date(1900, 0, 1)}
-                  />}
+                { datePicker && <DatePicker date={date} handleDate={handleDate} />}
                 <View style={{margin:10}}>
                     <Text>Nationality</Text>
                     <DropDownPicker
