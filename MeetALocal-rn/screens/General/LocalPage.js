@@ -25,14 +25,15 @@ import {
 const LocalPage=({navigation})=> {
     const route = useRoute();
     const item =route.params.item
-    const { user, setUser} = useContext(UserContext);
+    const { user, setUser, locals, setLocals} = useContext(UserContext);
     const [isFavorite, SetIsFavorite]=useState(false)
     const [likes, setLikes]= useState(item.likes)
     const [chatId, setChatId]= useState(null)
     useEffect(()=>{
       checkFavorite()
+      setLocals([item])
     },[])
-
+    console.log(item)
     const handleLike=()=>{
       toggleFavorite()
     }
@@ -93,6 +94,10 @@ const LocalPage=({navigation})=> {
         navigation.navigate('chat-screen', { chat_id: newChat.id})
       }
     }
+    const handleMap=()=>{
+      navigation.navigate('locals-map')
+    }
+    console.log(locals)
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
         <View style={LocalProfileStyles.mainContainer}>
@@ -100,7 +105,7 @@ const LocalPage=({navigation})=> {
             <Image source={item.profile_picture?{ uri:`http://192.168.1.7:8000/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={LocalProfileStyles.image}/>
             <View style={{margin:15}}>
               <Text style={{fontSize:18, fontWeight:"600", marginBottom:3}}>{item.name}</Text>
-              <Text style={{fontSize:14, fontWeight:"400", marginBottom:3}}>{item.country}</Text>
+              <View style={{flexDirection:"row"}}><Text style={{fontSize:14, fontWeight:"400", marginBottom:3}}>{item.country}</Text><TouchableOpacity onPress={handleMap}><Ionicons name="location-sharp" size={20} color="blue"/></TouchableOpacity></View>
               <View style={{flexDirection:"row", alignItems:"center"}}>
                 <Text style={{fontSize:13, fontWeight:"400", marginRight:3}}>{likes}</Text>
                 <Icon name="heart" color="#8C57BA" size={15} /> 
