@@ -116,3 +116,37 @@ export async function getLocals(country, category){
       return {'success': false, error}
     }
   }
+
+  export async function getComments(id){
+    const token = await AsyncStorage.getItem('@token')
+    const config = {
+      method: "get",
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}users/comments/${id}`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.warn(error)
+      return {'success': false, error}
+    }
+  }
+  export async function addComment(data){
+    const token = await AsyncStorage.getItem('@token')
+    const config = {
+      method: "post",
+      data,
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}users/comment`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.warn(error)
+      return {'success': false, error}
+    }
+  }
