@@ -64,7 +64,10 @@ const Locals=({navigation})=> {
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (<Pressable onPress={() => navigation.goBack()}><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
-      headerRight:()=>(<Pressable onPress={() => navigation.navigate('locals-map',{data:data})} style={{marginLeft:10}}><Ionicons name="location-sharp" size={25} color="#8C57BA"/></Pressable>)
+      headerRight:()=>(<View style={{flexDirection:"row"}}>
+      <Pressable onPress={()=>{setModalVisible(true)}}><Ionicons name="filter" size={25} color="#8C57BA"/></Pressable>
+      <Pressable onPress={() => navigation.navigate('locals-map',{data:data})} style={{marginLeft:10}}><Ionicons name="location-sharp" size={25} color="#8C57BA"/></Pressable>
+      </View>)
     });
   }, [navigation]);
   return (
@@ -75,7 +78,6 @@ const Locals=({navigation})=> {
         </View>}
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
         <View style={LocalsStyles.separator}/>
-        {!viewFav && <Pressable  onPress={()=>{setModalVisible(true)}}><Icon name="filter" size={25} color="#8C57BA"/></Pressable>}
         <SafeAreaView>
           <FlatList
             showsVerticalScrollIndicator={false}
