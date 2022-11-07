@@ -8,7 +8,7 @@ import LocalCard from '../../components/Home/LocalsCard';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import FilterModal from '../../components/Home/FilterModal';
-
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import Icon from 'react-native-vector-icons/Ionicons'
 const Locals=({navigation})=> {
     const [country, setCountry]=useState('all');
@@ -61,7 +61,12 @@ const Locals=({navigation})=> {
 
   const renderItem = ({ item }) => (
     <LocalCard item={item} key={item} navigation={navigation} />);
- 
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (<Pressable onPress={() => navigation.goBack()}><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+      headerRight:()=>(<Pressable onPress={() => navigation.navigate('locals-map',{data:data})} style={{marginLeft:10}}><Ionicons name="location-sharp" size={25} color="#8C57BA"/></Pressable>)
+    });
+  }, [navigation]);
   return (
       <View style={HomeStyles.container}>
         {user.type_id==2 && <View style={LocalsStyles.view}>

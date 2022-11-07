@@ -15,7 +15,10 @@ import { useRoute } from '@react-navigation/native';
 import { UserContext } from '../../App'
 
 const LocalsMap=({navigation})=> {
-    const { user, setUser, locals, setLocals} = useContext(UserContext);
+    const route = useRoute();
+    const locals= route.params.data
+    console.log(locals)
+    const { user, setUser} = useContext(UserContext);
   return (
             <View style={LocalsMapStyles.modalView}>
                 <MapView
