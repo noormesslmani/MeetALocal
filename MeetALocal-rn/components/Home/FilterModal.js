@@ -5,50 +5,15 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ModalStyles from '../ComponentsStyles/FilterModalStyles';
 import DropDownPicker from 'react-native-dropdown-picker';
-import Icon from 'react-native-vector-icons/FontAwesome'
-import tourism from '../../assets/tourism.png'
-import cultures from '../../assets/cultures.png'
-import education from '../../assets/education.png'
-import guidance from '../../assets/guidance.png'
-import history from '../../assets/history.png'
-import house from '../../assets/house.png'
-import languages from '../../assets/languages.png'
-import more from '../../assets/more.png'
-import jobs from '../../assets/suitcase.png'
+import { countriesOptions } from '../../constants/countries';
+import { categoriesOptions } from '../../constants/categories';
 const FilterModal=({navigation, modalVisible, setModalVisible, setCountry, setCategory})=> {
     const [selectedCountry, setSelectedCountry]=useState('all')
     const [selectedCategory, setSelectedCategory]=useState('all')
     const [openCountry, setOpenCountry] = useState(false);
     const [openCategory, setOpenCategory] = useState(false);
-    const [countries, setcountries] = useState([
-        {label: 'All countries', value: 'all'},
-        {label: 'Lebanon', value: 'Lebanon'},
-        {label: 'USA', value: 'USA'},
-        {label: 'Syria', value: 'Syria'},
-        {label: 'Egypt', value: 'Egypt'},
-        {label: 'KSA', value: 'KSA'},
-        {label: 'Turkey', value: 'Turkey'},
-        {label: 'France', value: 'France'},
-        {label: 'Iran', value: 'Iran'},
-        {label: 'Germany', value: 'Germany'},
-        {label: 'Brazil', value: 'Brazil'},
-        {label: 'Italy', value: 'Italy'},
-        {label: 'Jordan', value: 'Jordan'},
-        {label: 'Morocco', value: 'Morocco'},
-        {label: 'Canada', value: 'Canada'},
-      ]); 
-    const [categories, setCategories] = useState([
-    {label: 'All categories', value: 'all'},
-    {label: 'Tourism', value: 'Tourism', icon: () => <Image source={tourism} style={{width:20, height:20}} />},
-    {label: 'Languages', value: 'Languages', icon: () => <Image source={languages} style={{width:20, height:20}}/>},
-    {label: 'Culture', value: 'Culture', icon: () => <Image source={cultures} style={{width:20, height:20}}/>},
-    {label: 'Education', value: 'Education', icon: () => <Image source={education} style={{width:20, height:20}}/>},
-    {label: 'History', value: 'History', icon: () => <Image source={history} style={{width:20, height:20}}/>},
-    {label: 'Guidance', value: 'Guidance', icon: () => <Image source={guidance} style={{width:20, height:20}}/>},
-    {label: 'Jobs', value: 'Jobs', icon: () => <Image source={jobs} style={{width:20, height:20}}/>},
-    {label: 'Housing', value: 'Housing', icon: () => <Image source={house} style={{width:20, height:20}}/>},
-    {label: 'Other', value: 'Other', icon: () => <Image source={more} style={{width:20, height:20}}/>},
-    ]);
+    const [countries, setcountries] = useState(countriesOptions); 
+    const [categories, setCategories] = useState(categoriesOptions);
     const handleSave=()=>{
         setModalVisible(!modalVisible)
         setCountry(selectedCountry)

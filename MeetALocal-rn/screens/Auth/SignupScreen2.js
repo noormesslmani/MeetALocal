@@ -7,6 +7,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useRoute } from '@react-navigation/native';
+import { countriesOptions } from '../../constants/countries';
 const SignupScreen2 = ({navigation}) => {
   const route = useRoute();
   const fullName= route.params.fullName
@@ -22,22 +23,7 @@ const SignupScreen2 = ({navigation}) => {
   const [openNationality, setOpenNationality] = useState(false);
   const [openCountry, setOpenCountry] = useState(false);
   const [openLanguages, setOpenLanguages] = useState(false);
-  const [countries, setcountries] = useState([
-    {label: 'Lebanon', value: 'Lebanon'},
-    {label: 'USA', value: 'USA'},
-    {label: 'Syria', value: 'Syria'},
-    {label: 'Egypt', value: 'Egypt'},
-    {label: 'KSA', value: 'KSA'},
-    {label: 'Turkey', value: 'Turkey'},
-    {label: 'France', value: 'France'},
-    {label: 'Iran', value: 'Iran'},
-    {label: 'Germany', value: 'Germany'},
-    {label: 'Brazil', value: 'Brazil'},
-    {label: 'Italy', value: 'Italy'},
-    {label: 'Jordan', value: 'Jordan'},
-    {label: 'Morocco', value: 'Morocco'},
-    {label: 'Canada', value: 'Canada'},
-  ]);
+  const [countries, setcountries] = useState(countriesOptions);
   const [languages, setLanguages] = useState([
     {label: 'English', value: 'English'},
     {label: 'French', value: 'French'},
