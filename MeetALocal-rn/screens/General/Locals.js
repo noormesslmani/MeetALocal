@@ -4,12 +4,11 @@ import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'
 import LocalsStyles from './Styles/LocalsPageStyles';
-import LocalCard from '../../components/Cards/LocalsCard';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import FilterModal from '../../components/Modals/FilterModal';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import Icon from 'react-native-vector-icons/Ionicons'
+import LocalCard from '../../components/Cards/LocalsCard';
 const Locals=({navigation})=> {
     const [country, setCountry]=useState('all');
     const [category, setCategory]=useState('all');

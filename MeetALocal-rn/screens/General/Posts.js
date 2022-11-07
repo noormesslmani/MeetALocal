@@ -8,9 +8,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import FilterModal from '../../components/Modals/FilterModal';
 import PostsStyles from './Styles/PostsStyles';
-import PostCard from '../../components/Cards/PostsCard';
 import NewPostModal from '../../components/Modals/NewPostModal';
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import PostCard from '../../components/Cards/PostsCard'
 const Posts=({navigation})=> {
   const [viewOwn, setViewOwn]=useState(false)
   const [country, setCountry]=useState('all');
