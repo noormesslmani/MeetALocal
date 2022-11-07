@@ -1,11 +1,11 @@
 import { StyleSheet, Dimensions } from "react-native";
-
-const windowWidth = Dimensions.get("window").width;
+import { colors } from "../../constants/colors";
+import { widths } from "../../constants/dimensions";
 const windowHeight = Dimensions.get("window").height;
 const EventsModalStyles = StyleSheet.create({
     centeredView: {
         flex:1,
-        width:windowWidth,
+        width:widths.width,
         justifyContent: "center",
         alignItems: "center",
        
@@ -13,7 +13,7 @@ const EventsModalStyles = StyleSheet.create({
       modalView: {
         marginTop: 0.15*windowHeight,
         backgroundColor: "white",
-        width:windowWidth,
+        width:widths.width,
         flex:1,
         alignItems: "center",
         shadowColor: "#000",
@@ -29,14 +29,14 @@ const EventsModalStyles = StyleSheet.create({
       container:{
         elevation:2,
         height:0.2*windowHeight,
-        width:0.6*windowWidth,
+        width:widths.width6,
         backgroundColor:'#efefef',
         position:'relative',
         overflow:'hidden',
     },
     selectedImage:
     {height:0.2*windowHeight,
-      width:0.6*windowWidth,
+      width:widths.width6,
     },
     uploadBtnContainer:{
       opacity:0.7,
@@ -54,7 +54,7 @@ const EventsModalStyles = StyleSheet.create({
     },
     title:{
         fontSize:25,
-        color:"#8C57BA",
+        color:colors.violet,
         marginBottom:40
     },
     contentContainer:{
@@ -66,7 +66,7 @@ const EventsModalStyles = StyleSheet.create({
       height:30,
       width:"100%",
       borderBottomWidth:0.5,
-      borderColor:"#4BB0F9",
+      borderColor:colors.blue,
       marginBottom:20
     },
     dateContainer:{
@@ -82,7 +82,7 @@ const EventsModalStyles = StyleSheet.create({
     borderRightWidth:0,
     borderBottomRightRadius:0,
     borderBottomLeftRadius:0,
-    borderBottomColor:"#4BB0F9",
+    borderBottomColor:colors.blue,
     borderBottomWidth:0.5,
     marginBottom:20
   },
@@ -99,7 +99,7 @@ const EventsModalStyles = StyleSheet.create({
     width:"40%",
     alignItems:"center",
     justifyContent:"center",
-    backgroundColor:"rgba(75, 176, 249, 0.5)"
+    backgroundColor:colors.lightViolet
   }
 });
 export default EventsModalStyles;

@@ -1,20 +1,19 @@
 import { StyleSheet, Dimensions } from "react-native";
-
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+import { colors } from "../../../constants/colors";
+import { widths } from "../../../constants/dimensions";
 const LocalProfileStyles = StyleSheet.create({
     mainContainer:{
-        width: windowWidth,
+        width: widths.width,
         padding:30,
         alignItems:"center"
     },
     imageContainer:{
-        width:0.9*windowWidth,
+        width:widths.width9,
         flexDirection:"row",
         marginBottom:30
     },
     infoContainer:{
-        width:0.9*windowWidth,
+        width:widths.width9,
         flexDirection:"row",
         justifyContent:"space-between",
         marginBottom:20
@@ -25,7 +24,7 @@ const LocalProfileStyles = StyleSheet.create({
         borderRadius:60
     },
     message:{
-        backgroundColor:"#8C57BA",
+        backgroundColor: colors.violet,
         width:80,
         height:30,
         alignItems:"center",
@@ -33,13 +32,13 @@ const LocalProfileStyles = StyleSheet.create({
         borderRadius:10
     },
     separator:{
-        width:0.9*windowWidth,
+        width:widths.width9,
         borderBottomColor: 'grey',
         borderBottomWidth: 0.3,
         marginBottom:20,
     },
     about:{
-        width:0.9*windowWidth,
+        width:widths.width9,
         marginBottom:40
     },
     iconContainer:{
@@ -51,11 +50,11 @@ const LocalProfileStyles = StyleSheet.create({
     highlightImages:{
         flexDirection:"row",
         justifyContent:"center",
-        width: 0.9*windowWidth,
+        width: widths.width9,
     },
     highlightimg:{
-        width:0.4*windowWidth,
-        height:0.35*windowWidth,
+        width:widths.width4,
+        height:0.35*widths.width,
         margin:5
     }
 

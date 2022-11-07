@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
-
+import { widths } from "../../constants/dimensions";
+import { colors } from "../../constants/colors";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const EventModalStyles = StyleSheet.create({
@@ -12,7 +13,7 @@ const EventModalStyles = StyleSheet.create({
       modalView: {
         marginTop: 0.15*windowHeight,
         backgroundColor: "white",
-        width:0.9*windowWidth,
+        width:widths.width9,
         flex:0.9,
         borderRadius: 20,
         alignItems: "center",
@@ -30,7 +31,7 @@ const EventModalStyles = StyleSheet.create({
         padding: 10,
         elevation: 2,
         marginTop:50,
-        backgroundColor:"rgba(140, 87, 186, 0.5)"
+        backgroundColor: colors.lightViolet
       },
       textStyle: {
         color: "white",
@@ -42,7 +43,7 @@ const EventModalStyles = StyleSheet.create({
         textAlign: "center"
       },
       image:{
-        width:0.9*windowWidth,
+        width:widths.width9,
         height:0.25*windowHeight,
         borderTopLeftRadius:20,
         borderTopRightRadius:20,
@@ -50,18 +51,18 @@ const EventModalStyles = StyleSheet.create({
       },
       titleContainer:{
         flexDirection:"row",
-        width:0.8*windowWidth,
+        width:widths.width8,
         justifyContent:"space-between",
         marginBottom:10
       },
       infoContainer:{
         alignSelf:"flex-start",
-        width:0.8*windowWidth,
+        width:widths.width8,
         marginLeft:0.05*windowWidth
       },
       detailsContianer:{
         marginTop:30,
-        width:0.8*windowWidth,
+        width:widths.width8,
         height:0.15*windowHeight
       },
 

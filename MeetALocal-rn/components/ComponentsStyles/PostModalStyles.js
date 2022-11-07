@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { colors } from "../../constants/colors";
+import { widths } from "../../constants/dimensions";
 
-const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const PostModalStyles = StyleSheet.create({
     centeredView: {
@@ -12,7 +13,7 @@ const PostModalStyles = StyleSheet.create({
       modalView: {
         marginTop: 0.1*windowHeight,
         backgroundColor: "white",
-        width:windowWidth,
+        width:widths.width,
         flex:0.9,
         borderRadius: 20,
         alignItems: "center",
@@ -30,7 +31,7 @@ const PostModalStyles = StyleSheet.create({
       },
       title:{
         fontSize:26,
-        color:"#8C57BA",
+        color:colors.violet,
       },
       contentContainer:{
         marginTop:"10%",
@@ -42,7 +43,7 @@ const PostModalStyles = StyleSheet.create({
         height:50,
         width:"100%",
         borderBottomWidth:0.5,
-        borderColor:"#4BB0F9",
+        borderColor:colors.blue,
       },
       optionsContainer:{
         marginTop:10,
@@ -51,12 +52,12 @@ const PostModalStyles = StyleSheet.create({
         borderRightWidth:0,
         borderBottomRightRadius:0,
         borderBottomLeftRadius:0,
-        borderBottomColor:"#4BB0F9",
+        borderBottomColor:colors.blue,
         borderBottomWidth:0.5,
         width:"100%",
       },
       buttonContainer:{
-        width:0.9*windowWidth,
+        width:widths.width9,
         alignItems:"center",
         justifyContent:"center"
       },
@@ -67,9 +68,9 @@ const PostModalStyles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 10,
         marginTop:60,
-        backgroundColor:"rgba(75, 176, 249, 0.5)",
+        backgroundColor:colors.lightViolet,
         marginBottom:50,
-        width:0.3*windowWidth,
+        width:0.3*widths.width,
         alignItems:"center",
         justifyContent:"center"
       },

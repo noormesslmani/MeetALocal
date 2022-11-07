@@ -1,15 +1,14 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { widths } from "../../constants/dimensions";
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
 const MessageCardStyles = StyleSheet.create({
     container:{
-        width:windowWidth,
+        width:widths.width,
         height:120,
         justifyContent:"center"
     },
     messageContainer:{
-        width:windowWidth,
+        width:widths.width,
         height:110,
         flexDirection:"row",
         backgroundColor:"white",
@@ -29,7 +28,7 @@ const MessageCardStyles = StyleSheet.create({
     separator:{
         borderBottomColor: 'grey',
         borderBottomWidth: 0.3,
-        width: 0.9*windowWidth,
+        width: widths.width9,
         marginBottom:10,
     },
    

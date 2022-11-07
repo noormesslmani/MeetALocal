@@ -1,11 +1,11 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { colors } from "../../../constants/colors";
+import { widths } from "../../../constants/dimensions";
 
-const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
 const LocalsStyles = StyleSheet.create({
     view:{
         flexDirection:"row",
-        width:0.6*windowWidth,
+        width:widths.width6,
         justifyContent:"space-between",
     },
     title:{
@@ -18,16 +18,16 @@ const LocalsStyles = StyleSheet.create({
         marginBottom:25,
     },
     selected:{
-        color:"#8C57BA"
+        color:colors.violet
     },
     separator:{
         borderBottomColor: 'grey',
         borderBottomWidth: 0.3,
-        width: 0.9*windowWidth,
+        width: widths.width9,
         marginBottom:10,
     },
     list:{
-        width:windowWidth,
+        width:widths.width,
         flex: 1
     },
 });

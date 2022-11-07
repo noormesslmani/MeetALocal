@@ -1,10 +1,12 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { widths } from "../../constants/dimensions";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
+import { colors } from "../../constants/colors";
 const styles = StyleSheet.create({
     background:{
-        backgroundColor: "rgba(140, 87, 186, 0.34)",
+        backgroundColor: colors.lightViolet,
         flex: 1,
         alignItems: "center",
         justifyContent:"center",
@@ -20,14 +22,14 @@ const styles = StyleSheet.create({
     formContainer:{
         backgroundColor: "white",
         height:windowHeight* 0.6,
-        width: windowWidth * 0.7,
+        width: widths.width7,
         alignItems: "center",
         justifyContent:"center",
         padding:40,
         borderRadius:20,
     },
     backgroundUserType:{
-        backgroundColor: "rgba(140, 87, 186, 0.34)",
+        backgroundColor: colors.lightViolet,
         flex: 1,
         alignItems: "center",
         paddingTop: 100
@@ -48,12 +50,12 @@ const styles = StyleSheet.create({
         paddingBottom: 30,
     },
     input:{
-        width: windowWidth * 0.6,
+        width: widths.width6,
         height: 40,
         backgroundColor: "white",
         paddingLeft: 10,
         marginTop: 5,
-        borderColor: "#4BB0F9",
+        borderColor: colors.blue,
         borderBottomWidth: 0.5,
     },
     shadowProp: {
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
         textAlign:'center'
     },
     link:{
-        color:"#8C57BA"
+        color:colors.violet
     },
     signUp:{
         height:windowHeight* 0.73,
@@ -91,7 +93,7 @@ const styles = StyleSheet.create({
         width:150,
         height: 50,
         borderRadius: 20,
-        borderColor: "#8C57BA",
+        borderColor: colors.violet,
         borderWidth:1,
         backgroundColor:'white',
         alignItems: "center",
@@ -145,7 +147,7 @@ const styles = StyleSheet.create({
     categoryRow:{
         flexDirection:'row',
         justifyContent:"space-between",
-        width:windowWidth * 0.7,
+        width:widths.width7,
         marginBottom:20
     },
     iconContainer:{
@@ -173,7 +175,7 @@ const styles = StyleSheet.create({
         marginTop:20
     },
     slider:{
-        width: windowWidth * 0.8, 
+        width: widths.width8, 
         height: 40,
         marginBottom:30
     },
@@ -184,7 +186,7 @@ const styles = StyleSheet.create({
         borderRightWidth:0,
         borderBottomRightRadius:0,
         borderBottomLeftRadius:0,
-        borderBottomColor:"#4BB0F9",
+        borderBottomColor:colors.blue,
         borderBottomWidth:0.5
       },
     dropDownContainer:{
@@ -204,7 +206,7 @@ const styles = StyleSheet.create({
         height:"85%",
       },
       title:{
-        color:"#8C57BA",
+        color:colors.violet,
         fontSize:30,
       },
       saveBtn:{
@@ -213,7 +215,7 @@ const styles = StyleSheet.create({
         width:100,
         height: 35,
         borderRadius: 10,
-        backgroundColor:'#8C57BA',
+        backgroundColor: colors.violet,
         alignItems: "center",
         justifyContent: "center",
       },

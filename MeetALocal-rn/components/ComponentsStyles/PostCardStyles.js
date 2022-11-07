@@ -1,12 +1,12 @@
 import { StyleSheet, Dimensions } from "react-native";
+import { widths } from "../../constants/dimensions";
 
-const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const PostCardStyles = StyleSheet.create({
     card:{
         alignSelf:"center",
         marginTop:15,
-        width: 0.9*windowWidth,
+        width: widths.width9,
         alignItems:"center",
         height:0.17*windowHeight,
         backgroundColor:"white",
@@ -25,7 +25,7 @@ const PostCardStyles = StyleSheet.create({
     headerContainer:{
         flexDirection:"row",
         justifyContent:"space-between",
-        width:0.9*windowWidth,
+        width:widths.width9,
         padding:10,
         paddingBottom:0
     },
@@ -35,11 +35,11 @@ const PostCardStyles = StyleSheet.create({
         borderRadius:25
     },
     list:{
-        width:windowWidth,
+        width:widths.width,
         flex: 1,
     },
     cardsContainer:{
-        width:windowWidth,
+        width:widths.width,
         flexDirection:"row",
         alignItems:"center",
         justifyContent:"center"
@@ -70,7 +70,7 @@ const PostCardStyles = StyleSheet.create({
         marginLeft:10, 
         fontWeight:"200", 
         alignSelf:"flex-start",
-        width:0.7*windowWidth
+        width:widths.width7
     }
    
 });
