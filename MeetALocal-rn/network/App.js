@@ -84,3 +84,35 @@ export async function getLocals(country, category){
       return {'success': false, error}
     }
   }
+  export async function getAllPosts(country, category){
+    const token = await AsyncStorage.getItem('@token')
+    const config = {
+      method: "get",
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}users/posts/${country}/${category}`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.warn(error)
+      return {'success': false, error}
+    }
+  }
+  export async function getOwnPosts(){
+    const token = await AsyncStorage.getItem('@token')
+    const config = {
+      method: "get",
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}users/posts`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.warn(error)
+      return {'success': false, error}
+    }
+  }
