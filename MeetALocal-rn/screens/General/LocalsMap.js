@@ -13,9 +13,9 @@ import * as Location from 'expo-location';
 import LocalsMapStyles from './Styles/LocalMapsStyles';
 import { useRoute } from '@react-navigation/native';
 import { UserContext } from '../../App'
-
 const LocalsMap=({navigation})=> {
-    const { user, setUser, locals, setLocals} = useContext(UserContext);
+    const route = useRoute();
+    const data= route.params.data
   return (
             <View style={LocalsMapStyles.modalView}>
                 <MapView
@@ -24,7 +24,7 @@ const LocalsMap=({navigation})=> {
                 showsUserLocation={true}
                 provider={PROVIDER_GOOGLE}
                 >
-                {locals.map((local) => (
+                {data.map((local) => (
                 <Marker
                 key={local.id}
                 coordinate={{latitude: local.latitude, longitude: local.longitude}}
