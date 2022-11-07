@@ -8,52 +8,35 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import { categoryIcons } from '../../constants/categories';
+import { toggleSaveEvent, isEventSaved } from '../../network/App';
 const EventModal=({navigation, modalVisible, setModalVisible, item})=> {
    const [categories, setCategories]=useState([])
     const [isSaved, setIsSaved]=useState(false)
     useEffect(()=>{
         if(modalVisible)
-        {
-        setCategories(item.categories)
-        isEventSaved()}
+        {setCategories(item.categories)
+         isSavedEvent()}
     },[modalVisible])
    
     const handleSave=()=>{
       toggleSave()
     }
-    async function toggleSave(){
-      const token = await AsyncStorage.getItem('@token')
+
+    const toggleSave= async()=>{
       const data = {
         event_id: item.id,
       };
-      axios({
-        method: "post",
-        data,
-        headers: { Authorization: `Bearer ${token}`},
-        url:`http://192.168.1.7:8000/api/v1.0.0/users/event/toggle-save`,
-      })
-      .then((response)=> {
+      const result = await toggleSaveEvent(data)
+      if (result.success){
         setIsSaved(! isSaved)
-        return response;
-      })
-      .catch(function (error) {
-        console.warn(error)
-      });
+      }
     }
-    async function isEventSaved(){
-      const token = await AsyncStorage.getItem('@token')
-      axios({
-        method: "get",
-        headers: { Authorization: `Bearer ${token}`},
-        url:`http://192.168.1.7:8000/api/v1.0.0/users/event/is-saved/${item.id}`,
-      })
-      .then((response)=> {
-        response.data.data? setIsSaved(true): setIsSaved(false)
-        return response;
-      })
-      .catch(function (error) {
-        console.warn(error)
-      });
+    
+    const isSavedEvent= async()=>{
+      const result = await isEventSaved(item.id)
+      if (result.success){
+        result.data.data? setIsSaved(true): setIsSaved(false)
+      }
     }
   return (
     <Modal

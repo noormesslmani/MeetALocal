@@ -150,3 +150,38 @@ export async function getLocals(country, category){
       return {'success': false, error}
     }
   }
+
+  export async function toggleSaveEvent(data){
+    const token = await AsyncStorage.getItem('@token')
+    const config = {
+      method: "post",
+      data,
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}users/event/toggle-save`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.warn(error)
+      return {'success': false, error}
+    }
+  }
+
+  export async function isEventSaved(id){
+    const token = await AsyncStorage.getItem('@token')
+    const config = {
+      method: "get",
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}users/event/is-saved/${id}`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.warn(error)
+      return {'success': false, error}
+    }
+  }
