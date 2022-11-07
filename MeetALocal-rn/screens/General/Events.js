@@ -7,10 +7,9 @@ import EventsStyles from './Styles/EventsPageStyles';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import FilterModal from '../../components/Modals/FilterModal';
-import EventCard from '../../components/Cards/EventsCard';
 import EventsModal from '../../components/Modals/EventsModal';
-import Icon from 'react-native-vector-icons/Ionicons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import EventCard from '../../components/Cards/EventsCard'
 const Events=({navigation})=> {
   const [choice, setChoice]=useState(1)
   const [modalVisible, setModalVisible] = useState(false)

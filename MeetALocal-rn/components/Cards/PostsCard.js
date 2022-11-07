@@ -5,9 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PostCardStyles from '../ComponentsStyles/PostCardStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
-
 import image from '../../assets/profile.jpg'
-import CommentsModal from './CommentsModal';
+import CommentsModal from '../Modals/CommentsModal'
 
 const PostCard=({navigation, item})=> {
     const [totalComments, setTotalComments]=useState(item.comments)

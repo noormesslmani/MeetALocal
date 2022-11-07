@@ -3,12 +3,8 @@ import React from 'react'
 import { useState, useEffect, useContext } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Icon from 'react-native-vector-icons/FontAwesome'
 import EventCardStyles from '../ComponentsStyles/EventCardStyles';
-import image from '../../assets/Baalbeck.jpg'
 import EventModal from '../Modals/EventModal';
-
-
 const EventCard=({navigation, item})=> {
   const [modalVisible, setModalVisible]=useState(false)
    const handleEvent=()=>{

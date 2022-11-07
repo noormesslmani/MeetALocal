@@ -4,21 +4,11 @@ import { useState, useEffect, useContext } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeStyles from './Styles/HomeStyles';
-import { useRoute } from '@react-navigation/native';
-import axios from 'axios';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { UserContext } from '../../App'
-import HomeCard from '../../components/Cards/HomeCards';
-import Events from './Events';
-import Posts from './Posts';
-import Locals from './Locals';
-import * as Location from 'expo-location';
-import profile from '../../assets/profile.jpg'
-import IImageConverter from 'react-native-image-converter'
+import HomeCard from '../../components/Cards/HomeCard';
 
 const Home=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
-    console.log(user)
     const handleLocals=()=>{
         navigation.navigate('locals')
     }
