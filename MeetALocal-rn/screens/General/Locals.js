@@ -9,6 +9,8 @@ import axios from 'axios';
 import FilterModal from '../../components/Modals/FilterModal';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import LocalCard from '../../components/Cards/LocalCard';
+import { getLocals, getFavorites } from '../../network/App';
+
 const Locals=({navigation})=> {
     const [country, setCountry]=useState('all');
     const [category, setCategory]=useState('all');
@@ -16,48 +18,28 @@ const Locals=({navigation})=> {
     const [data, setdata]=useState([])
     const [modalVisible, setModalVisible] = useState(false)
     const { user, setUser, locals, setLocals} = useContext(UserContext);
-    
     useEffect(()=>{
       if(!viewFav){
-        getLocals()}
+        getAllLocals()
+      }
       else{
-        getFavorites()
+        getFavoriteLocals()
       }
     },[viewFav, country, category])
-    
-    async function getLocals(){
-      const token = await AsyncStorage.getItem('@token')
-      axios({
-        method: "get",
-        headers: { Authorization: `Bearer ${token}`},
-        url:`http://192.168.1.7:8000/api/v1.0.0/users/locals/${country}/${category}`,
-      })
-      .then((response)=> {
-        setdata(response.data.data)
-        setLocals(response.data.data)
-        return response;
-      })
-      .catch(function (error) {
-        console.warn(error)
-      });
-  }
 
-  async function getFavorites(){
-    const token = await AsyncStorage.getItem('@token')
-    axios({
-      method: "get",
-      headers: { Authorization: `Bearer ${token}`},
-      url:"http://192.168.1.7:8000/api/v1.0.0/foreigners/favorites",
-    })
-    .then((response)=> {
-      setdata(response.data.favorites)
-      return response;
-    })
-    .catch(function (error) {
-      console.warn(error)
-    });
-  }
-  
+  const getAllLocals= async()=>{
+    const result = await getLocals(country, category)
+    if (result.success){
+      setdata(result.data.data)
+      setLocals(result.data.data)
+    }
+  } 
+  const getFavoriteLocals=async()=>{
+    const result = await getFavorites()
+    if (result.success){
+      setdata(result.data.data)
+    }
+  } 
   const renderItem = ({ item }) => (
     <LocalCard item={item} key={item} navigation={navigation} />
     );
