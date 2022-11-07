@@ -4,12 +4,10 @@ import styles from './Authstyles';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'
 import AuthButton from '../../components/AuthButton';
-import axios from 'axios';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-const baseURL='http://127.0.0.1:8000/api/v1.0.0/';
+import { signin } from '../../network/Auth';
 const SigninScreen= ({ navigation })=> {
   const { user, setUser} = useContext(UserContext);
   const [email, setEmail]=useState('');
@@ -17,7 +15,8 @@ const SigninScreen= ({ navigation })=> {
   const [invalidEmail, setInvalidEmail]= useState(false)
   const [invalidPassword, setInvalidPassword]= useState(false)
   const [isLoading, setIsLoading]=useState(false)
-  const handleSubmit=()=>{
+  const [loginFail, setLoginFail]=useState(false)
+  const handleSubmit= async ()=>{
     setInvalidEmail(false)
     setInvalidPassword(false)
     if(! email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
@@ -28,38 +27,29 @@ const SigninScreen= ({ navigation })=> {
       setInvalidPassword(true)
     }
     else{
-      signin()
+      const data = {
+        email,
+        password,};
+      setIsLoading(true)
+      const result =await signin(data)
+      if (result.success){
+        setUser(result.data.user)
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'tabs' }],
+        });
+        navigation.navigate('tabs')
+      }
+      else{
+        setIsLoading(false)
+        setLoginFail(true)
+        setTimeout(() => {
+          setLoginFail(false);
+        }, 1500);
+      }
     }
   }
-  
-  function signin(){
-    const data = {
-      email: email,
-      password: password,
-    };
-    setIsLoading(true)
-    axios({
-      method: "post",
-      data,
-      url:"http://192.168.1.7:8000/api/v1.0.0/auth/login",
-    })
-    .then(async (response)=> {
-      
-      await AsyncStorage.setItem("@token", response.data['access_token']);
-      setUser(response.data.user)
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'tabs' }],
-      });
-      navigation.navigate('tabs')
-      return response.data;
-    })
-    .catch(function (error) {
-      setIsLoading(false)
-      console.warn(error)
-    });
-  }
-  
+  console.log(user)
   return (
     <View style={styles.background}>
       <KeyboardAwareScrollView style={styles.scrollView} scrollEnabled={false}  showsVerticalScrollIndicator={false}>
@@ -77,6 +67,7 @@ const SigninScreen= ({ navigation })=> {
             {invalidPassword?<Text style={styles.error}>Password must contain atleast 8 characters, 1 uppercase letter, 1 lowercase letter, and 1 number</Text>:null}
           </View>
           {isLoading && <ActivityIndicator color="#8C57BA" />}
+          {loginFail && <Text style={styles.error}>Failed to signIn</Text>}
           <AuthButton title={'Submit'} handleSubmit={handleSubmit} ></AuthButton>
           <Text style={styles.text}>Dont have an account yet?
             <Text style={styles.link} onPress={() => navigation.navigate('signup-first')}>
