@@ -17,12 +17,15 @@ const LocalsMap=({navigation})=> {
     const [lng, setLng]=useState(35.495480)
     const data= route.params.data
     const handlePress=(data,details)=>{
-        console.log('hi')
         setLat(details.geometry.location.lat)
         setLng(details.geometry.location.lng)
       }
-      console.log(lat)
-      console.log(lng)
+    useEffect(()=>{
+        if(data.length==1){
+        setLat(data[0].latitude)
+        setLng(data[0].longitude)
+      }},[])
+      
   return (
             <View style={LocalsMapStyles.mapContainer}>
                 <MapView
