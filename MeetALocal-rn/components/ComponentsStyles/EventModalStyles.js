@@ -29,7 +29,6 @@ const EventModalStyles = StyleSheet.create({
       button: {
         borderRadius: 20,
         padding: 10,
-        elevation: 2,
         marginTop:50,
         backgroundColor: colors.lightBlue
       },

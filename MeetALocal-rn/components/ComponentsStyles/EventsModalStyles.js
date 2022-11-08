@@ -8,13 +8,14 @@ const EventsModalStyles = StyleSheet.create({
         width:widths.width,
         justifyContent: "center",
         alignItems: "center",
-       
+        backgroundColor: 'rgb(0,0,0)',
+        backgroundColor: 'rgba(0,0,0,0.5)', 
       },
       modalView: {
-        marginTop: 0.15*windowHeight,
+        marginTop: 0.1*windowHeight,
         backgroundColor: "white",
         width:widths.width,
-        flex:1,
+        flex:0.9,
         alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
@@ -86,20 +87,10 @@ const EventsModalStyles = StyleSheet.create({
     borderBottomWidth:0.5,
     marginBottom:20
   },
-  button:{
-    borderRadius: 20,
-    paddingLeft: 15,
-    paddingRight: 15,
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginBottom:10,
-    alignSelf:"center",
-    elevation: 1,
-    marginTop:30,
-    width:"40%",
+  btnContainer:{
+    width:"100%",
     alignItems:"center",
-    justifyContent:"center",
-    backgroundColor:colors.lightBlue
+    marginTop:30
   }
 });
 export default EventsModalStyles;

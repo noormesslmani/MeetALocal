@@ -59,20 +59,8 @@ const PostModalStyles = StyleSheet.create({
       buttonContainer:{
         width:widths.width9,
         alignItems:"center",
-        justifyContent:"center"
-      },
-      button: {
-        borderRadius: 20,
-        paddingLeft: 15,
-        paddingRight: 15,
-        paddingTop: 10,
-        paddingBottom: 10,
-        marginTop:60,
-        backgroundColor:colors.lightBlue,
-        marginBottom:50,
-        width:0.3*widths.width,
-        alignItems:"center",
-        justifyContent:"center"
+        justifyContent:"center",
+        paddingTop:50
       },
       error:{
         marginTop:2,
