@@ -13,10 +13,9 @@ import SwipeUpDownModal from 'react-native-swipe-modal-up-down';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import GestureRecognizer, {swipeDirections} from 'react-native-swipe-gestures';
 import { UserContext } from '../../App'
 import { categoriesOptions } from '../../constants/categories';
+import DatePicker from '../General/datePicker';
 const NewEventModal=({navigation, modalVisible, setModalVisible})=> {
     let hours
     let min
@@ -164,13 +163,7 @@ const NewEventModal=({navigation, modalVisible, setModalVisible})=> {
                     <View style={{flexDirection:"row", alignItems:"center", alignSelf:"center"}}>
                         <Text style={{fontSize:12}}>Date</Text>
                     <TouchableOpacity onPress={()=>setDatePicker(true)} style={{alignSelf:'center', marginLeft:5}}><Icon name="calendar" size={20}/></TouchableOpacity>
-                        { datePicker && <DateTimePicker
-                        value={date}
-                        mode={'date'}
-                        is24Hour={true}
-                        onChange={handleDate}
-                        minimumDate={new Date()}
-                        />}
+                        { datePicker && <DatePicker date={date} handleDate={handleDate} type={2} />}
                     </View>
                 </View>
                 <TouchableOpacity style={EventsModalStyles.button} onPress={hanldePress}>
