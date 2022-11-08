@@ -5,18 +5,19 @@ import { useState, useEffect } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const UserTypeScreen=({navigation})=> {
-  const [type, setType]=useState('');
   const handleLocal=()=>{
-    setType('Local')
-    navigation.navigate('setup',{
-      type,})
+    {
+      navigation.navigate('setup',{
+        type:'Local'})
+    }
   }
   const handleForeigner=()=>{
-    setType('Foreigner')
-    navigation.navigate('setup', {
-      type})
+
+    {
+      navigation.navigate('setup',{
+        type:'Foreigner'})
+    }
   }
-  console.log(type)
   return (
     <View style={styles.backgroundUserType}>
         <Text style={styles.welcome}>Welcome</Text>

@@ -17,8 +17,8 @@ const Categories=({navigation})=> {
     const base64= route.params.base64
     const gender= route.params.gender
     const ext= route.params.ext
-    const latitude=route.params.latitude
-    const longitude= route.params.longitude
+    const latitude=route.params.lat
+    const longitude= route.params.lng
     const [categories, setCategories]=useState([])
     const [fees, setFees]=useState(0)
     const [isLoading, setIsLoading]= useState(false)
@@ -52,7 +52,6 @@ const Categories=({navigation})=> {
     const handleSubmit=()=>{
         setUp()
     }
-
     async function setUp(){
         const data = {
           type: 'Local',
