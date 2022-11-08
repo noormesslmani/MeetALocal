@@ -12,6 +12,7 @@ import styles from './Authstyles';
 import MapView from 'react-native-maps';
 import {Marker} from 'react-native-maps';
 import * as Location from 'expo-location';
+import Map from '../../components/map/Map';
 const SetUpMap=({navigation})=> {
     const route = useRoute();
     const base64= route.params.base64
@@ -19,8 +20,8 @@ const SetUpMap=({navigation})=> {
     const ext= route.params.ext
     const about= route.params.about
     const [location, setLocation] = useState(null);
-    const [latitude, setLatitude]=useState(null)
-    const [longitude, setLongitude]=useState(null)
+    const [lat, setLat]=useState(33.888630)
+    const [lng, setLng]=useState(35.495480)
     const [errorMsg, setErrorMsg] = useState(null);
     console.log(about)
     useEffect(() => {
@@ -35,42 +36,21 @@ const SetUpMap=({navigation})=> {
     }
     let location = await Location.getCurrentPositionAsync({});
         setLocation(location);
-        setLatitude(location.coords.latitude)
-        setLongitude(location.coords.longitude)
+        setLat(location.coords.latitude)
+        setLng(location.coords.longitude)
     }
-    const handleLocation=()=>{
+    const handleLocation=(e)=>{
         getLocation()
     }
+    const handleDrag=(e)=>{
+      setLat( e.nativeEvent.coordinate.latitude)
+      setLng( e.nativeEvent.coordinate.longitude)
+    }
     const handleNext=()=>{
-        console.log('hi')
-        navigation.navigate('categories',{gender, base64, ext, latitude, longitude})
+        navigation.navigate('categories',{gender, base64, ext, lat, lng})
     }
 
-    async function setUp(){
-        const data = {
-          type: type,
-          gender: gender,
-          photo: base64,
-          ext: ext,
-          
-        };
-        const token = await AsyncStorage.getItem('@token')
-        axios({
-          method: "post",
-          data,
-          headers: { Authorization: `Bearer ${token}`},
-          url:"http://192.168.1.7:8000/api/v1.0.0/auth/setup",
-        })
-        .then(async (response)=> {
-          console.log(response.data)
-          await AsyncStorage.setItem("@user", JSON.stringify(response.data['user']));
-          navigation.navigate('tabs')
-          return response.data;
-        })
-        .catch(function (error) {
-          console.warn(error)
-        });
-      }
+    
   return (
 
     <View style={styles.mapContainer}>
@@ -78,25 +58,7 @@ const SetUpMap=({navigation})=> {
             <Text style={{fontSize:12, color:"grey"}}>Hold and drag the marker</Text>
         </View>
             <TouchableOpacity onPress={handleLocation}><Text style={{color:"#8C57BA", textDecorationLine: "underline"}}>Current Location</Text></TouchableOpacity>
-            {latitude && longitude && 
-            <MapView
-            style={styles.map}
-            loadingEnabled={true}
-            region={{
-                latitude:  latitude,
-                longitude: longitude,
-                latitudeDelta: 0.0922,
-                longitudeDelta: 0.0421,}}>
-                <Marker coordinate={{latitude: latitude,
-                longitude:longitude}}
-                pinColor='red'
-                draggable={true}
-                onDragEnd={(e)=>{
-                setLatitude( e.nativeEvent.coordinate.latitude)
-                setLongitude( e.nativeEvent.coordinate.longitude)
-                }}>
-                </Marker>
-            </MapView>}
+            <Map lat={lat} lng={lng} type={2} handleDrag={handleDrag} />
         <TouchableOpacity style={[styles.saveBtn, styles.button]} onPress={handleNext} ><Text style={{color: 'white'}}>Next</Text></TouchableOpacity>
     </View>
              

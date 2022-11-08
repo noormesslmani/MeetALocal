@@ -9,7 +9,7 @@ import { useRoute } from '@react-navigation/native';
 import { UserContext } from '../../App'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Icon from 'react-native-vector-icons/FontAwesome'
-
+import Map from '../../components/map/Map';
 const LocalsMap=({navigation})=> {
     const route = useRoute();
     const [location, setLocation] = useState(null);
@@ -28,34 +28,7 @@ const LocalsMap=({navigation})=> {
       
   return (
             <View style={LocalsMapStyles.mapContainer}>
-                <MapView
-                region= {{
-                    latitude: lat,
-                    longitude: lng,
-                    latitudeDelta: 0.5,
-                    longitudeDelta: 0.5,
-
-                }}
-                style={LocalsMapStyles.map}
-                loadingEnabled={true}
-                showsUserLocation={true}
-                provider={PROVIDER_GOOGLE}
-                maxZoomLevel={15}
-                >
-                {data.map((local) => (
-                <Marker
-                key={local.id}
-                coordinate={{latitude: local.latitude, longitude: local.longitude}}
-                pinColor='red'
-                >
-                <Callout style={{width:80, height:"auto"}}>
-                    <Text style={{fontSize:7}}> <Text style={{fontWeight:"600"}}>Name:</Text> {local.name}</Text>
-                    <Text style={{fontSize:7}}> <Text style={{fontWeight:"600"}}>Gender:</Text> {local.gender}</Text>
-                    <Text style={{fontSize:7}}> <Text style={{fontWeight:"600"}}>About:</Text> {local.about}</Text>
-                </Callout>
-                </Marker>
-                ))}   
-                </MapView>
+                <Map data={data} lat={lat} lng={lng} type={1} />
                 <View style={styles.container}>
                 <GooglePlacesAutocomplete
                     placeholder="Search"
@@ -70,7 +43,7 @@ const LocalsMap=({navigation})=> {
                     url:
                         'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api',
                     useOnPlatform: 'web',
-                    }} // this in only required for use on the web. See https://git.io/JflFv more for details.
+                    }} 
                 />
                 </View>
             </View>
