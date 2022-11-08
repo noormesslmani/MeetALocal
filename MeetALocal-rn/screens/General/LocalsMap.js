@@ -10,6 +10,7 @@ import { UserContext } from '../../App'
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Map from '../../components/map/Map';
+import MapSearch from '../../components/map/MapSearch';
 const LocalsMap=({navigation})=> {
     const route = useRoute();
     const [location, setLocation] = useState(null);
@@ -30,21 +31,7 @@ const LocalsMap=({navigation})=> {
             <View style={LocalsMapStyles.mapContainer}>
                 <Map data={data} lat={lat} lng={lng} type={1} />
                 <View style={styles.container}>
-                <GooglePlacesAutocomplete
-                    placeholder="Search"
-                    query={{
-                    key: 'AIzaSyCoxD1F6k0dnxHoKGbCpjYo-O23mkBBvts',
-                    language: 'en', // language of the results
-                    }}
-                    fetchDetails={true}
-                    onPress={(data,details ) => handlePress(data,details)}
-                    onFail={(error) => console.error(error)}
-                    requestUrl={{
-                    url:
-                        'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api',
-                    useOnPlatform: 'web',
-                    }} 
-                />
+                <MapSearch handlePress={handlePress}/>
                 </View>
             </View>
   )
