@@ -3,7 +3,7 @@ import React from 'react'
 import { useState, useEffect, useContext } from "react";
 import EventModalStyles from '../ComponentsStyles/EventModalStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { Ip } from './IP';
+import { address } from '../../constants/address';
 import { categoryIcons } from '../../constants/categories';
 import { toggleSaveEvent, isEventSaved } from '../../network/App';
 const EventModal=({navigation, modalVisible, setModalVisible, item})=> {
@@ -45,7 +45,7 @@ const EventModal=({navigation, modalVisible, setModalVisible, item})=> {
         }}>
         <View style={EventModalStyles.centeredView}>
         <View style={EventModalStyles.modalView}>
-            <Image source={item.photo?{ uri:`${Ip}/${item.photo}`}: require('../../assets/blank-profile.webp')} style={EventModalStyles.image}/>
+            <Image source={item.photo?{ uri:`${address}/${item.photo}`}: require('../../assets/blank-profile.webp')} style={EventModalStyles.image}/>
             <View style={EventModalStyles.titleContainer}>
               <Text style={EventModalStyles.title}>{item.title}</Text>
               <Pressable onPress={handleSave}>
