@@ -29,14 +29,15 @@ const LocalsMap=({navigation})=> {
                 region= {{
                     latitude: lat,
                     longitude: lng,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
+                    latitudeDelta: 0.5,
+                    longitudeDelta: 0.5,
 
                 }}
                 style={LocalsMapStyles.map}
                 loadingEnabled={true}
                 showsUserLocation={true}
                 provider={PROVIDER_GOOGLE}
+                maxZoomLevel={15}
                 >
                 {data.map((local) => (
                 <Marker
