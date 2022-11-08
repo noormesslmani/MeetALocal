@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, Modal, Pre
 import React from 'react'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import {Marker, Callout} from 'react-native-maps';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 const Map=({lat, lng, data, type, handleDrag})=> {
       
   return (
