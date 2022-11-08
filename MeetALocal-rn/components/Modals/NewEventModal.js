@@ -16,6 +16,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { UserContext } from '../../App'
 import { categoriesOptions } from '../../constants/categories';
 import DatePicker from '../General/datePicker';
+import AppButton from '../Buttons/AppButtons';
 const NewEventModal=({navigation, modalVisible, setModalVisible})=> {
     let hours
     let min
@@ -166,9 +167,7 @@ const NewEventModal=({navigation, modalVisible, setModalVisible})=> {
                         { datePicker && <DatePicker date={date} handleDate={handleDate} type={2} />}
                     </View>
                 </View>
-                <TouchableOpacity style={EventsModalStyles.button} onPress={hanldePress}>
-                    <Text>Create Event</Text>
-                </TouchableOpacity>
+                <View style={EventsModalStyles.btnContainer}><AppButton text={'Create'} handlePress={hanldePress}/></View>
                 </ScrollView> 
             </KeyboardAvoidingView>
         </KeyboardAvoidingView>

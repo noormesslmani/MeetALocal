@@ -7,6 +7,7 @@ import ModalStyles from '../ComponentsStyles/FilterModalStyles';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { countriesOptions } from '../../constants/countries';
 import { categoriesOptions } from '../../constants/categories';
+import AppButton from '../Buttons/AppButtons';
 const FilterModal=({navigation, modalVisible, setModalVisible, setCountry, setCategory})=> {
     const [selectedCountry, setSelectedCountry]=useState('all')
     const [selectedCategory, setSelectedCategory]=useState('all')
@@ -78,11 +79,7 @@ const FilterModal=({navigation, modalVisible, setModalVisible, setCountry, setCa
             }}
             />
             </View>
-            <Pressable
-            style={ModalStyles.button}
-            onPress={handleSave}>
-            <Text style={ModalStyles.textStyle}>Apply Filters</Text>
-            </Pressable>
+            <AppButton text={'Apply'} handlePress={handleSave}/>
         </View>
         </View>
     </Modal>

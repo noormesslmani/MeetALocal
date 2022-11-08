@@ -63,21 +63,9 @@ const ProfileStyles = StyleSheet.create({
     btnContainer:{
         flexDirection:"row",
         justifyContent:"space-between",
-        width:"60%"
+        width:widths.width6,
+        marginTop:20
     },
-    btn:{
-        borderRadius: 20,
-        paddingLeft: 15,
-        paddingRight: 15,
-        paddingTop: 10,
-        paddingBottom: 10,
-        marginTop:40,
-        backgroundColor:colors.lightBlue,
-        marginBottom:10,
-        width:"45%",
-        alignItems:"center",
-        justifyContent:"center"
-    }
     
 });
 

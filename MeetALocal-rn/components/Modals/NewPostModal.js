@@ -13,6 +13,7 @@ import PostModalStyles from '../ComponentsStyles/PostModalStyles';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { categoriesOptions } from '../../constants/categories';
 import { countriesOptions } from '../../constants/countries';
+import AppButton from '../Buttons/AppButtons';
 const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
     const [selectedCountry, setSelectedCountry]=useState(null)
     const [selectedCategory, setSelectedCategory]=useState([])
@@ -151,9 +152,7 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                     {invalidCategory && <Text style={PostModalStyles.error}>Please select a least 1 categroy</Text>}
                 </View>
                 <View style={PostModalStyles.buttonContainer}>
-                  <TouchableOpacity style={PostModalStyles.button} onPress={handleSubmit}>
-                  <Text style={PostModalStyles.textStyle}>Submit</Text>
-                  </TouchableOpacity>
+                  <AppButton text={'Submit'} handlePress={handleSubmit} />
                 </View>
                 </View>
                 </KeyboardAwareScrollView>

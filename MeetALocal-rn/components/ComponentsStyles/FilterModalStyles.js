@@ -28,13 +28,6 @@ const ModalStyles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5
       },
-      button: {
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2,
-        marginTop:20,
-        backgroundColor:colors.lightBlue
-      },
       textStyle: {
         color: "white",
         fontWeight: "bold",

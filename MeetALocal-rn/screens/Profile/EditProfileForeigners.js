@@ -16,6 +16,7 @@ import axios from 'axios';
 import DatePicker from '../../components/General/datePicker';
 import { countriesOptions } from '../../constants/countries';
 import { languagesOptions } from '../../constants/languages';
+import AppButton from '../../components/Buttons/AppButtons';
 const EditForeignerProfile=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const [uri, setUri]= useState(null)
@@ -50,6 +51,9 @@ const EditForeignerProfile=({navigation})=> {
         setUri(`http://192.168.1.7:8000/${user.profile_picture}`)
       }
     },[user.profile_picture])
+    const handleCancel=()=>{
+      navigation.navigate("profile-foreigner")
+    }
     const handleSave=async ()=>{
         const data = {
             name,
@@ -189,8 +193,8 @@ const EditForeignerProfile=({navigation})=> {
                     />
                 </View>
                 <View style={ProfileStyles.btnContainer}>
-                    <Pressable style={ProfileStyles.btn} onPress={handleSave}><Text>Save</Text></Pressable>
-                    <Pressable style={ProfileStyles.btn} onPress={()=>navigation.navigate("profile-foreigner")}><Text>Cancel</Text></Pressable>
+                    <AppButton text={'Save'} handlePress={handleSave} />
+                    <AppButton text={'Cancel'} handlePress={handleCancel} />
                 </View>
             </View>
         </KeyboardAwareScrollView>
