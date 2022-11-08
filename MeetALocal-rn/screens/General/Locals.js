@@ -43,15 +43,16 @@ const Locals=({navigation})=> {
   const renderItem = ({ item }) => (
     <LocalCard item={item} key={item} navigation={navigation} />
     );
+    console.log(data)
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => (<Pressable onPress={() => navigation.goBack()}><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
       headerRight:()=>(<View style={{flexDirection:"row"}}>
       <Pressable onPress={()=>{setModalVisible(true)}}><Ionicons name="filter" size={25} color="#8C57BA"/></Pressable>
-      <Pressable onPress={() => navigation.navigate('locals-map',{data})} style={{marginLeft:10}}><Ionicons name="location-sharp" size={25} color="#8C57BA"/></Pressable>
+      <Pressable onPress={() => navigation.navigate('locals-map',{data: data})} style={{marginLeft:10}}><Ionicons name="location-sharp" size={25} color="#8C57BA"/></Pressable>
       </View>)
     });
-  }, [navigation]);
+  }, [navigation, data]);
   return (
       <View style={HomeStyles.container}>
         {user.type_id==2 && <View style={LocalsStyles.view}>
