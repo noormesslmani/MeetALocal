@@ -1,0 +1,24 @@
+
+.form{
+    width: 350px;
+    height: auto;
+    padding: 30px 20px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.input-container{
+    width: 90%;
+    margin: 10px;
+}
+.input{
+    height: 30px;
+    margin:5px 0px ;
+    border-left: 0px;
+    border-right: 0px;
+    border-top: 0px;
+    border-color: rgba(75,176,249,0.5);
+}
+.input:focus-visible {
+    outline: 0px;
+}
