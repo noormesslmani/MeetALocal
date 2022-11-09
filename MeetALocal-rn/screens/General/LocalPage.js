@@ -12,6 +12,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import { categoryIcons } from '../../constants/categories';
 import ImageView from "react-native-image-viewing";
+import Map from '../../components/Header/Map';
 import { address } from '../../constants/address';
 import {
   collection,
@@ -111,7 +112,7 @@ const LocalPage=({navigation})=> {
             <Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={LocalProfileStyles.image}/>
             <View style={{margin:15}}>
               <Text style={{fontSize:18, fontWeight:"600", marginBottom:3}}>{item.name}</Text>
-              <View style={{flexDirection:"row"}}><Text style={{fontSize:14, fontWeight:"400", marginBottom:3}}>{item.country}</Text><TouchableOpacity onPress={handleMap}><Ionicons name="location-sharp" size={20} color="blue"/></TouchableOpacity></View>
+              <View style={{flexDirection:"row"}}><Text style={{fontSize:14, fontWeight:"400", marginBottom:3}}>{item.country}</Text><Map handleMap={handleMap} small={true}/></View>
               <View style={{flexDirection:"row", alignItems:"center"}}>
                 <Text style={{fontSize:13, fontWeight:"400", marginRight:3}}>{likes}</Text>
                 <Icon name="heart" color="#8C57BA" size={15} /> 
