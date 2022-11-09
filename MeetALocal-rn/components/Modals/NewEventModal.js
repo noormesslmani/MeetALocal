@@ -17,6 +17,7 @@ import { UserContext } from '../../App'
 import { categoriesOptions } from '../../constants/categories';
 import DatePicker from '../General/datePicker';
 import AppButton from '../Buttons/AppButtons';
+import { createNewEvent } from '../../network/App';
 const NewEventModal=({navigation, modalVisible, setModalVisible})=> {
     let hours
     let min
@@ -55,39 +56,28 @@ const NewEventModal=({navigation, modalVisible, setModalVisible})=> {
         if(image){
             setext(image.split('.').pop())
         }
-        console.log(selectedCategory)
         createEvent()
     }
-    async function createEvent(){
-        const token = await AsyncStorage.getItem('@token')
+    const createEvent= async()=>{
         const data = {
-            title:title,
-            details: details,
+            title,
+            details,
             fees: parseInt(fees),
             categories:selectedCategory,
-            place: place,
+            place,
             date:`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`,
             photo: base64,
-            ext: ext,
+            ext,
             country: user.residence
         }
-        console.log(data)
-        axios({
-          method: "post",
-          data,
-          headers: { Authorization: `Bearer ${token}`},
-          url:'http://192.168.1.7:8000/api/v1.0.0/locals/event',
-        })
-        .then((response)=> {
-          setTimeout(() => {
-            setModalVisible(false);
-          }, 2000);
-          return response;
-        })
-        .catch(function (error) {
-          console.warn(error)
-        })
-    }
+        const result = await createNewEvent(data)
+        if (result.success){
+            setTimeout(() => {
+                setModalVisible(false);
+              }, 2000);
+        }
+      }
+   
   return (
     <Modal
         propagateSwipe={true}
