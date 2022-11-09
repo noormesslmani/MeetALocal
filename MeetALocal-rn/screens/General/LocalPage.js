@@ -13,6 +13,7 @@ import axios from 'axios';
 import { categoryIcons } from '../../constants/categories';
 import ImageView from "react-native-image-viewing";
 import Map from '../../components/Header/Map';
+import { CheckFavoriteLocals, toggleFavoriteLocals } from '../../network/App';
 import { address } from '../../constants/address';
 import {
   collection,
@@ -47,42 +48,22 @@ const LocalPage=({navigation})=> {
     const handleMessage=()=>{
       getChats()
     }
-    async function checkFavorite(){
-        const token = await AsyncStorage.getItem('@token')
-        axios({
-          method: "get",
-          headers: { Authorization: `Bearer ${token}`},
-          url:`http://192.168.1.7:8000/api/v1.0.0/foreigners/is-favorite/${item.id}`,
-        })
-        .then(async (response)=> {
-          SetIsFavorite(response.data.data)
-          return response.data;
-        })
-        .catch(function (error) {
-          console.warn(error)
-        });
+    const checkFavorite=async()=>{
+      const result = await CheckFavoriteLocals(item.id)
+      if (result.success){
+        SetIsFavorite(result.data.data)
       }
-      async function toggleFavorite(){
-        const token = await AsyncStorage.getItem('@token')
-        const data={
-          id:item.id
-        }
-        axios({
-          method: "post",
-          data,
-          headers: { Authorization: `Bearer ${token}`},
-          url:'http://192.168.1.7:8000/api/v1.0.0/foreigners/toggle-favorite',
-        })
-        .then(async (response)=> {
-          console.log(response.data)
-          checkFavorite()
-          setLikes(response.data.data)
-          return response.data;
-        })
-        .catch(function (error) {
-          console.warn(error)
-        });
+    } 
+    const toggleFavorite =async()=>{
+      const data={
+        id:item.id
       }
+      const result = await toggleFavoriteLocals(data)
+      if (result.success){
+        await checkFavorite()
+        setLikes(result.data.data)
+      }
+    } 
       async function getChats(){
         var flag=false
         const q = query(collection(database, "chats"), where("users", "array-contains", user.id));
