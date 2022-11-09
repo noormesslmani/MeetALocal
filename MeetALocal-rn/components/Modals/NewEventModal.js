@@ -4,10 +4,6 @@ import { useState, useEffect, useContext } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/FontAwesome'
-import image from '../../assets/profile.jpg'
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from 'axios';
-import CommentsModalStyles from '../ComponentsStyles/CommentsModalStyles';
 import EventsModalStyles from '../ComponentsStyles/EventsModalStyles';
 import SwipeUpDownModal from 'react-native-swipe-modal-up-down';
 import DropDownPicker from 'react-native-dropdown-picker';

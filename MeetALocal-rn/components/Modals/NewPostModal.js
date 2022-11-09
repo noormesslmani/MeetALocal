@@ -4,16 +4,13 @@ import { useState, useEffect, useContext } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/Ionicons'
-import image from '../../assets/profile.jpg'
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from 'axios';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import CommentsModalStyles from '../ComponentsStyles/CommentsModalStyles';
 import PostModalStyles from '../ComponentsStyles/PostModalStyles';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { categoriesOptions } from '../../constants/categories';
 import { countriesOptions } from '../../constants/countries';
 import AppButton from '../Buttons/AppButtons';
+import { createNewPost } from '../../network/App';
 const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
     const [selectedCountry, setSelectedCountry]=useState(null)
     const [selectedCategory, setSelectedCategory]=useState([])
@@ -51,29 +48,17 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
             createPost() 
         } 
     }
-    async function createPost(){
-        const token = await AsyncStorage.getItem('@token')
-        const data = {
-          details: details,
-          country: selectedCountry,
-          category: selectedCategory
-        }
-        console.log(data)
-        axios({
-          method: "post",
-          data,
-          headers: { Authorization: `Bearer ${token}`},
-          url:'http://192.168.1.7:8000/api/v1.0.0/users/post',
-        })
-        .then((response)=> {
-          console.log(response.data)
-          setModalVisible(false)
-          return response;
-        })
-        .catch(function (error) {
-          console.warn(error)
-        });
+    const createPost= async()=>{
+      const data = {
+        details,
+        country: selectedCountry,
+        category: selectedCategory
       }
+      const result = await createNewPost(data)
+      if (result.success){
+        setModalVisible(false)
+      }
+    }
   return (
     <Modal
         animationType="fade"
