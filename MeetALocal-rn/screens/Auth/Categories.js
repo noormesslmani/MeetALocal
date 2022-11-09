@@ -12,6 +12,7 @@ import { useRoute } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setUpAccount } from '../../network/Auth';
+import { categoryIcons } from '../../constants/categories';
 const Categories=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const route = useRoute();

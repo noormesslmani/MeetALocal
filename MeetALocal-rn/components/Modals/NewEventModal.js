@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, Modal, Pressable, StyleSheet, ScrollView, TextInput, KeyboardAvoidingView} from 'react-native'
+import { View, Text, TouchableOpacity, Image, ActivityIndicator, FlatList, SafeAreaView, Modal, Pressable, StyleSheet, ScrollView, TextInput, KeyboardAvoidingView} from 'react-native'
 import React from 'react'
 import { useState, useEffect, useContext } from "react";
 import { NavigationContainer } from '@react-navigation/native';
@@ -14,7 +14,7 @@ import { categoriesOptions } from '../../constants/categories';
 import DatePicker from '../General/datePicker';
 import AppButton from '../Buttons/AppButtons';
 import { createNewEvent } from '../../network/App';
-const NewEventModal=({navigation, modalVisible, setModalVisible})=> {
+const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated})=> {
     let hours
     let min
     const { user, setUser} = useContext(UserContext);
@@ -30,6 +30,7 @@ const NewEventModal=({navigation, modalVisible, setModalVisible})=> {
     const [image, setImage] = useState(null);
     const [base64, setBase64]= useState(null)
     const [ext, setext]= useState(null)
+    const [isLoading, setIsLoading]=useState(false)
     const addImage = async () => {
         let _image = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -43,15 +44,18 @@ const NewEventModal=({navigation, modalVisible, setModalVisible})=> {
         }
         setBase64(_image.base64)
     }
+    useEffect(()=>{
+        if(image){
+            setext(image.split('.').pop())
+        }
+    },[image])
     const handleDate= (event, value)=>{
         setDatePicker(false)
         setDate(value)
     }
 
     const hanldePress=()=>{
-        if(image){
-            setext(image.split('.').pop())
-        }
+        
         createEvent()
     }
     const createEvent= async()=>{
@@ -66,12 +70,18 @@ const NewEventModal=({navigation, modalVisible, setModalVisible})=> {
             ext,
             country: user.residence
         }
+        console.log(ext)
+       
+        setIsLoading(true)
         const result = await createNewEvent(data)
+        
         if (result.success){
             setTimeout(() => {
                 setModalVisible(false);
               }, 2000);
+            setEventCreated(true)
         }
+        else(setIsLoading(false))
       }
    
   return (
@@ -153,6 +163,7 @@ const NewEventModal=({navigation, modalVisible, setModalVisible})=> {
                         { datePicker && <DatePicker date={date} handleDate={handleDate} type={2} />}
                     </View>
                 </View>
+                {isLoading && <ActivityIndicator color="#8C57BA" />}
                 <View style={EventsModalStyles.btnContainer}><AppButton text={'Create'} handlePress={hanldePress}/></View>
                 </ScrollView> 
             </KeyboardAvoidingView>
