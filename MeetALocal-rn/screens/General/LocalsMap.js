@@ -29,9 +29,9 @@ const LocalsMap=({navigation})=> {
       
   return (
             <View style={LocalsMapStyles.mapContainer}>
-                <Map data={data} lat={lat} lng={lng} type={1} />
+                <Map data={data} lat={lat} lng={lng} type={1} navigation={navigation}/>
                 <View style={styles.container}>
-                <MapSearch handlePress={handlePress}/>
+                <MapSearch handlePress={handlePress} navigation={navigation}/>
                 </View>
             </View>
   )
