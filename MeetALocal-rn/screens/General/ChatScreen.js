@@ -4,32 +4,48 @@ import { GiftedChat } from 'react-native-gifted-chat'
 import { UserContext } from '../../App'
 import { database } from "../../firebase";
 import {
-  collection,
-  orderBy,
-  onSnapshot,
-  query,
-  addDoc,
-  where,
-  doc
+    collection,
+    orderBy,
+    onSnapshot,
+    query,
+    where,
+    doc,
+    getDocs,
+    limit,
+    addDoc
 } from "firebase/firestore";
 import { useRoute } from '@react-navigation/native';
 const ChatScreen=()=> {
-    const route = useRoute();
-    const chatId= route.params.chat_id
-   
+    const route = useRoute(); 
+    let chatId= route.params.chatId
+    const userId= route.params.userId
     const [messages, setMessages] = useState([]);
     const { user, setUser} = useContext(UserContext);
     const uri=`http://192.168.1.7:8000/${user.profile_picture}`
     useEffect(() => {
         getMessages()
     }, []);
+    console.log(userId)
     console.log(chatId)
     const getMessages = async () => {
+        if(!chatId){
+            var flag=true
+            const q = query(collection(database, "chats"), where("users", "array-contains", user.id));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach(async (doc) => {
+            if(doc.data().users.includes(userId)){
+                flag=false
+                chatId=doc.id}})
+            if(flag){
+            const newChat = await addDoc(collection(database, "chats"), {
+            users: [user.id, userId],
+            });
+            chatId=newChat.id}
+        }
         const docRef = doc(database, "chats", chatId);
         const colRef = collection(docRef, "messages");
         
         const q = query(colRef, orderBy("createdAt", "desc"));
-        console.log(q)
         const unsubscribe = onSnapshot(q, (snapshot) =>
             setMessages(
                 snapshot.docs.map((doc) => ({

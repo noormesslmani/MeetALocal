@@ -3,36 +3,20 @@ import React from 'react'
 import { UserContext } from '../../App'
 import { useState, useEffect, useContext } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { AntDesign } from '@expo/vector-icons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useRoute } from '@react-navigation/native';
 import LocalProfileStyles from './Styles/LocalProfileStyles';
-import { database } from "../../firebase";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from 'axios';
 import { categoryIcons } from '../../constants/categories';
 import ImageView from "react-native-image-viewing";
 import Map from '../../components/Header/Map';
 import { CheckFavoriteLocals, toggleFavoriteLocals } from '../../network/App';
 import { address } from '../../constants/address';
-import {
-  collection,
-  orderBy,
-  onSnapshot,
-  query,
-  where,
-  doc,
-  getDocs,
-  limit,
-  addDoc
-} from "firebase/firestore";
 const LocalPage=({navigation})=> {
     const route = useRoute();
     const item =route.params.item
     const { user, setUser, locals, setLocals} = useContext(UserContext);
     const [isFavorite, SetIsFavorite]=useState(false)
     const [likes, setLikes]= useState(item.likes)
-    const [chatId, setChatId]= useState(null)
     const [visible, setIsVisible] = useState(false);
     const [imageIndex, setImageIndex]= useState(0)
     const images = item.highlights.map((image)=>({ uri: `${address}/${image}`}))
@@ -46,7 +30,8 @@ const LocalPage=({navigation})=> {
       toggleFavorite()
     }
     const handleMessage=()=>{
-      getChats()
+      console.log('hi')
+      navigation.navigate('chat-screen', { chatId: null, userId: item.id})
     }
     const checkFavorite=async()=>{
       const result = await CheckFavoriteLocals(item.id)
@@ -63,28 +48,10 @@ const LocalPage=({navigation})=> {
         await checkFavorite()
         setLikes(result.data.data)
       }
-    } 
-      async function getChats(){
-        var flag=false
-        const q = query(collection(database, "chats"), where("users", "array-contains", user.id));
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach(async (doc) => {
-          if(doc.data().users.includes(item.id)){
-            flag=true
-            navigation.navigate('chat-screen', { chat_id: doc.id})
-          }
-        })
-        if(! flag){
-        const newChat = await addDoc(collection(database, "chats"), {
-          users: [user.id, item.id],
-        });
-        console.log("ID: ", newChat.id);
-        navigation.navigate('chat-screen', { chat_id: newChat.id})
-      }
-    }
     const handleMap=()=>{
       navigation.navigate('locals-map',{data:[item]})
     }
+  }
 
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
