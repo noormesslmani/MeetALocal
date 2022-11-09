@@ -2,15 +2,13 @@ import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, Modal, Pre
 import React from 'react'
 import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext } from "react";
-import { UserContext } from '../../App'
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from 'axios';
 import FilterModal from '../../components/Modals/FilterModal';
 import PostsStyles from './Styles/PostsStyles';
 import NewPostModal from '../../components/Modals/NewPostModal';
 import PostCard from '../../components/Cards/PostCard';
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import { getAllPosts, getOwnPosts } from '../../network/App';
+import Filters from '../../components/Header/Filters';
+import BackArrow from '../../components/Header/BackArrow';
 const Posts=({navigation})=> {
   const [viewOwn, setViewOwn]=useState(false)
   const [country, setCountry]=useState('all');
@@ -34,12 +32,21 @@ const Posts=({navigation})=> {
       setdata(result.data.data)
     }
   }
+  const handleFilter=()=>{
+    setModalVisible(true)
+  }
   useEffect(() => {
+    if(!viewOwn){
     navigation.setOptions({
-      headerLeft: () => (<Pressable onPress={() => navigation.goBack()}><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
-      headerRight:()=>(
-      <Pressable onPress={()=>{setModalVisible(true)}}><Ionicons name="filter" size={25} color="#8C57BA"/></Pressable>)}
-      )}, [navigation])
+      headerLeft: () => <BackArrow navigation={navigation} />,
+      headerRight:()=><Filters handleFilter={handleFilter}/>})
+    }
+    else{
+      navigation.setOptions({
+        headerLeft: () => <BackArrow navigation={navigation} />,
+        headerRight:()=><></>})
+    }
+    }, [navigation, viewOwn])
   const renderItem = ({ item }) => (
     <PostCard item={item} navigation={navigation} key={item.id}/>);
   return (

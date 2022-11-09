@@ -9,6 +9,8 @@ import NewEventModal from '../../components/Modals/NewEventModal';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import EventCard from '../../components/Cards/EventCard';
 import {getAllEvents, getSavedEvents, getOwnEvents} from '../../network/App'
+import BackArrow from '../../components/Header/BackArrow';
+import Filters from '../../components/Header/Filters';
 const Events=({navigation})=> {
   const [choice, setChoice]=useState(1)
   const [modalVisible, setModalVisible] = useState(false)
@@ -37,18 +39,27 @@ const Events=({navigation})=> {
       setdata(result.data.data)
     }
   }
-  
+  const handleFilter=()=>{
+    setModalVisible(true)
+  }
   const renderItem = ({ item }) => (
     <View>
       <EventCard item={item} />
     </View>
   )
   useEffect(() => {
+    if(choice==1){
     navigation.setOptions({
-      headerLeft: () => (<Pressable onPress={() => navigation.goBack()}><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
-      headerRight:()=>(
-      <Pressable onPress={()=>{setModalVisible(true)}}><Ionicons name="filter" size={25} color="#8C57BA"/></Pressable>)}
-      )}, [navigation])
+      headerLeft: () => <BackArrow navigation={navigation} />,
+      headerRight:()=><Filters handleFilter={handleFilter}/>})
+    }
+    else{
+      navigation.setOptions({
+        headerLeft: () => <BackArrow navigation={navigation} />,
+        headerRight:()=><></>})
+    }
+    
+    }, [navigation, choice])
   return (
     <View style={HomeStyles.container}>
         <View style={EventsStyles.view}>

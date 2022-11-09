@@ -9,8 +9,10 @@ import axios from 'axios';
 import FilterModal from '../../components/Modals/FilterModal';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import LocalCard from '../../components/Cards/LocalCard';
+import Filters from '../../components/Header/Filters';
+import BackArrow from '../../components/Header/BackArrow';
 import { getLocals, getFavorites } from '../../network/App';
-
+import Map from '../../components/Header/Map';
 const Locals=({navigation})=> {
     const [country, setCountry]=useState('all');
     const [category, setCategory]=useState('all');
@@ -43,16 +45,21 @@ const Locals=({navigation})=> {
   const renderItem = ({ item }) => (
     <LocalCard item={item} key={item} navigation={navigation} />
     );
-    console.log(data)
+  const handleFilter=()=>{
+    setModalVisible(true)
+  }
+  const handleMap=()=>{
+    navigation.navigate('locals-map',{data: data})
+  }
   useEffect(() => {
     navigation.setOptions({
-      headerLeft: () => (<Pressable onPress={() => navigation.goBack()}><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+      headerLeft: () => <BackArrow navigation={navigation}/>,
       headerRight:()=>(<View style={{flexDirection:"row"}}>
-      <Pressable onPress={()=>{setModalVisible(true)}}><Ionicons name="filter" size={25} color="#8C57BA"/></Pressable>
-      <Pressable onPress={() => navigation.navigate('locals-map',{data: data})} style={{marginLeft:10}}><Ionicons name="location-sharp" size={25} color="#8C57BA"/></Pressable>
+      {!viewFav && <Filters handleFilter={handleFilter}/>}
+      <Map handleMap={handleMap} />
       </View>)
     });
-  }, [navigation, data]);
+  }, [navigation, data, viewFav]);
   return (
       <View style={HomeStyles.container}>
         {user.type_id==2 && <View style={LocalsStyles.view}>
