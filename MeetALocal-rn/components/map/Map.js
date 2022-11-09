@@ -1,11 +1,14 @@
 import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, Modal, Pressable, StyleSheet} from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import {Marker, Callout} from 'react-native-maps';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-const Map=({lat, lng, data, type, handleDrag})=> {
-      
+import { colors } from '../../constants/colors';
+import { WebView } from 'react-native-webview';
+const Map=({lat, lng, data, type, handleDrag, navigation})=> { 
+
   return (
+              <>
                 <MapView
                 region= {{
                     latitude: lat,
@@ -19,20 +22,21 @@ const Map=({lat, lng, data, type, handleDrag})=> {
                 provider={PROVIDER_GOOGLE}
                 maxZoomLevel={15}
                 >
-                
-                {type==1 && data.map((local) => (
+                {type==1 && data.map((local, index) => (
+          
                 <Marker
                 key={local.id}
                 coordinate={{latitude: local.latitude, longitude: local.longitude}}
-                pinColor='red'
-                >
-                <Callout style={{width:80, height:"auto"}}>
-                    <Text style={{fontSize:7}}> <Text style={{fontWeight:"600"}}>Name:</Text> {local.name}</Text>
-                    <Text style={{fontSize:7}}> <Text style={{fontWeight:"600"}}>Gender:</Text> {local.gender}</Text>
-                    <Text style={{fontSize:7}}> <Text style={{fontWeight:"600"}}>About:</Text> {local.about}</Text>
+                pinColor={colors.violet}>
+                <Callout tooltip={true} onPress={()=>navigation.navigate('local-page', {item: local})}>
+                  <View style={{width:160, height:50, backgroundColor:'white', borderRadius:20, padding:5, alignItems:"center"}}>
+                  <Text style={{fontSize:14, fontWeight:"600", color:colors.violet}}> {local.name}</Text>
+                  <Text style={{fontSize:10, fontWeight:"400", color:colors.violet}}> {local.country}</Text>
+                  </View>
                 </Callout>
                 </Marker>
-                ))}  
+                ))
+                }  
                 {type==2 && 
                 <Marker coordinate={{latitude: lat,
                 longitude:lng}}
@@ -41,6 +45,7 @@ const Map=({lat, lng, data, type, handleDrag})=> {
                 onDragEnd={handleDrag}>
                 </Marker>} 
                 </MapView>
+              </>
   )
 }
 export default Map
