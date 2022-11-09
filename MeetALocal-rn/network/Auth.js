@@ -17,3 +17,37 @@ export async function signin(data){
       return {'success': false, error}
     }
   }
+  export async function registerAccount(data){
+    const token = await AsyncStorage.getItem('@token')
+    const config = {
+      method: "post",
+      data,
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}auth/register`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.warn(error)
+      return {'success': false, error}
+    }
+  }
+  export async function setUpAccount(data){
+    const token = await AsyncStorage.getItem('@token')
+    const config = {
+      method: "post",
+      data,
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}auth/setup`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.warn(error)
+      return {'success': false, error}
+    }
+  }

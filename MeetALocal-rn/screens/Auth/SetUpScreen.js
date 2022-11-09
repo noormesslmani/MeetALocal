@@ -3,15 +3,12 @@ import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthButton from '../../components/AuthButton';
 import { useRoute } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Ionicons'
-import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import UploadImage from '../../components/General/UploadImage';
+import { setUpAccount } from '../../network/Auth';
 const SetUpScreen=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const route = useRoute();
@@ -46,23 +43,16 @@ const SetUpScreen=({navigation})=> {
   const handleFemale=()=>{
     setGender('Female')
   }
-
-  async function setUp(){
-    const data = {
-      type: type,
-      gender: gender,
-      photo: base64,
-      ext: ext
-    };
-    const token = await AsyncStorage.getItem('@token')
+  const setUp= async()=>{
     setIsLoading(true)
-    axios({
-      method: "post",
-      data,
-      headers: { Authorization: `Bearer ${token}`},
-      url:"http://192.168.1.7:8000/api/v1.0.0/auth/setup",
-    })
-    .then(async (response)=> {
+    const data = {
+      type,
+      gender,
+      photo: base64,
+      ext,
+    };
+    const result = await setUpAccount(data)
+    if (result.success){
       await AsyncStorage.setItem("@user", JSON.stringify(response.data['user']));
       setUser(response.data.user)
       navigation.reset({
@@ -70,14 +60,11 @@ const SetUpScreen=({navigation})=> {
         routes: [{ name: 'tabs' }],
       })
       navigation.navigate('tabs')
-      return response.data;
-    })
-    .catch(function (error) {
+    }
+    else{
       setIsLoading(false)
-      console.warn(error)
-    });
+    }
   }
-  
   
   return (
     <View style={styles.background} >
