@@ -19,10 +19,10 @@ const Events=({navigation})=> {
   const [data, setdata]=useState([])
   const [eventModalVisible, setEventModalVisible]=useState(false)
   const { user, setUser} = useContext(UserContext);
-  
+  const [eventCreated,setEventCreated]=useState(false)
   useEffect(()=>{
     getEvents()
-  },[choice, country, category])
+  },[choice, country, category, eventCreated])
   
   const getEvents= async()=>{
     let result
@@ -70,7 +70,7 @@ const Events=({navigation})=> {
         <View style={EventsStyles.separator}/>
         {user.type_id==1 && <TouchableOpacity onPress={()=>{setEventModalVisible(true)}}><Text style={{color:"#8C57BA", marginBottom:5, textDecorationLine:"underline"}}>Create an event</Text></TouchableOpacity>}
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
-        <NewEventModal modalVisible={eventModalVisible} setModalVisible={setEventModalVisible}/>
+        <NewEventModal modalVisible={eventModalVisible} setModalVisible={setEventModalVisible} setEventCreated={setEventCreated}/>
         <SafeAreaView style={EventsStyles.listContainer}>
           <FlatList
             data={data}

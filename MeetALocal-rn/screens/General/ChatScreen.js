@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useEffect, useContext } from 'react'
-import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native'
 import { GiftedChat } from 'react-native-gifted-chat'
 import { UserContext } from '../../App'
 import { database } from "../../firebase";
@@ -11,7 +10,6 @@ import {
     where,
     doc,
     getDocs,
-    limit,
     addDoc
 } from "firebase/firestore";
 import { useRoute } from '@react-navigation/native';
@@ -26,7 +24,7 @@ const ChatScreen=()=> {
         getMessages()
     }, []);
     console.log(userId)
-    console.log(chatId)
+    console.log('go')
     const getMessages = async () => {
         if(!chatId){
             var flag=true

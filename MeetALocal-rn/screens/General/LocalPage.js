@@ -48,11 +48,10 @@ const LocalPage=({navigation})=> {
         await checkFavorite()
         setLikes(result.data.data)
       }
-    const handleMap=()=>{
-      navigation.navigate('locals-map',{data:[item]})
-    }
   }
-
+  const handleMap=()=>{
+    navigation.navigate('locals-map',{data:[item]})
+  }
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
         <View style={LocalProfileStyles.mainContainer}>

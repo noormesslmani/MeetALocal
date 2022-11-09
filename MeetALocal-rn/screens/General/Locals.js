@@ -42,8 +42,8 @@ const Locals=({navigation})=> {
       setdata(result.data.data)
     }
   } 
-  const renderItem = ({ item }) => (
-    <LocalCard item={item} key={item} navigation={navigation} />
+  const renderItem = ({ item, index }) => (
+    <LocalCard item={item} key={index} navigation={navigation} />
     );
   const handleFilter=()=>{
     setModalVisible(true)
@@ -74,7 +74,6 @@ const Locals=({navigation})=> {
             showsHorizontalScrollIndicator={false}
             data={data}
             renderItem={renderItem}
-            key={item => item.id}
             keyExtractor={item => item.id}
             style={LocalsStyles.list}
             contentContainerStyle={{ paddingBottom: 300}}
