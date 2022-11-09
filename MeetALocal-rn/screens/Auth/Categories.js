@@ -11,6 +11,7 @@ import Slider from '@react-native-community/slider';
 import { useRoute } from '@react-navigation/native';
 import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { setUpAccount } from '../../network/Auth';
 const Categories=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const route = useRoute();
@@ -52,26 +53,20 @@ const Categories=({navigation})=> {
     const handleSubmit=()=>{
         setUp()
     }
-    async function setUp(){
-        const data = {
-          type: 'Local',
-          gender: gender,
-          photo: base64,
-          ext: ext,
-          fees: fees,
-          categories: categories,
-          latitude:latitude,
-          longitude:longitude
-        };
-        const token = await AsyncStorage.getItem('@token')
+    const setUp= async()=>{
         setIsLoading(true)
-        axios({
-          method: "post",
-          data,
-          headers: { Authorization: `Bearer ${token}`},
-          url:"http://192.168.1.7:8000/api/v1.0.0/auth/setup",
-        })
-        .then(async (response)=> { 
+        const data = {
+            type: 'Local',
+            gender,
+            photo: base64,
+            ext,
+            fees,
+            categories,
+            latitude,
+            longitude,
+          };
+        const result = await setUpAccount(data)
+        if (result.success){
           await AsyncStorage.setItem("@user", JSON.stringify(response.data['user']));
           setUser(response.data.user)
           navigation.reset({
@@ -79,12 +74,10 @@ const Categories=({navigation})=> {
             routes: [{ name: 'tabs' }],
           })
           navigation.navigate('tabs')
-          return response.data;
-        })
-        .catch(function (error) {
-            setIsLoading(false)
-          console.warn(error)
-        });
+        }
+        else{
+          setIsLoading(false)
+        }
       }
     
     return (
