@@ -1,45 +1,33 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { useState, useEffect, useContext } from "react";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MessageCardStyles from '../ComponentsStyles/MessageCardStyles';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from 'axios';
+import { getUserDetails } from '../../network/App';
+import { address } from '../../constants/address';
 const MessageCard=({navigation, chat})=> {
-    console.log(chat.date)
     const [image, setImage]=useState(null)
     const [name, setName]=useState(null)
     const [type_id, setType_id]=useState(null)
     useEffect(()=>{
         getUser()
+        console.log(chat.user_id)
     },[])
-    async function getUser(){
-    const token = await AsyncStorage.getItem('@token')
-    axios({
-        method: "get",
-        headers: { Authorization: `Bearer ${token}`},
-        url:`http://192.168.1.7:8000/api/v1.0.0/users/user/${chat.user_id}`,
-    })
-    .then((response)=> {
-        // console.log(response.data)
-        setName(response.data.data.name)
-        setImage(response.data.data.profile_picture)
-        setType_id(response.data.data.type_id)
-        return response;
-    })
-    .catch(function (error) {
-        console.warn(error)
-    });
-    }
+    const getUser=async()=>{
+        const result = await getUserDetails(chat.user_id)
+        if (result.success){
+            setName(result.data.data.name)
+            setImage(result.data.data.profile_picture)
+            setType_id(result.data.data.type_id)
+        }
+    } 
     const handleChat=()=>{
-        const chat_id=chat.chat_id
-        navigation.navigate('chat-screen', {chat_id})
+        const chatId=chat.chat_id
+        navigation.navigate('chat-screen', {chatId, userId:null})
     }
   return (
     <View style={MessageCardStyles.container}>
         <TouchableOpacity style={MessageCardStyles.messageContainer} onPress={handleChat}>
-            <Image source={image?{ uri:`http://192.168.1.7:8000/${image}`}: require('../../assets/blank-profile.webp')} style={MessageCardStyles.avatar}/>
+            <Image source={image?{ uri:`${address}/${image}`}: require('../../assets/blank-profile.webp')} style={MessageCardStyles.avatar}/>
             <View>
             <Text style={{marginTop:10}}>{name}</Text>
             {type_id==1?<Text style={{color:"#8C57BA", fontSize:12}}>local</Text>:null}
