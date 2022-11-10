@@ -1,0 +1,16 @@
+.separator{
+    position: absolute;
+    top: 20px;
+    width: 100vw;
+    height: 0.5px;
+    background-color: grey;
+    bottom: 80vh;
+}
+.dashboard-container{
+    align-self: flex-end;
+    margin-left: 250px;
+    width: calc(100vw - 250px);
+    height: 90vh;
+    padding: 50px;
+    background-color: aqua;
+}
