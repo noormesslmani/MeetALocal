@@ -50,13 +50,13 @@ const Locals=()=> {
             <NavBar/>
             <div className='dashboard-container flex-col align-center'>
                 <h1 className='home-title'>Locals</h1>
-                <div className='flex align-center justify-center'>
+                {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
+                {!isLoading && <UsersTable data={data}/>}
+                <div className='flex align-center justify-center arrow-contianer'>
                     <FontAwesomeIcon icon={faArrowLeft} color='rgba(140,87,186,1)' className='arrow' onClick={hanldePrev}/>
                     <p>{currentPage}</p>
                     <FontAwesomeIcon icon={faArrowRight} color='rgba(140,87,186,1)' className='arrow' onClick={hanldeNext}/>
-                    </div>
-                {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
-                {!isLoading && <UsersTable data={data}/>}
+                </div>
             </div>
         </div>
     </div>

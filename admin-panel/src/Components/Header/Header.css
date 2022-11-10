@@ -1,6 +1,7 @@
 .header{
     height: 10vh;
     padding: 20px;
+    background-color: rgba(140,87,186,0.1);
 }
 .profile-img{
     width: 50px;

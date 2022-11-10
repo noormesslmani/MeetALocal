@@ -33,8 +33,9 @@
   }
   td {
     text-align: center;
-    height: 25px;
+    height: 35px;
     font-size: 12px;
+    border-bottom: 1px solid rgba(140,87,186,0.1);
   }
   .ban-icon{
     cursor: pointer;
