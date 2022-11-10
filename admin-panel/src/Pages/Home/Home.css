@@ -19,3 +19,8 @@
     font-size: 38px;
     color:rgba(140,87,186,1)
 }
+/***/
+.arrow{
+    margin: 0px 10px;
+    cursor: pointer;
+}

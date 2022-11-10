@@ -18,12 +18,12 @@ const UsersTable=({data})=> {
                 </tr>
                 {data.map((user, index)=>
                     {return (<tr key={index}>
-                        <td>{user.name}dwejiw</td>
-                        <td>{user.email}qeiqwj</td>
-                        <td>{user.gender}qweiqjd</td>
-                        <td>{user.country}qiejqi</td>
-                        <td>{user.created_at}siqdjqi</td>
-                        <td><FontAwesomeIcon icon={faBan} color={user.ban? 'red':'green'} /></td>
+                        <td>{user.name}</td>
+                        <td>{user.email}</td>
+                        <td>{user.gender}</td>
+                        <td>{user.country}</td>
+                        <td>{user.created_at.slice(0,11)}</td>
+                        <td><FontAwesomeIcon icon={faBan} color={user.ban? 'red':'green'} className='ban-icon'/></td>
                     </tr>)}
                 )}
             </table>
