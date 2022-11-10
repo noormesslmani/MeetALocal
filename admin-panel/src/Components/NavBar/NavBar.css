@@ -1,0 +1,18 @@
+.NavBar{
+    position: fixed;
+    height: 90vh;
+    width: 250px;
+    background-color: rgba(140,87,186,0.5);
+    padding-top: 100px;
+    box-sizing: border-box;
+}
+.link{
+    font-size: 20px;
+    color:white;
+    font-weight: 600;
+    margin: 20px 0px;
+    text-decoration: none;
+}
+.link:hover{
+    text-decoration: underline;
+}
