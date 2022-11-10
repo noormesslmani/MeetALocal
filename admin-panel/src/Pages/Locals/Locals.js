@@ -19,7 +19,7 @@ const Locals=()=> {
     
     const getLocals= async()=>{
         setIsLoading(true)
-        const result =await getUsers('Local', 10)
+        const result =await getUsers('Local', 10*(page-1))
         if (result.success){
             console.log(result.data.data)
             setData(result.data.data)
@@ -34,7 +34,7 @@ const Locals=()=> {
             <div className='dashboard-container flex-col align-center'>
                 <h1 className='home-title'>Locals</h1>
                 {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
-                <UsersTable />
+                {!isLoading && <UsersTable data={data}/>}
             </div>
         </div>
     </div>
