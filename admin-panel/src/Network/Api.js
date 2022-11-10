@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseURL= "http://127.0.0.1:8000/api/v1.0.0/"
+const baseURL= "http://192.168.1.7:8000/api/v1.0.0/"
 const headers= { Authorization: `Bearer ${localStorage.getItem('token')}`}
 export async function signin(data){
     console.log(123)
