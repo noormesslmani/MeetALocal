@@ -20,11 +20,27 @@ export async function signin(data){
     }
   }
 
-  export async function getAppStat(data){
+  export async function getAppStat(){
     const config = {
       method: "get",
       headers,
       url:`${baseURL}admins/app-stat`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.log(error)
+      return {'success': false, error}
+    }
+  }
+  export async function getUsers(type, offset){
+    console.log(type)
+    const config = {
+      method: "get",
+      headers,
+      url:`${baseURL}admins/users/${type}/${offset}`,
     }
     try{
       const res = await axios(config)
