@@ -3,8 +3,23 @@ import { useNavigate } from "react-router-dom";
 import './UserTable.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBan } from '@fortawesome/free-solid-svg-icons'
-const UsersTable=({data})=> {
-    console.log(data)
+import { toggleBans } from '../../Network/Api';
+import { Bounce } from "react-activity";
+import "react-activity/dist/library.css";
+const UsersTable=({data, setBanLoading})=> {
+    const handleBan=(id)=>{
+        toggleBan(id)
+    }
+    const toggleBan= async(id)=>{
+        setBanLoading(true)
+        const data={
+            user_id:id
+        }
+        const result =await toggleBans(data)
+        if (result.success){
+            setBanLoading(false)
+        }
+    }
   return(
         <div className="table-container">
             <table>
@@ -23,7 +38,7 @@ const UsersTable=({data})=> {
                         <td>{user.gender}</td>
                         <td>{user.country}</td>
                         <td>{user.created_at.slice(0,11)}</td>
-                        <td><FontAwesomeIcon icon={faBan} color={user.ban? 'red':'green'} className='ban-icon'/></td>
+                        <td><FontAwesomeIcon icon={faBan} color={user.ban? 'red':'green'} className='ban-icon' onClick={()=>handleBan(user.id)}/></td>
                     </tr>)}
                 )}
             </table>

@@ -17,9 +17,10 @@ const Locals=()=> {
     const [data, setData]=useState(null)
     const [page, setPage]=useState(1)
     const [currentPage, setCurrentPage]=useState(1)
+    const [banLoading, setBanLoading]= useState(false)
     useEffect(()=>{
         getLocals()
-    },[page])
+    },[page, banLoading])
     
     const getLocals= async()=>{
         setIsLoading(true)
@@ -51,7 +52,7 @@ const Locals=()=> {
             <div className='dashboard-container flex-col align-center'>
                 <h1 className='home-title'>Locals</h1>
                 {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
-                {!isLoading && <UsersTable data={data}/>}
+                {!isLoading && <UsersTable data={data} setBanLoading={setBanLoading}/>}
                 <div className='flex align-center justify-center arrow-contianer'>
                     <FontAwesomeIcon icon={faArrowLeft} color='rgba(140,87,186,1)' className='arrow' onClick={hanldePrev}/>
                     <p>{currentPage}</p>
