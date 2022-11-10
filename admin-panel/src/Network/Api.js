@@ -68,3 +68,18 @@ export async function signin(data){
       return {'success': false, error}
     }
   }
+  export async function getLocalsStat(){
+    const config = {
+      method: "get",
+      headers,
+      url:`${baseURL}admins/locals-stat`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.log(error)
+      return {'success': false, error}
+    }
+  }
