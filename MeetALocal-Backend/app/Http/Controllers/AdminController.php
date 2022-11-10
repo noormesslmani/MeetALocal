@@ -26,7 +26,7 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    public function banUser(Request $request){
+    public function toggleBan(Request $request){
         $user_type=User::find($request->user_id)->type()->pluck('user_type')[0];
         if($user_type=='Admin'){
             return response()->json([
@@ -34,24 +34,20 @@ class AdminController extends Controller
             ], 403);
         }
         if(Ban::where('banned_id',$request->user_id)->exists()){
+            Ban::where('banned_id',$request->user_id)->delete();
             return response()->json([
-                'message' => 'user banned',
-            ], 400);
+                'message' => 'ok',
+            ], 201);
         }
-        $ban= Ban::create([
-            'banner_id' => Auth::id(),
-            'banned_id'=> $request->user_id
-        ]);
-        return response()->json([
-            'message' => 'ok',
-            'data' => $ban,
-        ], 201);
-    }
-    public function unbanUser(Request $request){
-        Ban::where('banned_id',$request->user_id)->delete();
-        return response()->json([
-            'message' => 'ok',
-        ], 201);
+        else{
+            Ban::create([
+                'banner_id' => Auth::id(),
+                'banned_id'=> $request->user_id
+            ]);
+            return response()->json([
+                'message' => 'ok',
+            ], 201);
+        }
     }
     public function getBans(){
         $bans=Ban::join('users','users.id','banned_id')->get();
