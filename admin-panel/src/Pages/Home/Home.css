@@ -8,13 +8,14 @@
 }
 .dashboard-container{
     width: calc(100vw - 250px);
-    height: 80vh;
-    padding: 10px;
+    height: 90vh;
+    box-sizing: border-box;
 }
-.home-container{
+/* .home-container{
     overflow-y: hidden;
     overflow-x: hidden;
-}
-.welcome{
+} */
+.home-title{
     font-size: 38px;
+    color:rgba(140,87,186,1)
 }
