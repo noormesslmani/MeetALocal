@@ -7,7 +7,7 @@ const LogIn=()=> {
   const navigate = useNavigate();
   return (
     <div className='container flex-col'>
-      <Header/>
+      <Header type={1}/>
       <div className='body'>
         <LogInForm />
       </div>
