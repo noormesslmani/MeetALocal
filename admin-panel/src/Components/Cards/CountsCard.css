@@ -1,0 +1,23 @@
+.counts-card{
+    width: 250px;
+    height: 27vh;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 10px;
+    margin: 10px 20px;
+}
+.red{
+    background-color: red;
+}
+.blue{
+    background-color: blue;
+}
+.yellow{
+    background-color: yellow;
+}
+.green{
+    background-color: rgb(69, 169, 69);
+}
+.counts-card:hover{
+    scale: 1.1;
+}
