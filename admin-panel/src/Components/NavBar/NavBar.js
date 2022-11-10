@@ -8,10 +8,10 @@ const NavBar=()=> {
   return (
     <nav className='NavBar flex-col align-center'>
         <NavLink className='link' to="/home">Dashboard</NavLink>
-        <NavLink className='link'>Locals</NavLink>
-        <NavLink className='link'>Foreigners</NavLink>
-        <NavLink className='link'>Statistics</NavLink>
-        <NavLink className='link'>LogOut</NavLink>
+        <NavLink className='link' to="/locals">Locals</NavLink>
+        <NavLink className='link' to="/foreigners">Foreigners</NavLink>
+        <NavLink className='link' to='/locals-statistics'>Statistics</NavLink>
+        <NavLink className='link' to="/">LogOut</NavLink>
     </nav>
   )
 }
