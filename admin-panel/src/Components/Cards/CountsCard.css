@@ -1,23 +1,31 @@
 .counts-card{
-    width: 250px;
+    width: 25vw;
     height: 27vh;
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    padding: 10px;
+    padding: 20px;
     margin: 10px 20px;
 }
 .red{
-    background-color: red;
+    background-color: rgb(176, 32, 32);
 }
 .blue{
-    background-color: blue;
+    background-color: rgba(75,176,249,1);
 }
 .yellow{
-    background-color: yellow;
+    background-color: rgb(255, 234, 0);
 }
 .green{
     background-color: rgb(69, 169, 69);
 }
 .counts-card:hover{
     scale: 1.1;
+}
+.count{
+    font-size: 36px;
+    color:white;
+    font-weight: 700;
+}
+.line-height{
+    line-height: 1px;
 }
