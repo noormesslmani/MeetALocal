@@ -4,7 +4,7 @@ import './UserTable.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBan } from '@fortawesome/free-solid-svg-icons'
 const UsersTable=({data})=> {
-
+    console.log(data)
   return(
         <div className="table-container">
             <table>
@@ -16,28 +16,16 @@ const UsersTable=({data})=> {
                     <th className='date-row'>Joined At</th>
                     <th className='ban-row'>Ban</th>
                 </tr>
-                <tr>
-                    <td>Anom</td>
-                    <td>19</td>
-                    <td>Male</td>
-                    <td>Lebanon</td>
-                    <td>2000</td>
-                    <td><FontAwesomeIcon icon={faBan} color='green' /></td>
-                </tr>
-                <tr>
-                    <td>Megha</td>
-                    <td>19</td>
-                    <td>Female</td>
-                    <td>Lebanon</td>
-                    <td>2000</td>
-                </tr>
-                <tr>
-                    <td>Subham</td>
-                    <td>25</td>
-                    <td>Male</td>
-                    <td>Lebanon</td>
-                    <td>2000</td>
-                </tr>
+                {data.map((user, index)=>
+                    {return (<tr key={index}>
+                        <td>{user.name}dwejiw</td>
+                        <td>{user.email}qeiqwj</td>
+                        <td>{user.gender}qweiqjd</td>
+                        <td>{user.country}qiejqi</td>
+                        <td>{user.created_at}siqdjqi</td>
+                        <td><FontAwesomeIcon icon={faBan} color={user.ban? 'red':'green'} /></td>
+                    </tr>)}
+                )}
             </table>
         </div>
         )
