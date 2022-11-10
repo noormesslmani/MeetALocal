@@ -21,6 +21,7 @@ export async function signin(data){
   }
 
   export async function getAppStat(){
+    console.log(headers)
     const config = {
       method: "get",
       headers,
@@ -41,6 +42,22 @@ export async function signin(data){
       method: "get",
       headers,
       url:`${baseURL}admins/users/${type}/${offset}`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.log(error)
+      return {'success': false, error}
+    }
+  }
+  export async function toggleBans(data){
+    const config = {
+      method: "post",
+      headers,
+      data,
+      url:`${baseURL}admins/toggle-ban`,
     }
     try{
       const res = await axios(config)
