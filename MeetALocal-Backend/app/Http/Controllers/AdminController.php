@@ -77,7 +77,7 @@ class AdminController extends Controller
         ], 201);
     }
    
-    public function getUsers($type){
+    public function getUsers($type, $offset){
         $validator = Validator::make(['type' => $type], [
             'type' => 'required|in:Local,Foreigner',
         ]);
@@ -85,7 +85,15 @@ class AdminController extends Controller
             return response()->json($validator->errors()->toJson(), 400);
         }
         $type_id=UserType::where('user_type',$type)->pluck('id')[0];
-        $users=User::join('countries','residence_id','countries.id')->where('type_id',$type_id)->select('users.id','name','email','created_at','country')->orderBy('created_at', 'desc')->get();
+        $users=User::join('countries','residence_id','countries.id')->where('type_id',$type_id)->select('users.id','name','email','created_at','country')->orderBy('created_at', 'desc')->offset($offset)
+        ->limit(15)->get();
+        foreach($users as $user){
+            $user['ban']=false;
+            if(Ban::where('banned_id', $user->id)->exists()){
+                $user['ban']=true;
+            }
+            
+        }
         return response()->json([
             'message' => 'ok',
             'data' => $users,
