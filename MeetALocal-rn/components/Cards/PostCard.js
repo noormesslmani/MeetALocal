@@ -5,7 +5,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PostCardStyles from '../ComponentsStyles/PostCardStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
-import CommentsModal from '../Modals/CommentsModal';
 import image from '../../assets/profile.jpg'
 
 
@@ -13,10 +12,9 @@ const PostCard=({navigation, item})=> {
     const [totalComments, setTotalComments]=useState(item.comments)
     const [categories, setCategories]=useState([])
     const [icons, setIcons]=useState([])
-    const [modalVisible, setModalVisible]=useState(false)
     const handlePost=()=>{
-    console.log('pressed')
-    setModalVisible(true)}
+     navigation.navigate('comments',{item})
+}
   return (<>
     <TouchableOpacity style={PostCardStyles.card} onPress={handlePost}>
         <View style={PostCardStyles.headerContainer}>
@@ -34,7 +32,6 @@ const PostCard=({navigation, item})=> {
             <Icon name="comment-o" color="rgba(140, 87, 186, 0.34)" size={15} /> 
         </View>
     </TouchableOpacity>
-    <CommentsModal modalVisible={modalVisible} setModalVisible={setModalVisible} item={item} totalComments={totalComments} setTotalComments={setTotalComments}/>
     </>
   )
 }
