@@ -27,8 +27,8 @@ const LogInForm=()=> {
     password,}
     const result =await signin(data)
     if (result.success){
-        console.log('success')
-        localStorage.setItem('user',result.data.user)
+        localStorage.setItem('user',JSON.stringify(result.data.user))
+        navigate('/home')
         }
     }
   return (

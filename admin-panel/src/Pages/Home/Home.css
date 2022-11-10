@@ -7,10 +7,14 @@
     bottom: 80vh;
 }
 .dashboard-container{
-    align-self: flex-end;
-    margin-left: 250px;
     width: calc(100vw - 250px);
-    height: 90vh;
-    padding: 50px;
-    background-color: aqua;
+    height: 80vh;
+    padding: 10px;
+}
+.home-container{
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+.welcome{
+    font-size: 38px;
 }
