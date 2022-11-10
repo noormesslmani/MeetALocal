@@ -28,6 +28,7 @@ import LocalProfile from '../Profile/LocalProfile'
 import LocalsMap from '../General/LocalsMap';
 import EditForeignerProfile from '../Profile/EditProfileForeigners';
 import LocalPage from '../General/LocalPage';
+import PostComments from '../General/Comments';
 export default function RootNavigation() {
   
   const Stack = createNativeStackNavigator();
@@ -43,6 +44,7 @@ export default function RootNavigation() {
         <Stack.Screen name="setup" options={{headerTitle: () => <Logo/>,}}  component={SetUpScreen} />
         <Stack.Screen  name="setup-map" component={SetUpMap} options={{headerTitle: () => <Logo/>,}}/>
         <Stack.Screen name="categories" options={{headerTitle: () => <Logo/>,}} component={Categories} />
+        <Stack.Screen name="comments"  component={PostComments} />
         <Stack.Screen name="tabs" options={{headerShown: false}} component={MyTabs} />
         <Stack.Screen  name="posts" component={Posts} 
           options={{ 
