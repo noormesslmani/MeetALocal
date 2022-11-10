@@ -10,17 +10,17 @@ const Header=({type})=> {
   if(type==1){
     return (
       <header className='flex justify-center align-center header'>
-          <Logo/>
+          <Logo type={1}/>
       </header>
     )
   }
   if(type==2){
     return (
       <header className='flex align-center header space-between'>
-          <Logo/>
+          <Logo type={2}/>
           <div className='flex align-center justify-center'>
             <p>{user.name}</p>
-            <img src={ user.profile_picture? `http://127.0.0.1:8000/${user.profile_picture}`:{profile}} className='profile-img'></img>
+            <img src={ user.profile_picture? `http://192.168.1.7:8000/${user.profile_picture}`:{profile}} className='profile-img'></img>
           </div>
       </header>
     )
