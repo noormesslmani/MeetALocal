@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, Modal, Pressable, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
 import React from 'react'
 import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext } from "react";
@@ -9,6 +9,7 @@ import PostCard from '../../components/Cards/PostCard';
 import { getAllPosts, getOwnPosts } from '../../network/App';
 import Filters from '../../components/Header/Filters';
 import BackArrow from '../../components/Header/BackArrow';
+import { colors } from '../../constants/colors';
 const Posts=({navigation})=> {
   const [viewOwn, setViewOwn]=useState(false)
   const [country, setCountry]=useState('all');
@@ -16,20 +17,37 @@ const Posts=({navigation})=> {
   const [data, setdata]=useState([])
   const [modalVisible, setModalVisible] = useState(false)
   const [newPostModalVisible, setNewPostModalVisible] = useState(false)
+  const [isListEnd, setIsListEnd]=useState(false)
+  const [isLoadingMore, setIsLoadingMore]=useState(false)
+  const [isLoading, setIsLoading]= useState(false)
+  const [page, setPage]=useState(0)
   useEffect(()=>{
     getPosts()
-  },[viewOwn, country, category])
+  },[viewOwn, country, category, page])
   
   const getPosts= async()=>{
     let result
+    page==0? setIsLoading(true): setIsLoadingMore(true)
     if(viewOwn){
       result = await getOwnPosts()
+      if (result.success){
+        setIsLoading(false)
+        setdata(result.data.data)
+      }
     }
     else {
-      result = await getAllPosts(country, category)
-    }
-    if (result.success){
-      setdata(result.data.data)
+      result = await getAllPosts(country, category, 20*page)
+      if (result.success){
+        setIsLoading(false)
+        setIsLoadingMore(false)
+        if(result.data.data.length==0){
+          setIsListEnd(true)
+          console.log(page)
+        }
+        else{
+          setdata( data =>[...data, ...result.data.data])
+        }
+      }
     }
   }
   const handleFilter=()=>{
@@ -49,6 +67,18 @@ const Posts=({navigation})=> {
     }, [navigation, viewOwn])
   const renderItem = ({ item }) => (
     <PostCard item={item} navigation={navigation} key={item.id}/>);
+  
+    const fetchMore=()=>{
+      if(!isListEnd){
+        setPage(page+1)
+      }
+    }
+    const renderFooter=()=>(
+      <View style={{alignItems:"center", justifyContent:"center", padding:10}}>
+        {isLoadingMore?<ActivityIndicator color={colors.lightViolet} />:null}
+        {isListEnd?<Text> You reached the end of the list</Text>:null}
+      </View>
+    )
   return (
       <View style={HomeStyles.container}>
         <View style={PostsStyles.view}>
@@ -69,6 +99,10 @@ const Posts=({navigation})=> {
             keyExtractor={item => item.id}
             style={PostsStyles.list}
             contentContainerStyle={{ paddingBottom: 300}}
+            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:null}
+            onEndReachedThreshold={1}
+            onEndReached={fetchMore}
+            ListFooterComponent={renderFooter}
           />
         </SafeAreaView>
       </View>

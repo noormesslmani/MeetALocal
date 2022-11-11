@@ -2,12 +2,12 @@ import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const baseURL= "http://192.168.1.7:8000/api/v1.0.0/"
 
-export async function getLocals(country, category){
+export async function getLocals(country, category, offset){
     const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
       headers: { Authorization: `Bearer ${token}`},
-      url:`${baseURL}users/locals/${country}/${category}`,
+      url:`${baseURL}users/locals/${country}/${category}/${offset}`,
     }
     try{
       const res = await axios(config)
@@ -84,12 +84,12 @@ export async function getLocals(country, category){
       return {'success': false, error}
     }
   }
-  export async function getAllPosts(country, category){
+  export async function getAllPosts(country, category, offset){
     const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
       headers: { Authorization: `Bearer ${token}`},
-      url:`${baseURL}users/posts/${country}/${category}`,
+      url:`${baseURL}users/posts/${country}/${category}/${offset}`,
     }
     try{
       const res = await axios(config)
