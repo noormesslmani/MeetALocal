@@ -13,9 +13,9 @@
 
 <img src="./readme/title2.svg"/>
 
-> The Well app is a mental health and mindfulness app built on top of the science of positive psychology. The Well app is more than just another meditation or journaling app; it encourages you to enhance and reflect on your day with structured, guided activities.
-> 
-> There are 5 daily tasks that the Well app asks you to complete each day: record 3 gratitudes, write a journal entry, perform 3 acts of kindness, exercise for 20 minutes, and meditate for 15 minutes.
+> Meet A Local app is a social media app which aims to connect foreigners to locals in any place in the world. Foreigners can browse locals and filter them, moreover they can find them on map using google maps feature. 
+> Locals are able to create events which users can browse and filter
+>Foreigners are able to visit locals profile page and chat with them
 
 ### Foreigners Stories
 - As a foreigner, I want to browse locals in the country I'm living in
@@ -44,18 +44,23 @@ Note that i didn't use any styling library or theme, all from scratch and using 
 
 | Sign In  | Sign Up  |
 | -----------------| -----|
-| ![Landing](https://github.com/julescript/spotifyndr/blob/master/demo/Landing_Page.jpg) | ![Home/Search](https://github.com/julescript/spotifyndr/blob/master/demo/Search_Page.jpg) |
+| ![Landing] | ![Home/Search] |
 
 | Sign Up  | Sign Up  |
 | -----------------| -----|
-| ![Artists results](https://github.com/julescript/spotifyndr/blob/master/demo/Artists_Page.jpg) | ![Artist's Albums](https://github.com/julescript/spotifyndr/blob/master/demo/Albums_Page.jpg) |
+| ![Artists results] | ![Artist's Albums] |
 
 
 <br><br>
 
 <img src="./readme/title4.svg"/>
 
-Here's a brief high-level overview of the tech stack the Well app uses:
+Here's a brief high-level overview of the tech stacks the app uses:
+
+This project uses the React Native framework. React Native (also known as RN) is a popular JavaScript-based mobile app framework that allows you to build natively-rendered mobile apps for iOS and Android. The framework lets you create an application for various platforms by using the same codebase.
+The backend is implemented using Laravel which is a free and open-source PHP web framework, intended for the development of web applications following the model–view–controller (MVC) architectural pattern.
+For storing messages, the app uses the Firebase package which is a Google-backed application development software that enables developers to develop iOS, Android and Web apps. Firebase Realtime Database is a cloud-hosted NoSQL database that enables data to be stored and synced between users in real time.
+React-native-maps is used to display user's and locals locations, and autocomplete service is used to fill the names of a place being searched for
 
 
 
@@ -66,7 +71,7 @@ Here's a brief high-level overview of the tech stack the Well app uses:
 
 | Landing  | Home/Search  |
 | -----------------| -----|
-| ![Landing](https://github.com/julescript/spotifyndr/blob/master/demo/Landing_Page.jpg) | ![Home/Search](https://github.com/julescript/spotifyndr/blob/master/demo/Search_Page.jpg) |
+| ![Landing] | ![Home/Search] |
 
 
 <br><br>
@@ -86,18 +91,4 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
