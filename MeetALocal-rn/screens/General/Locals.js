@@ -4,10 +4,7 @@ import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'
 import LocalsStyles from './Styles/LocalsPageStyles';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from 'axios';
 import FilterModal from '../../components/Modals/FilterModal';
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import LocalCard from '../../components/Cards/LocalCard';
 import Filters from '../../components/Header/Filters';
 import BackArrow from '../../components/Header/BackArrow';
@@ -35,6 +32,15 @@ const Locals=({navigation})=> {
       }
     },[viewFav, country, category, page])
 
+    useEffect(() => {
+      navigation.setOptions({
+        headerLeft: () => <BackArrow navigation={navigation}/>,
+        headerRight:()=>(<View style={{flexDirection:"row"}}>
+        {!viewFav && <Filters handleFilter={handleFilter}/>}
+        <Map handleMap={handleMap} />
+        </View>)
+      });
+    }, [navigation, data, viewFav]);
   const getAllLocals= async()=>{
     page==0? setIsLoading(true): setIsLoadingMore(true)
     const result = await getLocals(country, category, 15*page)
@@ -52,34 +58,30 @@ const Locals=({navigation})=> {
     }
   } 
   const getFavoriteLocals=async()=>{
+    setIsLoading(true)
     const result = await getFavorites()
     if (result.success){
+      setIsLoading(false)
       setdata(result.data.data)
     }
   } 
   const renderItem = ({ item, index }) => (
-    <LocalCard item={item} key={index} navigation={navigation} />
+    <LocalCard item={item} key={item} navigation={navigation} />
     );
   const handleFilter=()=>{
     setModalVisible(true)
   }
   const handleMap=()=>{
-    navigation.navigate('locals-map',{data: data})
+    if(!isLoading){
+      navigation.navigate('locals-map',{data: data})
+    }
   }
-  useEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => <BackArrow navigation={navigation}/>,
-      headerRight:()=>(<View style={{flexDirection:"row"}}>
-      {!viewFav && <Filters handleFilter={handleFilter}/>}
-      <Map handleMap={handleMap} />
-      </View>)
-    });
-  }, [navigation, data, viewFav]);
   const fetchMore=()=>{
     if(!isListEnd){
       setPage(page+1)
     }
   }
+  console.log(data)
   return (
       <View style={HomeStyles.container}>
         {user.type_id==2 && <View style={LocalsStyles.view}>
