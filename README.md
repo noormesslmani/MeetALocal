@@ -4,14 +4,14 @@
 
 > Hello world! This is the project’s summary that describes the project plain and simple, limited to the space available.  
 
-**[PROJECT PHILOSOPHY](https://github.com/noormesslmani/MeetALocal#-project-philosophy) • [WIREFRAMES](https://github.com/noormesslmani/MeetALocal#-wireframes) • [TECH STACK](https://github.com/noormesslmani/MeetALocal#-tech-stack) • [IMPLEMENTATION](https://github.com/noormesslmani/MeetALocal#-impplementation) • [HOW TO RUN?](https://github.com/noormesslmani/MeetALocal#-how-to-run)**
+**[PROJECT PHILOSOPHY](https://github.com/noormesslmani/MeetALocal#-project-philosophy) • [WIREFRAMES](https://github.com/noormesslmani/MeetALocal#-wireframes) • [TECH STACK](https://github.com/noormesslmani/MeetALocal#-tech-stack) • [IMPLEMENTATION](https://github.com/noormesslmani/MeetALocal#-implementation) • [HOW TO RUN?](https://github.com/noormesslmani/MeetALocal#-how-to-run)**
 
 </div>
 
 <br><br>
 
 
-<img src="./readme/title2.svg"/>
+<img src="./readme/title2.svg" id="project-philosophy"/>
 
 > Meet A Local app is a social media app which aims to connect foreigners to locals in any place in the world. Foreigners can browse locals and filter them, moreover they can find them on map using google maps feature. 
 > Locals are able to create events which users can browse and filter
@@ -37,7 +37,7 @@
 - As an admin, I want to be able to ban/unban users
 
 <br><br>
-<img src="./readme/title3.svg"/>
+<img src="./readme/title3.svg" id="wireframes"/>
 
 > This design was planned before on paper, then moved to Figma app for the fine details.
 Note that i didn't use any styling library or theme, all from scratch and using pure css modules
@@ -53,7 +53,7 @@ Note that i didn't use any styling library or theme, all from scratch and using 
 
 <br><br>
 
-<img src="./readme/title4.svg"/>
+<img src="./readme/title4.svg" id="tech-stack"/>
 
 Here's a brief high-level overview of the tech stacks the app uses:
 <br><br>
@@ -70,7 +70,7 @@ React-native-maps is used to display user's and locals locations, and autocomple
 
 
 <br><br>
-<img src="./readme/title5.svg"/>
+<img src="./readme/title5.svg" id="implementation"/>
 
 > Uing the above mentioned tecch stacks and the wireframes build with figma from the user sotries we have, the implementation of the app is shown as below, these are screenshots from the real app
 
@@ -80,7 +80,7 @@ React-native-maps is used to display user's and locals locations, and autocomple
 
 
 <br><br>
-<img src="./readme/title6.svg"/>
+<img src="./readme/title6.svg" id="how-to-run"/>
 
 
 > This is an example of how you may give instructions on setting up your project locally.
