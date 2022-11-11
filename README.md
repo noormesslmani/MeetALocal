@@ -56,10 +56,15 @@ Note that i didn't use any styling library or theme, all from scratch and using 
 <img src="./readme/title4.svg"/>
 
 Here's a brief high-level overview of the tech stacks the app uses:
-
-This project uses the React Native framework. React Native (also known as RN) is a popular JavaScript-based mobile app framework that allows you to build natively-rendered mobile apps for iOS and Android. The framework lets you create an application for various platforms by using the same codebase.
+<br><br>
+This project uses the React Native framework. React Native (also known as RN) is a popular JavaScript-based mobile app framework that allows you to build natively-rendered mobile apps for iOS and Android. 
+<br><br>
+The framework lets you create an application for various platforms by using the same codebase.
+<br><br>
 The backend is implemented using Laravel which is a free and open-source PHP web framework, intended for the development of web applications following the model–view–controller (MVC) architectural pattern.
+<br><br>
 For storing messages, the app uses the Firebase package which is a Google-backed application development software that enables developers to develop iOS, Android and Web apps. Firebase Realtime Database is a cloud-hosted NoSQL database that enables data to be stored and synced between users in real time.
+<br><br>
 React-native-maps is used to display user's and locals locations, and autocomplete service is used to fill the names of a place being searched for
 
 
