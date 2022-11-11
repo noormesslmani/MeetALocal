@@ -19,7 +19,7 @@ const LocalsMap=({navigation})=> {
         setLat(data[0].latitude)
         setLng(data[0].longitude)
       }},[])
-      
+     
   return (
             <View style={LocalsMapStyles.mapContainer}>
                 <Map data={data} lat={lat} lng={lng} type={1} navigation={navigation}/>

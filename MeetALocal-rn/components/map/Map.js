@@ -4,7 +4,7 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import {Marker, Callout} from 'react-native-maps';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { colors } from '../../constants/colors';
-import Animated from "react-native-reanimated";
+import MapStyles from '../ComponentsStyles/MapStyles';
 import MapCard from '../Cards/MapCard';
 const Map=({lat, lng, data, type, handleDrag, navigation})=> { 
   const myList = useRef()
@@ -18,7 +18,7 @@ const Map=({lat, lng, data, type, handleDrag, navigation})=> {
                       latitudeDelta: 5,
                       longitudeDelta: 5,
                   }}
-                  style={[type ==1 && styles.map, type==2 && styles.map2]}
+                  style={[type ==1 && MapStyles.map, type==2 && MapStyles.map2]}
                   loadingEnabled={true}
                   showsUserLocation={true}
                   provider={PROVIDER_GOOGLE}
@@ -40,52 +40,12 @@ const Map=({lat, lng, data, type, handleDrag, navigation})=> {
                   onDragEnd={handleDrag}>
                   </Marker>} 
                 </MapView>
-                {type==1 && <MapCard data={data} myList={myList}/> }
+                {type==1 && <MapCard data={data} myList={myList} navigation={navigation}/> }
               </>
   )
 }
 export default Map
 
-const styles = StyleSheet.create({
-    map:{
-        alignSelf:"flex-end",
-        width:"100%",
-        height:"100%",
-      },
-    map2:{
-    width:"100%",
-    height:"85%",
-    },
-    card_scroll_view: {
-      position:'absolute',
-      bottom:10,
-      left:10,
-      right:0,
-      paddingVertical:8
-      },
-      card_view: {
-      elevation:90,
-      backgroundColor:'#fff',
-      borderRadius:10,
-      marginHorizontal: 10,
-      height: 200,
-      width: 250,
-      overflow: 'hidden'
-      },
-      card_image: {
-          flex:4,
-      },
-      title: {
-          fontSize: 20, 
-          fontWeight:'bold',
-      },
-      country: {
-          fontSize:12,
-          color: colors.violet
-      },
-      card_inner_view: {
-          borderRadius:15
-      },
-});
+
 
   
