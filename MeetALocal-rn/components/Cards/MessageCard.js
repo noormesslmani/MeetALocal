@@ -4,6 +4,8 @@ import { useState, useEffect, useContext } from "react";
 import MessageCardStyles from '../ComponentsStyles/MessageCardStyles';
 import { getUserDetails } from '../../network/App';
 import { address } from '../../constants/address';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { colors } from '../../constants/colors';
 const MessageCard=({navigation, chat})=> {
     const [image, setImage]=useState(null)
     const [name, setName]=useState(null)
@@ -27,13 +29,17 @@ const MessageCard=({navigation, chat})=> {
   return (
     <View style={MessageCardStyles.container}>
         <TouchableOpacity style={MessageCardStyles.messageContainer} onPress={handleChat}>
-            <Image source={image?{ uri:`${address}/${image}`}: require('../../assets/blank-profile.webp')} style={MessageCardStyles.avatar}/>
-            <View>
-            <Text style={{marginTop:10}}>{name}</Text>
-            {type_id==1?<Text style={{color:"#8C57BA", fontSize:12}}>local</Text>:null}
-            <Text style={MessageCardStyles.text}>{chat.text}  </Text>
+            <View style={MessageCardStyles.messageSubContainer}>
+                <Image source={image?{ uri:`${address}/${image}`}: require('../../assets/blank-profile.webp')} style={MessageCardStyles.avatar}/>
+                <View>
+                <Text style={{marginTop:10}}>{name}</Text>
+                {type_id==1?<Text style={{color:"#8C57BA", fontSize:12}}>local</Text>:null}
+                <Text style={MessageCardStyles.text}>{chat.text}  </Text>
+                </View>
             </View>
+            <Ionicons name='arrow-forward' size={30} color={colors.violet} />
         </TouchableOpacity>
+        <View style={MessageCardStyles.separator}></View>
     </View>
   )
 }

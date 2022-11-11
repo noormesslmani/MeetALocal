@@ -9,6 +9,7 @@ import { Bounce } from "react-activity";
 import "react-activity/dist/library.css";
 import PieChart from '../../Components/Chats/PieCharts';
 import BarChart from '../../Components/Chats/BarCharts';
+import { NavLink } from 'react-router-dom';
 const LocalStatistics=({type})=> {
   const [total, setTotal]=useState(null)
   const [genderData, setGenderData]= useState(null)
@@ -47,14 +48,18 @@ const LocalStatistics=({type})=> {
         <div className='flex'>
             <NavBar/>
             <div className='dashboard-container flex-col align-center'>
+              <div className='flex space-between stat-links-container'>
+                <NavLink to='/locals-statistics' className='stat-link'>Locals</NavLink>
+                <NavLink to='/locals-statistics' className='stat-link'>Foreigners</NavLink>
+              </div>
               {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
-              <div className='flex wrap'>
+              <div className='flex wrap space-between charts-container'>
                 {!isLoading && <PieChart
                 options={{ labels: ["Male", "Female"] }} series={genderData} title={'Genders'}/>}
                 {!isLoading && <PieChart
                 options={{ labels: ["Below 30", "30-60","Above 60"] }} series={ageData} title={'Age Groups'} />}
               </div>
-              <div className='flex wrap'>
+              <div className='flex wrap space-between charts-container'>
                 {!isLoading && <BarChart
                 options={{chart: {id: "simple-bar"},xaxis: {categories: categoryLabels }}} series={[{data: categoryData}]} title={'Top Categories'}/>}
                 {!isLoading && <BarChart

@@ -4,7 +4,7 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import {Marker, Callout} from 'react-native-maps';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { colors } from '../../constants/colors';
-import { WebView } from 'react-native-webview';
+
 const Map=({lat, lng, data, type, handleDrag, navigation})=> { 
 
   return (

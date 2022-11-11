@@ -1,6 +1,6 @@
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import { View, StyleSheet} from 'react-native'
 import React from 'react'
+import { colors } from '../../constants/colors';
 const MapSearch=({handlePress})=> {
        
   return (
@@ -8,11 +8,17 @@ const MapSearch=({handlePress})=> {
                     placeholder="Search"
                     query={{
                     key: 'AIzaSyCoxD1F6k0dnxHoKGbCpjYo-O23mkBBvts',
-                    language: 'en', // language of the results
+                    language: 'en', 
                     }}
                     fetchDetails={true}
                     onPress={(data,details ) => handlePress(data,details)}
                     onFail={(error) => console.error(error)}
+                    listUnderlayColor={colors.lightViolet}
+                    styles={{textInput: {
+                      height: 38,
+                      fontSize: 16,
+                    },
+                  }}
                     requestUrl={{
                     url:
                         'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api',

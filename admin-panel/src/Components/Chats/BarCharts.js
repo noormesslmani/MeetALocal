@@ -5,7 +5,7 @@ import Chart from 'react-apexcharts'
 const BarChart=({options, series, title})=>{
     console.log(series)
     return(
-        <Chart  options={options} series={series} type="bar" width="360" />
+        <Chart  options={options} series={series} type="bar" width="340" />
     )
 }
 export default BarChart

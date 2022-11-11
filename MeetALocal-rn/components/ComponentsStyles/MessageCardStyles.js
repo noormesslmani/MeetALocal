@@ -1,11 +1,12 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { widths } from "../../constants/dimensions";
-
+import { colors } from "../../constants/colors";
+import { color } from "react-native-reanimated";
 const MessageCardStyles = StyleSheet.create({
     container:{
         width:widths.width,
         height:120,
-        justifyContent:"center"
+        justifyContent:"center",
     },
     messageContainer:{
         width:widths.width,
@@ -13,6 +14,12 @@ const MessageCardStyles = StyleSheet.create({
         flexDirection:"row",
         backgroundColor:"white",
         padding:15,
+        justifyContent:"space-between",
+        alignItems:"center"
+    },
+    messageSubContainer:{
+        flexDirection:"row",
+        width:"90%"
     },
     text:{
         color:"grey",
@@ -26,11 +33,12 @@ const MessageCardStyles = StyleSheet.create({
         borderRadius:30
     },
     separator:{
-        borderBottomColor: 'grey',
+        borderBottomColor: colors.lightViolet,
         borderBottomWidth: 0.3,
-        width: widths.width9,
+        width: widths.width,
         marginBottom:10,
     },
+    
    
 });
 export default MessageCardStyles;
