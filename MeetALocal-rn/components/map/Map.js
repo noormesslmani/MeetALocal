@@ -1,50 +1,62 @@
-import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, Modal, Pressable, StyleSheet} from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, FlatList} from 'react-native'
+import React, { useState, useRef, useEffect } from 'react'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import {Marker, Callout} from 'react-native-maps';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { colors } from '../../constants/colors';
-
+import MapCard from '../Cards/MapCard';
 const Map=({lat, lng, data, type, handleDrag, navigation})=> { 
-
+  const myList = useRef()
+  const renderItem = ({ item, index }) => (
+    <MapCard item={item}/>
+  );
+  
   return (
               <>
                 <MapView
-                region= {{
+                  region= {{
                     latitude: lat,
                     longitude: lng,
                     latitudeDelta: 5,
                     longitudeDelta: 5,
-                }}
-                style={[type ==1 && styles.map, type==2 && styles.map2]}
-                loadingEnabled={true}
-                showsUserLocation={true}
-                provider={PROVIDER_GOOGLE}
-                maxZoomLevel={15}
-                >
-                {type==1 && data.map((local, index) => (
-          
-                <Marker
-                key={local.id}
-                coordinate={{latitude: local.latitude, longitude: local.longitude}}
-                pinColor={colors.violet}>
-                <Callout tooltip={true} onPress={()=>navigation.navigate('local-page', {item: local})}>
-                  <View style={{width:160, height:50, backgroundColor:'white', borderRadius:20, padding:5, alignItems:"center"}}>
-                  <Text style={{fontSize:14, fontWeight:"600", color:colors.violet}}> {local.name}</Text>
-                  <Text style={{fontSize:10, fontWeight:"400", color:colors.violet}}> {local.country}</Text>
-                  </View>
-                </Callout>
-                </Marker>
-                ))
-                }  
-                {type==2 && 
-                <Marker coordinate={{latitude: lat,
-                longitude:lng}}
-                pinColor='blue'
-                draggable={true}
-                onDragEnd={handleDrag}>
-                </Marker>} 
+                  }}
+                  style={[type ==1 && styles.map, type==2 && styles.map2]}
+                  loadingEnabled={true}
+                  showsUserLocation={true}
+                  provider={PROVIDER_GOOGLE}
+                  maxZoomLevel={15}>
+
+                {/* type 1 Markers */}
+                  {type==1 && data.map((local, index) => (
+                  <Marker
+                  coordinate={{latitude: local.latitude, longitude: local.longitude}}
+                  pinColor={colors.violet}
+                  onPress={()=> myList.current.scrollToIndex({index: index, animated: true })}
+                  >
+                  </Marker>))}  
+
+                {/* type 2 Markers */}
+                  {type==2 && 
+                  <Marker coordinate={{latitude: lat,
+                  longitude:lng}}
+                  pinColor='blue'
+                  draggable={true}
+                  onDragEnd={handleDrag}>
+                  </Marker>} 
                 </MapView>
+
+                {/* list of cards for type 1 map */}
+                {type==1 && 
+                  <FlatList
+                  horizontal
+                  keyExtractor={item => item.id.toString()}
+                  scrollEventThrottle={1}
+                  showsHorizontalScrollIndicator={false}
+                  style={styles.card_scroll_view}
+                  data={data}
+                  ref={myList}
+                  initialScrollIndex={0}
+                  renderItem={renderItem}>
+                </FlatList>}
               </>
   )
 }
@@ -60,6 +72,7 @@ const styles = StyleSheet.create({
     width:"100%",
     height:"85%",
     },
-  });
+    
+});
 
   
