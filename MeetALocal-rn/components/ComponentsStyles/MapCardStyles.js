@@ -3,7 +3,7 @@ import { widths } from "../../constants/dimensions";
 import { colors } from "../../constants/colors";
 import { color } from "react-native-reanimated";
 const MapCardStyles = StyleSheet.create({
-    card_scroll_view: {
+        card_scroll_view: {
         position:'absolute',
         bottom:10,
         left:10,
@@ -12,7 +12,7 @@ const MapCardStyles = StyleSheet.create({
         },
         card_view: {
         elevation:90,
-        backgroundColor:'#fff',
+        backgroundColor:'white',
         borderRadius:10,
         marginHorizontal: 10,
         height: 200,
@@ -20,11 +20,12 @@ const MapCardStyles = StyleSheet.create({
         overflow: 'hidden'
         },
         card_image: {
-            flex:4,
+            width: 250,
+            height: 140,
         },
         title: {
-            fontSize: 20, 
-            fontWeight:'bold',
+            fontSize: 16, 
+            fontWeight:"700",
         },
         country: {
             fontSize:12,
