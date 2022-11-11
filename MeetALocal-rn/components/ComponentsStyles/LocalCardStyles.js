@@ -6,11 +6,10 @@ const LocalCardStyles = StyleSheet.create({
     container:{
         marginTop:40,
         alignItems:"center",
-        width:widths.width, 
-    },
-    card:{
-        width: widths.width9,
-        borderRadius:10,
+        width:widths.width9,
+        alignSelf:"center",
+        shadowColor: "#000",
+        height:"auto" ,
         shadowColor: "#000",
         shadowOffset: {
             width: 2,
@@ -18,13 +17,19 @@ const LocalCardStyles = StyleSheet.create({
         },
         shadowOpacity: 0.5,
         shadowRadius: 5,
+        elevation: 3,
+    },
+    card:{
+        width: widths.width9,
+        borderRadius:10,
     },
     image:{
-        borderTopEndRadius:10,
+        borderTopLeftRadius:10,
         borderTopRightRadius:10,
         width: widths.width9,
         height: 0.4*windowHeight,
         position: "relative",
+        
     },
     infoContainer:{
         width:widths.width9,

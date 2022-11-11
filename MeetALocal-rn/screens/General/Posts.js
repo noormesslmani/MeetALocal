@@ -10,6 +10,7 @@ import { getAllPosts, getOwnPosts } from '../../network/App';
 import Filters from '../../components/Header/Filters';
 import BackArrow from '../../components/Header/BackArrow';
 import { colors } from '../../constants/colors';
+import ListFooter from '../../components/General/ListFooter';
 const Posts=({navigation})=> {
   const [viewOwn, setViewOwn]=useState(false)
   const [country, setCountry]=useState('all');
@@ -73,12 +74,6 @@ const Posts=({navigation})=> {
         setPage(page+1)
       }
     }
-    const renderFooter=()=>(
-      <View style={{alignItems:"center", justifyContent:"center", padding:10}}>
-        {isLoadingMore?<ActivityIndicator color={colors.lightViolet} />:null}
-        {isListEnd?<Text> You reached the end of the list</Text>:null}
-      </View>
-    )
   return (
       <View style={HomeStyles.container}>
         <View style={PostsStyles.view}>
@@ -90,7 +85,6 @@ const Posts=({navigation})=> {
         <TouchableOpacity onPress={()=>{setNewPostModalVisible(true)}}>
           <Text style={PostsStyles.newPost}>New Post</Text>
         </TouchableOpacity>
-        <View style={PostsStyles.separator}/>
         <NewPostModal modalVisible={newPostModalVisible} setModalVisible={setNewPostModalVisible}/>
         <SafeAreaView>
           <FlatList
@@ -102,7 +96,7 @@ const Posts=({navigation})=> {
             ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:null}
             onEndReachedThreshold={1}
             onEndReached={fetchMore}
-            ListFooterComponent={renderFooter}
+            ListFooterComponent={<ListFooter isLoadingMore={isLoadingMore} isListEnd={isListEnd} />}
           />
         </SafeAreaView>
       </View>

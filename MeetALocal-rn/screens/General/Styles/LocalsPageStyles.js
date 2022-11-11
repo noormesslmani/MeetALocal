@@ -18,13 +18,9 @@ const LocalsStyles = StyleSheet.create({
         marginBottom:25,
     },
     selected:{
-        color:colors.violet
-    },
-    separator:{
-        borderBottomColor: 'grey',
-        borderBottomWidth: 0.3,
-        width: widths.width9,
-        marginBottom:10,
+        color:colors.violet,
+        textDecorationLine:"underline",
+        textDecorationColor:colors.violet
     },
     list:{
         width:widths.width,

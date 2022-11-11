@@ -24,7 +24,6 @@ const ChatScreen=()=> {
         getMessages()
     }, []);
     console.log(userId)
-    console.log('go')
     const getMessages = async () => {
         if(!chatId){
             var flag=true

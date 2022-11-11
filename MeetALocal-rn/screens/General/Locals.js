@@ -87,7 +87,6 @@ const Locals=({navigation})=> {
             <TouchableOpacity onPress={()=>setViewFav(true)}>{ <Text style={[LocalsStyles.options, viewFav? LocalsStyles.selected: null]}>Favorites</Text>}</TouchableOpacity>
         </View>}
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
-        {user.type_id==2 && <View style={LocalsStyles.separator}/>}
         <SafeAreaView>
           <FlatList
             showsVerticalScrollIndicator={false}

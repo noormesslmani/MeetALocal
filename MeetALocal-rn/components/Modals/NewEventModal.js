@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity, Image, ActivityIndicator, FlatList, SafeAreaView, Modal, Pressable, StyleSheet, ScrollView, TextInput, KeyboardAvoidingView} from 'react-native'
 import React from 'react'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useState, useEffect, useContext } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -93,8 +94,8 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
         onRequestClose={() => {
         setModalVisible(!modalVisible);
         }}>
-        <KeyboardAvoidingView style={EventsModalStyles.centeredView}>
-            <KeyboardAvoidingView style={EventsModalStyles.modalView}>
+        <View style={EventsModalStyles.centeredView}>
+            <View style={EventsModalStyles.modalView}>
                 <Text style={EventsModalStyles.title}>Create New Event</Text>
                 <View style={EventsModalStyles.container}>
                 {
@@ -107,7 +108,7 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
                         </TouchableOpacity>
                     </View>
                 </View>
-                <ScrollView style={{width:"90%", margin:10, alignSelf:"center"}}
+                <KeyboardAwareScrollView style={{width:"90%", margin:10, alignSelf:"center"}}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
                 >
@@ -165,9 +166,9 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
                 </View>
                 {isLoading && <ActivityIndicator color="#8C57BA" />}
                 <View style={EventsModalStyles.btnContainer}><AppButton text={'Create'} handlePress={hanldePress}/></View>
-                </ScrollView> 
-            </KeyboardAvoidingView>
-        </KeyboardAvoidingView>
+                </KeyboardAwareScrollView> 
+            </View>
+        </View>
     </Modal>
   )
 }

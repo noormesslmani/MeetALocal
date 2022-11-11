@@ -19,7 +19,9 @@ const PostsStyles = StyleSheet.create({
         marginBottom:25,
     },
     selected:{
-        color:colors.violet
+        color:colors.violet,
+        textDecorationLine:"underline",
+        textDecorationColor:colors.violet
     },
     separator:{
         borderBottomColor: 'grey',
