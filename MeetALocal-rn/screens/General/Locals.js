@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, Modal, Pressable, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
 import React from 'react'
 import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext } from "react";
@@ -13,13 +13,19 @@ import Filters from '../../components/Header/Filters';
 import BackArrow from '../../components/Header/BackArrow';
 import { getLocals, getFavorites } from '../../network/App';
 import Map from '../../components/Header/Map';
+import { set } from 'react-native-reanimated';
+import { colors } from '../../constants/colors';
 const Locals=({navigation})=> {
     const [country, setCountry]=useState('all');
     const [category, setCategory]=useState('all');
     const [viewFav, setViewFav]=useState(false)
     const [data, setdata]=useState([])
     const [modalVisible, setModalVisible] = useState(false)
+    const [isListEnd, setIsListEnd]=useState(false)
+    const [isLoadingMore, setIsLoadingMore]=useState(false)
+    const [isLoading, setIsLoading]= useState(false)
     const { user, setUser, locals, setLocals} = useContext(UserContext);
+    const [page, setPage]=useState(0)
     useEffect(()=>{
       if(!viewFav){
         getAllLocals()
@@ -27,13 +33,22 @@ const Locals=({navigation})=> {
       else{
         getFavoriteLocals()
       }
-    },[viewFav, country, category])
+    },[viewFav, country, category, page])
 
   const getAllLocals= async()=>{
-    const result = await getLocals(country, category)
+    page==0? setIsLoading(true): setIsLoadingMore(true)
+    const result = await getLocals(country, category, 15*page)
     if (result.success){
-      setdata(result.data.data)
-      setLocals(result.data.data)
+      setIsLoading(false)
+      setIsLoadingMore(false)
+      if(result.data.data.length==0){
+        setIsListEnd(true)
+        console.log(page)
+      }
+      else{
+        setdata( data =>[...data, ...result.data.data])
+        setLocals( locals =>[...locals, ...result.data.data])
+      }
     }
   } 
   const getFavoriteLocals=async()=>{
@@ -60,6 +75,17 @@ const Locals=({navigation})=> {
       </View>)
     });
   }, [navigation, data, viewFav]);
+  const fetchMore=()=>{
+    if(!isListEnd){
+      setPage(page+1)
+    }
+  }
+  const renderFooter=()=>(
+    <View style={{alignItems:"center", justifyContent:"center", padding:10}}>
+      {isLoadingMore?<ActivityIndicator color={colors.lightViolet} />:null}
+      {isListEnd?<Text> You reached the end of the list</Text>:null}
+    </View>
+  )
   return (
       <View style={HomeStyles.container}>
         {user.type_id==2 && <View style={LocalsStyles.view}>
@@ -77,6 +103,10 @@ const Locals=({navigation})=> {
             keyExtractor={item => item.id}
             style={LocalsStyles.list}
             contentContainerStyle={{ paddingBottom: 300}}
+            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:null}
+            onEndReachedThreshold={1}
+            onEndReached={fetchMore}
+            ListFooterComponent={renderFooter}
           />
         </SafeAreaView>
       </View>
