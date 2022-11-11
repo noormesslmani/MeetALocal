@@ -13,8 +13,8 @@ import Filters from '../../components/Header/Filters';
 import BackArrow from '../../components/Header/BackArrow';
 import { getLocals, getFavorites } from '../../network/App';
 import Map from '../../components/Header/Map';
-import { set } from 'react-native-reanimated';
 import { colors } from '../../constants/colors';
+import ListFooter from '../../components/General/ListFooter';
 const Locals=({navigation})=> {
     const [country, setCountry]=useState('all');
     const [category, setCategory]=useState('all');
@@ -80,12 +80,6 @@ const Locals=({navigation})=> {
       setPage(page+1)
     }
   }
-  const renderFooter=()=>(
-    <View style={{alignItems:"center", justifyContent:"center", padding:10}}>
-      {isLoadingMore?<ActivityIndicator color={colors.lightViolet} />:null}
-      {isListEnd?<Text> You reached the end of the list</Text>:null}
-    </View>
-  )
   return (
       <View style={HomeStyles.container}>
         {user.type_id==2 && <View style={LocalsStyles.view}>
@@ -106,7 +100,7 @@ const Locals=({navigation})=> {
             ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:null}
             onEndReachedThreshold={1}
             onEndReached={fetchMore}
-            ListFooterComponent={renderFooter}
+            ListFooterComponent={<ListFooter isLoadingMore={isLoadingMore} isListEnd={isListEnd} />}
           />
         </SafeAreaView>
       </View>
