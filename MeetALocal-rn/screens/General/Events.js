@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, SafeAreaView, FlatList, Pressable } from 'react-native'
+import { View, Text, TouchableOpacity, Image, SafeAreaView, FlatList, ActivityIndicator } from 'react-native'
 import React from 'react'
 import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext } from "react";
@@ -6,11 +6,11 @@ import { UserContext } from '../../App'
 import EventsStyles from './Styles/EventsPageStyles';
 import FilterModal from '../../components/Modals/FilterModal';
 import NewEventModal from '../../components/Modals/NewEventModal';
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import EventCard from '../../components/Cards/EventCard';
 import {getAllEvents, getSavedEvents, getOwnEvents} from '../../network/App'
 import BackArrow from '../../components/Header/BackArrow';
 import Filters from '../../components/Header/Filters';
+import { colors } from '../../constants/colors';
 const Events=({navigation})=> {
   const [choice, setChoice]=useState(1)
   const [modalVisible, setModalVisible] = useState(false)
@@ -20,12 +20,14 @@ const Events=({navigation})=> {
   const [eventModalVisible, setEventModalVisible]=useState(false)
   const { user, setUser} = useContext(UserContext);
   const [eventCreated,setEventCreated]=useState(false)
+  const [isLoading, setIsLoading]=useState(false)
   useEffect(()=>{
     getEvents()
   },[choice, country, category, eventCreated])
   
   const getEvents= async()=>{
     let result
+    setIsLoading(true)
     if(choice==1){
       result = await getAllEvents(country, category)
     }
@@ -38,6 +40,7 @@ const Events=({navigation})=> {
     if (result.success){
       setdata(result.data.data)
     }
+    setIsLoading(false)
   }
   const handleFilter=()=>{
     setModalVisible(true)
@@ -57,9 +60,9 @@ const Events=({navigation})=> {
       navigation.setOptions({
         headerLeft: () => <BackArrow navigation={navigation} />,
         headerRight:()=><></>})
-    }
-    
+      }
     }, [navigation, choice])
+    
   return (
     <View style={HomeStyles.container}>
         <View style={EventsStyles.view}>
@@ -79,6 +82,7 @@ const Events=({navigation})=> {
             Key={2}
             keyExtractor={item => item.id}
             style={EventsStyles.list}
+            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:null}
             contentContainerStyle={{paddingTop:20, paddingBottom: 300}}
           />
         </SafeAreaView>
