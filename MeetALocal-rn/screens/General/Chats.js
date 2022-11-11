@@ -31,22 +31,12 @@ const Chats=({navigation})=> {
   setIsLoading(true)
   const q = query(collection(database, "chats"), where("users", "array-contains", user.id));
   const querySnapshot = await getDocs(q);
-  let msg=[]
   querySnapshot.forEach(async (doc) => {
-    //query last message
-    const q = query(collection(database, `chats/${doc.id}/messages`), orderBy("createdAt", "desc"), limit(1))
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach(async (doc2) => {
-      setChats((chats)=>[...chats,{ chat_id: doc.id, user_id:doc.data().users.filter(id=>id!=user.id)[0], date:doc2.data().createdAt.toDate(), text: doc2.data().text }])
-      // msg.push({ chat_id: doc.id, user_id:doc.data().users.filter(id=>id!=user.id)[0], date:doc2.data().createdAt.toDate(), text: doc2.data().text })
-      })
-    // setChats(msg)
-    setIsLoading(false)
+    setChats((chats)=>[...chats,{ chat_id: doc.id, user_id:doc.data().users.filter(id=>id!=user.id)[0], date:doc.data().last_message.createdAt.toDate(), text: doc.data().last_message.text }])
     })
+    setIsLoading(false)
   }
-//   useEffect(() => {
-//     setMessages(chats)
-//  }, [chats]);
+
  
   return (
           <ScrollView style={{backgroundColor:"white"}}>
