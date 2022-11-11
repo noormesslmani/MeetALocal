@@ -16,7 +16,7 @@ const Header=({type})=> {
   }
   if(type==2){
     return (
-      <header className='flex align-center header space-between'>
+      <header className='flex align-center header space-between colored-header'>
           <Logo type={2}/>
           <div className='flex align-center justify-center'>
             <p>{user.name}</p>

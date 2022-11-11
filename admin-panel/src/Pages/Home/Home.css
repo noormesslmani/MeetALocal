@@ -24,3 +24,22 @@
     margin: 0px 10px;
     cursor: pointer;
 }
+.stat-links-container{
+    width: 30%;
+}
+.stat-link{
+    color:rgba(140,87,186,1);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 24px;
+    margin-top: 10px;
+}
+.stat-link:hover{
+    text-decoration: underline;
+}
+.stat-link.active{
+    text-decoration: underline;
+}
+.charts-container{
+    width: 90%;
+}
