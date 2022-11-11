@@ -10,7 +10,8 @@ import {
     where,
     doc,
     getDocs,
-    addDoc
+    addDoc,
+    updateDoc
 } from "firebase/firestore";
 import { useRoute } from '@react-navigation/native';
 const ChatScreen=()=> {
@@ -63,6 +64,12 @@ const ChatScreen=()=> {
             GiftedChat.append(previousMessages, messages)
         );
         const { _id, createdAt, text, user } = messages[0];
+        updateDoc(doc(database, `chats/${chatId}`), {
+            "last_message":{
+                text,
+                createdAt
+            }
+        })
         addDoc(collection(database, `chats/${chatId}`, "messages"), {
             _id,
             createdAt,
