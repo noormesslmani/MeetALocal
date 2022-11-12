@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         backgroundColor: colors.lightViolet,
         flex: 1,
         alignItems: "center",
-        paddingTop: 100
+        justifyContent:"center",
     },
     welcome:{
         fontSize: 30,
@@ -89,17 +89,7 @@ const styles = StyleSheet.create({
         textAlign:"center",
         fontWeight:"500"
     },
-    typeBtn:{
-        width:150,
-        height: 50,
-        borderRadius: 20,
-        borderColor: colors.violet,
-        borderWidth:1,
-        backgroundColor:'white',
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: 10,
-    },
+    
     profilePic:{
         width:160,
         height:160,
