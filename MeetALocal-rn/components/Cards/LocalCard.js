@@ -11,7 +11,7 @@ const LocalCard=({navigation, item})=> {
     const [categories, setCategories]=useState([])
     useEffect(()=>{
         setCategories(item.categories)
-    },[])
+    },[item])
     const handlePress=()=>{
         console.log(item)
         navigation.navigate('local-page', {item});

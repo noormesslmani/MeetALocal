@@ -8,7 +8,9 @@ import Logo from '../Navigation/Logo';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useRoute } from '@react-navigation/native';
 import { countriesOptionsOneCountry } from '../../constants/countries';
+import { colors } from '../../constants/colors';
 import { languagesOptions } from '../../constants/languages';
+import { color } from 'react-native-reanimated';
 const SignupScreen2 = ({navigation}) => {
   const route = useRoute();
   const fullName= route.params.fullName
@@ -68,6 +70,15 @@ const SignupScreen2 = ({navigation}) => {
           <View style={styles.inputContainer}>
             <Text>Nationality</Text>
             <DropDownPicker
+             searchable={true}
+             searchPlaceholder="Search..."
+             searchPlaceholderTextColor="grey"
+             searchContainerStyle={{
+               borderBottomColor: colors.lighterViolet
+             }}
+             searchTextInputStyle={{
+               borderColor:colors.lightViolet,
+             }}
             open={openNationality}
             value={nationality}
             zIndex={3000}
@@ -93,6 +104,15 @@ const SignupScreen2 = ({navigation}) => {
           <View style={styles.inputContainer}>
             <Text>Country of Residence</Text>
             <DropDownPicker
+            searchable={true}
+            searchPlaceholder="Search..."
+            searchPlaceholderTextColor="grey"
+            searchContainerStyle={{
+              borderBottomColor: colors.lighterViolet
+            }}
+            searchTextInputStyle={{
+              borderColor:colors.lightViolet,
+            }}
             open={openCountry}
             value={country}
             zIndex={2000}
@@ -119,6 +139,15 @@ const SignupScreen2 = ({navigation}) => {
           <View style={styles.inputContainer}>
             <Text>Languages</Text>
             <DropDownPicker
+            searchable={true}
+            searchPlaceholder="Search..."
+            searchPlaceholderTextColor="grey"
+            searchContainerStyle={{
+              borderBottomColor: colors.lighterViolet
+            }}
+            searchTextInputStyle={{
+              borderColor:colors.lightViolet,
+            }}
             open={openLanguages}
             multiple={true}
             mode="BADGE"

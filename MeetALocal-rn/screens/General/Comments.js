@@ -19,7 +19,7 @@ const PostComments=()=> {
     const [commentAdded, setCommentAdded]=useState(false)
     
     useEffect(()=>{
-            getPostComments()
+        getPostComments()
     },[commentAdded])
     useEffect(()=>{
         setTotalComments(data.length)

@@ -73,25 +73,24 @@ const setUp= async()=>{
 }
 
 return (
-  <View style={styles.background} >
+  <View style={[styles.background,{backgroundColor:'white'}]} >
     <KeyboardAwareScrollView style={styles.scrollView} scrollEnabled={false}  showsVerticalScrollIndicator={false}>
-      <View style={styles.mainContainer}>
-      <Text style={styles.setUp}>Setup your account</Text>
-      <View style={styles.picContainer}>
-          <UploadImage setBase64={setBase64} setext={setext} />
-      </View>
-      <View style={styles.aboutContainer}>
-        <Text>About <Text style={{fontSize:10, fontWeight:"300"}}>(max 200 characters)</Text></Text>
-        <TextInput placeholder='Write something about yourself' multiline={true} value={about} onChangeText={setAbout} style={styles.aboutInput} maxLength={200}></TextInput>
-      </View>
-      <Text style={styles.gender}>Gender *</Text>
-      {genderunset?<Text style={styles.error}>Please select your gender</Text>:null}
-      <View style={styles.genderContainer}>
-        <TouchableOpacity onPress={handleMale}><Image source={require('../../assets/male.png')} style={[styles.genderIcon, gender=='Male'?styles.selectedIcon:null]} /></TouchableOpacity>
-        <TouchableOpacity onPress={handleFemale}><Image source={require('../../assets/female.png')} style={[styles.genderIcon, gender=='Female'?styles.selectedIcon:null]} /></TouchableOpacity>
-      </View>
-      {isLoading && <ActivityIndicator color="#8C57BA" />}
-      <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>
+      <View style={styles.setUpContainer}>
+        <View style={styles.picContainer}>
+            <UploadImage setBase64={setBase64} setext={setext} />
+        </View>
+        <View style={styles.aboutContainer}>
+          <Text>About <Text style={{fontSize:10, fontWeight:"300"}}>(max 255 characters)</Text></Text>
+          <TextInput placeholder='Write about yourself' multiline={true} value={about} onChangeText={setAbout} style={styles.aboutInput} maxLength={255}></TextInput>
+        </View>
+        <Text style={styles.gender}>Gender *</Text>
+        {genderunset?<Text style={styles.error}>Please select your gender</Text>:null}
+        <View style={styles.genderContainer}>
+          <TouchableOpacity onPress={handleMale}><Image source={require('../../assets/male.png')} style={[styles.genderIcon, gender=='Male'?styles.selectedIcon:null]} /></TouchableOpacity>
+          <TouchableOpacity onPress={handleFemale}><Image source={require('../../assets/female.png')} style={[styles.genderIcon, gender=='Female'?styles.selectedIcon:null]} /></TouchableOpacity>
+        </View>
+        {isLoading && <ActivityIndicator color="#8C57BA" />}
+        <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>
       </View>
       </KeyboardAwareScrollView>
   </View>

@@ -1,13 +1,13 @@
-import { View, Text, TouchableOpacity, Image, FlatList } from 'react-native'
+import { View, Text, TouchableOpacity, Image, FlatList, Animated } from 'react-native'
 import React from 'react'
 import { useState, useEffect, useContext } from "react";
 import { address } from '../../constants/address';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { colors } from '../../constants/colors';
 import MapCardStyles from '../ComponentsStyles/MapCardStyles';
-const MapCard=({data, myList})=> {
+const MapCard=({data, myList, navigation})=> {
     const renderItem = ({ item, index }) => (
-        <TouchableOpacity 
+        <TouchableOpacity onPress={()=>navigation.navigate('local-page',{item})}
             >
               <View style={MapCardStyles.card_view} >
                 <Image
@@ -25,7 +25,7 @@ const MapCard=({data, myList})=> {
           </TouchableOpacity>
       );
     return(
-        <FlatList
+        <Animated.FlatList
             horizontal
             keyExtractor={item => item.id.toString()}
             scrollEventThrottle={1}
@@ -36,7 +36,7 @@ const MapCard=({data, myList})=> {
             initialScrollIndex={0}
             renderItem={renderItem}
         >
-        </FlatList>
+        </Animated.FlatList>
     )
 }
 export default MapCard
