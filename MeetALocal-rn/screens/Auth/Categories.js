@@ -8,7 +8,8 @@ import Slider from '@react-native-community/slider';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setUpAccount } from '../../network/Auth';
-import { categoryIcons } from '../../constants/categories';
+import FeesSlider from '../../components/General/Slider';
+import { colors } from '../../constants/colors';
 import BackArrow from '../../components/Header/BackArrow';
 const Categories=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
@@ -82,10 +83,9 @@ const Categories=({navigation})=> {
           setIsLoading(false)
         }
       }
-    
     return (
     <View style={[styles.background, {backgroundColor:'white'}]} >
-        <Text style={styles.selectCategory}>Select at least 1 category</Text> 
+        <Text style={styles.selectCategory}>Select at least 1 category<Text style={{fontSize:10, color:colors.violet}}> (max 4)</Text></Text> 
         <View style={styles.categoryContainer}>
             <View style={styles.categoryRow}>
                 <TouchableOpacity style={styles.iconContainer} onPress={handleTourism}>
@@ -151,15 +151,7 @@ const Categories=({navigation})=> {
         
         <Text style={styles.selectCategory}>Fees per hour?</Text> 
         <Text style={styles.fees}>{fees && +fees} $/h</Text>
-        <Slider
-            step={1}
-            style={styles.slider}
-            minimumValue={0}
-            maximumValue={100}
-            minimumTrackTintColor="#FFFFFF"
-            thumbTintColor='rgba(75, 176, 249, 0.75)'
-            onValueChange={setFees}
-        />
+        <FeesSlider setFees={setFees}/>
          {isLoading && <ActivityIndicator color="#8C57BA" />}
         <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>
     </View>

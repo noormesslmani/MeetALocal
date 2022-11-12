@@ -175,11 +175,6 @@ const styles = StyleSheet.create({
         fontSize:14,
         marginTop:20
     },
-    slider:{
-        width: widths.width8, 
-        height: 40,
-        marginBottom:30
-    },
     dropDown:{
         marginTop:10,
         borderTopWidth:0,
