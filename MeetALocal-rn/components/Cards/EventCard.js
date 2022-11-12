@@ -5,13 +5,19 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import EventCardStyles from '../ComponentsStyles/EventCardStyles';
 import EventModal from '../Modals/EventModal';
-const EventCard=({navigation, item})=> {
+const EventCard=({navigation, item, choice, setEventDeleted})=> {
   const [modalVisible, setModalVisible]=useState(false)
+  const [deleted, setDeleted]=useState(false)
    const handleEvent=()=>{
     console.log('pressed')
     setModalVisible(true)
    }
-   
+   useEffect(()=>{
+    if(deleted){
+      setEventDeleted(true)
+      setDeleted(false)
+    }
+   },[deleted])
   return (
     <>
     <TouchableOpacity style={EventCardStyles.cardContainer} onPress={handleEvent}>
@@ -22,7 +28,7 @@ const EventCard=({navigation, item})=> {
             <Text style={EventCardStyles.info}>{item.fees} $</Text>
         </View>
     </TouchableOpacity>
-    <EventModal modalVisible={modalVisible} setModalVisible={setModalVisible} item={item}/>
+    <EventModal modalVisible={modalVisible} setModalVisible={setModalVisible} item={item} choice={choice} setDeleted={setDeleted}/>
     </>
   )
 }

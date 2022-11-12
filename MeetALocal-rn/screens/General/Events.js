@@ -17,6 +17,7 @@ const Events=({navigation})=> {
   const [country, setCountry]=useState('all');
   const [category, setCategory]=useState('all');
   const [data, setdata]=useState([])
+  const [eventDeleted, setEventDeleted]=useState(false)
   const [eventModalVisible, setEventModalVisible]=useState(false)
   const { user, setUser} = useContext(UserContext);
   const [eventCreated,setEventCreated]=useState(false)
@@ -24,7 +25,13 @@ const Events=({navigation})=> {
   useEffect(()=>{
     getEvents()
   },[choice, country, category, eventCreated])
-  
+  useEffect(()=>{
+    if(eventDeleted){
+      getEvents()
+      setEventDeleted(false)
+    }
+  },[eventDeleted])
+  console.log(eventDeleted)
   const getEvents= async()=>{
     let result
     setIsLoading(true)
@@ -47,7 +54,7 @@ const Events=({navigation})=> {
   }
   const renderItem = ({ item }) => (
     <View>
-      <EventCard item={item} />
+      <EventCard item={item} choice={choice} setEventDeleted={setEventDeleted} />
     </View>
   )
   useEffect(() => {
