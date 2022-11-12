@@ -11,6 +11,7 @@ import ImageView from "react-native-image-viewing";
 import Map from '../../components/Header/Map';
 import { CheckFavoriteLocals, toggleFavoriteLocals } from '../../network/App';
 import { address } from '../../constants/address';
+import call from 'react-native-phone-call'
 const LocalPage=({navigation})=> {
     const route = useRoute();
     const item =route.params.item
@@ -50,7 +51,15 @@ const LocalPage=({navigation})=> {
       }
   }
   const handleMap=()=>{
-    navigation.navigate('locals-map',{data:[item]})
+    navigation.navigate('locals-map',{data:[item], type:3})
+  }
+  const args = {
+    number: item.phone.toString(), 
+    prompt: false, 
+    skipCanOpen: true 
+  }
+  const handlePhone=()=>{
+    call(args).catch(console.error)
   }
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
@@ -68,10 +77,10 @@ const LocalPage=({navigation})=> {
           </View>
           <View style={LocalProfileStyles.infoContainer}>
             <View>
-              <View style={{flexDirection:"row", alignItems:"center"}}>
+              <Pressable style={{flexDirection:"row", alignItems:"center"}} onPress={handlePhone}>
                 <Icon name="phone" size={20} color="grey" />
-                <Text style={{fontSize:13, fontWeight:"400", marginLeft:10}}>{item.phone}</Text>
-              </View>
+                <Text style={{fontSize:13, fontWeight:"400", marginLeft:10, color:'blue', textDecorationLine:"underline"}}>{item.phone}</Text>
+              </Pressable>
               <View style={{flexDirection:"row", alignItems:"center"}}>
                 <Ionicons name="language" size={20} color="grey" />
                 {item.languages.map((language)=><Text style={{fontSize:10, fontWeight:"400", marginLeft:10}} key={language}>{language}</Text>)}
@@ -99,7 +108,7 @@ const LocalPage=({navigation})=> {
               </View>
           </View>
           
-          <View style={LocalProfileStyles.about}>
+          {item.highlights.length>0 && <View style={LocalProfileStyles.about}>
           <Text style={{fontSize:16, fontWeight:"500", marginBottom:20}}>Highlights</Text>
             <View style={LocalProfileStyles.highlightImages}>
               {item.highlights[0] && <Pressable onPress={()=>{setIsVisible(true), setImageIndex(0)}}><Image source={{uri:`${address}/${item.highlights[0]}`}} style={LocalProfileStyles.highlightimg}/></Pressable>}
@@ -109,7 +118,7 @@ const LocalPage=({navigation})=> {
               {item.highlights[2] && <Pressable onPress={()=>{setIsVisible(true), setImageIndex(2)}}><Image source={{uri:`${address}/${item.highlights[2]}`}} style={LocalProfileStyles.highlightimg}/></Pressable>}
               {item.highlights[3] && <Pressable onPress={()=>{setIsVisible(true), setImageIndex(3)}}><Image source={{uri:`${address}/${item.highlights[3]}`}} style={LocalProfileStyles.highlightimg}/></Pressable>}
             </View>
-          </View>
+          </View>}
           <ImageView
           images={images}
           imageIndex={imageIndex}
