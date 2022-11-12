@@ -11,6 +11,7 @@ import Filters from '../../components/Header/Filters';
 import BackArrow from '../../components/Header/BackArrow';
 import { colors } from '../../constants/colors';
 import ListFooter from '../../components/General/ListFooter';
+import { useDidMountEffect } from '../../hooks/Hooks';
 const Posts=({navigation})=> {
   const [viewOwn, setViewOwn]=useState(false)
   const [country, setCountry]=useState('all');
@@ -22,10 +23,31 @@ const Posts=({navigation})=> {
   const [isLoadingMore, setIsLoadingMore]=useState(false)
   const [isLoading, setIsLoading]= useState(false)
   const [page, setPage]=useState(0)
+
+  useEffect(() => {
+    if(!viewOwn){
+    navigation.setOptions({
+      headerLeft: () => <BackArrow navigation={navigation} />,
+      headerRight:()=><Filters handleFilter={handleFilter}/>})
+    }
+    else{
+      navigation.setOptions({
+        headerLeft: () => <BackArrow navigation={navigation} />,
+        headerRight:()=><></>})
+    }
+  }, [navigation, viewOwn])
+
+  useDidMountEffect(() => {
+    page==0? getPosts(): setPage(0)
+    setdata([])
+    setIsListEnd(false)
+  }, [viewOwn, country, category]); 
+
   useEffect(()=>{
     getPosts()
-  },[viewOwn, country, category, page])
+  },[page])
   
+
   const getPosts= async()=>{
     let result
     page==0? setIsLoading(true): setIsLoadingMore(true)
@@ -54,18 +76,7 @@ const Posts=({navigation})=> {
   const handleFilter=()=>{
     setModalVisible(true)
   }
-  useEffect(() => {
-    if(!viewOwn){
-    navigation.setOptions({
-      headerLeft: () => <BackArrow navigation={navigation} />,
-      headerRight:()=><Filters handleFilter={handleFilter}/>})
-    }
-    else{
-      navigation.setOptions({
-        headerLeft: () => <BackArrow navigation={navigation} />,
-        headerRight:()=><></>})
-    }
-    }, [navigation, viewOwn])
+  
   const renderItem = ({ item }) => (
     <PostCard item={item} navigation={navigation} key={item.id}/>);
   
