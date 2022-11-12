@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
 import React from 'react'
 import HomeStyles from './Styles/HomeStyles';
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { UserContext } from '../../App'
 import LocalsStyles from './Styles/LocalsPageStyles';
 import FilterModal from '../../components/Modals/FilterModal';
@@ -12,6 +12,7 @@ import { getLocals, getFavorites } from '../../network/App';
 import Map from '../../components/Header/Map';
 import { colors } from '../../constants/colors';
 import ListFooter from '../../components/General/ListFooter';
+import { useDidMountEffect } from '../../hooks/Hooks';
 const Locals=({navigation})=> {
     const [country, setCountry]=useState('all');
     const [category, setCategory]=useState('all');
@@ -23,14 +24,6 @@ const Locals=({navigation})=> {
     const [isLoading, setIsLoading]= useState(false)
     const { user, setUser, locals, setLocals} = useContext(UserContext);
     const [page, setPage]=useState(0)
-    useEffect(()=>{
-      if(!viewFav){
-        getAllLocals()
-      }
-      else{
-        getFavoriteLocals()
-      }
-    },[viewFav, country, category, page])
 
     useEffect(() => {
       navigation.setOptions({
@@ -41,33 +34,47 @@ const Locals=({navigation})=> {
         </View>)
       });
     }, [navigation, data, viewFav]);
-  const getAllLocals= async()=>{
+
+    useDidMountEffect(() => {
+      page==0? getLocalsList(): setPage(0)
+      setdata([])
+      setIsListEnd(false)
+    }, [viewFav, country, category]); 
+
+    useEffect(()=>{
+      getLocalsList()
+    },[page])
+    
+
+  const getLocalsList= async()=>{
     page==0? setIsLoading(true): setIsLoadingMore(true)
-    const result = await getLocals(country, category, 15*page)
-    if (result.success){
-      setIsLoading(false)
-      setIsLoadingMore(false)
-      if(result.data.data.length==0){
-        setIsListEnd(true)
-        console.log(page)
+    if(!viewFav){
+        const result = await getLocals(country, category, 15*page)
+        if (result.success){
+          setIsLoading(false)
+          setIsLoadingMore(false)
+          if(result.data.data.length==0){
+            setIsListEnd(true)
+          }  
+          else{
+            setdata( data =>[...data, ...result.data.data])
+            setLocals( locals =>[...locals, ...result.data.data])
+          }
+        }
       }
-      else{
-        setdata( data =>[...data, ...result.data.data])
-        setLocals( locals =>[...locals, ...result.data.data])
+    else{
+      const result = await getFavorites()
+      if (result.success){
+        setIsLoading(false)
+        setdata(result.data.data)
       }
     }
   } 
-  const getFavoriteLocals=async()=>{
-    setIsLoading(true)
-    const result = await getFavorites()
-    if (result.success){
-      setIsLoading(false)
-      setdata(result.data.data)
-    }
-  } 
+ 
   const renderItem = ({ item, index }) => (
-    <LocalCard item={item} key={item} navigation={navigation} />
-    );
+    <LocalCard item={item}  navigation={navigation}/>
+  );
+
   const handleFilter=()=>{
     setModalVisible(true)
   }
@@ -77,11 +84,11 @@ const Locals=({navigation})=> {
     }
   }
   const fetchMore=()=>{
-    if(!isListEnd){
+    if(!isListEnd && !isLoadingMore){
       setPage(page+1)
     }
   }
-  console.log(data)
+ 
   return (
       <View style={HomeStyles.container}>
         {user.type_id==2 && <View style={LocalsStyles.view}>
@@ -95,11 +102,10 @@ const Locals=({navigation})=> {
             showsHorizontalScrollIndicator={false}
             data={data}
             renderItem={renderItem}
-            keyExtractor={item => item.id}
             style={LocalsStyles.list}
             contentContainerStyle={{ paddingBottom: 300}}
             ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:null}
-            onEndReachedThreshold={1}
+            onEndReachedThreshold={0.1}
             onEndReached={fetchMore}
             ListFooterComponent={<ListFooter isLoadingMore={isLoadingMore} isListEnd={isListEnd} />}
           />
