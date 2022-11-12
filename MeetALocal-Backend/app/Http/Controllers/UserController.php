@@ -23,10 +23,10 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 class UserController extends Controller
 {
-    public function getLocals($country, $category){
+    public function getLocals($country, $category, $offset){
         $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
-        $locals= User::join('local_categories','users.id','=','local_id')->join('categories','local_categories.category_id','=','categories.id')->join('countries','users.residence_id','=','countries.id')->where('type_id',1)->whereIn('users.residence_id',$country_id)->whereIn('local_categories.category_id',$category_id)->select('users.*','countries.country')->distinct()->inRandomOrder()->get();
+        $locals= User::join('local_categories','users.id','=','local_id')->join('categories','local_categories.category_id','=','categories.id')->join('countries','users.residence_id','=','countries.id')->where('type_id',1)->whereIn('users.residence_id',$country_id)->whereIn('local_categories.category_id',$category_id)->select('users.*','countries.country')->distinct()->orderBy('created_at', 'desc')->offset($offset)->limit(15)->get();
         foreach($locals as $local){
             $local['likes']=FavoriteLocal::where('local_id',$local->id)->count();
             $local['categories']=$local->categories()->pluck('category');
@@ -103,10 +103,10 @@ class UserController extends Controller
             'data'=>false
         ], 201);
     }
-    public function getPosts($country, $category){
+    public function getPosts($country, $category, $offset){
         $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
-        $posts= Post::join('post_categories','posts.id','=','post_id')->join('categories','post_categories.category_id','=','categories.id')->join('countries','posts.country_id','=','countries.id')->join('users','posts.user_id','=','users.id')->whereIn('posts.country_id',$country_id)->whereIn('post_categories.category_id',$category_id)->orderBy('posts.id', 'desc')->select('posts.*','countries.country','users.name')->distinct()->latest()->get();
+        $posts= Post::join('post_categories','posts.id','=','post_id')->join('categories','post_categories.category_id','=','categories.id')->join('countries','posts.country_id','=','countries.id')->join('users','posts.user_id','=','users.id')->whereIn('posts.country_id',$country_id)->whereIn('post_categories.category_id',$category_id)->orderBy('posts.id', 'desc')->select('posts.*','countries.country','users.name')->distinct()->orderBy('created_at', 'desc')->offset($offset)->limit(20)->get();
         foreach($posts as $post){
             $post['comments']= Comment::where('post_id',$post->id)->count();
             $post['categories']=$post->categories()->pluck('category');
