@@ -19,6 +19,12 @@ const styles = StyleSheet.create({
         alignItems:"center",
         justifyContent:"center"
     },
+    setUpContainer:{
+        height:0.9*windowHeight,
+        width:widths.width8,
+        alignItems:"center",
+        justifyContent:"center"
+    },
     formContainer:{
         backgroundColor: "white",
         height:windowHeight* 0.6,
@@ -111,16 +117,17 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     genderIcon:{
-        width:80,
-        height:80,
-        borderRadius:40,
-        margin:20,
+        width:100,
+        height:100,
+        borderRadius:50,
+        marginHorizontal:20,
+        marginVertical:30,
         borderWidth:1,
         borderColor:'#D9D9D9'
     },
     selectedIcon:{
         borderWidth:3,
-        borderColor:"rgba(75, 176, 249, 0.75)" 
+        borderColor:colors.lightViolet 
     },
     selectCategory:{
         fontSize:18,
@@ -152,10 +159,14 @@ const styles = StyleSheet.create({
         width:60,
         height:60,
         borderRadius:30,
-        backgroundColor:'white',
+        borderWidth:1,
+        borderColor: colors.lighterViolet,
         position:'relative',
         alignItems:"center",
-        justifyContent:"center"
+        justifyContent:"center",
+    },
+    selectedIcon:{
+        backgroundColor: colors.lighterViolet,
     },
     categoryLabel:{
         color:"blue",
@@ -210,13 +221,15 @@ const styles = StyleSheet.create({
         justifyContent: "center",
       },
       aboutContainer:{
-        width:"80%",
+        width:"100%",
         margin:40,
       },
       aboutInput:{
         height:50,
+        width:"100%",
         borderBottomWidth:0.5,
         borderColor:"white",
+        borderBottomColor: colors.blue
       }
     
 });

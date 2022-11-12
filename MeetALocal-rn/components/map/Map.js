@@ -35,7 +35,7 @@ const Map=({lat, lng, data, type, handleDrag, navigation})=> {
                   {type==2 && 
                   <Marker coordinate={{latitude: lat,
                   longitude:lng}}
-                  pinColor='blue'
+                  pinColor={colors.violet}
                   draggable={true}
                   onDragEnd={handleDrag}>
                   </Marker>} 

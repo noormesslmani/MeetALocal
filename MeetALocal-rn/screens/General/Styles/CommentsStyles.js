@@ -7,23 +7,7 @@ const CommentsStyles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22
-  },
-  modalView: {
-    marginTop: 0.15*widths.width,
-    backgroundColor: "white",
-    width:widths.width,
-    flex:0.9,
-    borderRadius: 20,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5
+    backgroundColor:'white'
   },
   headerContainer:{
     flexDirection:"row",

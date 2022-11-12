@@ -39,9 +39,6 @@ const SetUpMap=({navigation})=> {
         setLat(location.coords.latitude)
         setLng(location.coords.longitude)
     }
-    const handleLocation=(e)=>{
-        getLocation()
-    }
     const handleDrag=(e)=>{
       setLat( e.nativeEvent.coordinate.latitude)
       setLng( e.nativeEvent.coordinate.longitude)
@@ -55,7 +52,6 @@ const SetUpMap=({navigation})=> {
 
     <View style={styles.mapContainer}>
       <Text style={{fontSize:12, color:"grey"}}>Hold and drag the marker</Text>
-      <TouchableOpacity onPress={handleLocation}><Text style={{color:"#8C57BA", textDecorationLine: "underline"}}>Current Location</Text></TouchableOpacity>
       <Map lat={lat} lng={lng} type={2} handleDrag={handleDrag} />
       <TouchableOpacity style={[styles.saveBtn, styles.button]} onPress={handleNext} ><Text style={{color: 'white'}}>Next</Text></TouchableOpacity>
     </View>

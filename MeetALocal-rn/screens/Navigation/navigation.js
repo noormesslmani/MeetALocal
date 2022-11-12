@@ -35,7 +35,7 @@ export default function RootNavigation() {
     
     <NavigationContainer>
       <Stack.Navigator initialRouteName="">
-        <Stack.Screen name="signin" options={{headerTitle: () => <Logo/>,headerBackVisible:false}} component={SigninScreen} />
+        <Stack.Screen name="signin" options={{headerTitle: () => <Logo/>,headerBackVisible:false, headerTitleAlign: 'center'}} component={SigninScreen} />
         <Stack.Screen name="signup-first" 
         options={{ 
           headerTitle: () => <Logo/>,
@@ -47,7 +47,12 @@ export default function RootNavigation() {
           headerTitle: () => <Logo/>,
           headerBackVisible:false, headerTitleAlign: 'center'}} 
         component={SignupScreen2} />
-        <Stack.Screen name="signup-third" options={{headerTitle: () => <Logo/>,}} component={SignupScreen3} />
+        <Stack.Screen name="signup-third" 
+        options={{ 
+          headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+          headerTitle: () => <Logo/>,
+          headerBackVisible:false, headerTitleAlign: 'center'}} 
+         component={SignupScreen3} />
         <Stack.Screen name="user-type"  
         options={{ headerBackVisible:false, headerTitleAlign: 'center'}} 
         component={UserTypeScreen} />

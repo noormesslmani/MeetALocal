@@ -84,67 +84,67 @@ const Categories=({navigation})=> {
       }
     
     return (
-    <View style={styles.background} >
+    <View style={[styles.background, {backgroundColor:'white'}]} >
         <Text style={styles.selectCategory}>Select at least 1 category</Text> 
         <View style={styles.categoryContainer}>
             <View style={styles.categoryRow}>
                 <TouchableOpacity style={styles.iconContainer} onPress={handleTourism}>
-                    <View style={styles.circle}>
+                    <View style={[styles.circle,categories.includes("Tourism")?styles.selectedIcon:null]}>
                         <Image source={require('../../assets/tourism.png')} style={styles.categoryIcon}/>
                     </View>
-                    <Text style={[categories.includes("Tourism")?styles.categoryLabel:null]}>Tourism</Text>
+                    <Text>Tourism</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.iconContainer} onPress={handleLanguage}>
-                <View style={styles.circle}>
+                <View style={[styles.circle,categories.includes("Language")?styles.selectedIcon:null]}>
                     <Image source={require('../../assets/languages.png')} style={styles.categoryIcon}/>
                 </View>
-                    <Text style={[categories.includes("Language")?styles.categoryLabel:null]}>Language</Text>
+                    <Text>Language</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.iconContainer} onPress={handleHistory}>
-                <View style={styles.circle}>
+                <View style={[styles.circle,categories.includes("History")?styles.selectedIcon:null]}>
                     <Image source={require('../../assets/history.png')} style={styles.categoryIcon}/>
                 </View>
-                    <Text style={[categories.includes("History")?styles.categoryLabel:null]}>History</Text>
+                    <Text>History</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.categoryRow}>
                 <TouchableOpacity style={styles.iconContainer} onPress={handleHousing}>
-                <View style={styles.circle}>
+                <View style={[styles.circle,categories.includes("Housing")?styles.selectedIcon:null]}>
                     <Image source={require('../../assets/house.png')} style={styles.categoryIcon}/>
                 </View>
-                    <Text style={[categories.includes("Housing")?styles.categoryLabel:null]}>Housing</Text>
+                    <Text>Housing</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.iconContainer} onPress={handleJobs}>
-                <View style={styles.circle}>
+                <View style={[styles.circle,categories.includes("Jobs")?styles.selectedIcon:null]}>
                     <Image source={require('../../assets/suitcase.png')} style={styles.categoryIcon}/>
                 </View>
-                    <Text style={[categories.includes("Jobs")?styles.categoryLabel:null]}>Jobs</Text>
+                    <Text>Jobs</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.iconContainer} onPress={handleEducation}>
-                <View style={styles.circle}>
+                <View style={[styles.circle,categories.includes("Education")?styles.selectedIcon:null]}>
                     <Image source={require('../../assets/education.png')} style={styles.categoryIcon}/>
                 </View>
-                    <Text style={[categories.includes("Education")?styles.categoryLabel:null]}>Education</Text>
+                    <Text>Education</Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.categoryRow}>
                 <TouchableOpacity style={styles.iconContainer} onPress={handleCulture}>
-                <View style={styles.circle}>
+                <View style={[styles.circle,categories.includes("Culture")?styles.selectedIcon:null]}>
                     <Image source={require('../../assets/cultures.png')} style={styles.categoryIcon}/>
                 </View>
-                    <Text style={[categories.includes("Culture")?styles.categoryLabel:null]}>Culture</Text>
+                    <Text>Culture</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.iconContainer} onPress={handleGuidance}>
-                <View style={styles.circle}>
+                <View style={[styles.circle,categories.includes("Guidance")?styles.selectedIcon:null]}>
                     <Image source={require('../../assets/guidance.png')} style={styles.categoryIcon}/>
                 </View>
-                    <Text style={[categories.includes("Guidance")?styles.categoryLabel:null]}>Guidance</Text>
+                    <Text>Guidance</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.iconContainer} onPress={handleOther}>
-                <View style={styles.circle}>
+                <View style={[styles.circle,categories.includes("Other")?styles.selectedIcon:null]}>
                     <Image source={require('../../assets/more.png')} style={styles.categoryIcon}/>
                 </View>
-                    <Text style={[categories.includes("Other")?styles.categoryLabel:null]}>Other</Text>
+                    <Text >Other</Text>
                 </TouchableOpacity>
             </View>
         </View>
