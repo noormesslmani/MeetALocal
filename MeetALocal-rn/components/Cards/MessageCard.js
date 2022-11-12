@@ -6,6 +6,7 @@ import { getUserDetails } from '../../network/App';
 import { address } from '../../constants/address';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { colors } from '../../constants/colors';
+import { widths } from '../../constants/dimensions';
 const MessageCard=({navigation, chat})=> {
     const [image, setImage]=useState(null)
     const [name, setName]=useState(null)
@@ -26,6 +27,7 @@ const MessageCard=({navigation, chat})=> {
         const chatId=chat.chat_id
         navigation.navigate('chat-screen', {chatId, userId:null})
     }
+    console.log(chat)
   return (
     <View style={MessageCardStyles.container}>
         <TouchableOpacity style={MessageCardStyles.messageContainer} onPress={handleChat}>
@@ -37,7 +39,10 @@ const MessageCard=({navigation, chat})=> {
                 <Text style={MessageCardStyles.text}>{chat.text}  </Text>
                 </View>
             </View>
-            <Ionicons name='arrow-forward' size={30} color={colors.violet} />
+            <View>
+                <Ionicons name='arrow-forward' size={30} color={colors.violet} />
+                <Text style={{color:"grey", fontSize:8}}>{chat.date.getDate()}-{chat.date.getMonth()}-{chat.date.getFullYear()}</Text>
+            </View>
         </TouchableOpacity>
         <View style={MessageCardStyles.separator}></View>
     </View>
