@@ -57,7 +57,7 @@ export async function getLocals(country, category, offset){
     const config = {
       method: "get",
       headers: { Authorization: `Bearer ${token}`},
-      url:`${baseURL}users/events/saved`,
+      url:`${baseURL}foreigners/events/saved`,
     }
     try{
       const res = await axios(config)
@@ -157,7 +157,7 @@ export async function getLocals(country, category, offset){
       method: "post",
       data,
       headers: { Authorization: `Bearer ${token}`},
-      url:`${baseURL}users/event/toggle-save`,
+      url:`${baseURL}foreigners/event/toggle-save`,
     }
     try{
       const res = await axios(config)
@@ -174,7 +174,7 @@ export async function getLocals(country, category, offset){
     const config = {
       method: "get",
       headers: { Authorization: `Bearer ${token}`},
-      url:`${baseURL}users/event/is-saved/${id}`,
+      url:`${baseURL}foreigners/event/is-saved/${id}`,
     }
     try{
       const res = await axios(config)
@@ -189,6 +189,23 @@ export async function getLocals(country, category, offset){
     const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "post",
+      data,
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}locals/event`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.warn(error)
+      return {'success': false, error}
+    }
+  }
+  export async function deleteEvents(data){
+    const token = await AsyncStorage.getItem('@token')
+    const config = {
+      method: "delete",
       data,
       headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}locals/event`,
