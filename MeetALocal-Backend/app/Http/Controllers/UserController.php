@@ -18,6 +18,7 @@ use App\Models\Post;
 use App\Models\Language;
 use App\Models\SavedEvent;
 use App\Models\UserType;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -162,6 +163,13 @@ class UserController extends Controller
         return response()->json([
             'message' => 'ok',
             'data' => $message,
+        ], 201);
+    }
+    public function getreviews(Request $request){
+        $reviews= Review::where('local_id',$request->query('id'))->get();
+        return response()->json([
+            'message' => 'ok',
+            'data' => $reviews,
         ], 201);
     }
     public function changePhoto( Request $request){
