@@ -4,6 +4,7 @@ import styles from './Authstyles';
 import { useState, useEffect } from "react";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AuthButton from '../../components/AuthButton';
 const UserTypeScreen=({navigation})=> {
   const handleLocal=()=>{
     {
@@ -20,15 +21,11 @@ const UserTypeScreen=({navigation})=> {
   }
   return (
     <View style={styles.backgroundUserType}>
-        <Text style={styles.welcome}>Welcome</Text>
+      
         <View style={[styles.formContainer, styles.shadowProp, styles.userType]}>
           <Text style={styles.signIn}>I am?</Text>
-          <TouchableOpacity style={styles.typeBtn} onPress={handleLocal}>
-            <Text>Local</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.typeBtn} onPress={handleForeigner}>
-            <Text>Foreigner</Text>
-          </TouchableOpacity>
+          <AuthButton title={'Local'} handleSubmit={handleLocal} type={2}/>
+          <AuthButton title={'Foreigner'} handleSubmit={handleForeigner} type={2}/>
         </View>
     </View>
   )
