@@ -12,6 +12,9 @@ import Map from '../../components/Header/Map';
 import { CheckFavoriteLocals, toggleFavoriteLocals } from '../../network/App';
 import { address } from '../../constants/address';
 import call from 'react-native-phone-call'
+import { Rating, AirbnbRating } from 'react-native-ratings';
+import { getReviews } from '../../network/App';
+
 const LocalPage=({navigation})=> {
     const route = useRoute();
     const item =route.params.item
@@ -20,13 +23,26 @@ const LocalPage=({navigation})=> {
     const [likes, setLikes]= useState(item.likes)
     const [visible, setIsVisible] = useState(false);
     const [imageIndex, setImageIndex]= useState(0)
+    const [rating,setRating]=useState(1)
+    const [reviews, setReviews]=useState([])
+    const [stars, setStars]=useState(null)
     const images = item.highlights.map((image)=>({ uri: `${address}/${image}`}))
-    console.log(images)
+          
     useEffect(()=>{
       checkFavorite()
       setLocals([item])
+      getAllReviews()
     },[])
-    console.log(item)
+    useEffect(()=>{
+      let starsArr=[0,0,0,0,0]
+      for(let review of reviews){
+        starsArr[review.stars -1] +=1
+      }
+      console.log(starsArr)
+      console.log(reviews)
+      setStars(starsArr)
+    },[reviews])
+
     const handleLike=()=>{
       toggleFavorite()
     }
@@ -50,6 +66,12 @@ const LocalPage=({navigation})=> {
         setLikes(result.data.data)
       }
   }
+  const getAllReviews=async()=>{
+    const result = await getReviews(item.id)
+    if (result.success){
+      setReviews(result.data.data)
+    }
+  } 
   const handleMap=()=>{
     navigation.navigate('locals-map',{data:[item], type:3})
   }
@@ -61,6 +83,7 @@ const LocalPage=({navigation})=> {
   const handlePhone=()=>{
     call(args).catch(console.error)
   }
+ 
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
         <View style={LocalProfileStyles.mainContainer}>
@@ -124,6 +147,18 @@ const LocalPage=({navigation})=> {
           imageIndex={imageIndex}
           visible={visible}
           onRequestClose={() => setIsVisible(false)}/>
+          <View style={LocalProfileStyles.about}>
+          <Text style={{fontSize:16, fontWeight:"500", marginBottom:20}}>Reviews</Text>
+            {stars && stars.map((star,i)=>
+            <View style={{flexDirection:"row", alignItems:"center"}}>
+              <Rating size={10} readonly= {true} startingValue={i+1} imageSize={20} style={{marginVertical:3, marginHorizontal:10}}/>
+              <Text style={{fontSize:10}}>{star}</Text>
+            </View>            
+          )}
+          </View>
+  
+          
+      
         </View>
     </ScrollView>
     
