@@ -46,6 +46,9 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::post('/event/toggle-save', [UserController::class, 'toggleSavedEvents']);
             Route::get('/event/is-saved/{id}', [UserController::class, 'isSaved']);
             Route::get('/events/saved', [UserController::class, 'getSavedEvents']);
+            Route::post('/review', [ForeignerController::class, 'addReview']);
+            Route::delete('/review', [ForeignerController::class, 'deleteReview']);
+            Route::get('/is-reviewd', [ForeignerController::class, 'isReviewed']);
         });
         Route::group(['prefix' => 'auth'], function ($router) { 
             Route::post('/logout', [AuthController::class, 'logout']);

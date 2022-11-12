@@ -19,6 +19,7 @@ use App\Models\UserType;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Validator;
 class ForeignerController extends Controller
 {
     public function getFavorites(){
@@ -109,7 +110,7 @@ class ForeignerController extends Controller
         }
         $review = Review::create(array_merge(
             $validator->validated(),
-            ['reviewer_id'->Auth::id()
+            ['reviewer_id'=> Auth::id()
             ]
         ));
         return response()->json([
@@ -123,4 +124,5 @@ class ForeignerController extends Controller
             'message' => 'ok',
         ], 201);
     }
+
 }
