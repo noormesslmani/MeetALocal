@@ -11,14 +11,11 @@ Route::group(['prefix' => 'v1.0.0'], function () {
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::group(['prefix' => 'users'], function () {
-            Route::get('/locals/{country}/{category}', [UserController::class, 'getLocals']);
+            Route::get('/locals/{country}/{category}/{offset}', [UserController::class, 'getLocals']);
             Route::get('/user/{id}', [UserController::class, 'getUser']);
             Route::get('/events/{country}/{category}', [UserController::class, 'getEvents']);
             Route::get('/event/{id}', [UserController::class, 'getEvent']);
-            Route::post('/event/toggle-save', [UserController::class, 'toggleSavedEvents']);
-            Route::get('/event/is-saved/{id}', [UserController::class, 'isSaved']);
-            Route::get('/events/saved', [UserController::class, 'getSavedEvents']);
-            Route::get('/posts/{country}/{category}', [UserController::class, 'getPosts']);
+            Route::get('/posts/{country}/{category}/{offset}', [UserController::class, 'getPosts']);
             Route::get('/posts', [UserController::class, 'getOwnPosts']);
             Route::post('/comment', [UserController::class, 'addComment']);
             Route::get('/comments/{id}', [UserController::class, 'getComments']);
@@ -35,18 +32,20 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             //edit profile
         });
         Route::group(['prefix' => 'admins'], function () {
-            Route::post('/ban', [AdminController::class, 'banUser']);
-            Route::post('/unban', [AdminController::class, 'unbanUser']);
+            Route::post('/toggle-ban', [AdminController::class, 'toggleBan']);
             Route::get('/get-bans', [AdminController::class, 'getBans']);
             Route::get('/app-stat', [AdminController::class, 'getAppStat']);
             Route::get('/locals-stat', [AdminController::class, 'getLocalsStat']);
             Route::get('/foreigners-stat', [AdminController::class, 'getForeignersStat']);
-            Route::get('/users/{type}', [AdminController::class, 'getUsers']);
+            Route::get('/users/{type}/{offset}', [AdminController::class, 'getUsers']);
         });
         Route::group(['prefix' => 'foreigners'], function () {
             Route::get('/favorites', [ForeignerController::class, 'getFavorites']);
             Route::get('/is-favorite/{id}', [ForeignerController::class, 'isFavorite']);
             Route::post('/toggle-favorite', [ForeignerController::class, 'toggleFavorite']);
+            Route::post('/event/toggle-save', [UserController::class, 'toggleSavedEvents']);
+            Route::get('/event/is-saved/{id}', [UserController::class, 'isSaved']);
+            Route::get('/events/saved', [UserController::class, 'getSavedEvents']);
         });
         Route::group(['prefix' => 'auth'], function ($router) { 
             Route::post('/logout', [AuthController::class, 'logout']);

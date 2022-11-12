@@ -32,7 +32,7 @@ class ForeignerController extends Controller
         }
         return response()->json([
             'message' => 'ok',
-            'favorites'=>$favorites
+            'data'=>$favorites
         ], 201);
     }
     public function isFavorite($id){
@@ -62,5 +62,39 @@ class ForeignerController extends Controller
             'data' =>$counts
         ], 201);
     }
-    
+    public function toggleSavedEvents(Request $request){
+        if(SavedEvent::where('user_id',Auth::id())->where('event_id',$request->event_id)->exists())
+            SavedEvent::where('user_id',Auth::id())->where('event_id',$request->event_id)->delete();
+        else{
+            SavedEvent::create([
+                'user_id' => Auth::id(),
+                'event_id'=> $request->event_id,
+            ]);
+        }
+        return response()->json([
+            'message' => 'ok',
+        ], 201);
+    }
+    public function getSavedEvents(){
+        $events= Auth::user()->savedEvents()->get();
+        foreach($events as $event){
+            $event['categories']=$event->categories()->pluck('category');
+        }
+        return response()->json([
+            'message' => 'ok',
+            'data' => $events,
+        ], 201);
+    }
+    public function isSaved($id){
+        if(Auth::user()->savedEvents()->where('event_id',$id)->exists()){
+            return response()->json([
+                'message' => 'ok',
+                'data'=>true
+            ], 201);
+        }
+        return response()->json([
+            'message' => 'ok',
+            'data'=>false
+        ], 201);
+    }
 }
