@@ -147,24 +147,7 @@ class UserController extends Controller
             'data' => $post,
         ], 201);
     }
-    public function getChats($id=null){
-        $id?$messages=Message::where('sender_id',Auth::id())->where('reciever_id',$id)->orWhere('reciever_id',Auth::id())->where('sender_id',$id)->latest('sent_at')->get():$messages= Message::where('sender_id',Auth::id())->orWhere('reciever_id',Auth::id())->latest('sent_at')->get();
-        return response()->json([
-            'message' => 'ok',
-            'data' => $messages,
-        ], 201);
-    }
-    public function createChat(Request $request){
-        $message = Message::create([
-            'sender_id' => Auth::id(),
-            'reciever_id'=>$request->reciever_id,
-            'content'=> $request->content,
-        ]);
-        return response()->json([
-            'message' => 'ok',
-            'data' => $message,
-        ], 201);
-    }
+    
     public function getreviews(Request $request){
         $reviews= Review::where('local_id',$request->query('id'))->get();
         return response()->json([
