@@ -16,6 +16,7 @@ use App\Models\PostCategory;
 use App\Models\Post;
 use App\Models\SavedEvent;
 use App\Models\UserType;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 class ForeignerController extends Controller
@@ -95,6 +96,31 @@ class ForeignerController extends Controller
         return response()->json([
             'message' => 'ok',
             'data'=>false
+        ], 201);
+    }
+    public function addReview(Request $request){
+        $validator = Validator::make($request->all(), [
+            'local_id' => 'required',
+            'review'=>'required|string',
+            'stars'=>'required|between:0,5',
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
+        $review = Review::create(array_merge(
+            $validator->validated(),
+            ['reviewer_id'->Auth::id()
+            ]
+        ));
+        return response()->json([
+            'data' => $review,
+            'message' =>'ok',
+        ], 201);
+    }
+    public function deleteReview(Request $request){
+        $review=Review::find($request->review_id)->delete();
+        return response()->json([
+            'message' => 'ok',
         ], 201);
     }
 }
