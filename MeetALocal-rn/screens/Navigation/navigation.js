@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, SafeAreaView, Image, TouchableWithoutFeedback, TouchableOpacity, Pressable } from 'react-native';
 import * as React from 'react';
 import { createContext, useState, useContext } from "react";
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer, useNavigation, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator, createSwitchNavigator } from '@react-navigation/native-stack';
 import SignupScreen from '../Auth/SignupScreen';
 import SignupScreen2 from '../Auth/SignupScreen2';
@@ -28,12 +28,20 @@ import LocalsMap from '../General/LocalsMap';
 import EditForeignerProfile from '../Profile/EditProfileForeigners';
 import LocalPage from '../General/LocalPage';
 import PostComments from '../General/Comments';
+import { colors } from '../../constants/colors';
 export default function RootNavigation() {
-  
+  const MyTheme = {
+    ...DefaultTheme,
+    colors: {
+      ...DefaultTheme.colors,
+      primary: colors.violet,
+      background:'white'
+    },
+  };
   const Stack = createNativeStackNavigator();
   return (
     
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       <Stack.Navigator initialRouteName="">
         <Stack.Screen name="signin" options={{headerTitle: () => <Logo/>,headerBackVisible:false, headerTitleAlign: 'center'}} component={SigninScreen} />
         <Stack.Screen name="signup-first" 
