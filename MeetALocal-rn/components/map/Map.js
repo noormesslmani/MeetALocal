@@ -18,13 +18,13 @@ const Map=({lat, lng, data, type, handleDrag, navigation})=> {
                       latitudeDelta: 5,
                       longitudeDelta: 5,
                   }}
-                  style={[type ==1 && MapStyles.map, type==2 && MapStyles.map2]}
+                  style={[type !=2  && MapStyles.map, type==2 && MapStyles.map2]}
                   loadingEnabled={true}
                   showsUserLocation={true}
                   provider={PROVIDER_GOOGLE}
                   maxZoomLevel={15}>
 
-                  {type==1 && data.map((local, index) => (
+                  {type!=2  && data.map((local, index) => (
                   <Marker
                   coordinate={{latitude: local.latitude, longitude: local.longitude}}
                   pinColor={colors.violet}

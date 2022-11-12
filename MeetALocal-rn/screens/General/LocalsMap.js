@@ -10,6 +10,7 @@ const LocalsMap=({navigation})=> {
     const [lat, setLat]=useState(33.888630)
     const [lng, setLng]=useState(35.495480)
     const data= route.params.data
+    const type= route.params.type
     const handlePress=(data,details)=>{
         setLat(details.geometry.location.lat)
         setLng(details.geometry.location.lng)
@@ -22,7 +23,7 @@ const LocalsMap=({navigation})=> {
      
   return (
             <View style={LocalsMapStyles.mapContainer}>
-                <Map data={data} lat={lat} lng={lng} type={1} navigation={navigation}/>
+                <Map data={data} lat={lat} lng={lng} type={type} navigation={navigation}/>
                 <View style={styles.container}>
                 <MapSearch handlePress={handlePress} navigation={navigation}/>
                 </View>
