@@ -48,7 +48,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::get('/events/saved', [UserController::class, 'getSavedEvents']);
             Route::post('/review', [ForeignerController::class, 'addReview']);
             Route::delete('/review', [ForeignerController::class, 'deleteReview']);
-            Route::get('/is-reviewd', [ForeignerController::class, 'isReviewed']);
+            Route::get('/is-reviewed', [ForeignerController::class, 'isReviewed']);
         });
         Route::group(['prefix' => 'auth'], function ($router) { 
             Route::post('/logout', [AuthController::class, 'logout']);
