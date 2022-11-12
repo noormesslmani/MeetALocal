@@ -148,8 +148,8 @@ class UserController extends Controller
         ], 201);
     }
     
-    public function getreviews(Request $request){
-        $reviews= Review::where('local_id',$request->query('id'))->get();
+    public function getReviews(Request $request){
+        $reviews= Review::where('local_id',$request->query('id'))->join('users','users.id','reviewer_id')->get(['reviews.*', 'users.name', 'users.profile_picture']);
         return response()->json([
             'message' => 'ok',
             'data' => $reviews,
