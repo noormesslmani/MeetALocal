@@ -124,5 +124,17 @@ class ForeignerController extends Controller
             'message' => 'ok',
         ], 201);
     }
-
+    public function isReviewed(Request $request){
+       
+        if(Auth::user()->sentReviews()->where('local_id',$request->query('id'))->exists()){
+            return response()->json([
+                'data' => true,
+                'message' => 'ok',
+            ], 201);
+        }
+        return response()->json([
+            'data' => false,
+            'message' => 'ok',
+        ], 201);
+    }
 }

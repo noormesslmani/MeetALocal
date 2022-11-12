@@ -95,10 +95,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Event::class, 'saved_events', 'user_id', 'event_id');
     }
     public function sentReviews(){
-        return $this->belongsToMany(User::class, 'review', 'reviewer_id', 'local_id');
+        return $this->belongsToMany(User::class, 'reviews', 'reviewer_id', 'local_id');
     }
     public function recievedReviews(){
-        return $this->belongsToMany(User::class, 'review', 'local_id', 'reviewer_id');
+        return $this->belongsToMany(User::class, 'reviews', 'local_id', 'reviewer_id');
     }
     public function age()
     {
