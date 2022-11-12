@@ -1,12 +1,12 @@
-import { View, Text, TextInput, KeyboardAvoidingView, ScrollView } from 'react-native'
+import { View, Text, TextInput, ActivityIndicator } from 'react-native'
 import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect } from "react";
 import AuthButton from '../../components/AuthButton';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import BackArrow from '../../components/Header/BackArrow';
+import Logo from '../Navigation/Logo';
 import { useRoute } from '@react-navigation/native';
-import axios from 'axios';
+import { colors } from '../../constants/colors';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { registerAccount } from '../../network/Auth';
@@ -24,6 +24,13 @@ const SignupScreen3 = ({navigation}) => {
   const [invalidEmail, setInvalidEmail]= useState(false)
   const [invalidPassword, setInvalidPassword]= useState(false)
   const [unmatchedPassword, setUnmatchedPassword]= useState(false)
+  const [isLoading, setIsLoading]= useState(false)
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <BackArrow navigation={navigation}/>,
+      headerTitle: () => <Logo/>,
+      });
+  }, [navigation]);
   const handleSubmit=()=>{
     setInvalidEmail(false)
     setInvalidPassword(false)
@@ -52,6 +59,7 @@ const SignupScreen3 = ({navigation}) => {
     }
   }
   const register= async()=>{
+    setIsLoading(true)
     const data = {
       name: fullName,
       email,
@@ -62,9 +70,11 @@ const SignupScreen3 = ({navigation}) => {
       date_of_birth: dob,
       languages: language,
     };
+    console.log(data)
     const result = await registerAccount(data)
+    setIsLoading(false)
     if (result.success){
-      await AsyncStorage.setItem("@token", response.data['token']);
+      await AsyncStorage.setItem("@token", result.data['token']);
       navigation.reset({
         index: 0,
         routes: [{ name: 'user-type' }],
@@ -93,6 +103,7 @@ const SignupScreen3 = ({navigation}) => {
             <TextInput secureTextEntry={true} placeholder="placeholder" style={styles.input} onChangeText={setConfirmPassword} value={confirmPassword}></TextInput>
             {unmatchedPassword && <Text style={styles.error}>Passwords do not match!</Text>}
           </View>
+          {isLoading && <ActivityIndicator color={colors.violet}/>}
           <AuthButton title={'Register'} handleSubmit={handleSubmit} ></AuthButton>
           <Text style={styles.text}>Already have an account?
           </Text>

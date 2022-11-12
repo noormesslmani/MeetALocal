@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions} from "react-native";
 const windowWidth = Dimensions.get("window").width;
-const windowHeight = Dimensions.get("window").height;
+import { widths } from "../../constants/dimensions";
 const styles = StyleSheet.create({
     container:{
         alignItems:"center",
@@ -19,8 +19,9 @@ const styles = StyleSheet.create({
         width:0.55*windowWidth,
     },
     logo:{
-        width: 200, 
-        height: 80
+        width: widths.width6, 
+        height: 80,
+        zIndex:20
     }
 })
 export default styles;

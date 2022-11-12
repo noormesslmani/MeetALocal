@@ -3,16 +3,13 @@ import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthButton from '../../components/AuthButton';
-import Icon from 'react-native-vector-icons/Ionicons'
 import Slider from '@react-native-community/slider';
 import { useRoute } from '@react-navigation/native';
-import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setUpAccount } from '../../network/Auth';
 import { categoryIcons } from '../../constants/categories';
+import BackArrow from '../../components/Header/BackArrow';
 const Categories=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const route = useRoute();
@@ -24,6 +21,11 @@ const Categories=({navigation})=> {
     const [categories, setCategories]=useState([])
     const [fees, setFees]=useState(0)
     const [isLoading, setIsLoading]= useState(false)
+    useEffect(() => {
+        navigation.setOptions({
+          headerLeft: () => <BackArrow navigation={navigation}/>,
+        });
+      }, [navigation]);
     const handleTourism=()=>{
         categories.includes("Tourism")?setCategories(arr => [...arr].filter(item => item !== "Tourism")):setCategories(arr => [...arr, "Tourism"])
     }
@@ -68,8 +70,8 @@ const Categories=({navigation})=> {
           };
         const result = await setUpAccount(data)
         if (result.success){
-          await AsyncStorage.setItem("@user", JSON.stringify(response.data['user']));
-          setUser(response.data.user)
+          await AsyncStorage.setItem("@user", JSON.stringify(result.data['user']));
+          setUser(result.data.user)
           navigation.reset({
             index: 0,
             routes: [{ name: 'tabs' }],

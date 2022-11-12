@@ -1,16 +1,10 @@
 import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, Modal, Pressable, StyleSheet, ScrollView, TextInput, KeyboardAvoidingView} from 'react-native'
 import React from 'react'
 import { useState, useEffect, useContext } from "react";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Icon from 'react-native-vector-icons/FontAwesome'
-import image from '../../assets/profile.jpg'
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from 'axios';
+
 import { useRoute } from '@react-navigation/native';
 import styles from './Authstyles';
-import MapView from 'react-native-maps';
-import {Marker} from 'react-native-maps';
+import BackArrow from '../../components/Header/BackArrow';
 import * as Location from 'expo-location';
 import Map from '../../components/map/Map';
 const SetUpMap=({navigation})=> {
@@ -27,6 +21,12 @@ const SetUpMap=({navigation})=> {
     useEffect(() => {
         getLocation()
       }, []);
+
+    useEffect(() => {
+      navigation.setOptions({
+        headerLeft: () => <BackArrow navigation={navigation}/>,
+      });
+    }, [navigation]);
 
     async function getLocation(){
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -54,12 +54,10 @@ const SetUpMap=({navigation})=> {
   return (
 
     <View style={styles.mapContainer}>
-        <View style={{alignItems:"center"}}><Text style={styles.title}>Set Up Location</Text>
-            <Text style={{fontSize:12, color:"grey"}}>Hold and drag the marker</Text>
-        </View>
-            <TouchableOpacity onPress={handleLocation}><Text style={{color:"#8C57BA", textDecorationLine: "underline"}}>Current Location</Text></TouchableOpacity>
-            <Map lat={lat} lng={lng} type={2} handleDrag={handleDrag} />
-        <TouchableOpacity style={[styles.saveBtn, styles.button]} onPress={handleNext} ><Text style={{color: 'white'}}>Next</Text></TouchableOpacity>
+      <Text style={{fontSize:12, color:"grey"}}>Hold and drag the marker</Text>
+      <TouchableOpacity onPress={handleLocation}><Text style={{color:"#8C57BA", textDecorationLine: "underline"}}>Current Location</Text></TouchableOpacity>
+      <Map lat={lat} lng={lng} type={2} handleDrag={handleDrag} />
+      <TouchableOpacity style={[styles.saveBtn, styles.button]} onPress={handleNext} ><Text style={{color: 'white'}}>Next</Text></TouchableOpacity>
     </View>
              
   )

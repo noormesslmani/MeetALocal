@@ -1,5 +1,4 @@
 import { StatusBar } from 'expo-status-bar';
-
 import { StyleSheet, Text, View, SafeAreaView, Image, TouchableWithoutFeedback, TouchableOpacity, Pressable } from 'react-native';
 import * as React from 'react';
 import { createContext, useState, useContext } from "react";
@@ -37,21 +36,43 @@ export default function RootNavigation() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="">
         <Stack.Screen name="signin" options={{headerTitle: () => <Logo/>,headerBackVisible:false}} component={SigninScreen} />
-        <Stack.Screen name="signup-first" options={{headerTitle: () => <Logo/>,}} component={SignupScreen} />
-        <Stack.Screen name="signup-second" options={{headerTitle: () => <Logo/>,}} component={SignupScreen2} />
+        <Stack.Screen name="signup-first" 
+        options={{ 
+          headerTitle: () => <Logo/>,
+          headerBackVisible:false, headerTitleAlign: 'center'}} 
+        component={SignupScreen} />
+        <Stack.Screen name="signup-second"
+        options={{ 
+          headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+          headerTitle: () => <Logo/>,
+          headerBackVisible:false, headerTitleAlign: 'center'}} 
+        component={SignupScreen2} />
         <Stack.Screen name="signup-third" options={{headerTitle: () => <Logo/>,}} component={SignupScreen3} />
-        <Stack.Screen name="user-type" options={{headerTitle: () => <Logo/>,}} component={UserTypeScreen} />
-        <Stack.Screen name="setup" options={{headerTitle: () => <Logo/>,}}  component={SetUpScreen} />
-        <Stack.Screen  name="setup-map" component={SetUpMap} options={{headerTitle: () => <Logo/>,}}/>
-        <Stack.Screen name="categories" options={{headerTitle: () => <Logo/>,}} component={Categories} />
+        <Stack.Screen name="user-type"  
+        options={{ headerBackVisible:false, headerTitleAlign: 'center'}} 
+        component={UserTypeScreen} />
+        <Stack.Screen name="setup"
+          options={{ 
+          headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+          headerBackVisible:false, headerTitleAlign: 'center'}}  
+         component={SetUpScreen} />
+        <Stack.Screen  name="setup-map"
+            options={{ 
+            headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+            headerBackVisible:false, headerTitleAlign: 'center'}} 
+            component={SetUpMap}/>
+        <Stack.Screen name="categories" 
+            options={{ 
+            headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+            headerBackVisible:false, headerTitleAlign: 'center'}} 
+            component={Categories} />
         <Stack.Screen name="comments"  component={PostComments} />
         <Stack.Screen name="tabs" options={{headerShown: false}} component={MyTabs} />
         <Stack.Screen  name="posts" component={Posts} 
           options={{ 
             headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
             headerRight:()=>(<Pressable><Ionicons name="filter" size={25} color="#8C57BA"/></Pressable>),
-            headerBackVisible:false, headerTitleAlign: 'center'}}
-        />
+            headerBackVisible:false, headerTitleAlign: 'center'}}/>
         <Stack.Screen  name="events" component={Events} options={{ 
             headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
             headerRight:()=>(<Pressable><Ionicons name="filter" size={25} color="#8C57BA"/></Pressable>),
