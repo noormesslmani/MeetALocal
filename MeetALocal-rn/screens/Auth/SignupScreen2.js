@@ -3,11 +3,11 @@ import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect } from "react";
 import AuthButton from '../../components/AuthButton';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import BackArrow from '../../components/Header/BackArrow';
+import Logo from '../Navigation/Logo';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useRoute } from '@react-navigation/native';
-import { countriesOptions } from '../../constants/countries';
+import { countriesOptionsOneCountry } from '../../constants/countries';
 import { languagesOptions } from '../../constants/languages';
 const SignupScreen2 = ({navigation}) => {
   const route = useRoute();
@@ -24,8 +24,14 @@ const SignupScreen2 = ({navigation}) => {
   const [openNationality, setOpenNationality] = useState(false);
   const [openCountry, setOpenCountry] = useState(false);
   const [openLanguages, setOpenLanguages] = useState(false);
-  const [countries, setcountries] = useState(countriesOptions);
+  const [countries, setcountries] = useState(countriesOptionsOneCountry);
   const [languages, setLanguages] = useState(languagesOptions);
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <BackArrow navigation={navigation}/>,
+      headerTitle: () => <Logo/>,
+      });
+  }, [navigation]);
   const handleSubmit=()=>{
     setInvalidCountry(false)
     setInvalidNationality(false)

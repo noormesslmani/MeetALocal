@@ -5,8 +5,7 @@ import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'
 import AuthButton from '../../components/AuthButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { colors } from '../../constants/colors';
 import { signin } from '../../network/Auth';
 const SigninScreen= ({ navigation })=> {
   const { user, setUser} = useContext(UserContext);
@@ -60,7 +59,7 @@ const SigninScreen= ({ navigation })=> {
             <Text>Password</Text>
             <TextInput secureTextEntry={true} placeholder="enter your password" style={styles.input} onChangeText={setPassword} value={password}></TextInput>
           </View>
-          {isLoading && <ActivityIndicator color="#8C57BA" />}
+          {isLoading && <ActivityIndicator color={colors.violet} />}
           {loginFail && <Text style={styles.error}>Failed to signIn</Text>}
           <AuthButton title={'Submit'} handleSubmit={handleSubmit} ></AuthButton>
           <Text style={styles.text}>Dont have an account yet?</Text>
