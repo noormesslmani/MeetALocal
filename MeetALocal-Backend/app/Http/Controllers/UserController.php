@@ -68,41 +68,7 @@ class UserController extends Controller
             'data' => $event,
         ], 201);
     }
-    public function toggleSavedEvents(Request $request){
-        if(SavedEvent::where('user_id',Auth::id())->where('event_id',$request->event_id)->exists())
-            SavedEvent::where('user_id',Auth::id())->where('event_id',$request->event_id)->delete();
-        else{
-            SavedEvent::create([
-                'user_id' => Auth::id(),
-                'event_id'=> $request->event_id,
-            ]);
-        }
-        return response()->json([
-            'message' => 'ok',
-        ], 201);
-    }
-    public function getSavedEvents(){
-        $events= Auth::user()->savedEvents()->get();
-        foreach($events as $event){
-            $event['categories']=$event->categories()->pluck('category');
-        }
-        return response()->json([
-            'message' => 'ok',
-            'data' => $events,
-        ], 201);
-    }
-    public function isSaved($id){
-        if(Auth::user()->savedEvents()->where('event_id',$id)->exists()){
-            return response()->json([
-                'message' => 'ok',
-                'data'=>true
-            ], 201);
-        }
-        return response()->json([
-            'message' => 'ok',
-            'data'=>false
-        ], 201);
-    }
+    
     public function getPosts($country, $category, $offset){
         $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
