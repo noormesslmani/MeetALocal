@@ -14,7 +14,7 @@ import { address } from '../../constants/address';
 import call from 'react-native-phone-call'
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import { getReviews } from '../../network/App';
-
+import ReviewCard from '../../components/Cards/ReviewerCrad';
 const LocalPage=({navigation})=> {
     const route = useRoute();
     const item =route.params.item
@@ -156,7 +156,7 @@ const LocalPage=({navigation})=> {
             </View>            
           )}
           </View>
-  
+          {reviews && reviews.map((review)=><ReviewCard review={review}/>)}
           
       
         </View>
