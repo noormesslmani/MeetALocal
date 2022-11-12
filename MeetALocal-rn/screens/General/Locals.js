@@ -80,7 +80,7 @@ const Locals=({navigation})=> {
   }
   const handleMap=()=>{
     if(!isLoading){
-      navigation.navigate('locals-map',{data: data})
+      navigation.navigate('locals-map',{data: data, type:1})
     }
   }
   const fetchMore=()=>{
