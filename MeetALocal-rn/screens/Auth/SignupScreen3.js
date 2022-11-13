@@ -1,7 +1,8 @@
-import { View, Text, TextInput, ActivityIndicator } from 'react-native'
+import { View, Text, ActivityIndicator } from 'react-native'
 import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect } from "react";
+import { TextInput } from 'react-native-paper';
 import AuthButton from '../../components/AuthButton';
 import BackArrow from '../../components/Header/BackArrow';
 import Logo from '../Navigation/Logo';
@@ -90,17 +91,22 @@ const SignupScreen3 = ({navigation}) => {
           <Text style={styles.signIn}>Register</Text>
           <View style={styles.inputContainer}>
             <Text>Email</Text>
-            <TextInput placeholder="ex: joe@email.com" style={styles.input} onChangeText={setEmail} value={email}></TextInput>
+            <TextInput placeholder="Email" style={styles.input} onChangeText={setEmail} value={email}
+            left={<TextInput.Icon icon="email" />} underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}></TextInput>
             {invalidEmail && <Text style={styles.error}>Please enter a valid email</Text>}
           </View>
           <View style={styles.inputContainer}>
             <Text>Password</Text>
-            <TextInput secureTextEntry={true} placeholder="ex: Sdf12*xY" style={styles.input} onChangeText={setPassword} value={password}></TextInput>
+            <TextInput left={<TextInput.Icon icon="lock" />}
+            secureTextEntry={true} placeholder="Password" style={styles.input} onChangeText={setPassword} value={password}
+            underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}></TextInput>
             {invalidPassword && <Text style={styles.error}>Password must contain atleast 8 characters, 1 uppercase letter, 1 lowercase letter, and 1 number</Text>}
           </View>
           <View style={styles.inputContainer}>
             <Text>Confirm Password</Text>
-            <TextInput secureTextEntry={true} placeholder="placeholder" style={styles.input} onChangeText={setConfirmPassword} value={confirmPassword}></TextInput>
+            <TextInput left={<TextInput.Icon icon="lock" />}
+            secureTextEntry={true} placeholder="Confirm password" style={styles.input} onChangeText={setConfirmPassword} value={confirmPassword}
+            underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}></TextInput>
             {unmatchedPassword && <Text style={styles.error}>Passwords do not match!</Text>}
           </View>
           {isLoading && <ActivityIndicator color={colors.violet}/>}

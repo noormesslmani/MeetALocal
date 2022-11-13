@@ -73,13 +73,13 @@ export default function RootNavigation() {
          component={SetUpScreen} />
         <Stack.Screen  name="setup-map"
             options={{ 
-            headerLeft: () => (<BackArrow type={1} />),
-            headerBackVisible:false, headerTitleAlign: 'center'}} 
+            headerLeft: () =>(<BackArrow type={2}/>),
+            headerBackVisible:false, headerTitleAlign: 'center', headerTitle:'Location Setup', headerTintColor:'white', headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false}} 
             component={SetUpMap}/>
         <Stack.Screen name="categories" 
             options={{ 
-            headerLeft: () => (<BackArrow type={1} />),
-            headerBackVisible:false, headerTitleAlign: 'center'}} 
+            headerLeft: () =>(<BackArrow type={2}/>),
+            headerBackVisible:false, headerTitleAlign: 'center', headerTitle:'Categories', headerTintColor:'white', headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false}} 
             component={Categories} />
         <Stack.Screen name="comments"  component={PostComments} />
         <Stack.Screen name="tabs" options={{headerShown: false}} component={MyTabs} />

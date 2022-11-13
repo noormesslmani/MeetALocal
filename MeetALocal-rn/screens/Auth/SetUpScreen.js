@@ -1,6 +1,7 @@
-import { View, Text, TouchableOpacity, Image, Modal, TextInput, ActivityIndicator } from 'react-native'
+import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
 import React from 'react'
 import styles from './Authstyles';
+import { TextInput, Avatar } from 'react-native-paper';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'
 import AuthButton from '../../components/AuthButton';
@@ -10,6 +11,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import UploadImage from '../../components/General/UploadImage';
 import { setUpAccount } from '../../network/Auth';
 import BackArrow from '../../components/Header/BackArrow';
+import { colors } from '../../constants/colors';
+import { widths } from '../../constants/dimensions';
 const SetUpScreen=({navigation})=> {
 const { user, setUser} = useContext(UserContext);
 const route = useRoute();
@@ -57,6 +60,7 @@ const setUp= async()=>{
     photo: base64,
     ext,
   };
+  console.log(gender)
   const result = await setUpAccount(data)
   if (result.success){
     await AsyncStorage.setItem("@user", JSON.stringify(response.data['user']));
@@ -81,13 +85,15 @@ return (
         </View>
         <View style={styles.aboutContainer}>
           <Text>About <Text style={{fontSize:10, fontWeight:"300"}}>(max 255 characters)</Text></Text>
-          <TextInput placeholder='Write about yourself' multiline={true} value={about} onChangeText={setAbout} style={styles.aboutInput} maxLength={255}></TextInput>
+          <TextInput placeholder='About' value={about} onChangeText={setAbout} style={styles.aboutInput} maxLength={255}
+          left={<TextInput.Icon icon="pen" />} underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}
+          ></TextInput>
         </View>
         <Text style={styles.gender}>Gender *</Text>
         {genderunset?<Text style={styles.error}>Please select your gender</Text>:null}
         <View style={styles.genderContainer}>
-          <TouchableOpacity onPress={handleMale}><Image source={require('../../assets/male.png')} style={[styles.genderIcon, gender=='Male'?styles.selectedIcon:null]} /></TouchableOpacity>
-          <TouchableOpacity onPress={handleFemale}><Image source={require('../../assets/female.png')} style={[styles.genderIcon, gender=='Female'?styles.selectedIcon:null]} /></TouchableOpacity>
+          <TouchableOpacity onPress={handleMale}><Avatar.Icon size={0.25*widths.width} style={[styles.genderAvatar, gender=='Male'?styles.selectedGender: null]} icon={()=><Image source={require('../../assets/male.png')} style={styles.genderIcon} />} /></TouchableOpacity>
+          <TouchableOpacity onPress={handleFemale}><Avatar.Icon size={0.25*widths.width} style={[styles.genderAvatar, gender=='Female'?styles.selectedGender: null]} icon={()=><Image source={require('../../assets/female.png')} style={styles.genderIcon} />} /></TouchableOpacity>
         </View>
         {isLoading && <ActivityIndicator color="#8C57BA" />}
         <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>

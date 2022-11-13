@@ -74,9 +74,9 @@ const LocalCardStyles = StyleSheet.create({
         justifyContent:"center"
     },
     iconLabel:{
-        fontSize:12,
-        color:"white",
-        fontWeight:"600",
+        fontSize:14,
+        color:colors.violet,
+        fontWeight:"bold",
     }
 
 });

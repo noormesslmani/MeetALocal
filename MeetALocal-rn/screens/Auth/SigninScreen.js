@@ -1,4 +1,5 @@
-import { View, Text, TextInput, KeyboardAvoidingView, ActivityIndicator } from 'react-native'
+import { View, Text, KeyboardAvoidingView, ActivityIndicator } from 'react-native'
+import { TextInput } from 'react-native-paper';
 import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect, useContext } from "react";
@@ -7,6 +8,7 @@ import AuthButton from '../../components/AuthButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { colors } from '../../constants/colors';
 import { signin } from '../../network/Auth';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 const SigninScreen= ({ navigation })=> {
   const { user, setUser} = useContext(UserContext);
   const [email, setEmail]=useState('');
@@ -24,6 +26,7 @@ const SigninScreen= ({ navigation })=> {
       const data = {
         email,
         password,};
+        console.log(data)
       setIsLoading(true)
       const result =await signin(data)
       if (result.success){
@@ -52,12 +55,15 @@ const SigninScreen= ({ navigation })=> {
           <Text style={styles.signIn}>Sign In</Text>
           <View style={styles.inputContainer}>
             <Text>Email</Text>
-            <TextInput placeholder="enter your email" style={styles.input} onChangeText={setEmail} value={email}></TextInput>
+            <TextInput placeholder="Email" style={styles.input} onChangeText={setEmail} value={email}
+            left={<TextInput.Icon icon="email" />} underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet} ></TextInput>
             {invalidEmail?<Text style={styles.error}>Please enter a valid email</Text>:null}
           </View>
           <View style={styles.inputContainer}>
             <Text>Password</Text>
-            <TextInput secureTextEntry={true} placeholder="enter your password" style={styles.input} onChangeText={setPassword} value={password}></TextInput>
+            <TextInput left={<TextInput.Icon icon="lock" />}
+            secureTextEntry={true} placeholder="Password" style={styles.input} onChangeText={setPassword} value={password}
+            underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}></TextInput>
           </View>
           {isLoading && <ActivityIndicator color={colors.violet} />}
           {loginFail && <Text style={styles.error}>Failed to signIn</Text>}

@@ -53,7 +53,7 @@ const SetUpMap=({navigation})=> {
     <View style={styles.mapContainer}>
       <Text style={{fontSize:12, color:"grey"}}>Hold and drag the marker</Text>
       <Map lat={lat} lng={lng} type={2} handleDrag={handleDrag} />
-      <TouchableOpacity style={[styles.saveBtn, styles.button]} onPress={handleNext} ><Text style={{color: 'white'}}>Next</Text></TouchableOpacity>
+      <TouchableOpacity style={[styles.saveBtn, styles.button]} onPress={handleNext} ><Text style={{color: 'white', fontSize:16, fontWeight:"700"}}>Next</Text></TouchableOpacity>
     </View>
              
   )

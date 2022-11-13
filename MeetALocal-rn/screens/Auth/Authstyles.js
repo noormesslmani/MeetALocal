@@ -61,8 +61,6 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         paddingLeft: 10,
         marginTop: 5,
-        borderColor: colors.blue,
-        borderBottomWidth: 0.5,
     },
     shadowProp: {
         shadowColor: "#000",
@@ -110,24 +108,27 @@ const styles = StyleSheet.create({
         left:120
     },
     genderContainer:{
-        flexDirection:'row'
+        flexDirection:'row',
+        width: widths.width6,
+        justifyContent:"space-between",
+        marginVertical:20
     },
     gender:{
         fontSize: 18,
         marginTop: 20,
     },
     genderIcon:{
-        width:100,
-        height:100,
-        borderRadius:50,
-        marginHorizontal:20,
-        marginVertical:30,
-        borderWidth:1,
-        borderColor:'#D9D9D9'
+        width:0.25*widths.width,
+        height:0.25*widths.width,
+        borderRadius:0.125*widths.width,
     },
-    selectedIcon:{
-        borderWidth:3,
-        borderColor:colors.lightViolet 
+    genderAvatar:{
+        backgroundColor:"white",
+        borderWidth:1,
+        borderColor:colors.lightViolet
+    },
+    selectedGender:{
+        backgroundColor:colors.lighterViolet
     },
     selectCategory:{
         fontSize:18,
@@ -151,14 +152,16 @@ const styles = StyleSheet.create({
         alignItems:"center"
     },
     categoryIcon:{
-        width:43,
-        height:43,
+        width:40,
+        height:40,
        
     },
+    categoryBtn:{
+        width:120,
+        height:50
+    },
     circle:{
-        width:60,
-        height:60,
-        borderRadius:30,
+        backgroundColor:"white",
         borderWidth:1,
         borderColor: colors.lighterViolet,
         position:'relative',
@@ -182,7 +185,7 @@ const styles = StyleSheet.create({
         borderRightWidth:0,
         borderBottomRightRadius:0,
         borderBottomLeftRadius:0,
-        borderBottomColor:colors.blue,
+        borderBottomColor:colors.lightViolet,
         borderBottomWidth:0.5
       },
     dropDownContainer:{
@@ -207,11 +210,11 @@ const styles = StyleSheet.create({
       },
       saveBtn:{
         position:"absolute",
-        top:"97%",
-        width:100,
-        height: 35,
+        bottom:10,
+        width:130,
+        height: 45,
         borderRadius: 10,
-        backgroundColor: colors.violet,
+        backgroundColor: colors.mediumViolet,
         alignItems: "center",
         justifyContent: "center",
       },
@@ -220,11 +223,10 @@ const styles = StyleSheet.create({
         margin:40,
       },
       aboutInput:{
-        height:50,
+    
         width:"100%",
-        borderBottomWidth:0.5,
-        borderColor:"white",
-        borderBottomColor: colors.blue
+        backgroundColor: "white",
+        paddingLeft: 10,
       }
     
 });

@@ -39,6 +39,7 @@ const Events=({navigation})=> {
       result = await getAllEvents(country, category)
     }
     else if(choice==2){
+      console.log('hi')
       result = await getSavedEvents()
     }
     else if(choice==3){
