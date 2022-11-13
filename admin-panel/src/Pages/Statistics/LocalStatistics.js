@@ -48,22 +48,24 @@ const LocalStatistics=({type})=> {
         <div className='flex'>
             <NavBar/>
             <div className='dashboard-container flex-col align-center'>
+              <h1 className='home-title'>Statistics</h1>
               <div className='flex space-between stat-links-container'>
                 <NavLink to='/locals-statistics' className='stat-link'>Locals</NavLink>
-                <NavLink to='/locals-statistics' className='stat-link'>Foreigners</NavLink>
+                <NavLink to='/foreigners-statistics' className='stat-link'>Foreigners</NavLink>
               </div>
+              <h3>Total Number: {total}</h3>
               {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
               <div className='flex wrap space-between charts-container'>
                 {!isLoading && <PieChart
-                options={{ labels: ["Male", "Female"] }} series={genderData} title={'Genders'}/>}
+                options={{ labels: ["Male", "Female"], title:{text:'Genders'} }} series={genderData}/>}
                 {!isLoading && <PieChart
-                options={{ labels: ["Below 30", "30-60","Above 60"] }} series={ageData} title={'Age Groups'} />}
+                options={{ labels: ["Below 30", "30-60","Above 60"], title:{text:'Age groups'} }} series={ageData} />}
               </div>
               <div className='flex wrap space-between charts-container'>
                 {!isLoading && <BarChart
-                options={{chart: {id: "simple-bar"},xaxis: {categories: categoryLabels }}} series={[{data: categoryData}]} title={'Top Categories'}/>}
+                options={{chart: {id: "simple-bar"},xaxis: {categories: categoryLabels }, title:{text:'Top categories'}}} series={[{data: categoryData}]} />}
                 {!isLoading && <BarChart
-                 options={{chart: {id: "simple-bar"},xaxis: {categories: languageLabels }}} series={[{data: languageData}]} title={'Top Languages'} />}
+                 options={{chart: {id: "simple-bar"},xaxis: {categories: languageLabels }, title:{text:'Top languages'}}} series={[{data: languageData}]}  />}
               </div>
             </div>
         </div>

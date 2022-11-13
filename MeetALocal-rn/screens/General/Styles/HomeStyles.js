@@ -8,18 +8,14 @@ const HomeStyles = StyleSheet.create({
         padding:20
     },
     welcome:{
-        fontSize:45,
+        fontSize:36,
         color:colors.violet
     },
-    name:{
-        fontSize:20,
-        margin:5,
-    },
     photo:{
-        width: widths.width4,
-        height: widths.width4,
-        borderRadius: 0.2*widths.width,
-        margin:15
+        width: widths.width5,
+        height: widths.width5,
+        borderRadius: 0.25*widths.width,
+        margin:30
     },
     cardContainer:{
         alignItems:"center",
