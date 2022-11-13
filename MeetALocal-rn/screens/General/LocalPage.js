@@ -17,6 +17,7 @@ import { getReviews } from '../../network/App';
 import ReviewCard from '../../components/Cards/ReviewerCrad';
 import { checkReviewed, addReview } from '../../network/App';
 import ReviewModal from '../../components/Modals/ReviewModal';
+import { colors } from '../../constants/colors';
 const LocalPage=({navigation})=> {
     const route = useRoute();
     const item =route.params.item
@@ -27,7 +28,7 @@ const LocalPage=({navigation})=> {
     const [imageIndex, setImageIndex]= useState(0)
     
     const [reviews, setReviews]=useState([])
-    
+    const [average, setAverage]=useState(0)
     const [stars, setStars]=useState(null)
     const [reviewed, setReviewed]=useState(true)
     const [reviewModalVisible, setReviewModalVisible]=useState(false)
@@ -56,7 +57,10 @@ const LocalPage=({navigation})=> {
       }
       setStars(starsArr)
     },[reviews])
-
+    useEffect(()=>{
+      if(stars)
+      setAverage((stars[0]+2*stars[1]+3*stars[2]+4*stars[3]+5*stars[4])/(stars[0]+stars[1]+stars[2]+stars[3]+stars[4]))
+    },[stars])
     const getAllReviews=async()=>{
       const result = await getReviews(item.id)
       if (result.success){
@@ -103,7 +107,7 @@ const LocalPage=({navigation})=> {
   const handlePhone=()=>{
     call(args).catch(console.error)
   }
-  
+
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
         <View style={LocalProfileStyles.mainContainer}>
@@ -114,7 +118,7 @@ const LocalPage=({navigation})=> {
               <View style={{flexDirection:"row"}}><Text style={{fontSize:14, fontWeight:"400", marginBottom:3}}>{item.country}</Text><Map handleMap={handleMap} small={true}/></View>
               <View style={{flexDirection:"row", alignItems:"center"}}>
                 <Text style={{fontSize:13, fontWeight:"400", marginRight:3}}>{likes}</Text>
-                <Icon name="heart" color="#8C57BA" size={15} /> 
+                <Icon name="heart" color={colors.violet} size={15} /> 
               </View>
             </View>
           </View>
@@ -145,12 +149,12 @@ const LocalPage=({navigation})=> {
               {item.categories.map((category)=>
               <View style={LocalProfileStyles.iconContainer}>
               <Image source={categoryIcons[category]} style={{width:25, height:25}}/>
-              <Text style={{fontSize:14}}>{category}</Text>
+              <Text style={{fontSize:12}}>{category}</Text>
               </View>
             )}
               </View>
           </View>
-          
+          <View style={LocalProfileStyles.separator}></View>
           {item.highlights.length>0 && <View style={LocalProfileStyles.about}>
           <Text style={{fontSize:16, fontWeight:"500", marginBottom:20}}>Highlights</Text>
             <View style={LocalProfileStyles.highlightImages}>
@@ -169,15 +173,13 @@ const LocalPage=({navigation})=> {
           onRequestClose={() => setIsVisible(false)}/>
           <View style={LocalProfileStyles.about}>
           <Text style={{fontSize:16, fontWeight:"500", marginBottom:20}}>Reviews</Text>
-            {stars && stars.map((star,i)=>
-            <View style={{flexDirection:"row", alignItems:"center"}}>
-              <Rating size={10} readonly= {true} startingValue={i+1} imageSize={20} style={{marginVertical:3, marginHorizontal:10}}/>
-              <Text style={{fontSize:10}}>{star}</Text>
-            </View>            
-          )}
+             {/* {stars && 
+             <Rating size={10} showRating showReadOnlyText={false} readonly= {true} startingValue={(stars[0]+2*stars[1]+3*stars[2]+4*stars[3]+5*stars[4])/(stars[0]+stars[1]+stars[2]+stars[3]+stars[4])} imageSize={25} style={{marginVertical:3, marginHorizontal:10}}/>
+             } */}
+          {stars && <Rating showRating showReadOnlyText={false} readonly= {true} startingValue={average} imageSize={25} style={{marginVertical:3, marginHorizontal:10}} />}
+          <Text style={{alignSelf:"center", fontSize:10}}>Based on {reviews.length} reviews</Text>
           </View>
           {user.type_id==2 && !reviewed &&<Pressable onPress={()=>{setReviewModalVisible(true)}} ><Text style={LocalProfileStyles.addReview}>Add a review</Text></Pressable>}
-          <View style={LocalProfileStyles.separator}></View>
           {reviews && reviews.map((review)=><ReviewCard review={review}/>)}
         {reviewModalVisible && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} setReviewAdded={setReviewAdded} id={item.id} />}
       
