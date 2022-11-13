@@ -11,7 +11,7 @@ const MapCard=({data, myList, navigation})=> {
             >
               <View style={MapCardStyles.card_view} >
                 <Image
-                  source={item.profile_picture?{ uri:`http://192.168.1.7:8000/${item.profile_picture}`}: require('../../assets/blank-profile.webp')}
+                  source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')}
               
                   style={MapCardStyles.card_image}
                 />

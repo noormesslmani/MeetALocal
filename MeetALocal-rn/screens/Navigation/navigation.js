@@ -29,6 +29,7 @@ import EditForeignerProfile from '../Profile/EditProfileForeigners';
 import LocalPage from '../General/LocalPage';
 import PostComments from '../General/Comments';
 import { colors } from '../../constants/colors';
+import { address } from '../../constants/address';
 export default function RootNavigation() {
   const MyTheme = {
     ...DefaultTheme,
@@ -93,7 +94,13 @@ export default function RootNavigation() {
         <Stack.Screen  name="locals-map" component={LocalsMap} />
         <Stack.Screen  name="chat-screen" component={ChatScreen} />
         <Stack.Screen  name="edit-foreigner-profile" component={EditForeignerProfile} />
-        <Stack.Screen  name="local-page" component={LocalPage} />
+        <Stack.Screen  name="local-page" component={LocalPage}
+        options={{
+          headerTintColor: colors.violet,
+          headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+            headerBackVisible:false, headerTitleAlign: 'center'
+        }}
+        />
         <Stack.Screen  name="locals" component={Locals}   options={{ 
             headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
             headerRight:()=>(
@@ -126,7 +133,7 @@ function MyTabs() {
     < Tab.Navigator
       initialRouteName="home"
       screenOptions={{
-        tabBarActiveTintColor: "#4BB0F9",
+        tabBarActiveTintColor: colors.violet,
       }}
       >
       <Tab.Screen
@@ -141,7 +148,8 @@ function MyTabs() {
           headerRight: () => (
             <TouchableOpacity style={{marginRight:10}} onPress={handleExit}>
               <Ionicons name="exit-outline" size={30}/>
-            </TouchableOpacity>)
+            </TouchableOpacity>),
+            headerTitleAlign: 'center'
         }}
       />
       {user.type_id==1 && <Tab.Screen
@@ -172,10 +180,10 @@ function MyTabs() {
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="chat" color={color} size={size} />
           ),
-          headerStyle: {height: 100},
+          headerStyle: {height: 100, backgroundColor:colors.lighterViolet},
           headerLeft: () => (
             <View style={{marginLeft:20, flexDirection:"row"}}>
-              <Image source={user.profile_picture?{ uri:`http://192.168.1.7:8000/${user.profile_picture}`}: require('../../assets/blank-profile.webp')} style={{width:40, height:40, borderRadius:20}}/>
+              <Image source={user.profile_picture?{ uri:`${address}/${user.profile_picture}`}: require('../../assets/blank-profile.webp')} style={{width:40, height:40, borderRadius:20}}/>
             </View>)
         }}
         

@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import EventCardStyles from '../ComponentsStyles/EventCardStyles';
 import EventModal from '../Modals/EventModal';
+import { address } from '../../constants/address';
 const EventCard=({navigation, item, choice, setEventDeleted})=> {
   const [modalVisible, setModalVisible]=useState(false)
   const [deleted, setDeleted]=useState(false)
@@ -21,7 +22,7 @@ const EventCard=({navigation, item, choice, setEventDeleted})=> {
   return (
     <>
     <TouchableOpacity style={EventCardStyles.cardContainer} onPress={handleEvent}>
-        <Image source={item.photo?{ uri:`http://192.168.1.7:8000/${item.photo}`}: require('../../assets/blank-profile.webp')} style={EventCardStyles.image}/>
+        <Image source={item.photo?{ uri:`${address}/${item.photo}`}: require('../../assets/blank-profile.webp')} style={EventCardStyles.image}/>
         <Text style={EventCardStyles.title}>{item.title}</Text>
         <View style={{flexDirection:"row", justifyContent:"space-between"}}>
             <Text style={EventCardStyles.info}>{item.date}</Text>

@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect, useContext } from 'react'
 import { GiftedChat } from 'react-native-gifted-chat'
 import { UserContext } from '../../App'
 import { database } from "../../firebase";
+import { address } from '../../constants/address';
 import {
     collection,
     orderBy,
@@ -20,7 +21,7 @@ const ChatScreen=()=> {
     const userId= route.params.userId
     const [messages, setMessages] = useState([]);
     const { user, setUser} = useContext(UserContext);
-    const uri=`http://192.168.1.7:8000/${user.profile_picture}`
+    const uri=`${address}/${user.profile_picture}`
     useEffect(() => {
         getMessages()
     }, []);
