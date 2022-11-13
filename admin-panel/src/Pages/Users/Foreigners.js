@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import '../../Constants/Flex.css'
 import Header from '../../Components/Header/Header';
 import NavBar from '../../Components/NavBar/NavBar';
@@ -51,6 +51,10 @@ const Foreigners=()=> {
             <NavBar/>
             <div className='dashboard-container flex-col align-center'>
                 <h1 className='home-title'>Foreigners</h1>
+                <div className='flex space-between stat-links-container'>
+                <NavLink to='/Foreigners' className='banned-link'>All</NavLink>
+                <NavLink to='/banned-foreigners' className='banned-link'>Banned</NavLink>
+                </div>
                 {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
                 {!isLoading && <UsersTable data={data} setBanLoading={setBanLoading} />}
                 <div className='flex align-center justify-center arrow-contianer'>
