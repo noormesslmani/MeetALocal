@@ -56,6 +56,11 @@ const LocalProfileStyles = StyleSheet.create({
         width:widths.width4,
         height:0.35*widths.width,
         margin:5
+    },
+    addReview:{
+        fontSize:12,
+        marginVertical:5,
+        color:colors.violet
     }
 
 });
