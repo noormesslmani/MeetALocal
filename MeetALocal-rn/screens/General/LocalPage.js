@@ -15,8 +15,9 @@ import call from 'react-native-phone-call'
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import { getReviews } from '../../network/App';
 import ReviewCard from '../../components/Cards/ReviewerCrad';
-import { checkReviewed } from '../../network/App';
+import { checkReviewed, addReview } from '../../network/App';
 import ReviewModal from '../../components/Modals/ReviewModal';
+import { async } from '@firebase/util';
 const LocalPage=({navigation})=> {
     const route = useRoute();
     const item =route.params.item
@@ -25,12 +26,13 @@ const LocalPage=({navigation})=> {
     const [likes, setLikes]= useState(item.likes)
     const [visible, setIsVisible] = useState(false);
     const [imageIndex, setImageIndex]= useState(0)
-    const [rating,setRating]=useState(1)
+    
     const [reviews, setReviews]=useState([])
-    const [review, setReview]=useState(null)
+    
     const [stars, setStars]=useState(null)
     const [reviewed, setReviewed]=useState(true)
     const [reviewModalVisible, setReviewModalVisible]=useState(false)
+    const [reviewAdded, setReviewAdded]=useState(false)
     const images = item.highlights.map((image)=>({ uri: `${address}/${image}`}))
           
     useEffect(()=>{
@@ -39,8 +41,14 @@ const LocalPage=({navigation})=> {
         isReviewed()
       }
       setLocals([item])
-      setReviews(item.reviews)
+      getAllReviews()
     },[])
+    useEffect(()=>{
+      if(reviewAdded){
+        getAllReviews()
+        setReviewAdded(false)
+      }
+    },[reviewAdded])
     useEffect(()=>{
       let starsArr=[0,0,0,0,0]
       for(let review of reviews){
@@ -49,6 +57,12 @@ const LocalPage=({navigation})=> {
       setStars(starsArr)
     },[reviews])
 
+    const getAllReviews=async()=>{
+      const result = await getReviews(item.id)
+      if (result.success){
+        setReviews(result.data.data)
+      }
+    } 
     const handleLike=()=>{
       toggleFavorite()
     }
@@ -89,9 +103,7 @@ const LocalPage=({navigation})=> {
   const handlePhone=()=>{
     call(args).catch(console.error)
   }
-  const handleSubmit=()=>{
-    console.log(rating)
-  }
+  
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
         <View style={LocalProfileStyles.mainContainer}>
@@ -164,10 +176,10 @@ const LocalPage=({navigation})=> {
             </View>            
           )}
           </View>
-          {user.type_id==2 && !reviewed &&<Pressable onPress={()=>{setReviewModalVisible(true), setRating(3)}} ><Text style={LocalProfileStyles.addReview}>Add a review</Text></Pressable>}
+          {user.type_id==2 && !reviewed &&<Pressable onPress={()=>{setReviewModalVisible(true)}} ><Text style={LocalProfileStyles.addReview}>Add a review</Text></Pressable>}
           <View style={LocalProfileStyles.separator}></View>
           {reviews && reviews.map((review)=><ReviewCard review={review}/>)}
-          {reviewModalVisible && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} setRating={setRating} handleSubmit={handleSubmit} />}
+        {reviewModalVisible && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} setReviewAdded={setReviewAdded} id={item.id} />}
       
         </View>
     </ScrollView>
