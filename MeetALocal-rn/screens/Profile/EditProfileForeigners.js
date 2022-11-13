@@ -14,6 +14,7 @@ import DatePicker from '../../components/General/datePicker';
 import { countriesOptions } from '../../constants/countries';
 import { languagesOptions } from '../../constants/languages';
 import AppButton from '../../components/Buttons/AppButtons';
+import { address } from '../../constants/address';
 const EditForeignerProfile=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const [uri, setUri]= useState(null)
@@ -45,7 +46,7 @@ const EditForeignerProfile=({navigation})=> {
       }
     useEffect(()=>{
       if(user.profile_picture){
-        setUri(`http://192.168.1.7:8000/${user.profile_picture}`)
+        setUri(`${address}/${user.profile_picture}`)
       }
     },[user.profile_picture])
     const handleCancel=()=>{
@@ -69,7 +70,7 @@ const EditForeignerProfile=({navigation})=> {
             method: "put",
             data,
             headers: { Authorization: `Bearer ${token}`},
-            url:"http://192.168.1.7:8000/api/v1.0.0/users/edit-profile",
+            url:`${address}/api/v1.0.0/users/edit-profile`,
           })
           .then(async (response)=> {
             setUser(response.data.data)

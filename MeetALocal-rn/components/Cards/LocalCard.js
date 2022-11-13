@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LocalCardStyles from '../ComponentsStyles/LocalCardStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { categoryIcons } from '../../constants/categories';
+import { address } from '../../constants/address';
 const LocalCard=({navigation, item})=> {
     
     const [categories, setCategories]=useState([])
@@ -19,7 +20,7 @@ const LocalCard=({navigation, item})=> {
   return (
     <View style={LocalCardStyles.container}>
         <TouchableOpacity style={LocalCardStyles.card} onPress={handlePress}>
-            <Image source={item.profile_picture?{ uri:`http://192.168.1.7:8000/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={LocalCardStyles.image}/>
+            <Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={LocalCardStyles.image}/>
             <View style={LocalCardStyles.infoContainer}>
                 <Text style={LocalCardStyles.name}>{item.name}</Text>
                 <Text style={LocalCardStyles.country}>{item.country}</Text>

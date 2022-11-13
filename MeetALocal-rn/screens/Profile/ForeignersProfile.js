@@ -5,8 +5,7 @@ import { UserContext } from '../../App'
 import { useState, useEffect, useContext } from "react";
 import ProfileStyles from './ProfileStyles/ProfileStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { AntDesign } from '@expo/vector-icons';
-import * as ImagePicker from 'expo-image-picker';
+import { address } from '../../constants/address';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 const ForeignerProfile=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
@@ -22,7 +21,7 @@ const ForeignerProfile=({navigation})=> {
     }
   return (
     <View style={ProfileStyles.container}>
-        <Image source={image?{ uri:`http://192.168.1.7:8000/${image}`}: require('../../assets/blank-profile.webp')} style={{ width: 200, height: 200, borderRadius:100 }} />
+        <Image source={image?{ uri:`${address}/${image}`}: require('../../assets/blank-profile.webp')} style={{ width: 200, height: 200, borderRadius:100 }} />
         <Text style={ProfileStyles.name}>{user.name}</Text>
         <TouchableOpacity onPress={handleEdit}><Icon name="pencil" size={18} color='grey' /></TouchableOpacity>
         <View style={{marginTop:20}}>
