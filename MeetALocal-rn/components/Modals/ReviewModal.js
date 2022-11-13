@@ -4,10 +4,29 @@ import ReviewModalStyles from '../ComponentsStyles/ReviewModalStyles';
 import { useState, useEffect, useContext } from "react";
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import AppButton from '../Buttons/AppButtons';
-const ReviewModal=({setModalVisible, modalVisible, setRating, handleSubmit, review, setReview})=> {
+import { addReview } from '../../network/App';
+const ReviewModal=({setModalVisible, modalVisible, id,setReviewAdded })=> {
+    const [review, setReview]=useState(null)
+    const [rating,setRating]=useState(3)
+    const handleSubmit=()=>{
+      addNewReview()
+    }
     const handleDiscard=()=>{
+      setModalVisible(false)
+      setReview(null)
+  }
+    const addNewReview=async()=>{
+      const data={
+        local_id:id,
+        review,
+        stars: parseInt(rating)
+      }
+      console.log(data)
+      const result = await addReview(data)
+      if (result.success){
+        setReviewAdded(true)
         setModalVisible(false)
-        setReview(null)
+      }
     }
   return (
     <Modal
