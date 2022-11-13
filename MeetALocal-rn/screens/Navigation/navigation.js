@@ -30,6 +30,7 @@ import LocalPage from '../General/LocalPage';
 import PostComments from '../General/Comments';
 import { colors } from '../../constants/colors';
 import { address } from '../../constants/address';
+import BackArrow from '../../components/Header/BackArrow';
 export default function RootNavigation() {
   const MyTheme = {
     ...DefaultTheme,
@@ -52,13 +53,13 @@ export default function RootNavigation() {
         component={SignupScreen} />
         <Stack.Screen name="signup-second"
         options={{ 
-          headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+          headerLeft: () => (<BackArrow type={1}/>),
           headerTitle: () => <Logo/>,
           headerBackVisible:false, headerTitleAlign: 'center'}} 
         component={SignupScreen2} />
         <Stack.Screen name="signup-third" 
         options={{ 
-          headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+          headerLeft: () => (<BackArrow type={1} />),
           headerTitle: () => <Logo/>,
           headerBackVisible:false, headerTitleAlign: 'center'}} 
          component={SignupScreen3} />
@@ -67,28 +68,28 @@ export default function RootNavigation() {
         component={UserTypeScreen} />
         <Stack.Screen name="setup"
           options={{ 
-          headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
-          headerBackVisible:false, headerTitleAlign: 'center'}}  
+          headerLeft: () => (<BackArrow type={2}/>),
+          headerBackVisible:false, headerTitleAlign: 'center', headerTitle:'Account Setup', headerTintColor:'white', headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false}}  
          component={SetUpScreen} />
         <Stack.Screen  name="setup-map"
             options={{ 
-            headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+            headerLeft: () => (<BackArrow type={1} />),
             headerBackVisible:false, headerTitleAlign: 'center'}} 
             component={SetUpMap}/>
         <Stack.Screen name="categories" 
             options={{ 
-            headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+            headerLeft: () => (<BackArrow type={1} />),
             headerBackVisible:false, headerTitleAlign: 'center'}} 
             component={Categories} />
         <Stack.Screen name="comments"  component={PostComments} />
         <Stack.Screen name="tabs" options={{headerShown: false}} component={MyTabs} />
         <Stack.Screen  name="posts" component={Posts} 
           options={{ 
-            headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+            headerLeft: () => (<BackArrow type={1} />),
             headerRight:()=>(<Pressable><Ionicons name="filter" size={25} color="#8C57BA"/></Pressable>),
             headerBackVisible:false, headerTitleAlign: 'center'}}/>
         <Stack.Screen  name="events" component={Events} options={{ 
-            headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+            headerLeft: () => (<BackArrow type={1} />),
             headerRight:()=>(<Pressable><Ionicons name="filter" size={25} color="#8C57BA"/></Pressable>),
             headerBackVisible:false, headerTitleAlign: 'center'}} />
         <Stack.Screen  name="locals-map" component={LocalsMap} />
@@ -97,12 +98,12 @@ export default function RootNavigation() {
         <Stack.Screen  name="local-page" component={LocalPage}
         options={{
           headerTintColor: colors.violet,
-          headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+          headerLeft: () => (<BackArrow type={1} />),
             headerBackVisible:false, headerTitleAlign: 'center'
         }}
         />
         <Stack.Screen  name="locals" component={Locals}   options={{ 
-            headerLeft: () => (<Pressable><Ionicons name="chevron-back" size={30} color="#8C57BA"/></Pressable>),
+            headerLeft: () => (<BackArrow type={1} />),
             headerRight:()=>(
               <View style={{flexDirection:"row"}}>
               <Pressable style={{marginLeft:10}}><Ionicons name="location-sharp" size={25} color="#8C57BA"/></Pressable>
