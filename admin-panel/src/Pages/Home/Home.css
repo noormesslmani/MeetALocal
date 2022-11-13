@@ -40,6 +40,20 @@
 .stat-link.active{
     text-decoration: underline;
 }
+.banned-link{
+    color:rgba(140,87,186,0.5);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 18px;
+    margin-top: 10px;
+}
+.banned-link:hover{
+    text-decoration: underline;
+}
+.banned-link.active{
+    text-decoration: underline;
+}
 .charts-container{
-    width: 90%;
+    width: 80%;
+    margin-top: 40px;
 }

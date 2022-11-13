@@ -21,7 +21,6 @@ const Home=({navigation})=> {
   return (
     <View style={HomeStyles.container}>
         <Text style={HomeStyles.welcome}>Welcome</Text>
-        <Text style={HomeStyles.name}>{user['name']}</Text>
         <Image source={user.profile_picture?{ uri:`http://192.168.1.7:8000/${user.profile_picture}`}: require('../../assets/blank-profile.webp')} style={HomeStyles.photo }/>
         <HomeCard label={'Locals'} handlePress={handleLocals}/>
         <HomeCard label={'Events'} handlePress={handleEvents}/>
