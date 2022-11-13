@@ -24,7 +24,7 @@ const LocalProfileStyles = StyleSheet.create({
         borderRadius:60
     },
     message:{
-        backgroundColor: colors.violet,
+        backgroundColor: colors.lightViolet,
         width:80,
         height:30,
         alignItems:"center",
@@ -33,7 +33,7 @@ const LocalProfileStyles = StyleSheet.create({
     },
     separator:{
         width:widths.width9,
-        borderBottomColor: 'grey',
+        borderBottomColor: colors.lightViolet,
         borderBottomWidth: 0.3,
         marginBottom:20,
     },
@@ -60,7 +60,8 @@ const LocalProfileStyles = StyleSheet.create({
     addReview:{
         fontSize:12,
         marginVertical:5,
-        color:colors.violet
+        color:colors.violet,
+        textDecorationLine:"underline"
     }
 
 });

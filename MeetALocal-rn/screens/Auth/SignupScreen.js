@@ -1,13 +1,14 @@
-import { View, Text, TextInput, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
+import { View, Text, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import React from 'react'
+import { TextInput } from 'react-native-paper';
 import styles from './Authstyles';
 import { useState, useEffect } from "react";
 import AuthButton from '../../components/AuthButton';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DatePicker from '../../components/General/datePicker';
 import Icon from 'react-native-vector-icons/AntDesign'
+import { colors } from '../../constants/colors';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 const SignupScreen = ({navigation}) => {
   const [fullName, setFullName]=useState('');
   const [invalidName, setInvalidName]=useState(false);
@@ -57,6 +58,9 @@ const SignupScreen = ({navigation}) => {
       })
     }
   }
+
+
+
   return (
     <View style={styles.background}>
       <KeyboardAwareScrollView style={styles.scrollView} scrollEnabled={false}  showsVerticalScrollIndicator={false}>
@@ -65,12 +69,14 @@ const SignupScreen = ({navigation}) => {
           <Text style={styles.signIn}>Register</Text>
           <View style={styles.inputContainer}>
             <Text>Full Name</Text>
-            <TextInput placeholder="ex: Andrew Smith" style={styles.input} onChangeText={setFullName} value={fullName}></TextInput>
+            <TextInput placeholder="Full Name" style={styles.input} onChangeText={setFullName} 
+            value={fullName} left={<TextInput.Icon icon={()=><FontAwesome name='user' size={20} />} />} underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}></TextInput>
             {invalidName && <Text style={styles.error}>Please enter your name</Text>}
           </View>
           <View style={styles.inputContainer}>
             <Text>Phone Number</Text>
-            <TextInput placeholder="ex: 0096171100200" style={styles.input} onChangeText={setPhone} value={phone} keyboardType={'numeric'}></TextInput>
+            <TextInput placeholder="Phone" style={styles.input} onChangeText={setPhone} value={phone} 
+            keyboardType={'numeric'} left={<TextInput.Icon icon='phone' />} underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}></TextInput>
             {invalidPhone && <Text style={styles.error}>Please enter your phone number</Text>}
           </View>
           <View style={styles.inputContainer}>

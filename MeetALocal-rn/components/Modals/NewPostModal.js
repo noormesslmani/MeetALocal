@@ -9,6 +9,7 @@ import { categoriesOptions } from '../../constants/categories';
 import { countriesOptions } from '../../constants/countries';
 import AppButton from '../Buttons/AppButtons';
 import { createNewPost } from '../../network/App';
+import { colors } from '../../constants/colors';
 const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
     const [selectedCountry, setSelectedCountry]=useState(null)
     const [selectedCategory, setSelectedCategory]=useState([])
@@ -84,7 +85,7 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                     zIndexInverse={1000}
                     open={openCountry}
                     value={selectedCountry}
-                    dropDownDirection="BOTTOM"
+                    dropDownDirection="TOP"
                     items={countries}
                     setOpen={setOpenCountry}
                     setValue={setSelectedCountry}
@@ -97,7 +98,7 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                     }}
                     dropDownContainerStyle={{
                         marginTop:10,
-                        borderColor:"#4BB0F9",
+                        borderColor:colors.lightBlue,
                         borderWidth:0.5
                     }}
                     />
@@ -115,7 +116,7 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                     zIndexInverse={2000}
                     open={openCategory}
                     value={selectedCategory}
-                    dropDownDirection="BOTTOM"
+                    dropDownDirection="TOP"
                     items={categories}
                     setOpen={setOpenCategory}
                     setValue={setSelectedCategory}

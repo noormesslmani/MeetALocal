@@ -10,7 +10,7 @@ import { useRoute } from '@react-navigation/native';
 import { countriesOptionsOneCountry } from '../../constants/countries';
 import { colors } from '../../constants/colors';
 import { languagesOptions } from '../../constants/languages';
-import { color } from 'react-native-reanimated';
+import Icon from 'react-native-vector-icons/FontAwesome'
 const SignupScreen2 = ({navigation}) => {
   const route = useRoute();
   const fullName= route.params.fullName
@@ -89,7 +89,9 @@ const SignupScreen2 = ({navigation}) => {
             setValue={setNationality}
             setItems={setcountries}
             dropDownContainerStyle={{
-              marginTop:10
+              marginTop:10,
+              borderWidth:0.2,
+              borderRadius:0
             }}
             style={styles.dropDown}
             placeholder="Select a country"
@@ -123,7 +125,9 @@ const SignupScreen2 = ({navigation}) => {
             setValue={setCountry}
             setItems={setcountries}
             dropDownContainerStyle={{
-              marginTop:10
+              marginTop:10,
+              borderWidth:0.2,
+              borderRadius:0
             }}
             style={styles.dropDown}
             listMode="SCROLLVIEW"
@@ -160,13 +164,16 @@ const SignupScreen2 = ({navigation}) => {
             setValue={setLanguage}
             setItems={setLanguages}
             dropDownContainerStyle={{
-              marginTop:10
+              marginTop:10,
+              borderWidth:0.2,
+              borderRadius:0
             }}
             style={styles.dropDown}
             placeholder="Select languages"
             placeholderStyle={{
               color: "grey"
             }}
+           
             />
             {invalidlanguage && <Text style={styles.error}>Please select your spoken languages</Text>}
           </View>

@@ -34,14 +34,14 @@ const MessageCard=({navigation, chat})=> {
             <View style={MessageCardStyles.messageSubContainer}>
                 <Image source={image?{ uri:`${address}/${image}`}: require('../../assets/blank-profile.webp')} style={MessageCardStyles.avatar}/>
                 <View>
-                <Text style={{marginTop:10}}>{name}</Text>
+                <Text style={{marginTop:10}}>{name}<Text style={{color:"grey", fontSize:9}}>,  {chat.date.getDate()}-{chat.date.getMonth()}-{chat.date.getFullYear()}</Text></Text>
                 {type_id==1?<Text style={{color:"#8C57BA", fontSize:12}}>local</Text>:null}
                 <Text style={MessageCardStyles.text}>{chat.text}  </Text>
                 </View>
             </View>
             <View>
-                <Ionicons name='arrow-forward' size={30} color={colors.violet} />
-                <Text style={{color:"grey", fontSize:8}}>{chat.date.getDate()}-{chat.date.getMonth()}-{chat.date.getFullYear()}</Text>
+                <Ionicons name='arrow-forward' size={20} color={colors.lightViolet} />
+                
             </View>
         </TouchableOpacity>
         <View style={MessageCardStyles.separator}></View>

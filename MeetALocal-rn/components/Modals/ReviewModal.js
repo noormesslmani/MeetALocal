@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image, Modal, Pressable, TextInput } from
 import React from 'react'
 import ReviewModalStyles from '../ComponentsStyles/ReviewModalStyles';
 import { useState, useEffect, useContext } from "react";
-import { Rating, AirbnbRating } from 'react-native-ratings';
+// import { Rating, AirbnbRating } from 'react-native-ratings';
 import AppButton from '../Buttons/AppButtons';
 import { addReview } from '../../network/App';
 const ReviewModal=({setModalVisible, modalVisible, id,setReviewAdded })=> {
@@ -39,9 +39,9 @@ const ReviewModal=({setModalVisible, modalVisible, id,setReviewAdded })=> {
         <View style={ReviewModalStyles.centeredView}>
         <View style={ReviewModalStyles.modalView}>
           <Text style={ReviewModalStyles.title}>Add a review</Text>  
-          <Rating size={35} startingValue={3} imageSize={35} 
+          {/* <Rating size={35} startingValue={3} imageSize={35} 
           style={ReviewModalStyles.stars} 
-          onFinishRating={(rating)=>setRating(rating)}/>
+          onFinishRating={(rating)=>setRating(rating)}/> */}
           <View style={ReviewModalStyles.textContainer}>
             <Text>Text review:</Text>
             <TextInput placeholder='Enter a review' style={ReviewModalStyles.input} value={review} onChangeText={setReview}></TextInput>

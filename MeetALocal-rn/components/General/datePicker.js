@@ -9,6 +9,7 @@ const DatePicker=({date, handleDate, type=1})=>{
         onChange={handleDate}
         maximumDate={new Date(2022, 1, 1)}
         minimumDate={new Date(1900, 0, 1)}
+        
         />}
         {
             type==2 &&
