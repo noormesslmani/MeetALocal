@@ -98,3 +98,18 @@ export async function signin(data){
       return {'success': false, error}
     }
   }
+  export async function getBannedUsers(){
+    const config = {
+      method: "get",
+      headers,
+      url:`${baseURL}admins/bans`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.log(error)
+      return {'success': false, error}
+    }
+  }
