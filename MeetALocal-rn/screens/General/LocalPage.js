@@ -17,7 +17,6 @@ import { getReviews } from '../../network/App';
 import ReviewCard from '../../components/Cards/ReviewerCrad';
 import { checkReviewed, addReview } from '../../network/App';
 import ReviewModal from '../../components/Modals/ReviewModal';
-import { async } from '@firebase/util';
 const LocalPage=({navigation})=> {
     const route = useRoute();
     const item =route.params.item
@@ -46,6 +45,7 @@ const LocalPage=({navigation})=> {
     useEffect(()=>{
       if(reviewAdded){
         getAllReviews()
+        setReviewed(true)
         setReviewAdded(false)
       }
     },[reviewAdded])
