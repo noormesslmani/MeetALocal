@@ -12,12 +12,13 @@ import Map from '../../components/Header/Map';
 import { CheckFavoriteLocals, toggleFavoriteLocals } from '../../network/App';
 import { address } from '../../constants/address';
 import call from 'react-native-phone-call'
-import { Rating, AirbnbRating } from 'react-native-ratings';
+// import { Rating, AirbnbRating } from 'react-native-ratings';
 import { getReviews } from '../../network/App';
 import ReviewCard from '../../components/Cards/ReviewerCrad';
 import { checkReviewed, addReview } from '../../network/App';
 import ReviewModal from '../../components/Modals/ReviewModal';
 import { colors } from '../../constants/colors';
+import BackArrow from '../../components/Header/BackArrow';
 const LocalPage=({navigation})=> {
     const route = useRoute();
     const item =route.params.item
@@ -26,14 +27,20 @@ const LocalPage=({navigation})=> {
     const [likes, setLikes]= useState(item.likes)
     const [visible, setIsVisible] = useState(false);
     const [imageIndex, setImageIndex]= useState(0)
-    
+    const [average, setAverage]= useState(0)
     const [reviews, setReviews]=useState([])
-    const [average, setAverage]=useState(0)
-    const [stars, setStars]=useState(null)
+    const [stars, setStars]=useState([])
     const [reviewed, setReviewed]=useState(true)
     const [reviewModalVisible, setReviewModalVisible]=useState(false)
     const [reviewAdded, setReviewAdded]=useState(false)
     const images = item.highlights.map((image)=>({ uri: `${address}/${image}`}))
+    useEffect(() => {
+      navigation.setOptions({
+        headerLeft: () => <><BackArrow navigation={navigation} type={1}/>
+        <Text style={LocalProfileStyles.headerText}>{item.name}</Text>
+        </>,
+      });
+    }, [navigation]);
           
     useEffect(()=>{
       if(user.type_id==2){
@@ -57,10 +64,7 @@ const LocalPage=({navigation})=> {
       }
       setStars(starsArr)
     },[reviews])
-    useEffect(()=>{
-      if(stars)
-      setAverage((stars[0]+2*stars[1]+3*stars[2]+4*stars[3]+5*stars[4])/(stars[0]+stars[1]+stars[2]+stars[3]+stars[4]))
-    },[stars])
+   
     const getAllReviews=async()=>{
       const result = await getReviews(item.id)
       if (result.success){
@@ -72,7 +76,7 @@ const LocalPage=({navigation})=> {
     }
     const handleMessage=()=>{
       console.log('hi')
-      navigation.navigate('chat-screen', { chatId: null, userId: item.id})
+      navigation.navigate('chat-screen', { chatId: null, userId: item.id, image:item.profile_Picture, name:item.name})
     }
     const checkFavorite=async()=>{
       const result = await CheckFavoriteLocals(item.id)
@@ -107,7 +111,11 @@ const LocalPage=({navigation})=> {
   const handlePhone=()=>{
     call(args).catch(console.error)
   }
-
+  useEffect(()=>{
+    if(stars)
+    setAverage((stars[0]+2*stars[1]+3*stars[2]+4*stars[3]+5*stars[4])/(stars[0]+stars[1]+stars[2]+stars[3]+stars[4]))
+  },[stars])
+  
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
         <View style={LocalProfileStyles.mainContainer}>
@@ -173,10 +181,13 @@ const LocalPage=({navigation})=> {
           onRequestClose={() => setIsVisible(false)}/>
           <View style={LocalProfileStyles.about}>
           <Text style={{fontSize:16, fontWeight:"500", marginBottom:20}}>Reviews</Text>
-             {/* {stars && 
-             <Rating size={10} showRating showReadOnlyText={false} readonly= {true} startingValue={(stars[0]+2*stars[1]+3*stars[2]+4*stars[3]+5*stars[4])/(stars[0]+stars[1]+stars[2]+stars[3]+stars[4])} imageSize={25} style={{marginVertical:3, marginHorizontal:10}}/>
+
+             {/* {stars.length>0 && 
+             <AirbnbRating size={25} showRating showReadOnlyText={false} defaultRating={average} readonly= {true}  imageSize={25} style={{marginVertical:3, marginHorizontal:10}}/>
              } */}
-          {stars && <Rating showRating showReadOnlyText={false} readonly= {true} startingValue={average} imageSize={25} style={{marginVertical:3, marginHorizontal:10}} />}
+
+         
+
           <Text style={{alignSelf:"center", fontSize:10}}>Based on {reviews.length} reviews</Text>
           </View>
           {user.type_id==2 && !reviewed &&<Pressable onPress={()=>{setReviewModalVisible(true)}} ><Text style={LocalProfileStyles.addReview}>Add a review</Text></Pressable>}

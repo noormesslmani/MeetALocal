@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect, useContext } from 'react'
+import { Image, View, Text } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat'
 import { UserContext } from '../../App'
 import { database } from "../../firebase";
@@ -15,9 +16,13 @@ import {
     updateDoc
 } from "firebase/firestore";
 import { useRoute } from '@react-navigation/native';
-const ChatScreen=()=> {
+import BackArrow from '../../components/Header/BackArrow';
+import ChatScreenStyles from './Styles/ChatScreenStyles';
+const ChatScreen=({navigation})=> {
     const route = useRoute(); 
     let chatId= route.params.chatId
+    const image= route.params.image
+    const name= route.params.name
     const userId= route.params.userId
     const [messages, setMessages] = useState([]);
     const { user, setUser} = useContext(UserContext);
@@ -78,6 +83,17 @@ const ChatScreen=()=> {
             user,
         });
     }, []);
+    useEffect(() => {
+        navigation.setOptions({
+            headerLeft: () => <><BackArrow type={1} navigation={navigation} />
+            <View style={ChatScreenStyles.imageContainer}>
+                <Image source={image?{ uri:`${address}/${image}`}: require('../../assets/blank-profile.webp')} style={ChatScreenStyles.image}/>
+                <Text>{name}</Text>
+            </View>
+            </>,
+            headerBackVisible:false, headerTitle:""
+        }) }, [navigation])
+        
     return (
         <GiftedChat
             showUserAvatar={true}

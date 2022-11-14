@@ -15,6 +15,7 @@ export async function signin(data){
     }
     catch (error) {
       console.warn(error)
+      console.log('hi')
       return {'success': false, error}
     }
   }

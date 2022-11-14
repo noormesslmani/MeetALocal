@@ -27,7 +27,7 @@ const Locals=({navigation})=> {
 
     useEffect(() => {
       navigation.setOptions({
-        headerLeft: () => <BackArrow navigation={navigation}/>,
+        headerLeft: () => <BackArrow navigation={navigation} type={1}/>,
         headerRight:()=>(<View style={{flexDirection:"row"}}>
         {!viewFav && <Filters handleFilter={handleFilter}/>}
         <Map handleMap={handleMap} />
