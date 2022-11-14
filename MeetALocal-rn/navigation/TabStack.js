@@ -16,7 +16,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LocalProfile from '../screens/Profile/LocalProfile'
-
+import DrawerNavigation from './DrawerStack';
+import { Searchbar } from 'react-native-paper';
+import SearchScreen from '../screens/General/Search';
 const TabNavigation=()=>{
     const Tab = createBottomTabNavigator();
     const { user, setUser} = useContext(UserContext);
@@ -72,6 +74,20 @@ const TabNavigation=()=>{
           headerTitleAlign: 'center', headerTitle:'Profile'
         }}
       />}
+      <Tab.Screen
+        name="search"
+        component={SearchScreen}
+        options={{
+          headerTitle: () => <Searchbar placeholder="Search" />,
+          tabBarLabel: 'Search',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="search" color={color} size={size} />
+          ),
+          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
+          headerTitleAlign: 'center',
+        }}
+        
+      />
       <Tab.Screen
         name="chats"
         component={Chats}
