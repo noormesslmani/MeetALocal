@@ -1,5 +1,6 @@
+import 'react-native-gesture-handler';
 import * as React from "react";
-import RootNavigation from "./screens/Navigation/navigation";
+import RootNavigation from './navigation/MainStack';
 import { createContext, useState } from "react";
 export const UserContext = createContext();
 export default function App() {
