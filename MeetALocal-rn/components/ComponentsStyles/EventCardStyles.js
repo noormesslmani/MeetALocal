@@ -34,6 +34,10 @@ const EventCardStyles = StyleSheet.create({
         fontSize:10,
         marginLeft:7,
         marginRight:7
+    },
+    savesContainer:{flexDirection:"row", alignItems:"center", margin:5},
+    saves:{
+        fontSize:10,
     }
 });
 export default EventCardStyles;

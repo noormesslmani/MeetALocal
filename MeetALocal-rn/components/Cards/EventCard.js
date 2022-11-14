@@ -31,8 +31,8 @@ const EventCard=({navigation, item, choice, setEventDeleted})=> {
             <Text style={EventCardStyles.info}>{item.date}</Text>
             {choice!=3 && <Text style={EventCardStyles.info}>{item.fees} $</Text>}
             {choice==3 && 
-            <View style={{flexDirection:"row", alignItems:"center"}}>
-              <Text style={EventCardStyles.info}>{item.saves}</Text> 
+            <View style={EventCardStyles.savesContainer}>
+              <Text style={EventCardStyles.saves}>{item.saves}</Text> 
               <Icon name='star' size={13} color={colors.gold} /> 
             </View>  }
             

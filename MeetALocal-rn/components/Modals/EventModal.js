@@ -79,6 +79,7 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
                 <Text style={EventModalStyles.info}>When: {item.date}</Text>
                 <Text style={EventModalStyles.fees}>Fees: {item.fees}$</Text>
               </View>
+              {choice==3 && <View style={{flexDirection:"row", alignItems:"center"}}><Icon style={{margin:2}} name="star" color={colors.gold} size={20} /><Text>: {item.saves}</Text></View>}
             </View>
             <View style={EventModalStyles.detailsContianer}>
               <Text style={EventModalStyles.detailsTitle}>Details:</Text>
