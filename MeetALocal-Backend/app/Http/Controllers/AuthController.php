@@ -95,8 +95,7 @@ class AuthController extends Controller
             'about' => 'string',
             'latitude' =>"numeric",
             'longitude' =>"numeric",
-            'photo' => 'string',
-            'fees' => 'integer',
+            'fees' => 'numeric',
         ]);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
