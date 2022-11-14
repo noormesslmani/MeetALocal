@@ -51,6 +51,9 @@ class AdminController extends Controller
     }
     public function getBans(){
         $bans=Ban::join('users','users.id','banned_id')->get();
+        foreach($bans as $ban){
+           $ban['ban']=true;   
+        }
         return response()->json([
             'message' => 'ok',
             'data' => $bans,
