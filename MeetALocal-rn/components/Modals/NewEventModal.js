@@ -9,13 +9,11 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { UserContext } from '../../App'
-import { categoriesOptions } from '../../constants/categories';
+import { categoriesSpecificOptions } from '../../constants/categories';
 import DatePicker from '../General/datePicker';
 import AppButton from '../Buttons/AppButtons';
 import { createNewEvent } from '../../network/App';
 const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated})=> {
-    let hours
-    let min
     const { user, setUser} = useContext(UserContext);
     const[title, setTtitle]=useState(null)
     const[details, setDetails]=useState(null)
@@ -25,7 +23,7 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
     const [datePicker, setDatePicker]=useState(false)
     const [openCategory, setOpenCategory] = useState(false);
     const [selectedCategory, setSelectedCategory]=useState([])
-    const [categories, setCategories] = useState(categoriesOptions);
+    const [categories, setCategories] = useState(categoriesSpecificOptions);
     const [image, setImage] = useState(null);
     const [base64, setBase64]= useState(null)
     const [ext, setext]= useState(null)
@@ -48,6 +46,7 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
             setext(image.split('.').pop())
         }
     },[image])
+
     const handleDate= (event, value)=>{
         setDatePicker(false)
         setDate(value)
@@ -143,10 +142,12 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
                     placeholderStyle={{
                     color: "grey"
                     }}
-                
+                    
                     closeAfterSelecting={true}
                     dropDownContainerStyle={{
-                        width:"90%"
+                        borderRadius:0,
+                        borderWidth:0.5,
+                        marginBottom:15
                     }}
                     />
                 </View>

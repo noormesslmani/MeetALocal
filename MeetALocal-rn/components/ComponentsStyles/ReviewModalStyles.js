@@ -41,7 +41,7 @@ const ReviewModalStyles = StyleSheet.create({
         height:30,
         width:"100%",
         borderBottomWidth:0.5,
-        borderColor:colors.blue,
+        borderColor:colors.lightViolet,
         marginBottom:20
       },
       btnContainer:{

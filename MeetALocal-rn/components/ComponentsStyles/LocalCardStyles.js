@@ -77,6 +77,15 @@ const LocalCardStyles = StyleSheet.create({
         fontSize:14,
         color:colors.violet,
         fontWeight:"bold",
+    },
+    categoryBtn:{
+        width:"auto",
+        height:0.05*windowHeight,
+        margin:3,
+        backgroundColor:'white',
+        borderRadius:10,
+        alignItems:"center",
+        justifyContent:"center"
     }
 
 });

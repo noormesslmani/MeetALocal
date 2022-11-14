@@ -7,6 +7,8 @@ import LocalCardStyles from '../ComponentsStyles/LocalCardStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { categoryIcons } from '../../constants/categories';
 import { address } from '../../constants/address';
+import { Button} from 'react-native-paper';
+import { colors } from '../../constants/colors';
 const LocalCard=({navigation, item})=> {
     
     const [categories, setCategories]=useState([])
@@ -34,10 +36,9 @@ const LocalCard=({navigation, item})=> {
             </View>
             <View style={LocalCardStyles.categoryContainer}>
                 {categories.map((category)=>
-                <View style={LocalCardStyles.CategorySubcontainer}>
-                    <Image source={categoryIcons[category]} style={{width:30, height:30}} />
-                    <Text style={LocalCardStyles.iconLabel}>{category}</Text>
-                </View>
+                <Button compact uppercase={false} labelStyle={{ color: colors.violet, fontSize: 12 }} style={LocalCardStyles.categoryBtn} icon={()=><Image source={categoryIcons[category]} style={{width:20, height:20}} />} mode="contained" >
+                 {category}
+                </Button>
                 )}
             </View>
         </TouchableOpacity>

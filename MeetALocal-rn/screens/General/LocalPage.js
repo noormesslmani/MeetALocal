@@ -12,7 +12,7 @@ import Map from '../../components/Header/Map';
 import { CheckFavoriteLocals, toggleFavoriteLocals } from '../../network/App';
 import { address } from '../../constants/address';
 import call from 'react-native-phone-call'
-// import { Rating, AirbnbRating } from 'react-native-ratings';
+import { Rating, AirbnbRating } from 'react-native-ratings';
 import { getReviews } from '../../network/App';
 import ReviewCard from '../../components/Cards/ReviewerCrad';
 import { checkReviewed, addReview } from '../../network/App';
@@ -20,89 +20,114 @@ import ReviewModal from '../../components/Modals/ReviewModal';
 import { colors } from '../../constants/colors';
 import BackArrow from '../../components/Header/BackArrow';
 const LocalPage=({navigation})=> {
-    const route = useRoute();
-    const item =route.params.item
-    const { user, setUser, locals, setLocals} = useContext(UserContext);
-    const [isFavorite, SetIsFavorite]=useState(false)
-    const [likes, setLikes]= useState(item.likes)
-    const [visible, setIsVisible] = useState(false);
-    const [imageIndex, setImageIndex]= useState(0)
-    const [average, setAverage]= useState(0)
-    const [reviews, setReviews]=useState([])
-    const [stars, setStars]=useState([])
-    const [reviewed, setReviewed]=useState(true)
-    const [reviewModalVisible, setReviewModalVisible]=useState(false)
-    const [reviewAdded, setReviewAdded]=useState(false)
-    const images = item.highlights.map((image)=>({ uri: `${address}/${image}`}))
-    useEffect(() => {
-      navigation.setOptions({
-        headerLeft: () => <><BackArrow navigation={navigation} type={1}/>
-        <Text style={LocalProfileStyles.headerText}>{item.name}</Text>
-        </>,
-      });
-    }, [navigation]);
-          
-    useEffect(()=>{
-      if(user.type_id==2){
-        checkFavorite()
-        isReviewed()
-      }
-      setLocals([item])
+  const route = useRoute();
+  const item =route.params.item
+  const { user, setUser, locals, setLocals} = useContext(UserContext);
+  const [isFavorite, SetIsFavorite]=useState(false)
+  const [likes, setLikes]= useState(item.likes)
+
+
+
+  const [average, setAverage]= useState(0)
+  const [reviews, setReviews]=useState([])
+  const [stars, setStars]=useState([])
+  const [reviewed, setReviewed]=useState(true)
+  
+  const [reviewModalVisible, setReviewModalVisible]=useState(false)
+  const [reviewAdded, setReviewAdded]=useState(false)
+
+  const [visible, setIsVisible] = useState(false);
+  const [imageIndex, setImageIndex]= useState(0)
+  const images = item.highlights.map((image)=>({ uri: `${address}/${image}`}))
+
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <><BackArrow navigation={navigation} type={2}/>
+      <Text style={LocalProfileStyles.headerText}>{item.name}</Text>
+      </>,
+      headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
+    });
+  }, [navigation]);
+    
+  //get reviews and check if favorited or reviewed already
+  useEffect(()=>{
+    if(user.type_id==2){
+      checkFavorite()
+      isReviewed()
+    }
+    setLocals([item])
+    getAllReviews()
+  },[])
+
+  //after adding a review
+  useEffect(()=>{
+    if(reviewAdded){
       getAllReviews()
-    },[])
-    useEffect(()=>{
-      if(reviewAdded){
-        getAllReviews()
-        setReviewed(true)
-        setReviewAdded(false)
-      }
-    },[reviewAdded])
-    useEffect(()=>{
-      let starsArr=[0,0,0,0,0]
-      for(let review of reviews){
-        starsArr[review.stars -1] +=1
-      }
-      setStars(starsArr)
-    },[reviews])
-   
-    const getAllReviews=async()=>{
-      const result = await getReviews(item.id)
-      if (result.success){
-        setReviews(result.data.data)
-      }
-    } 
-    const handleLike=()=>{
-      toggleFavorite()
+      setReviewed(true)
     }
-    const handleMessage=()=>{
-      console.log('hi')
-      navigation.navigate('chat-screen', { chatId: null, userId: item.id, image:item.profile_Picture, name:item.name})
+  },[reviewAdded])
+
+  //getting stars to find the average
+  useEffect(()=>{
+    let starsArr=[0,0,0,0,0]
+    for(let review of reviews){
+      starsArr[review.stars -1] +=1
     }
-    const checkFavorite=async()=>{
-      const result = await CheckFavoriteLocals(item.id)
-      if (result.success){
-        setReviewed(result.data.data)
-      }
-    } 
-    const toggleFavorite =async()=>{
-      const data={
-        id:item.id
-      }
-      const result = await toggleFavoriteLocals(data)
-      if (result.success){
-        await checkFavorite()
-        setLikes(result.data.data)
-      }
-  }
+    setStars(starsArr)
+  },[reviews])
+
+  //finding the average
+  useEffect(()=>{
+    if(stars)
+    setAverage((stars[0]+2*stars[1]+3*stars[2]+4*stars[3]+5*stars[4])/(stars[0]+stars[1]+stars[2]+stars[3]+stars[4]))
+  },[stars])
+
+  //getting all reviews
+  const getAllReviews=async()=>{
+    const result = await getReviews(item.id)
+    if (result.success){
+      setReviews(result.data.data)
+    }
+  } 
+  //checking if reviewed
   const isReviewed=async()=>{
     const result = await checkReviewed(item.id)
     if (result.success){
       setReviewed(result.data.data)
     }
   } 
+  //navigating to chat screen
+  const handleMessage=()=>{
+    console.log('hi')
+    navigation.navigate('chat-screen', { chatId: null, userId: item.id, image:item.profile_Picture, name:item.name})
+  }
+
+  //checking if favorited
+  const checkFavorite=async()=>{
+    const result = await CheckFavoriteLocals(item.id)
+    if (result.success){
+      SetIsFavorite(result.data.data)
+    }
+  }
+
+  //toggling like
+  const handleLike =async()=>{
+    const data={
+      id:item.id
+    }
+    const result = await toggleFavoriteLocals(data)
+    if (result.success){
+      await checkFavorite()
+      setLikes(result.data.data)
+    }
+  }
+  //navigating to map
   const handleMap=()=>{
     navigation.navigate('locals-map',{data:[item], type:3})
   }
+
+  //calling phone number
   const args = {
     number: item.phone.toString(), 
     prompt: false, 
@@ -111,10 +136,6 @@ const LocalPage=({navigation})=> {
   const handlePhone=()=>{
     call(args).catch(console.error)
   }
-  useEffect(()=>{
-    if(stars)
-    setAverage((stars[0]+2*stars[1]+3*stars[2]+4*stars[3]+5*stars[4])/(stars[0]+stars[1]+stars[2]+stars[3]+stars[4]))
-  },[stars])
   
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
@@ -122,49 +143,54 @@ const LocalPage=({navigation})=> {
           <View style={LocalProfileStyles.imageContainer}>
             <Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={LocalProfileStyles.image}/>
             <View style={{margin:15}}>
-              <Text style={{fontSize:18, fontWeight:"600", marginBottom:3}}>{item.name}</Text>
-              <View style={{flexDirection:"row"}}><Text style={{fontSize:14, fontWeight:"400", marginBottom:3}}>{item.country}</Text><Map handleMap={handleMap} small={true}/></View>
-              <View style={{flexDirection:"row", alignItems:"center"}}>
-                <Text style={{fontSize:13, fontWeight:"400", marginRight:3}}>{likes}</Text>
+              <Text style={LocalProfileStyles.name}>{item.name}</Text>
+              <View style={{flexDirection:"row"}}><Text style={LocalProfileStyles.country}>{item.country}</Text><Map handleMap={handleMap} small={true}/></View>
+              <View style={LocalProfileStyles.likesContainer}>
+                <Text style={LocalProfileStyles.likes}>{likes}</Text>
                 <Icon name="heart" color={colors.violet} size={15} /> 
               </View>
             </View>
           </View>
           <View style={LocalProfileStyles.infoContainer}>
             <View>
-              <Pressable style={{flexDirection:"row", alignItems:"center"}} onPress={handlePhone}>
+              <Pressable style={LocalProfileStyles.phoneContainer} onPress={handlePhone}>
                 <Icon name="phone" size={20} color="grey" />
-                <Text style={{fontSize:13, fontWeight:"400", marginLeft:10, color:'blue', textDecorationLine:"underline"}}>{item.phone}</Text>
+                <Text style={LocalProfileStyles.phone}>{item.phone}</Text>
               </Pressable>
-              <View style={{flexDirection:"row", alignItems:"center"}}>
+              <View style={LocalProfileStyles.likesContainer}>
                 <Ionicons name="language" size={20} color="grey" />
-                {item.languages.map((language)=><Text style={{fontSize:10, fontWeight:"400", marginLeft:10}} key={language}>{language}</Text>)}
+                {item.languages.map((language)=><Text style={LocalProfileStyles.language} key={language}>{language}</Text>)}
               </View>
             </View>
-            <View style={{flexDirection:"row", alignItems:"center"}}>
-              {user.type_id==2 && <Pressable style={{marginRight:10}} onPress={handleLike}>{isFavorite?<Icon name="heart" size={20} color="#8C57BA" />:<Icon name="heart-o" size={20} color="#8C57BA" />}</Pressable>}
+            <View style={LocalProfileStyles.likesContainer}>
+              {user.type_id==2 && <Pressable style={{marginRight:10}} onPress={handleLike}>{isFavorite?<Icon name="heart" size={20} color={colors.violet} />:<Icon name="heart-o" size={20} color={colors.violet} />}</Pressable>}
               <Pressable style={LocalProfileStyles.message} onPress={handleMessage}><Text style={{color:"white"}}>Message</Text></Pressable>
             </View>
           </View>
           <View style={LocalProfileStyles.separator}></View>
-          {item.about && <View style={LocalProfileStyles.about}>
-            <Text style={{fontSize:16, fontWeight:"500"}}>About</Text>
-            <Text style={{fontSize:13, fontWeight:"300"}}>{item.about}</Text>
+
+          {item.about && <View style={LocalProfileStyles.sectionContainer}>
+            <Text style={LocalProfileStyles.sectionTitle}>About</Text>
+            <Text style={LocalProfileStyles.about}>{item.about}</Text>
           </View>}
-          <View style={LocalProfileStyles.about}>
-            <Text style={{fontSize:16, fontWeight:"500"}}>Categories</Text>
+
+          <View style={LocalProfileStyles.sectionContainer}>
+            <Text style={LocalProfileStyles.sectionTitle}>Categories</Text>
             <View style={{flexDirection:"row"}}>
               {item.categories.map((category)=>
               <View style={LocalProfileStyles.iconContainer}>
-              <Image source={categoryIcons[category]} style={{width:25, height:25}}/>
+              <Image source={categoryIcons[category]} style={LocalProfileStyles.categoryIcon}/>
               <Text style={{fontSize:12}}>{category}</Text>
               </View>
             )}
-              </View>
+            </View>
           </View>
+
           <View style={LocalProfileStyles.separator}></View>
-          {item.highlights.length>0 && <View style={LocalProfileStyles.about}>
-          <Text style={{fontSize:16, fontWeight:"500", marginBottom:20}}>Highlights</Text>
+
+          {item.highlights.length>0 && 
+          <View style={LocalProfileStyles.sectionContainer}>
+          <Text style={LocalProfileStyles.sectionTitle}>Highlights</Text>
             <View style={LocalProfileStyles.highlightImages}>
               {item.highlights[0] && <Pressable onPress={()=>{setIsVisible(true), setImageIndex(0)}}><Image source={{uri:`${address}/${item.highlights[0]}`}} style={LocalProfileStyles.highlightimg}/></Pressable>}
               {item.highlights[1] && <Pressable onPress={()=>{setIsVisible(true), setImageIndex(1)}}><Image source={{uri:`${address}/${item.highlights[1]}`}} style={LocalProfileStyles.highlightimg}/></Pressable>}
@@ -179,20 +205,20 @@ const LocalPage=({navigation})=> {
           imageIndex={imageIndex}
           visible={visible}
           onRequestClose={() => setIsVisible(false)}/>
-          <View style={LocalProfileStyles.about}>
-          <Text style={{fontSize:16, fontWeight:"500", marginBottom:20}}>Reviews</Text>
 
-             {/* {stars.length>0 && 
-             <AirbnbRating size={25} showRating showReadOnlyText={false} defaultRating={average} readonly= {true}  imageSize={25} style={{marginVertical:3, marginHorizontal:10}}/>
-             } */}
 
-         
+          <View style={LocalProfileStyles.sectionContainer}>
+          <Text style={LocalProfileStyles.sectionTitle}>Reviews</Text>
 
+          {stars.length>0 && 
+          <AirbnbRating size={25} showRating showReadOnlyText={false} defaultRating={average} readonly= {true}  imageSize={25} style={{marginVertical:3, marginHorizontal:10}}/>
+          }
           <Text style={{alignSelf:"center", fontSize:10}}>Based on {reviews.length} reviews</Text>
           </View>
-          {user.type_id==2 && !reviewed &&<Pressable onPress={()=>{setReviewModalVisible(true)}} ><Text style={LocalProfileStyles.addReview}>Add a review</Text></Pressable>}
-          {reviews && reviews.map((review)=><ReviewCard review={review}/>)}
-        {reviewModalVisible && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} setReviewAdded={setReviewAdded} id={item.id} />}
+          {user.type_id==2 && !reviewed && <Pressable onPress={()=>{setReviewModalVisible(true)}} ><Text style={LocalProfileStyles.addReview}>Add a review</Text></Pressable>}
+          {user.type_id==2 && reviewed && <Text style={LocalProfileStyles.addReview}>Reviewed</Text>}
+          {reviews && reviews.map((review, index)=><ReviewCard review={review} key={index}/>)}
+          {reviewModalVisible && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} setReviewAdded={setReviewAdded} id={item.id} />}
       
         </View>
     </ScrollView>

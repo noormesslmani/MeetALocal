@@ -9,6 +9,7 @@ const ReviewStyles = StyleSheet.create({
     },
     imageContianer:{
         flexDirection:"row",
+        alignItems:"center"
       
     },
     image:{

@@ -8,7 +8,7 @@ const HomeStyles = StyleSheet.create({
         padding:20
     },
     welcome:{
-        fontSize:36,
+        fontSize:30,
         color:colors.violet
     },
     photo:{

@@ -41,7 +41,7 @@ const ProfileStyles = StyleSheet.create({
         width: widths.width8,
         height: 40,
         marginTop: 5,
-        borderColor: colors.blue,
+        borderColor: colors.lightViolet,
         borderBottomWidth: 0.7,
     },
     dropDown:{
@@ -51,7 +51,7 @@ const ProfileStyles = StyleSheet.create({
         borderRightWidth:0,
         borderBottomRightRadius:0,
         borderBottomLeftRadius:0,
-        borderBottomColor:colors.blue,
+        borderBottomColor:colors.lightViolet,
         borderBottomWidth:0.5,
         width:widths.width8,
     },
@@ -66,6 +66,7 @@ const ProfileStyles = StyleSheet.create({
         width:widths.width6,
         marginTop:20
     },
+    
     
 });
 
