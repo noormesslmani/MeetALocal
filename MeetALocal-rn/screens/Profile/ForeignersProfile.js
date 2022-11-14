@@ -11,9 +11,12 @@ import { colors } from '../../constants/colors';
 import { widths } from '../../constants/dimensions';
 import WavyBackground from "react-native-wavy-background";
 import AppButton from '../../components/Buttons/AppButtons';
+import ImageView from "react-native-image-viewing";
 const ForeignerProfile=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const [image, setImage]= useState(null)
+  const [imageView, setImageView]=useState(false)
+ 
   useEffect(()=>{
     if(user.profile_picture){
       setImage(user.profile_picture)
@@ -42,7 +45,7 @@ const ForeignerProfile=({navigation})=> {
             top
           />
         </View>
-        <Image source={image?{ uri:`${address}/${image}`}: require('../../assets/blank-profile.webp')} style={{ width: 180, height: 180, borderRadius:90, marginTop:20 }} />
+        <TouchableOpacity onPress={()=>setImageView(true)}><Image source={image?{ uri:`${address}/${image}`}: require('../../assets/blank-profile.webp')} style={{ width: 180, height: 180, borderRadius:90, marginTop:20 }} /></TouchableOpacity>
         <Text style={ProfileStyles.name}>{user.name}</Text>
         <AppButton handlePress={handleEdit} text={'Edit profile'} />
         <View style={{marginTop:20}}>
@@ -60,6 +63,12 @@ const ForeignerProfile=({navigation})=> {
           <View style={ProfileStyles.separator}/>
           <Text>{user.about}</Text>
         </View>
+        {ImageView && image &&  
+          <ImageView
+          images={[{uri:`${address}/${image}`}]}
+          imageIndex={0}
+          visible={imageView}
+          onRequestClose={() => setImageView(false)}/>}
     </View>
     
   )
