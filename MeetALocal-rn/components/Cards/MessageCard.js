@@ -25,7 +25,7 @@ const MessageCard=({navigation, chat})=> {
     } 
     const handleChat=()=>{
         const chatId=chat.chat_id
-        navigation.navigate('chat-screen', {chatId, userId:null})
+        navigation.navigate('chat-screen', {chatId, userId:null, image, name})
     }
     console.log(chat)
   return (

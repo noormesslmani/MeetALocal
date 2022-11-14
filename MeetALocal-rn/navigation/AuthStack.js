@@ -22,10 +22,10 @@ const AuthStack=()=>{
           headerBackVisible:false, headerTitleAlign: 'center'}} 
         component={SignupScreen} />
         <Stack.Screen name="signup-second"
-        // options={{ 
-        //   headerLeft: () => (<BackArrow type={1}/>),
-        //   headerTitle: () => <Logo/>,
-        //   headerBackVisible:false, headerTitleAlign: 'center'}} 
+        options={{ 
+          headerLeft: () => (<BackArrow type={1}/>),
+          headerTitle: () => <Logo/>,
+          headerBackVisible:false, headerTitleAlign: 'center'}} 
         component={SignupScreen2} />
         <Stack.Screen name="signup-third" 
         options={{ 

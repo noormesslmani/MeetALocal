@@ -1,7 +1,5 @@
 import { View, Pressable } from 'react-native';
 import * as React from 'react';
-
-import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import BackArrow from '../components/Header/BackArrow';
@@ -13,7 +11,6 @@ import LocalsMap from '../screens/General/LocalsMap';
 import EditForeignerProfile from '../screens/Profile/EditProfileForeigners';
 import LocalPage from '../screens/General/LocalPage';
 import PostComments from '../screens/General/Comments';
-import { colors } from '../constants/colors';
 import TabNavigation from './TabStack';
 const HomeStack=()=>{
   
@@ -31,14 +28,22 @@ const HomeStack=()=>{
             headerLeft: () => <BackArrow type={1} />,
             headerRight:()=>(<Pressable><Ionicons name="filter" size={25} color="#8C57BA"/></Pressable>),
             headerBackVisible:false, headerTitleAlign: 'center'}} />
-        <Stack.Screen  name="locals-map" component={LocalsMap} />
-        <Stack.Screen  name="chat-screen" component={ChatScreen} />
+        <Stack.Screen  name="locals-map" component={LocalsMap} 
+            options={{ 
+                headerLeft: () => <BackArrow type={1} />,
+                headerBackVisible:false, headerTitleAlign: 'center', headerTitle:'Map'}}
+        />
+        <Stack.Screen  name="chat-screen" component={ChatScreen} 
+        options={{
+            headerLeft: () => (<BackArrow type={1} />),
+              headerBackVisible:false, headerTitle:""
+          }}
+        />
         <Stack.Screen  name="edit-foreigner-profile" component={EditForeignerProfile} />
         <Stack.Screen  name="local-page" component={LocalPage}
         options={{
-          headerTintColor: colors.violet,
           headerLeft: () => (<BackArrow type={1} />),
-            headerBackVisible:false, headerTitleAlign: 'center'
+            headerBackVisible:false, headerTitle:""
         }}
         />
         <Stack.Screen  name="locals" component={Locals}   options={{ 

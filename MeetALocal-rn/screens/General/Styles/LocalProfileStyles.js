@@ -62,6 +62,10 @@ const LocalProfileStyles = StyleSheet.create({
         marginVertical:5,
         color:colors.violet,
         textDecorationLine:"underline"
+    },
+    headerText:{
+        fontSize:16,
+        marginLeft:10
     }
 
 });

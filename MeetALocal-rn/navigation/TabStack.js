@@ -56,6 +56,8 @@ const TabNavigation=()=>{
           tabBarIcon: ({ color, size }) => (
             <Icon name="user" color={color} size={size} />
           ),
+          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
+          headerTitleAlign: 'center', headerTitle:'Profile'
         }}
       />}
       {user.type_id==2 && <Tab.Screen
@@ -66,6 +68,8 @@ const TabNavigation=()=>{
           tabBarIcon: ({ color, size }) => (
             <Icon name="user" color={color} size={size} />
           ),
+          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
+          headerTitleAlign: 'center', headerTitle:'Profile'
         }}
       />}
       <Tab.Screen
@@ -76,7 +80,7 @@ const TabNavigation=()=>{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="chat" color={color} size={size} />
           ),
-          headerStyle: {height: 100, backgroundColor:colors.lighterViolet},
+          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
           headerLeft: () => (
             <View style={{marginLeft:20, flexDirection:"row"}}>
               <Image source={user.profile_picture?{ uri:`${address}/${user.profile_picture}`}: require('../assets/blank-profile.webp')} style={{width:40, height:40, borderRadius:20}}/>

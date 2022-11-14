@@ -61,12 +61,12 @@ const Events=({navigation})=> {
   useEffect(() => {
     if(choice==1){
     navigation.setOptions({
-      headerLeft: () => <BackArrow navigation={navigation} />,
+      headerLeft: () => <BackArrow navigation={navigation} type={1}/>,
       headerRight:()=><Filters handleFilter={handleFilter}/>})
     }
     else{
       navigation.setOptions({
-        headerLeft: () => <BackArrow navigation={navigation} />,
+        headerLeft: () => <BackArrow navigation={navigation} type={1} />,
         headerRight:()=><></>})
       }
     }, [navigation, choice])

@@ -33,9 +33,9 @@ const SigninScreen= ({ navigation })=> {
         setUser(result.data.user)
         navigation.reset({
           index: 0,
-          routes: [{ name: 'tabs' }],
+          routes: [{ name: 'app' }],
         });
-        navigation.navigate('tabs')
+        navigation.navigate('app')
       }
       else{
         setIsLoading(false)

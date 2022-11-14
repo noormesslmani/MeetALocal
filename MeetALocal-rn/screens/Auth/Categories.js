@@ -79,6 +79,7 @@ const Categories=({navigation})=> {
             latitude,
             longitude,
           };
+          console.log(typeof(fees))
         const result = await setUpAccount(data)
         if (result.success){
           await AsyncStorage.setItem("@user", JSON.stringify(result.data['user']));
