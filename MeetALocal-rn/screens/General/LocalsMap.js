@@ -33,7 +33,7 @@ const LocalsMap=({navigation})=> {
 export default LocalsMap
 const styles = StyleSheet.create({
     container: {
-      width:"100%",
+      width:"90%",
       padding: 10,
       backgroundColor: 'rgba(0, 0, 0, 0)',
       position:"absolute"

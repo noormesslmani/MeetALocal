@@ -19,7 +19,7 @@ const ProfileStyles = StyleSheet.create({
         position:'relative',
         borderRadius:999,
         overflow:'hidden',
-        marginTop:20
+        
     },
     name:{
         margin:20,
