@@ -131,7 +131,7 @@ export async function getLocals(country, category, offset){
     }
     catch (error) {
       console.warn(error)
-      return {'success': false, error}
+      return {success: false, error}
     }
   }
   export async function addComment(data){
@@ -328,6 +328,24 @@ export async function getLocals(country, category, offset){
       data,
       headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}foreigners/review`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.warn(error)
+      return {'success': false, error}
+    }
+  }
+
+  export async function searchLocals(name){
+    const token = await AsyncStorage.getItem('@token')
+    const config = {
+      method: "get",
+      params:{name},
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}foreigners/search`,
     }
     try{
       const res = await axios(config)
