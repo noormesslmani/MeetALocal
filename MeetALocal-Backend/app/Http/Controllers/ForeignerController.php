@@ -137,4 +137,19 @@ class ForeignerController extends Controller
             'message' => 'ok',
         ], 201);
     }
+
+    public function getSearch(Request $request){
+        $search=$request->query('name');
+        $locals=User::where('type_id',1)->where('name', 'LIKE', '%'.$search.'%')->get();
+        foreach($locals as $local){
+            $local['likes']=FavoriteLocal::where('local_id',$local->id)->count();
+            $local['categories']=$local->categories()->pluck('category');
+            $local['languages']=$local->languages()->pluck('language');
+            $local['highlights']=$local->highlights()->pluck('photo');
+        }
+        return response()->json([
+            'message' => 'ok',
+            'data' => $locals
+        ], 201);
+    }
 }
