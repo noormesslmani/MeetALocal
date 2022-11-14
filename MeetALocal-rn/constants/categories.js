@@ -22,3 +22,15 @@ export const categoriesOptions=[
     {label: 'Housing', value: 'Housing', icon: () => <Image source={Housing} style={{width:20, height:20}}/>},
     {label: 'Other', value: 'Other', icon: () => <Image source={Other} style={{width:20, height:20}}/>},
     ]
+
+export const categoriesSpecificOptions=[
+    {label: 'Tourism', value: 'Tourism', icon: () => <Image source={Tourism} style={{width:20, height:20}} />},
+    {label: 'Languages', value: 'Languages', icon: () => <Image source={Language} style={{width:20, height:20}}/>},
+    {label: 'Culture', value: 'Culture', icon: () => <Image source={Culture} style={{width:20, height:20}}/>},
+    {label: 'Education', value: 'Education', icon: () => <Image source={Education} style={{width:20, height:20}}/>},
+    {label: 'History', value: 'History', icon: () => <Image source={History} style={{width:20, height:20}}/>},
+    {label: 'Guidance', value: 'Guidance', icon: () => <Image source={Guidance} style={{width:20, height:20}}/>},
+    {label: 'Jobs', value: 'Jobs', icon: () => <Image source={Jobs} style={{width:20, height:20}}/>},
+    {label: 'Housing', value: 'Housing', icon: () => <Image source={Housing} style={{width:20, height:20}}/>},
+    {label: 'Other', value: 'Other', icon: () => <Image source={Other} style={{width:20, height:20}}/>},
+    ]
