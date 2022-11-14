@@ -38,31 +38,31 @@ const Categories=({navigation})=> {
         }
     },[limitExceeded])
     const handleTourism=()=>{
-        categories.includes("Tourism")?setCategories(arr => [...arr].filter(item => item !== "Tourism")):categories.length<4? setCategories(arr => [...arr, "Tourism"]):setLimitExceeded(true)
+        categories.includes("Tourism")?setCategories(arr => [...arr].filter(item => item !== "Tourism")):categories.length<3? setCategories(arr => [...arr, "Tourism"]):setLimitExceeded(true)
     }
     const handleCulture=()=>{
-        categories.includes("Culture")?setCategories(arr => [...arr].filter(item => item !== "Culture")):categories.length<4?setCategories(arr => [...arr, "Culture"]):setLimitExceeded(true)
+        categories.includes("Culture")?setCategories(arr => [...arr].filter(item => item !== "Culture")):categories.length<3?setCategories(arr => [...arr, "Culture"]):setLimitExceeded(true)
     }
     const handleGuidance=()=>{
-        categories.includes("Guidance")?setCategories(arr => [...arr].filter(item => item !== "Guidance")):categories.length<4? setCategories(arr => [...arr, "Guidance"]):setLimitExceeded(true)
+        categories.includes("Guidance")?setCategories(arr => [...arr].filter(item => item !== "Guidance")):categories.length<3? setCategories(arr => [...arr, "Guidance"]):setLimitExceeded(true)
     }
     const handleLanguage=()=>{
-        categories.includes("Language")?setCategories(arr => [...arr].filter(item => item !== "Language")):categories.length<4?setCategories(arr => [...arr, "Language"]):setLimitExceeded(true)
+        categories.includes("Language")?setCategories(arr => [...arr].filter(item => item !== "Language")):categories.length<3?setCategories(arr => [...arr, "Language"]):setLimitExceeded(true)
     }
     const handleEducation=()=>{
-        categories.includes("Education")?setCategories(arr => [...arr].filter(item => item !== "Education")):categories.length<4?setCategories(arr => [...arr, "Education"]):setLimitExceeded(true)
+        categories.includes("Education")?setCategories(arr => [...arr].filter(item => item !== "Education")):categories.length<3?setCategories(arr => [...arr, "Education"]):setLimitExceeded(true)
     }
     const handleHistory=()=>{
-        categories.includes("History")?setCategories(arr => [...arr].filter(item => item !== "History")):categories.length<4?setCategories(arr => [...arr, "History"]):setLimitExceeded(true)
+        categories.includes("History")?setCategories(arr => [...arr].filter(item => item !== "History")):categories.length<3?setCategories(arr => [...arr, "History"]):setLimitExceeded(true)
     }
     const handleHousing=()=>{
-        categories.includes("Housing")?setCategories(arr => [...arr].filter(item => item !== "Housing")):categories.length<4? setCategories(arr => [...arr, "Housing"]): setLimitExceeded(true)
+        categories.includes("Housing")?setCategories(arr => [...arr].filter(item => item !== "Housing")):categories.length<3? setCategories(arr => [...arr, "Housing"]): setLimitExceeded(true)
     }
     const handleJobs=()=>{
-        categories.includes("Jobs")?setCategories(arr => [...arr].filter(item => item !== "Jobs")):categories.length<4?setCategories(arr => [...arr, "Jobs"]): setLimitExceeded(true)
+        categories.includes("Jobs")?setCategories(arr => [...arr].filter(item => item !== "Jobs")):categories.length<3?setCategories(arr => [...arr, "Jobs"]): setLimitExceeded(true)
     }
     const handleOther=()=>{
-        categories.includes("Other")?setCategories(arr => [...arr].filter(item => item !== "Other")):categories.length<4?setCategories(arr => [...arr, "Other"]): setLimitExceeded(true)
+        categories.includes("Other")?setCategories(arr => [...arr].filter(item => item !== "Other")):categories.length<3?setCategories(arr => [...arr, "Other"]): setLimitExceeded(true)
     }
     const handleSubmit=()=>{
         setUp()
@@ -96,7 +96,7 @@ const Categories=({navigation})=> {
       }
     return (
     <View style={[styles.background, {backgroundColor:'white'}]} >
-        <Text style={styles.selectCategory}>Select at least 1 category<Text style={{fontSize:10, color:colors.violet}}> (max 4)</Text></Text> 
+        <Text style={styles.selectCategory}>Select at least 1 category<Text style={{fontSize:10, color:colors.violet}}> (max 3)</Text></Text> 
         <View style={styles.categoryContainer}>
             <View style={styles.categoryRow}>
                 <TouchableOpacity onPress={handleTourism} style={styles.iconContainer}>
