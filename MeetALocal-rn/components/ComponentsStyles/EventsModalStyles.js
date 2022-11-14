@@ -55,7 +55,6 @@ const EventsModalStyles = StyleSheet.create({
     },
     title:{
         fontSize:25,
-        color:colors.violet,
         marginBottom:40
     },
     contentContainer:{
@@ -67,7 +66,7 @@ const EventsModalStyles = StyleSheet.create({
       height:30,
       width:"100%",
       borderBottomWidth:0.5,
-      borderColor:colors.blue,
+      borderColor:colors.lightViolet,
       marginBottom:20
     },
     dateContainer:{
@@ -83,7 +82,7 @@ const EventsModalStyles = StyleSheet.create({
     borderRightWidth:0,
     borderBottomRightRadius:0,
     borderBottomLeftRadius:0,
-    borderBottomColor:colors.blue,
+    borderBottomColor:colors.lightViolet,
     borderBottomWidth:0.5,
     marginBottom:20
   },

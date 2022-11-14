@@ -8,6 +8,7 @@ import { categoryIcons } from '../../constants/categories';
 import { toggleSaveEvent, isEventSaved } from '../../network/App';
 import { UserContext } from '../../App'
 import { deleteEvents } from '../../network/App';
+import { colors } from '../../constants/colors';
 const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setDeleted})=> {
     const { user, setUser} = useContext(UserContext);
     const [categories, setCategories]=useState([])
@@ -65,7 +66,7 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
             <View style={EventModalStyles.titleContainer}>
               <Text style={EventModalStyles.title}>{item.title}</Text>
               {user.type_id==2 && <Pressable onPress={handleSave}>
-                {isSaved?<Icon name="star" color="#FFD700" size={30} />: <Icon name="star-o" color="#FFD700" size={30} />}
+                {isSaved?<Icon name="star" color={colors.gold} size={30} />: <Icon name="star-o" color={colors.gold} size={30} />}
               </Pressable>}
               {user.type_id==1 && choice==3 && <Pressable onPress={handleDelete}>
                 <Icon name="trash-o" color="grey" size={30} />

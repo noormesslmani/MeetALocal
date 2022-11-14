@@ -37,7 +37,7 @@ const LocalProfileStyles = StyleSheet.create({
         borderBottomWidth: 0.3,
         marginBottom:20,
     },
-    about:{
+    sectionContainer:{
         width:widths.width9,
         marginBottom:40
     },
@@ -60,13 +60,50 @@ const LocalProfileStyles = StyleSheet.create({
     addReview:{
         fontSize:12,
         marginVertical:5,
-        color:colors.violet,
+        color:'grey',
         textDecorationLine:"underline"
     },
     headerText:{
         fontSize:16,
         marginLeft:10
-    }
+    },
+    name:{
+    fontSize:18, 
+    fontWeight:"600", 
+    marginBottom:3},
+    country:
+    {fontSize:14, 
+    fontWeight:"400", 
+    marginBottom:3},
+    likesContainer:{
+        flexDirection:"row", 
+        alignItems:"center"},
+    likes:{
+        fontSize:13, 
+        fontWeight:"400", 
+        marginRight:3},
+    phoneContainer:{
+        flexDirection:"row", 
+        alignItems:"center"},
+    phone:{
+        fontSize:13, 
+        fontWeight:"400", 
+        marginLeft:10, 
+        color:'blue', 
+        textDecorationLine:"underline"},
+    language:{
+        fontSize:10, 
+        fontWeight:"400", 
+        marginLeft:10},
+    sectionTitle:{
+        fontSize:16, 
+        fontWeight:"500"},
+    about:{
+        fontSize:13, 
+        fontWeight:"300"},
+    categoryIcon:{
+        width:25, 
+        height:25}
 
 });
 export default LocalProfileStyles;

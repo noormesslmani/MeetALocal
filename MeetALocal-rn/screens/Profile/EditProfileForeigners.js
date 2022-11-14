@@ -11,10 +11,11 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from 'axios';
 import DatePicker from '../../components/General/datePicker';
-import { countriesOptions } from '../../constants/countries';
+import { countriesOptionsOneCountry} from '../../constants/countries';
 import { languagesOptions } from '../../constants/languages';
 import AppButton from '../../components/Buttons/AppButtons';
 import { address } from '../../constants/address';
+import { colors } from '../../constants/colors';
 const EditForeignerProfile=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const [uri, setUri]= useState(null)
@@ -37,7 +38,7 @@ const EditForeignerProfile=({navigation})=> {
     const [genders, setGenders] = useState([
         {label: 'Male', value: 'Male'},
         {label: 'Female', value: 'Female'}])
-    const [countries, setCountries] = useState(countriesOptions);
+    const [countries, setCountries] = useState(countriesOptionsOneCountry);
       const [languages, setLanguages] = useState(languagesOptions);
       const handleDate= (event, value)=>{
         setDatePicker(false)
@@ -105,6 +106,15 @@ const EditForeignerProfile=({navigation})=> {
                 <View style={{margin:10}}>
                     <Text>Nationality</Text>
                     <DropDownPicker
+                    searchable={true}
+                    searchPlaceholder="Search..."
+                    searchPlaceholderTextColor="grey"
+                    searchContainerStyle={{
+                      borderBottomColor: colors.lighterViolet
+                    }}
+                    searchTextInputStyle={{
+                      borderColor:colors.lightViolet,
+                    }}
                     open={openNationality}
                     value={nationality}
                     zIndex={2000}
@@ -127,6 +137,15 @@ const EditForeignerProfile=({navigation})=> {
                 <View style={{margin:10}}>
                     <Text>Country of Residence</Text>
                     <DropDownPicker
+                    searchable={true}
+                    searchPlaceholder="Search..."
+                    searchPlaceholderTextColor="grey"
+                    searchContainerStyle={{
+                      borderBottomColor: colors.lighterViolet
+                    }}
+                    searchTextInputStyle={{
+                      borderColor:colors.lightViolet,
+                    }}
                     open={openResidece}
                     value={residence}
                     zIndex={3000}
