@@ -15,7 +15,7 @@ const MapSearch=({handlePress})=> {
                     onFail={(error) => console.error(error)}
                     listUnderlayColor={colors.lightViolet}
                     styles={{textInput: {
-                      height: 38,
+                      height: 40,
                       fontSize: 16,
                     },
                   }}

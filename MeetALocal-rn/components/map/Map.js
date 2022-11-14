@@ -28,7 +28,7 @@ const Map=({lat, lng, data, type, handleDrag, navigation})=> {
                   <Marker
                   coordinate={{latitude: local.latitude, longitude: local.longitude}}
                   pinColor={colors.violet}
-                  onPress={()=> myList.current.scrollToIndex({index: index, animated: true })}
+                  onPress={()=> myList.current.scrollToIndex({index: index, animated: true, viewPosition:0.5 })}
                   >
                   </Marker>))} 
 

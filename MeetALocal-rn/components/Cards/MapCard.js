@@ -2,8 +2,7 @@ import { View, Text, TouchableOpacity, Image, FlatList, Animated } from 'react-n
 import React from 'react'
 import { useState, useEffect, useContext } from "react";
 import { address } from '../../constants/address';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { colors } from '../../constants/colors';
+import { Surface } from 'react-native-paper';
 import MapCardStyles from '../ComponentsStyles/MapCardStyles';
 const MapCard=({data, myList, navigation})=> {
     const renderItem = ({ item, index }) => (
@@ -37,6 +36,7 @@ const MapCard=({data, myList, navigation})=> {
             renderItem={renderItem}
         >
         </Animated.FlatList>
+    
     )
 }
 export default MapCard

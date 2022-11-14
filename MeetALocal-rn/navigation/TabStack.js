@@ -71,7 +71,7 @@ const TabNavigation=()=>{
             <Icon name="user" color={color} size={size} />
           ),
           headerBackVisible:false,  headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
-          headerTitleAlign: 'center', headerTitle:'Profile'
+          headerTitleAlign: 'center', headerTitle:'profile'
         }}
       />}
       <Tab.Screen
