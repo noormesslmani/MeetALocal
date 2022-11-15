@@ -33,7 +33,7 @@ class UserController extends Controller
             $local['categories']=$local->categories()->pluck('category');
             $local['languages']=$local->languages()->pluck('language');
             $local['highlights']=$local->highlights()->pluck('photo');
-            }
+        } 
         return response()->json([
             'message' => 'ok',
             'data' => $locals

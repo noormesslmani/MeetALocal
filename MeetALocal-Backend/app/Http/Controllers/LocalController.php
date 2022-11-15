@@ -30,6 +30,7 @@ class LocalController extends Controller
             'date' => 'required|date',
             'fees' => 'required|integer',
             'categories' => 'required|array',
+            'seats'=>'integer'
         ]);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
@@ -79,6 +80,25 @@ class LocalController extends Controller
         $event=Event::find($request->event_id);
         if(Auth::id()==$event->organizer()->pluck('id')[0]){
             $event->delete();
+            return response()->json([
+                'message' => 'ok',
+            ], 201);
+        }
+        return response()->json([
+            'message' => 'action forbidden',
+        ], 403);
+    }
+    public function addHighlights(Request $request){
+        $extension=$request->ext;
+        $image_64 = $request->photo; 
+        $img = base64_decode($image_64);
+        $path = uniqid() . "." . $extension;
+        file_put_contents($path, $img);
+        if(Hightlight::where('user_id',Auth::id())->count()<4){
+            Highlight::create([
+                'user_id'=>Auth::id(),
+                'photo'=>$path
+            ]);
             return response()->json([
                 'message' => 'ok',
             ], 201);
