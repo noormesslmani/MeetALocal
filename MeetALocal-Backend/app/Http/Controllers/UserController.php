@@ -8,6 +8,7 @@ use App\Models\Comment;
 use App\Models\Country;
 use App\Models\EventCategory;
 use App\Models\Event;
+use App\Models\EventBooking;
 use App\Models\FavoriteLocal;
 use App\Models\Highlight;
 use App\Models\LocalCategory;
@@ -52,6 +53,7 @@ class UserController extends Controller
         $events= Event::join('event_categories','events.id','=','event_id')->join('categories','event_categories.category_id','=','categories.id')->join('countries','events.country_id','=','countries.id')->join('users','events.organizer_id','=','users.id')->whereIn('events.country_id',$country_id)->whereIn('event_categories.category_id',$category_id)->orderBy('events.id', 'desc')->select('events.*','countries.country','users.name')->distinct()->latest()->get();
         foreach($events as $event){ 
             $event['categories']=$event->categories()->pluck('category');
+            $event['bookings']= EventBooking::where('event_id', $event->id)->count();
         }
         
         return response()->json([
@@ -64,6 +66,7 @@ class UserController extends Controller
         $event['organizer']=$event->organizer()->get(['name'])[0]['name'];
         $event['country']=$event->country()->get(['country'])[0]['country'];
         $event['categories']=Event::find($id)->categories()->pluck('category');
+        $event['bookings']= EventBooking::where('event_id', $event->id)->count();
         return response()->json([
             'message' => 'ok',
             'data' => $event,
