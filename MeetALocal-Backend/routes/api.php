@@ -31,7 +31,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::post('/highlights', [LocalController::class, 'addHighlights']);
             Route::post('/appointment', [LocalController::class, 'addAppointment']);
             Route::get('/appointments', [LocalController::class, 'getAppointments']);
-            
+            Route::get('/is-booked-appointment', [LocalController::class, 'isBookedAppointment']);
             //edit profile
         });
         Route::group(['prefix' => 'admins'], function () {
