@@ -15,6 +15,8 @@ use App\Models\Notification;
 use App\Models\PostCategory;
 use App\Models\Post;
 use App\Models\SavedEvent;
+use App\Models\Appointment;
+use App\Models\BookedAppointment;
 use App\Models\UserType;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -106,5 +108,26 @@ class LocalController extends Controller
         return response()->json([
             'message' => 'action forbidden',
         ], 403);
+    }
+    public function addAppointment(Request $request){
+        $validator = Validator::make($request->all(), [
+            'date' => 'required|date',
+            'start_time' => 'required',
+            'end_time' => 'required',
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
+        
+        $appointment = Appointment::create(array_merge(
+            $validator->validated(),
+            [
+            'local_id' => Auth::id(),
+            ]
+        ));
+        return response()->json([
+            'message' => 'ok',
+            'data' => $appointment,
+        ], 201);
     }
 }
