@@ -66,7 +66,15 @@ const ProfileStyles = StyleSheet.create({
         width:widths.width6,
         marginTop:20
     },
-    
+    iconContainer:{
+        alignItems:"center",
+        marginTop:20,
+        marginRight:25,
+        flexWrap:"wrap"
+    },
+    categoryIcon:{
+        width:25, 
+        height:25}
     
 });
 
