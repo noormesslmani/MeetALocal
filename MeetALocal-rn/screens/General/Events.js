@@ -18,6 +18,7 @@ const Events=({navigation})=> {
   const [category, setCategory]=useState('all');
   const [data, setdata]=useState([])
   const [eventDeleted, setEventDeleted]=useState(false)
+  const [eventBooked, setEventBooked]=useState(false)
   const [eventModalVisible, setEventModalVisible]=useState(false)
   const { user, setUser} = useContext(UserContext);
   const [eventCreated,setEventCreated]=useState(false)
@@ -26,11 +27,12 @@ const Events=({navigation})=> {
     getEvents()
   },[choice, country, category, eventCreated])
   useEffect(()=>{
-    if(eventDeleted){
+    if(eventDeleted || eventBooked){
       getEvents()
+      setEventBooked(false)
       setEventDeleted(false)
     }
-  },[eventDeleted])
+  },[eventDeleted, eventBooked])
   console.log(eventDeleted)
   const getEvents= async()=>{
     let result
@@ -39,7 +41,6 @@ const Events=({navigation})=> {
       result = await getAllEvents(country, category)
     }
     else if(choice==2){
-      console.log('hi')
       result = await getSavedEvents()
     }
     else if(choice==3){
@@ -55,7 +56,7 @@ const Events=({navigation})=> {
   }
   const renderItem = ({ item }) => (
     <View>
-      <EventCard item={item} choice={choice} setEventDeleted={setEventDeleted} />
+      <EventCard item={item} choice={choice} setEventDeleted={setEventDeleted} setEventBooked={setEventBooked}/>
     </View>
   )
   useEffect(() => {
