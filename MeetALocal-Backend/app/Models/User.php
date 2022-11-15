@@ -51,12 +51,20 @@ class User extends Authenticatable implements JWTSubject
     public function highlights(){
         return $this->hasMany(Highlight::class, 'user_id');
     }
+    public function appointments(){
+        return $this->hasMany(Appointment::class, 'local_id');
+    }
     public function posts(){
         return $this->hasMany(Post::class, 'user_id');
     }
     public function events(){
         return $this->hasMany(Event::class, 'organizer_id');
     }
+    public function bookedAppointments(){
+        return $this->hasMany(BookedAppointment::class, 'booker_id');
+    }
+
+
     public function nationality(){
         return $this->belongsTo(Country::class, 'nationality_id');
     }
@@ -103,6 +111,7 @@ class User extends Authenticatable implements JWTSubject
     public function bookedEvents(){
         return $this->belongsToMany(Event::class, 'event_bookings', 'user_id', 'event_id');
     }
+    
     public function age()
     {
         return Carbon::parse($this->attributes['date_of_birth'])->age;
