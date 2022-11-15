@@ -16,6 +16,7 @@ import { languagesOptions } from '../../constants/languages';
 import AppButton from '../../components/Buttons/AppButtons';
 import { address } from '../../constants/address';
 import { colors } from '../../constants/colors';
+import { editProfile } from '../../network/App';
 const EditForeignerProfile=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const [uri, setUri]= useState(null)
@@ -66,20 +67,10 @@ const EditForeignerProfile=({navigation})=> {
             languages:spokenLanguages,
             date_of_birth: dob
           };
-          const token = await AsyncStorage.getItem('@token')
-          axios({
-            method: "put",
-            data,
-            headers: { Authorization: `Bearer ${token}`},
-            url:`${address}/api/v1.0.0/users/edit-profile`,
-          })
-          .then(async (response)=> {
+          const result= await editProfile(data)
+          if (result.success){
             setUser(response.data.data)
-            return response.data;
-          })
-          .catch(function (error) {
-            console.warn(error)
-          });
+          }
     }
   return (
     <View style={ProfileStyles.container}>
