@@ -28,6 +28,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::post('/event', [LocalController::class, 'createEvent']);
             Route::delete('/event', [LocalController::class, 'deleteEvent']);
             Route::get('/events', [LocalController::class, 'getMyEvents']);
+            Route::post('/highlights', [LocalController::class, 'addHighlights']);
             //edit profile
         });
         Route::group(['prefix' => 'admins'], function () {
