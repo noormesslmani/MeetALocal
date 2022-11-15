@@ -100,6 +100,9 @@ class User extends Authenticatable implements JWTSubject
     public function recievedReviews(){
         return $this->belongsToMany(User::class, 'reviews', 'local_id', 'reviewer_id');
     }
+    public function bookedEvents(){
+        return $this->belongsToMany(Event::class, 'event_bookings', 'user_id', 'event_id');
+    }
     public function age()
     {
         return Carbon::parse($this->attributes['date_of_birth'])->age;
