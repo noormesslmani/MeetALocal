@@ -16,6 +16,7 @@ use App\Models\PostCategory;
 use App\Models\Post;
 use App\Models\SavedEvent;
 use App\Models\EventBooking;
+use App\Models\BookedAppointment;
 use App\Models\UserType;
 use App\Models\Review;
 use Illuminate\Http\Request;
@@ -172,6 +173,19 @@ class ForeignerController extends Controller
             EventBooking::create([
                 'user_id' => Auth::id(),
                 'event_id'=> $request->event_id,
+            ]);
+        }
+        return response()->json([
+            'message' => 'ok',
+        ], 201);
+    }
+    public function toggleBookedAppointment(Request $request){
+        if(BookedAppointment::where('booker_id',Auth::id())->where('appointment_id',$request->appointment_id)->exists())
+            BookedAppointment::where('booker_id',Auth::id())->where('appointment_id',$request->appointment_id)->delete();
+        else{
+            BookedAppointment::create([
+                'booker_id' => Auth::id(),
+                'appointment_id'=> $request->appointment_id,
             ]);
         }
         return response()->json([
