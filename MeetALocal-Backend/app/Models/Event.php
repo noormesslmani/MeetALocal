@@ -31,4 +31,7 @@ class Event extends Model
     public function savedBy(){
         return $this->belongsToMany(User::class, 'saved_events', 'event_id', 'user_id');
     }
+    public function bookedBy(){
+        return $this->belongsToMany(User::class, 'event_bookings', 'event_id', 'user_id');
+    }
 }
