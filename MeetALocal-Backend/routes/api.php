@@ -29,6 +29,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::delete('/event', [LocalController::class, 'deleteEvent']);
             Route::get('/events', [LocalController::class, 'getMyEvents']);
             Route::post('/highlights', [LocalController::class, 'addHighlights']);
+            Route::post('/appointment', [LocalController::class, 'addAppointment']);
             //edit profile
         });
         Route::group(['prefix' => 'admins'], function () {
@@ -50,7 +51,8 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::delete('/review', [ForeignerController::class, 'deleteReview']);
             Route::get('/is-reviewed', [ForeignerController::class, 'isReviewed']);
             Route::get('/search', [ForeignerController::class, 'getSearch']);
-            Route::post('/toggle-eventbooking', [ForeignerController::class, 'toggleBookedEvent']);
+            Route::post('/toggle-event-booking', [ForeignerController::class, 'toggleBookedEvent']);
+            Route::post('/toggle-appointment-booking', [ForeignerController::class, 'toggleBookedAppointment']);
             Route::get('/is-booked-event', [ForeignerController::class, 'isBookedEvent']);
         });
         Route::group(['prefix' => 'auth'], function ($router) { 
