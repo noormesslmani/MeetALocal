@@ -1,5 +1,5 @@
 export const colors={
-    lightViolet:"rgba(140, 87, 186, 0.34)",
+    lightViolet:"#DBC7EC",
     violet:"#8C57BA",
     mediumViolet:"rgba(140, 87, 186, 0.75)",
     blue:"#4BB0F9",
