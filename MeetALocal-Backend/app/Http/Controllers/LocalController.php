@@ -68,6 +68,7 @@ class LocalController extends Controller
             $category= $event->categories()->pluck('category');
             $event['categories']=$category;
             $event['name']=Auth::user()->name;
+            $event['saves']=SavedEvent::where('event_id',$event->id)->count();
         }
         return response()->json([
             'message' => 'ok',
