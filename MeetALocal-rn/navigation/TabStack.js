@@ -19,6 +19,7 @@ import LocalProfile from '../screens/Profile/LocalProfile'
 import DrawerNavigation from './DrawerStack';
 import { Searchbar } from 'react-native-paper';
 import SearchScreen from '../screens/General/Search';
+import Schedules from '../screens/General/SchedulesScreen';
 const TabNavigation=()=>{
     const Tab = createBottomTabNavigator();
     const { user, setUser} = useContext(UserContext);
@@ -38,16 +39,16 @@ const TabNavigation=()=>{
         name="home"
         component={Home}
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: 'Home', headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />
           ),
-          headerTitle: () => <Logo/>,
+          headerTitle:'Welcome',
           headerRight: () => (
             <TouchableOpacity style={{marginRight:10}} onPress={handleExit}>
               <Ionicons name="exit-outline" size={30}/>
             </TouchableOpacity>),
-            headerTitleAlign: 'center'
+            headerTitleAlign: 'center', headerTitleStyle:{fontSize:30}
         }}
       />
       {user.type_id==1 && <Tab.Screen
@@ -66,7 +67,7 @@ const TabNavigation=()=>{
         name="profile-foreigner"
         component={ForeignerProfile}
         options={{
-          tabBarLabel: 'Profile',
+          tabBarLabel: 'Profile', 
           tabBarIcon: ({ color, size }) => (
             <Icon name="user" color={color} size={size} />
           ),
@@ -74,20 +75,33 @@ const TabNavigation=()=>{
           headerTitleAlign: 'center', headerTitle:'profile'
         }}
       />}
-      <Tab.Screen
+      {user.type_id==2 && <Tab.Screen
         name="search"
         component={SearchScreen}
         options={{
-          headerTitle: () => <Searchbar placeholder="Search" />,
           tabBarLabel: 'Search',
           tabBarIcon: ({ color, size }) => (
             <Icon name="search" color={color} size={size} />
           ),
+          headerTitle:"", 
           headerBackVisible:false,  headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
-          headerTitleAlign: 'center',
         }}
         
-      />
+      />}
+
+      {user.type_id==1 && <Tab.Screen
+        name="appointments"
+        component={Schedules}
+        options={{
+          tabBarLabel: 'schedule',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="calendar" color={color} size={size} />
+          ),
+          headerTitle:"Schedule", headerTitleAlign:"center", 
+          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
+        }}
+        
+      />}
       <Tab.Screen
         name="chats"
         component={Chats}
