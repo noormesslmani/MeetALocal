@@ -57,7 +57,6 @@ const EventModalStyles = StyleSheet.create({
       infoContainer:{
         alignSelf:"flex-start",
         width:widths.width8,
-        marginLeft:0.05*windowWidth
       },
       detailsContianer:{
         marginTop:30,
@@ -70,6 +69,14 @@ const EventModalStyles = StyleSheet.create({
       detailsTitle:{fontSize:20, fontWeight:"400"},
       details:{fontSize:12, marginTop:5},
       categoriesTitle:{fontWeight:"400"},
-      icons: {width:35, height:35, margin:15}
+      icons: {width:35, height:35, margin:15},
+      bookBtn:{
+        marginVertical:10,
+        backgroundColor:'white',
+        borderColor:colors.violet,
+        borderRadius:10,
+        alignItems:"center",
+        justifyContent:"center"
+    }
 });
 export default EventModalStyles;

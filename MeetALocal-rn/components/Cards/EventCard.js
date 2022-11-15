@@ -8,9 +8,10 @@ import EventModal from '../Modals/EventModal';
 import { address } from '../../constants/address';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors } from '../../constants/colors';
-const EventCard=({navigation, item, choice, setEventDeleted})=> {
+const EventCard=({navigation, item, choice, setEventDeleted, setEventBooked})=> {
   const [modalVisible, setModalVisible]=useState(false)
   const [deleted, setDeleted]=useState(false)
+  const [booked, setBooked]=useState(false)
    const handleEvent=()=>{
     console.log('pressed')
     setModalVisible(true)
@@ -20,7 +21,11 @@ const EventCard=({navigation, item, choice, setEventDeleted})=> {
       setEventDeleted(true)
       setDeleted(false)
     }
-   },[deleted])
+    if(booked){
+      setEventBooked(true)
+      setBooked(false)
+    }
+   },[deleted, booked])
   console.log(choice) 
   return (
     <>
@@ -38,7 +43,7 @@ const EventCard=({navigation, item, choice, setEventDeleted})=> {
             
         </View>
     </TouchableOpacity>
-    <EventModal modalVisible={modalVisible} setModalVisible={setModalVisible} item={item} choice={choice} setDeleted={setDeleted}/>
+    <EventModal modalVisible={modalVisible} setModalVisible={setModalVisible} item={item} choice={choice} setDeleted={setDeleted} setBooked={setBooked}/>
     </>
   )
 }

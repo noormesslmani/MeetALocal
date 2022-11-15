@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, Modal, Pressable, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, Image, Modal, Pressable, ScrollView, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { useState, useEffect, useContext } from "react";
 import EventModalStyles from '../ComponentsStyles/EventModalStyles';
@@ -11,11 +11,13 @@ import { deleteEvents } from '../../network/App';
 import { colors } from '../../constants/colors';
 import { Button} from 'react-native-paper';
 import EventsModalStyles from '../ComponentsStyles/EventsModalStyles';
-import { isEventBooked } from '../../network/App';
-const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setDeleted})=> {
+import { isEventBooked, toggleBookedEvent } from '../../network/App';
+import { set } from 'react-native-reanimated';
+const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setDeleted, setBooked})=> {
     const { user, setUser} = useContext(UserContext);
     const [categories, setCategories]=useState([])
     const [isSaved, setIsSaved]=useState(false)
+    const [isLoading, setIsLoading]=useState(false)
     const [isBooked, setIsBooked]=useState(false)
     useEffect(()=>{
         if(modalVisible)
@@ -65,6 +67,18 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
         setDeleted(true)
       }
     }
+    const handleBooking=async()=>{
+      setIsLoading(true)
+      const data={
+        event_id: item.id
+      }
+      const result = await toggleBookedEvent(data)
+      if (result.success){
+        setModalVisible(false)
+        setBooked(true)
+      }
+      setIsLoading(false)
+    }
   return (
     <Modal
         animationType="fade"
@@ -94,13 +108,14 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
                 <Text style={EventModalStyles.fees}>Fees: {item.fees}$</Text>
               </View>
               <Text>Seats: {item.seats - item.bookings}</Text>
+              {isLoading && <ActivityIndicator color={colors.violet} /> }
               {user.type_id==2 && ((item.seats - item.bookings) >0) && !isBooked &&
-                <Button compact uppercase={false} labelStyle={{ color: colors.violet, fontSize: 16 }} style={EventModalStyles.bookBtn} icon={()=><Icon name='calendar' color={colors.violet} size={18} />}  mode="outlined" > 
+                <Button onPress={handleBooking} compact uppercase={false} labelStyle={{ color: colors.violet, fontSize: 16 }} style={EventModalStyles.bookBtn} icon={()=><Icon name='calendar' color={colors.violet} size={18} />}  mode="outlined" > 
                 Book
                </Button>
               }
               {user.type_id==2 && isBooked &&
-                <Button compact uppercase={false} labelStyle={{ color: colors.violet, fontSize: 16 }} style={EventModalStyles.bookBtn} icon={()=><Icon name='calendar' color={colors.violet} size={18} />}  mode="outlined" > 
+                <Button onPress={handleBooking} compact uppercase={false} labelStyle={{ color: colors.violet, fontSize: 16 }} style={EventModalStyles.bookBtn} icon={()=><Icon name='calendar' color={colors.violet} size={18} />}  mode="outlined" > 
                 Cancel Booking
                </Button>
               }
