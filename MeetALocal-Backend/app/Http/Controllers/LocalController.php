@@ -139,7 +139,7 @@ class LocalController extends Controller
         ], 201);
     }
     public function isBookedAppointment(Request $request){
-        BookedAppointment::find($request->query('id'))? $booked=true : $booked=false;
+        BookedAppointment::where('appointment_id',$request->query('id'))->exists()? $booked=true : $booked=false;
         return response()->json([
             'message' => 'ok',
             'data' => $booked,
