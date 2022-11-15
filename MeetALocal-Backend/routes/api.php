@@ -51,6 +51,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::get('/is-reviewed', [ForeignerController::class, 'isReviewed']);
             Route::get('/search', [ForeignerController::class, 'getSearch']);
             Route::post('/toggle-eventbooking', [ForeignerController::class, 'toggleBookedEvent']);
+            Route::get('/is-booked-event', [ForeignerController::class, 'isBookedEvent']);
         });
         Route::group(['prefix' => 'auth'], function ($router) { 
             Route::post('/logout', [AuthController::class, 'logout']);
