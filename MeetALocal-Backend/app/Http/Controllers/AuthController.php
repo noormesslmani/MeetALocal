@@ -41,6 +41,10 @@ class AuthController extends Controller
         $user['languages']=$languages;
         $user['nationality']=Country::find($user->nationality_id)->country;
         $user['residence']=Country::find($user->residence_id)->country;
+        if($user->type_id==1){
+            $categories=LocalCategory::join('categories','categories.id','category_id')->where('local_id',$user->id)->pluck('category');
+            $user['categories']= $categories;
+        }
         return response()->json([
             'message' => 'ok',
             "access_token"=>$token,
@@ -128,6 +132,10 @@ class AuthController extends Controller
         $user['languages']=$languages;
         $user['nationality']=Country::find($user->nationality_id)->country;
         $user['residence']=Country::find($user->residence_id)->country;
+        if($user->type_id==1){
+            $categories=LocalCategory::join('categories','categories.id','category_id')->where('local_id',$user->id)->pluck('category');
+            $user['categories']= $categories;
+        }
         return response()->json([
             'user'=>Auth::user(),
             'message' => 'ok',
