@@ -50,6 +50,18 @@ class ForeignerController extends Controller
             'data'=>false
         ], 201);
     }
+    public function isBookedEvent(Request $request){
+        if(Auth::user()->bookedEvents()->where('event_id',$request->query('id'))->exists()){
+            return response()->json([
+                'message' => 'ok',
+                'data'=>true
+            ], 201);
+        }
+        return response()->json([
+            'message' => 'ok',
+            'data'=>false
+        ], 201);
+    }
     public function toggleFavorite(Request $request){
         if(FavoriteLocal::where('user_id',Auth::id())->where('local_id',$request->id)->exists())
             FavoriteLocal::where('user_id',Auth::id())->where('local_id',$request->id)->delete();
