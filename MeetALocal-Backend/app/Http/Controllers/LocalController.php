@@ -130,4 +130,11 @@ class LocalController extends Controller
             'data' => $appointment,
         ], 201);
     }
+    public function getAppointments(){
+        $appointments=Auth::user()->appointments()->get();
+        return response()->json([
+            'message' => 'ok',
+            'data' => $appointments,
+        ], 201);
+    }
 }
