@@ -15,6 +15,7 @@ use App\Models\Notification;
 use App\Models\PostCategory;
 use App\Models\Post;
 use App\Models\SavedEvent;
+use App\Models\EventBooking;
 use App\Models\UserType;
 use App\Models\Review;
 use Illuminate\Http\Request;
@@ -150,6 +151,19 @@ class ForeignerController extends Controller
         return response()->json([
             'message' => 'ok',
             'data' => $locals
+        ], 201);
+    }
+    public function toggleBookedEvent(Request $request){
+        if(EventBooking::where('user_id',Auth::id())->where('event_id',$request->event_id)->exists())
+                EventBooking::where('user_id',Auth::id())->where('event_id',$request->event_id)->delete();
+        else{
+            EventBooking::create([
+                'user_id' => Auth::id(),
+                'event_id'=> $request->event_id,
+            ]);
+        }
+        return response()->json([
+            'message' => 'ok',
         ], 201);
     }
 }
