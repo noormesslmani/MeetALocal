@@ -4,6 +4,7 @@ import { UserContext } from '../../App'
 import { database } from "../../firebase";
 import { colors } from '../../constants/colors';
 import MessageCard from '../../components/Cards/MessageCard'
+import { useFocusEffect } from '@react-navigation/native';
 import {
   collection,
   orderBy,
@@ -20,10 +21,7 @@ const Chats=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const [isLoading, setIsLoading]=useState(true)
   const uri=`${address}/${user.profile_picture}`
-
-  useEffect(()=>{
-    getChats()
-  },[])
+  
  
   async function getChats(){
   //query chats
@@ -37,7 +35,10 @@ const Chats=({navigation})=> {
     setIsLoading(false)
   }
   
- 
+  useFocusEffect(
+    useCallback(() => {
+      getChats()
+    }, []), )
   return (
           <ScrollView style={{backgroundColor:"white"}}>
           {isLoading && <ActivityIndicator color={colors.violet} style={{marginTop:10}} />}
