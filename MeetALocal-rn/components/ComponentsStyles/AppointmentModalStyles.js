@@ -26,7 +26,8 @@ const AppointmentsModalStyles = StyleSheet.create({
         elevation: 5
       },
       title:{
-        fontSize:30
+        fontSize:26,
+        marginBottom:30
       },
       bookBtn:{
         marginVertical:10,
@@ -37,6 +38,11 @@ const AppointmentsModalStyles = StyleSheet.create({
         borderRadius:10,
         alignItems:"center",
         justifyContent:"center"
+    },
+    btnContainer:{
+      width:widths.width6,
+      flexDirection:"row",
+      justifyContent:"space-between"
     }
       
 });
