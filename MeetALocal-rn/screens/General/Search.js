@@ -15,7 +15,13 @@ const SearchScreen=({navigation})=> {
   const [isLoading, setIsLoading]= useState(false)
   const [searchQuery, setSearchQuery] = useState('');
   const [searched, setSearched]=useState(false)
-   
+  
+  navigation.setOptions({
+    headerTitle: () => <Searchbar placeholder="Search" onChangeText={setSearchQuery}
+    value={searchQuery} style={{width:widths.width8}} onSubmitEditing={handleSearch}
+    />,  headerTitleAlign: 'center'  })
+    
+
 
   const handleSearch=()=>{
     getSearchedLocals()
@@ -49,14 +55,12 @@ console.log(data)
             width={1100}
             amplitude={30}
             frequency={1}
-            offset={110}
+            offset={70}
             color= {colors.lighterViolet}
             top
           />
         </View>
-        <Searchbar placeholder="Search" onChangeText={setSearchQuery}
-        value={searchQuery} style={{width:widths.width8, position:"absolute"}} onSubmitEditing={handleSearch}
-        />
+        
 
         <SafeAreaView>
           <FlatList
