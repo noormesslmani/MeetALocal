@@ -49,6 +49,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::post('/event/toggle-save', [ForeignerController::class, 'toggleSavedEvents']);
             Route::get('/event/is-saved/{id}', [ForeignerController::class, 'isSaved']);
             Route::get('/events/saved', [ForeignerController::class, 'getSavedEvents']);
+            Route::get('/events/booked', [ForeignerController::class, 'getBookedEvents']);
             Route::post('/review', [ForeignerController::class, 'addReview']);
             Route::delete('/review', [ForeignerController::class, 'deleteReview']);
             Route::get('/is-reviewed', [ForeignerController::class, 'isReviewed']);
