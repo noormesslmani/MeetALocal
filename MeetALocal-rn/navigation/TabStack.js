@@ -19,7 +19,8 @@ import LocalProfile from '../screens/Profile/LocalProfile'
 import DrawerNavigation from './DrawerStack';
 import { Searchbar } from 'react-native-paper';
 import SearchScreen from '../screens/General/Search';
-import Schedules from '../screens/General/SchedulesScreen';
+import Schedules from '../screens/General/Schedules';
+import Bookings from '../screens/General/Bookings';
 const TabNavigation=()=>{
     const Tab = createBottomTabNavigator();
     const { user, setUser} = useContext(UserContext);
@@ -30,28 +31,23 @@ const TabNavigation=()=>{
   }
   return (
     < Tab.Navigator
-      initialRouteName="home"
+      initialRouteName=""
       screenOptions={{
         tabBarActiveTintColor: colors.violet,
       }}
       >
       <Tab.Screen
-        name="home"
-        component={Home}
+        name="feed"
+        component={DrawerNavigation}
         options={{
-          tabBarLabel: 'Home', headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
+          tabBarLabel: 'home', headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons name="home" color={color} size={size} />
           ),
-          headerTitle:'Welcome',
-          headerRight: () => (
-            <TouchableOpacity style={{marginRight:10}} onPress={handleExit}>
-              <Ionicons name="exit-outline" size={30}/>
-            </TouchableOpacity>),
-            headerTitleAlign: 'center', headerTitleStyle:{fontSize:30}
+          headerShown:false
         }}
       />
-      {user.type_id==1 && <Tab.Screen
+      {/* {user.type_id==1 && <Tab.Screen
         name="profile-local"
         component={LocalProfile}
         options={{
@@ -74,7 +70,7 @@ const TabNavigation=()=>{
           headerBackVisible:false,  headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
           headerTitleAlign: 'center', headerTitle:'profile'
         }}
-      />}
+      />} */}
       {user.type_id==2 && <Tab.Screen
         name="search"
         component={SearchScreen}
@@ -98,6 +94,19 @@ const TabNavigation=()=>{
             <Icon name="calendar" color={color} size={size} />
           ),
           headerTitle:"Schedule", headerTitleAlign:"center", 
+          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
+        }}
+        
+      />}
+      {user.type_id==2 && <Tab.Screen
+        name="bookings"
+        component={Bookings}
+        options={{
+          tabBarLabel: 'bookings',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="calendar" color={color} size={size} />
+          ),
+          headerTitle:"Bookings", headerTitleAlign:"center", 
           headerBackVisible:false,  headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
         }}
         
