@@ -9,7 +9,7 @@ import { Surface} from 'react-native-paper';
 import ScheduleCardStyles from '../ComponentsStyles/ScheduleCardStyles';
 import { isAppointmentBooked, isEventBooked } from '../../network/App';
 const ScheduleCard=({item})=> {
-  console.log(item.start_time.substring(0, 5))
+
   const [booked, setBooked]=useState(false)
   useEffect(()=>{
     isBooked()
@@ -18,7 +18,6 @@ const ScheduleCard=({item})=> {
   const isBooked=async()=>{
     const result = await isAppointmentBooked(item.id)
     if (result.success){
-      console.log(result.data)
       setBooked(result.data.data)
     }
   }

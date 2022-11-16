@@ -1,0 +1,45 @@
+import { StyleSheet, Dimensions } from "react-native";
+import { colors } from "../../constants/colors";
+import { widths } from "../../constants/dimensions";
+
+const windowHeight = Dimensions.get("window").height;
+const ScheduleCardStyles = StyleSheet.create({
+    container:{
+        margin:5,
+        marginTop:15,
+        borderRadius:20,
+        width:0.4*widths.width,
+        height:0.25*widths.width,
+        backgroundColor:'white',
+        alignItems:"center",
+        justifyContent:"center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 2,
+            height: 2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 5,
+    },
+    timeContainer:{
+        flexDirection:"row",
+        alignItems:"center"
+    },
+    arrow:{
+        margin:3
+    },
+    date:{
+        fontSize:16,
+        fontWeight:"500",
+        color: colors.violet,
+        marginBottom:5
+    },
+    bookedDate:{
+        color:"white"
+    },
+    booked:{
+        backgroundColor:colors.lightViolet,
+    }
+});
+export default ScheduleCardStyles;
