@@ -1,17 +1,29 @@
 import { View, Text, TouchableOpacity, Image, Modal, Pressable, TextInput, ActivityIndicator } from 'react-native'
 import React from 'react'
 import ReviewModalStyles from '../ComponentsStyles/ReviewModalStyles';
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import AppButton from '../Buttons/AppButtons';
 import { addReview } from '../../network/App';
 import { colors } from '../../constants/colors';
+import { sendNotification, Notify } from '../../Notifications/Notifications';
 const ReviewModal=({setModalVisible, modalVisible, id,setReviewAdded })=> {
     const [review, setReview]=useState(null)
     const [rating,setRating]=useState(3)
     const [isLoading, setIsLoading]=useState(false)
+
+    const [expoPushToken, setExpoPushToken] = useState('');
+    const [notification, setNotification] = useState(false);
+    const notificationListener = useRef();
+    const responseListener = useRef();
+
+    useEffect(()=>{
+      Notify(setExpoPushToken, setNotification, notificationListener, responseListener)
+    },[])
+
     const handleSubmit=()=>{
       addNewReview()
+      sendNotification('Meet A Local','Review successfully Added')
     }
     const handleDiscard=()=>{
       setModalVisible(false)
