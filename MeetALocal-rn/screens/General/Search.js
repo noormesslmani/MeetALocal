@@ -11,14 +11,13 @@ import WavyBackground from "react-native-wavy-background";
 import { searchLocals } from '../../network/App';
 import LocalsStyles from './Styles/LocalsPageStyles';
 const SearchScreen=({navigation})=> {
-  const [data, setdata]=useState([])
+  const [data, setdata]=useState(null)
   const [isLoading, setIsLoading]= useState(false)
   const [searchQuery, setSearchQuery] = useState('');
   const [searched, setSearched]=useState(false)
    
 
   const handleSearch=()=>{
-    console.log(searchQuery)
     getSearchedLocals()
 
   } 
@@ -29,7 +28,6 @@ const SearchScreen=({navigation})=> {
     if (result.success){
       setIsLoading(false)
       setSearched(true)
-      console.log(result.data.data)
       setdata(result.data.data)
     }
   }
@@ -68,7 +66,7 @@ console.log(data)
             renderItem={renderItem}
             style={[LocalsStyles.list,{marginTop:100}]}
             contentContainerStyle={{ paddingBottom: 100}}
-            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:data.length>0?<Text>Search results</Text>:data.length==0?<Text>Nothing to display</Text>:null}
+            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:data && data.length>0?<Text>Search results</Text>:data && data.length==0?<Text>Nothing to display</Text>:null}
             ListHeaderComponentStyle={{alignItems:"center", justifyContent:"center"}}
           />
            
