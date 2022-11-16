@@ -1,7 +1,7 @@
 import { View, FlatList, SafeAreaView, ActivityIndicator, Text } from 'react-native'
 import React from 'react'
 import HomeStyles from './Styles/HomeStyles';
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import LocalCard from '../../components/Cards/LocalCard';
 import { Searchbar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome5'
@@ -10,10 +10,11 @@ import { widths } from '../../constants/dimensions';
 import WavyBackground from "react-native-wavy-background";
 import { searchLocals } from '../../network/App';
 import LocalsStyles from './Styles/LocalsPageStyles';
+import { useFocusEffect } from '@react-navigation/native';
 const SearchScreen=({navigation})=> {
   const [data, setdata]=useState(null)
   const [isLoading, setIsLoading]= useState(false)
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState(null);
   const [searched, setSearched]=useState(false)
   
   navigation.setOptions({
@@ -21,6 +22,12 @@ const SearchScreen=({navigation})=> {
     value={searchQuery} style={{width:widths.width8}} onSubmitEditing={handleSearch}
     />,  headerTitleAlign: 'center'  })
     
+    useFocusEffect(
+      useCallback(() => {
+        setSearchQuery(null)
+        setSearched(false)
+        setdata(null)
+      }, []), )
 
 
   const handleSearch=()=>{

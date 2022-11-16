@@ -13,6 +13,7 @@ import Map from '../../components/Header/Map';
 import { colors } from '../../constants/colors';
 import ListFooter from '../../components/General/ListFooter';
 import { useDidMountEffect } from '../../hooks/Hooks';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 const Locals=({navigation})=> {
     const [country, setCountry]=useState('all');
     const [category, setCategory]=useState('all');
@@ -41,9 +42,16 @@ const Locals=({navigation})=> {
       setIsListEnd(false)
     }, [viewFav, country, category]); 
 
-    useEffect(()=>{
-      getLocalsList()
-    },[page])
+    const isFocused = useIsFocused();
+
+    useEffect(() => {
+      if(isFocused)  {
+        getLocalsList()
+      }
+      else{
+        setdata([])
+      }
+    },[isFocused, page])
     
 
   const getLocalsList= async()=>{
