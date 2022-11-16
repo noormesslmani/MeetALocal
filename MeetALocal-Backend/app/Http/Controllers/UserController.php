@@ -48,9 +48,10 @@ class UserController extends Controller
         ], 201);
     }
     public function getEvents($country, $category){
+        $date = today()->format('Y-m-d');
         $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
-        $events= Event::join('event_categories','events.id','=','event_id')->join('categories','event_categories.category_id','=','categories.id')->join('countries','events.country_id','=','countries.id')->join('users','events.organizer_id','=','users.id')->whereIn('events.country_id',$country_id)->whereIn('event_categories.category_id',$category_id)->orderBy('events.id', 'desc')->select('events.*','countries.country','users.name')->distinct()->latest()->get();
+        $events= Event::join('event_categories','events.id','=','event_id')->join('categories','event_categories.category_id','=','categories.id')->join('countries','events.country_id','=','countries.id')->join('users','events.organizer_id','=','users.id')->where('events.date', '>=', $date)->whereIn('events.country_id',$country_id)->whereIn('event_categories.category_id',$category_id)->orderBy('events.id', 'desc')->select('events.*','countries.country','users.name')->distinct()->latest()->get();
         foreach($events as $event){ 
             $event['categories']=$event->categories()->pluck('category');
             $event['bookings']= EventBooking::where('event_id', $event->id)->count();

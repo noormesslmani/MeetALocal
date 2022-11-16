@@ -93,7 +93,8 @@ class ForeignerController extends Controller
         ], 201);
     }
     public function getSavedEvents(){
-        $events= Auth::user()->savedEvents()->get();
+        $date = today()->format('Y-m-d');
+        $events= Auth::user()->savedEvents()->where('events.date', '>=', $date)->get();
         foreach($events as $event){
             $event['categories']=$event->categories()->pluck('category');
         }
