@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, Image, Modal, Pressable, ScrollView, ActivityIndicator } from 'react-native'
 import React from 'react'
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import EventModalStyles from '../ComponentsStyles/EventModalStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { address } from '../../constants/address';
@@ -12,16 +12,23 @@ import { colors } from '../../constants/colors';
 import { Button} from 'react-native-paper';
 import EventsModalStyles from '../ComponentsStyles/EventsModalStyles';
 import { isEventBooked, toggleBookedEvent } from '../../network/App';
-import { set } from 'react-native-reanimated';
+import { sendNotification, Notify } from '../../Notifications/Notifications';
 const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setDeleted, setBooked})=> {
     const { user, setUser} = useContext(UserContext);
     const [categories, setCategories]=useState([])
     const [isSaved, setIsSaved]=useState(false)
     const [isLoading, setIsLoading]=useState(false)
     const [isBooked, setIsBooked]=useState(false)
+
+    const [expoPushToken, setExpoPushToken] = useState('');
+    const [notification, setNotification] = useState(false);
+    const notificationListener = useRef();
+    const responseListener = useRef();
+
     useEffect(()=>{
         if(modalVisible)
         {
+          Notify(setExpoPushToken, setNotification, notificationListener, responseListener)
           setCategories(item.categories)
           if(user.type_id==2){
             isSavedEvent()
@@ -76,6 +83,7 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
       if (result.success){
         setModalVisible(false)
         setBooked(true)
+        isBooked? sendNotification('Meet A Local','Event successfully unbooked'):sendNotification('Meet A Local','Event successfully booked')
       }
       setIsLoading(false)
     }
