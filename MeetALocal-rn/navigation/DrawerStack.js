@@ -10,30 +10,25 @@ import Home from '../screens/General/Home';
 import Chats from '../screens/General/Chats';
 import ForeignerProfile from '../screens/Profile/ForeignersProfile';
 import { colors } from '../constants/colors';
-import { widths } from '../constants/dimensions';
-import { address } from '../constants/address';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import LocalProfile from '../screens/Profile/LocalProfile'
+import Bookings from '../screens/General/Bookings';
+import Schedules from '../screens/General/Schedules';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
-import HomeStack from './HomeStack';
-import TabNavigation from './TabStack';
-import SigninScreen from '../screens/Auth/SigninScreen';
 const DrawerNavigation=()=>{
     const Drawer = createDrawerNavigator();
     const { user, setUser} = useContext(UserContext);
     const navigation= useNavigation()
-    const handleExit=async () =>{
+    const handleExit=async (props) =>{
       await AsyncStorage.clear();
-      navigation.navigate("auth")
+      props.navigation.navigate("auth")
   }
   return (
     < Drawer.Navigator drawerContent={props => {
       return (
         <DrawerContentScrollView {...props}>
           <DrawerItemList {...props} />
-          <DrawerItem label="Logout" onPress={() => props.navigation.navigate("auth")} />
+          <DrawerItem label="Logout" onPress={ () => handleExit(props)} />
         </DrawerContentScrollView>
       )
     }}> 
@@ -66,6 +61,24 @@ const DrawerNavigation=()=>{
           headerBackVisible:false,  headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
           headerTitleAlign: 'center', headerTitle:'profile'
         }}
+      />}
+      {user.type_id==1 && <Drawer.Screen
+        name="appointments"
+        component={Schedules}
+        options={{
+          headerTitle:"Schedule", headerTitleAlign:"center", 
+          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
+        }}
+        
+      />}
+      {user.type_id==2 && <Drawer.Screen
+        name="bookings"
+        component={Bookings}
+        options={{
+          headerTitle:"Bookings", headerTitleAlign:"center", 
+          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
+        }}
+        
       />}
     </Drawer.Navigator>
   );
