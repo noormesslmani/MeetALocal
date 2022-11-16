@@ -19,13 +19,15 @@ import { checkReviewed, addReview } from '../../network/App';
 import ReviewModal from '../../components/Modals/ReviewModal';
 import { colors } from '../../constants/colors';
 import BackArrow from '../../components/Header/BackArrow';
+import DatePicker from '../../components/General/datePicker';
+import { Button} from 'react-native-paper';
+import AppointmentsModal from '../../components/Modals/AppointmentModal';
 const LocalPage=({navigation})=> {
   const route = useRoute();
   const item =route.params.item
   const { user, setUser, locals, setLocals} = useContext(UserContext);
   const [isFavorite, SetIsFavorite]=useState(false)
   const [likes, setLikes]= useState(item.likes)
-
 
 
   const [average, setAverage]= useState(0)
@@ -41,6 +43,7 @@ const LocalPage=({navigation})=> {
   const images = item.highlights.map((image)=>({ uri: `${address}/${image}`}))
 
 
+  const [appointmentModal, setAppointmentModal]=useState(false)
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => <><BackArrow navigation={navigation} type={2}/>
@@ -136,7 +139,13 @@ const LocalPage=({navigation})=> {
   const handlePhone=()=>{
     call(args).catch(console.error)
   }
-  
+  //booking appointments
+  const handleBooking=()=>{
+    console.log('hi')
+    setAppointmentModal(true)
+  }
+ 
+
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
         <View style={LocalProfileStyles.mainContainer}>
@@ -144,7 +153,7 @@ const LocalPage=({navigation})=> {
             <Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={LocalProfileStyles.image}/>
             <View style={{margin:15}}>
               <Text style={LocalProfileStyles.name}>{item.name}</Text>
-              <View style={{flexDirection:"row"}}><Text style={LocalProfileStyles.country}>{item.country}</Text><Map handleMap={handleMap} small={true}/></View>
+              <View style={{flexDirection:"row"}}><Text style={LocalProfileStyles.country}>{item.country}</Text>{item.type_id==2 && <Map handleMap={handleMap} small={true}/>}</View>
               <View style={LocalProfileStyles.likesContainer}>
                 <Text style={LocalProfileStyles.likes}>{likes}</Text>
                 <Icon name="heart" color={colors.violet} size={15} /> 
@@ -167,12 +176,22 @@ const LocalPage=({navigation})=> {
               <Pressable style={LocalProfileStyles.message} onPress={handleMessage}><Text style={{color:"white"}}>Message</Text></Pressable>
             </View>
           </View>
-          <View style={LocalProfileStyles.separator}></View>
+          
 
+
+          {user.type_id==2 && <Button onPress={handleBooking} compact uppercase={false} labelStyle={{ color: colors.violet, fontSize: 16 }} style={LocalProfileStyles.bookBtn} icon={()=><Icon name='calendar' color={colors.violet} size={18} />}  mode="outlined" > 
+                Book
+          </Button>}
+          {appointmentModal && <AppointmentsModal modalVisible={appointmentModal} setModalVisible={setAppointmentModal} id={item.id} /> }
+
+
+          <View style={LocalProfileStyles.separator}></View>
+          
           {item.about && <View style={LocalProfileStyles.sectionContainer}>
             <Text style={LocalProfileStyles.sectionTitle}>About</Text>
             <Text style={LocalProfileStyles.about}>{item.about}</Text>
           </View>}
+
 
           <View style={LocalProfileStyles.sectionContainer}>
             <Text style={LocalProfileStyles.sectionTitle}>Categories</Text>
@@ -186,7 +205,7 @@ const LocalPage=({navigation})=> {
             </View>
           </View>
 
-          <View style={LocalProfileStyles.separator}></View>
+     
 
           {item.highlights.length>0 && 
           <View style={LocalProfileStyles.sectionContainer}>
@@ -206,6 +225,7 @@ const LocalPage=({navigation})=> {
           visible={visible}
           onRequestClose={() => setIsVisible(false)}/>
 
+        <View style={LocalProfileStyles.separator}></View>
 
           <View style={LocalProfileStyles.sectionContainer}>
           <Text style={LocalProfileStyles.sectionTitle}>Reviews</Text>
