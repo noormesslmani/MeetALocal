@@ -8,7 +8,21 @@ import { colors } from '../../constants/colors';
 import { Button} from 'react-native-paper';
 import AppointmentButton from '../Buttons/AppointmentButton';
 import AppointmentsModalStyles from '../ComponentsStyles/AppointmentModalStyles';
-const AppointmentsModal=({navigation, setModalVisible, modalVisible})=> {
+import { getAppointments } from '../../network/App';
+const AppointmentsModal=({navigation, setModalVisible, modalVisible, id})=> {
+  const [appointments, setAppointments]=useState(null)
+  useEffect(()=>{
+    if(modalVisible){
+    getAvailalbeAppointments()
+    }
+  },[modalVisible])
+  const getAvailalbeAppointments=async()=>{
+    const result= await getAppointments(id)
+    if (result.success){
+      setAppointments(result.data.data)
+      console.log(result.data.data)
+    }
+  }
   return (
     <Modal
         animationType="fade"
@@ -21,10 +35,7 @@ const AppointmentsModal=({navigation, setModalVisible, modalVisible})=> {
         <View style={AppointmentsModalStyles.modalView}>
             <Text style={AppointmentsModalStyles.title}>Pick a time</Text>
             <ScrollView  showsVerticalScrollIndicator={false} >
-            <AppointmentButton/>
-            <AppointmentButton/>
-            <AppointmentButton/>
-            <AppointmentButton/>
+            {appointments && appointments.map((appointment, index)=> <AppointmentButton appointment={appointment} /> ) }
             </ScrollView>
         </View>
       </View>

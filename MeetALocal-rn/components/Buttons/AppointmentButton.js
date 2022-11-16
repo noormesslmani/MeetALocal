@@ -3,11 +3,11 @@ import React, { useState } from 'react'
 import { widths } from '../../constants/dimensions'
 import { colors } from '../../constants/colors'
 import { Button} from 'react-native-paper';
-const AppointmentButton=()=>{
+const AppointmentButton=({appointment})=>{
     const [pressed, setPressed]=useState(false)
     return (
         <Button uppercase={false} onPress={()=>setPressed(!pressed)} labelStyle={{ color: colors.violet, fontSize: 16 }} style={[styles.bookBtn,pressed? styles.pressedBtn:null]}   mode="outlined" > 
-                16/11/22:   15:00-17:00
+                {appointment.date}   {appointment.start_time.substring(0, 5)}: {appointment.end_time.substring(0, 5)}
         </Button>
     )
 }
