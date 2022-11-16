@@ -440,4 +440,21 @@ export async function getLocals(country, category, offset){
       return {'success': false, error}
     }
   }
+  export async function addSchedule(data){
+    const token = await AsyncStorage.getItem('@token')
+    const config = {
+      method: "post",
+      data,
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}locals/appointment`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.warn(error)
+      return {'success': false, error}
+    }
+  }
 
