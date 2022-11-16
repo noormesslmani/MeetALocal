@@ -16,6 +16,7 @@ use App\Models\PostCategory;
 use App\Models\Post;
 use App\Models\SavedEvent;
 use App\Models\EventBooking;
+use App\Models\Appointment;
 use App\Models\BookedAppointment;
 use App\Models\UserType;
 use App\Models\Review;
@@ -190,6 +191,15 @@ class ForeignerController extends Controller
         }
         return response()->json([
             'message' => 'ok',
+        ], 201);
+    }
+    public function getAvailableAppointments(Request $request){
+        $date = today()->format('Y-m-d');
+        $booked= BookedAppointment::pluck('appointment_id');
+        $appointments=Appointment::where('local_id',$request->query('id'))->whereNotIn('id', $booked)->where('date', '>=', $date)->orderBy('date', 'desc')->get();
+        return response()->json([
+            'message' => 'ok',
+            'data' => $appointments,
         ], 201);
     }
 }
