@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
 import React from 'react'
 import HomeStyles from './Styles/HomeStyles';
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import FilterModal from '../../components/Modals/FilterModal';
 import PostsStyles from './Styles/PostsStyles';
 import NewPostModal from '../../components/Modals/NewPostModal';
@@ -12,6 +12,7 @@ import BackArrow from '../../components/Header/BackArrow';
 import { colors } from '../../constants/colors';
 import ListFooter from '../../components/General/ListFooter';
 import { useDidMountEffect } from '../../hooks/Hooks';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 const Posts=({navigation})=> {
   const [viewOwn, setViewOwn]=useState(false)
   const [country, setCountry]=useState('all');
@@ -43,10 +44,17 @@ const Posts=({navigation})=> {
     setIsListEnd(false)
   }, [viewOwn, country, category]); 
 
-  useEffect(()=>{
-    getPosts()
-  },[page])
-  
+  const isFocused = useIsFocused();
+
+    useEffect(() => {
+      if(isFocused)  {
+        getPosts()
+      }
+      else{
+        setdata([])
+      }
+    },[isFocused, page])
+
 
   const getPosts= async()=>{
     let result
