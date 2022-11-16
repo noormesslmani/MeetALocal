@@ -103,6 +103,17 @@ class ForeignerController extends Controller
             'data' => $events,
         ], 201);
     }
+    public function getBookedEvents(){
+        $date = today()->format('Y-m-d');
+        $events= Auth::user()->bookedEvents()->where('events.date', '>=', $date)->get();
+        foreach($events as $event){
+            $event['categories']=$event->categories()->pluck('category');
+        }
+        return response()->json([
+            'message' => 'ok',
+            'data' => $events,
+        ], 201);
+    }
     public function isSaved($id){
         if(Auth::user()->savedEvents()->where('event_id',$id)->exists()){
             return response()->json([
