@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { colors } from '../constants/colors';
 import HomeStack from './HomeStack';
 import AuthStack from './AuthStack';
+import DrawerNavigation from './DrawerStack';
 export default function RootNavigation() {
   const MyTheme = {
     ...DefaultTheme,
