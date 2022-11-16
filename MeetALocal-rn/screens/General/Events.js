@@ -7,7 +7,7 @@ import EventsStyles from './Styles/EventsPageStyles';
 import FilterModal from '../../components/Modals/FilterModal';
 import NewEventModal from '../../components/Modals/NewEventModal';
 import EventCard from '../../components/Cards/EventCard';
-import {getAllEvents, getSavedEvents, getOwnEvents} from '../../network/App'
+import {getAllEvents, getSavedEvents, getOwnEvents, getBookedEvents} from '../../network/App'
 import BackArrow from '../../components/Header/BackArrow';
 import Filters from '../../components/Header/Filters';
 import { colors } from '../../constants/colors';
@@ -46,6 +46,9 @@ const Events=({navigation})=> {
     else if(choice==3){
       result = await getOwnEvents()
     }
+    else if(choice==4){
+      result = await getBookedEvents()
+    }
     if (result.success){
       setdata(result.data.data)
     }
@@ -77,6 +80,7 @@ const Events=({navigation})=> {
         <View style={EventsStyles.view}>
             <TouchableOpacity onPress={()=>setChoice(1)} >{ <Text style={[EventsStyles.options,choice==1 ? EventsStyles.selected: null ]}>All Events</Text>}</TouchableOpacity>
             {user.type_id==2 && <TouchableOpacity onPress={()=>setChoice(2)}>{ <Text style={[EventsStyles.options, choice==2 ? EventsStyles.selected: null]}>Saved Events</Text>}</TouchableOpacity>}
+            {user.type_id==2 && <TouchableOpacity onPress={()=>setChoice(4)}>{ <Text style={[EventsStyles.options, choice==4 ? EventsStyles.selected: null]}>Bookings</Text>}</TouchableOpacity>}
             {user.type_id==1 && <TouchableOpacity onPress={()=>setChoice(3)}>{ <Text style={[EventsStyles.options, choice==3? EventsStyles.selected: null]}>My Events</Text>}</TouchableOpacity>}
         </View>
         <View style={EventsStyles.separator}/>
