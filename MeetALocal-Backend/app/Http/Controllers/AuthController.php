@@ -173,4 +173,9 @@ class AuthController extends Controller
             'user' => auth()->user()
         ]);
     }
+    public function notFound(){
+        return response()->json([
+            "message" => "Unauthorized"
+        ], 404);
+    }
 }
