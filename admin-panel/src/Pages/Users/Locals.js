@@ -24,7 +24,11 @@ const Locals=()=> {
     
     const getLocals= async()=>{
         setIsLoading(true)
-        const result =await getUsers('Local', 10*(page-1))
+        const params={
+            type:'Local',
+            offset:10*(page-1)
+        }
+        const result =await getUsers(params)
         if (result.success){
             console.log(result.data.data)
             if(result.data.data.length==0){

@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import { useNavigate,Link } from "react-router-dom";
 import { NavLink } from 'react-router-dom';
 import '../../Constants/Flex.css'
 import './NavBar.css'
@@ -11,7 +10,7 @@ const NavBar=()=> {
         <NavLink className='link' to="/locals">Locals</NavLink>
         <NavLink className='link' to="/foreigners">Foreigners</NavLink>
         <NavLink className='link' to='/locals-statistics'>Statistics</NavLink>
-        <NavLink className='link' to="/">LogOut</NavLink>
+        <NavLink className='link' to="/" onClick={()=>localStorage.clear()} >LogOut</NavLink>
     </nav>
   )
 }
