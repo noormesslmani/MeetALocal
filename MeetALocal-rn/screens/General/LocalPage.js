@@ -19,7 +19,8 @@ import { checkReviewed, addReview } from '../../network/App';
 import ReviewModal from '../../components/Modals/ReviewModal';
 import { colors } from '../../constants/colors';
 import BackArrow from '../../components/Header/BackArrow';
-import { Button} from 'react-native-paper';
+import Carousel from 'react-native-reanimated-carousel';
+import { widths } from '../../constants/dimensions';
 import AppointmentsModal from '../../components/Modals/AppointmentModal';
 const LocalPage=({navigation})=> {
   const route = useRoute();
@@ -27,7 +28,7 @@ const LocalPage=({navigation})=> {
   const { user, setUser, locals, setLocals} = useContext(UserContext);
   const [isFavorite, SetIsFavorite]=useState(false)
   const [likes, setLikes]= useState(item.likes)
-
+  
 
   const [average, setAverage]= useState(0)
   const [reviews, setReviews]=useState([])
@@ -171,16 +172,17 @@ const LocalPage=({navigation})=> {
               </View>
             </View>
             <View style={LocalProfileStyles.likesContainer}>
-              {user.type_id==2 && <Pressable style={{marginRight:10}} onPress={handleLike}>{isFavorite?<Icon name="heart" size={20} color={colors.violet} />:<Icon name="heart-o" size={20} color={colors.violet} />}</Pressable>}
+              {user.type_id==2 && <Pressable style={{marginRight:10}} onPress={handleLike}>{isFavorite?<Icon name="heart" size={25} color={colors.lightViolet} />:<Icon name="heart-o" size={25} color={colors.lightViolet} />}</Pressable>}
               <Pressable style={LocalProfileStyles.message} onPress={handleMessage}><Text style={{color:"white"}}>Message</Text></Pressable>
             </View>
           </View>
           
 
 
-          {user.type_id==2 && <Button onPress={handleBooking} compact uppercase={false} labelStyle={{ color: colors.violet, fontSize: 16 }} style={LocalProfileStyles.bookBtn} icon={()=><Icon name='calendar' color={colors.violet} size={18} />}  mode="outlined" > 
-                Book
-          </Button>}
+          {user.type_id==2? <TouchableOpacity onPress={handleBooking} style={LocalProfileStyles.bookBtn} > 
+            <Icon name='calendar' size={25} style={{marginHorizontal:5}} color={colors.violet} />
+            <Text style={{color:colors.violet, fontSize:18, fontWeight:'500'}} >Book</Text>
+          </TouchableOpacity>:null}
           {appointmentModal && <AppointmentsModal modalVisible={appointmentModal} setModalVisible={setAppointmentModal} id={item.id} /> }
 
 
@@ -209,14 +211,21 @@ const LocalPage=({navigation})=> {
           {item.highlights.length>0 && 
           <View style={LocalProfileStyles.sectionContainer}>
           <Text style={LocalProfileStyles.sectionTitle}>Highlights</Text>
-            <View style={LocalProfileStyles.highlightImages}>
-              {item.highlights[0] && <Pressable onPress={()=>{setIsVisible(true), setImageIndex(0)}}><Image source={{uri:`${address}/${item.highlights[0]}`}} style={LocalProfileStyles.highlightimg}/></Pressable>}
-              {item.highlights[1] && <Pressable onPress={()=>{setIsVisible(true), setImageIndex(1)}}><Image source={{uri:`${address}/${item.highlights[1]}`}} style={LocalProfileStyles.highlightimg}/></Pressable>}
-            </View>
-            <View style={LocalProfileStyles.highlightImages}>
-              {item.highlights[2] && <Pressable onPress={()=>{setIsVisible(true), setImageIndex(2)}}><Image source={{uri:`${address}/${item.highlights[2]}`}} style={LocalProfileStyles.highlightimg}/></Pressable>}
-              {item.highlights[3] && <Pressable onPress={()=>{setIsVisible(true), setImageIndex(3)}}><Image source={{uri:`${address}/${item.highlights[3]}`}} style={LocalProfileStyles.highlightimg}/></Pressable>}
-            </View>
+          <View style={{ flex: 1, alignSelf:"center" }}>
+            <Carousel
+                loop
+                width={widths.width8}
+                height={200}
+                autoPlay={true}
+                mode="parallax"
+                data={images}
+                scrollAnimationDuration={10000}
+                autoPlayInterval={2000}
+                renderItem={({ index }) => (
+                    <Image source={images[index]} style={{width:widths.width7, height:200}}/>
+                )}
+              />
+        </View>
           </View>}
           <ImageView
           images={images}
@@ -239,6 +248,22 @@ const LocalPage=({navigation})=> {
           {reviews && reviews.map((review, index)=><ReviewCard review={review} key={index}/>)}
           {reviewModalVisible && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} setReviewAdded={setReviewAdded} id={item.id} />}
       
+
+
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
         </View>
     </ScrollView>
     
