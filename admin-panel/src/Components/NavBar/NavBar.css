@@ -1,7 +1,7 @@
 .NavBar{
     height:auto;
     width: 250px;
-    background-color: rgba(140,87,186,0.5);
+    background-color: rgb(186, 154, 215);
     padding-top: 100px;
     box-sizing: border-box;
     overflow-y: hidden;

@@ -10,6 +10,7 @@ import "react-activity/dist/library.css";
 import PieChart from '../../Components/Chats/PieCharts';
 import BarChart from '../../Components/Chats/BarCharts';
 import { NavLink } from 'react-router-dom';
+import { colors } from '../../Constants/ChartColors';
 const LocalStatistics=({type})=> {
   const [total, setTotal]=useState(null)
   const [genderData, setGenderData]= useState(null)
@@ -23,7 +24,7 @@ const LocalStatistics=({type})=> {
   useEffect(()=>{
     getStat()
   },[])
- 
+  const props={chart: {id: "simple-bar"},plotOptions: {bar: {distributed: true}}, colors:colors}
   console.log(genderData)
   const getStat= async()=>{
     setIsLoading(true)
@@ -57,15 +58,15 @@ const LocalStatistics=({type})=> {
               {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
               <div className='flex wrap space-between charts-container'>
                 {!isLoading && <PieChart
-                options={{ labels: ["Male", "Female"], title:{text:'Genders'} }} series={genderData}/>}
+                options={{ labels: ["Male", "Female"], title:{text:'Genders'}, colors:colors}} series={genderData} />}
                 {!isLoading && <PieChart
-                options={{ labels: ["Below 30", "30-60","Above 60"], title:{text:'Age groups'} }} series={ageData} />}
+                options={{ labels: ["Below 30", "30-60","Above 60"], title:{text:'Age groups'}, colors:colors }} series={ageData} />}
               </div>
               <div className='flex wrap space-between charts-container'>
                 {!isLoading && <BarChart
-                options={{chart: {id: "simple-bar"},xaxis: {categories: categoryLabels }, title:{text:'Top categories'}}} series={[{data: categoryData}]} />}
+                options={{...props, xaxis: {categories: categoryLabels }, title:{text:'Top categories'} }} series={[{data: categoryData}]} />}
                 {!isLoading && <BarChart
-                 options={{chart: {id: "simple-bar"},xaxis: {categories: languageLabels }, title:{text:'Top languages'}}} series={[{data: languageData}]}  />}
+                 options={{...props, xaxis: {categories: languageLabels }, title:{text:'Top languages'}}} series={[{data: languageData}]}  />}
               </div>
             </div>
         </div>

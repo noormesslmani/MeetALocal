@@ -10,12 +10,13 @@ import "react-activity/dist/library.css";
 import PieChart from '../../Components/Chats/PieCharts';
 import BarChart from '../../Components/Chats/BarCharts';
 import { NavLink } from 'react-router-dom';
+import { colors } from '../../Constants/ChartColors';
 const ForeignerStatistics=({type})=> {
   const [total, setTotal]=useState(null)
   const [genderData, setGenderData]= useState(null)
   const [ageData, setAgeData]= useState(null)
-  const [categoryData, setCategoryData]=useState(null)
-  const [categoryLabels, setCategoryLabels]=useState(null)
+  const [countryData, setCountryData]=useState(null)
+  const [countryLabels, setCountryLabels]=useState(null)
   const [languageData, setLanguageData]=useState(null)
   const [languageLabels, setLanguageLabels]=useState(null)
   const [isLoading, setIsLoading]= useState(false)
@@ -24,7 +25,7 @@ const ForeignerStatistics=({type})=> {
     getStat()
   },[])
  
-  console.log(genderData)
+  const props={chart: {id: "simple-bar"},plotOptions: {bar: {distributed: true}}, colors:colors}
   const getStat= async()=>{
     setIsLoading(true)
     const result =await getForeignersStat()
@@ -35,6 +36,8 @@ const ForeignerStatistics=({type})=> {
         setAgeData([Math.round(result.data.data.ages[0]),Math.round(result.data.data.ages[1]),Math.round(result.data.data.ages[2])])
         setLanguageLabels([result.data.data.top_languages[0].language, result.data.data.top_languages[1].language, result.data.data.top_languages[2].language])
         setLanguageData([result.data.data.top_languages[0].count, result.data.data.top_languages[1].count, result.data.data.top_languages[2].count])
+        setCountryLabels([result.data.data.top_countries[0].country, result.data.data.top_countries[1].country, result.data.data.top_countries[2].country])
+        setCountryData([result.data.data.top_countries[0].count, result.data.data.top_countries[1].count, result.data.data.top_countries[2].count])
       }
 
     setIsLoading(false)
@@ -55,15 +58,15 @@ const ForeignerStatistics=({type})=> {
               {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
               <div className='flex wrap space-between charts-container'>
                 {!isLoading && <PieChart
-                options={{ labels: ["Male", "Female"], title:{text:'Genders'} }} series={genderData}/>}
+                options={{ labels: ["Male", "Female"], title:{text:'Genders'}, colors:colors }} series={genderData}/>}
                 {!isLoading && <PieChart
-                options={{ labels: ["Below 30", "30-60","Above 60"], title:{text:'Age groups'} }} series={ageData} />}
+                options={{ labels: ["Below 30", "30-60","Above 60"], title:{text:'Age groups'}, colors:colors }} series={ageData} />}
               </div>
               <div className='flex wrap space-between charts-container'>
-                {/* {!isLoading && <BarChart
-                options={{chart: {id: "simple-bar"},xaxis: {categories: categoryLabels }, title:{text:'Top categories'}}} series={[{data: categoryData}]} />} */}
+              {!isLoading && <BarChart
+                 options={{...props,xaxis: {categories: countryLabels }, title:{text:'Top countries'}}} series={[{data: countryData}]}  />}
                 {!isLoading && <BarChart
-                 options={{chart: {id: "simple-bar"},xaxis: {categories: languageLabels }, title:{text:'Top languages'}}} series={[{data: languageData}]}  />}
+                 options={{...props,xaxis: {categories: languageLabels }, title:{text:'Top languages'}}} series={[{data: languageData}]}  />}
               </div>
             </div>
         </div>
