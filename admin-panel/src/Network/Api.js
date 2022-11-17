@@ -36,12 +36,12 @@ export async function signin(data){
       return {'success': false, error}
     }
   }
-  export async function getUsers(type, offset){
-    console.log(type)
+  export async function getUsers(params){
     const config = {
       method: "get",
+      params,
       headers,
-      url:`${baseURL}admins/users/${type}/${offset}`,
+      url:`${baseURL}admins/users`,
     }
     try{
       const res = await axios(config)
