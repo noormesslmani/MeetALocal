@@ -9,9 +9,12 @@ import { colors } from '../constants/colors';
 import { address } from '../constants/address';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import DrawerNavigation from './DrawerStack';
 import SearchScreen from '../screens/General/Search';
-
+import Home from '../screens/General/Home';
+import LocalProfile from '../screens/Profile/LocalProfile'
+import Bookings from '../screens/General/Bookings';
+import ForeignerProfile from '../screens/Profile/ForeignersProfile';
+import Schedules from '../screens/General/Schedules';
 const TabNavigation=()=>{
     const Tab = createBottomTabNavigator();
     const { user, setUser} = useContext(UserContext);
@@ -19,22 +22,23 @@ const TabNavigation=()=>{
   
   return (
     < Tab.Navigator
-      initialRouteName="feed"
+      initialRouteName="home"
       screenOptions={{
         tabBarActiveTintColor: colors.violet,
         
       }}
       >
-      <Tab.Screen
-        name="feed"
-        component={DrawerNavigation}
-        options={{
-          tabBarLabel: 'home', headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false,
+      <Tab.Screen name='home' component={Home}
+      
+      options={{
+        tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons name="home" color={color} size={size} />
+            <Icon name="home" color={color} size={size} />
           ),
-          headerShown:false
-        }}
+        headerTitle:'Welcome',
+        headerTitleAlign: 'center', headerTitleStyle:{fontSize:40, color:"white"}, headerStyle:{backgroundColor: colors.lightViolet},
+        headerShadowVisible:false
+      }}
       />
   
       {user.type_id==2 && <Tab.Screen
@@ -46,6 +50,32 @@ const TabNavigation=()=>{
             <Icon name="search" color={color} size={size} />
           ),
           headerTitle:"", 
+          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false,
+        }}
+        
+      />}
+      {user.type_id==1 && <Tab.Screen
+        name="appointments"
+        component={Schedules}
+        options={{
+          tabBarLabel: 'Schedule',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="calendar" color={color} size={size} />
+          ),
+          headerTitle:"Schedule", headerTitleAlign:"center", 
+          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false,
+        }}
+        
+      />}
+      {user.type_id==2 && <Tab.Screen
+        name="bookings"
+        component={Bookings}
+        options={{
+          tabBarLabel: 'Bookings',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="calendar" color={color} size={size} />
+          ),
+          headerTitle:"Bookings", headerTitleAlign:"center", 
           headerBackVisible:false,  headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false,
         }}
         
@@ -64,8 +94,31 @@ const TabNavigation=()=>{
               <Image source={user.profile_picture?{ uri:`${address}/${user.profile_picture}`}: require('../assets/blank-profile.webp')} style={{width:40, height:40, borderRadius:20}}/>
             </View>)
         }}
-        
       />
+       {user.type_id==1 && <Tab.Screen
+        name="profile"
+        component={LocalProfile}
+        options={{
+          tabBarLabel: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="user" color={color} size={size} />
+          ),
+          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false,
+          headerTitleAlign: 'center', headerTitle:'Profile'
+        }}
+      />}
+      {user.type_id==2 && <Tab.Screen
+        name="profile"
+        component={ForeignerProfile}
+        options={{
+          tabBarLabel: 'Profile', 
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="user" color={color} size={size} />
+          ),
+          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false,
+          headerTitleAlign: 'center', headerTitle:'profile'
+        }}
+      />}
     </Tab.Navigator>
   );
 }
