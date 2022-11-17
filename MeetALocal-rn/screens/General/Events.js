@@ -33,12 +33,16 @@ const Events=({navigation})=> {
       setEventDeleted(false)
     }
   },[eventDeleted, eventBooked])
-  console.log(eventDeleted)
+  
   const getEvents= async()=>{
     let result
     setIsLoading(true)
     if(choice==1){
-      result = await getAllEvents(country, category)
+      const params={
+        country,
+        category
+      }
+      result = await getAllEvents(params)
     }
     else if(choice==2){
       result = await getSavedEvents()

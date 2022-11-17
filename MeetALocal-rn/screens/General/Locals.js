@@ -13,7 +13,7 @@ import Map from '../../components/Header/Map';
 import { colors } from '../../constants/colors';
 import ListFooter from '../../components/General/ListFooter';
 import { useDidMountEffect } from '../../hooks/Hooks';
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import {  useIsFocused } from '@react-navigation/native';
 
 const Locals=({navigation})=> {
     const [country, setCountry]=useState('all');
@@ -64,7 +64,12 @@ const Locals=({navigation})=> {
   const getLocalsList= async()=>{
     page==0? setIsLoading(true): setIsLoadingMore(true)
     if(!viewFav){
-        const result = await getLocals(country, category, 15*page)
+        const params={
+          country,
+          category,
+          offset:15*page
+        }
+        const result = await getLocals(params)
         if (result.success){
           setIsLoading(false)
           setIsLoadingMore(false)
