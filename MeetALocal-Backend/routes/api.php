@@ -41,7 +41,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::get('/app-stat', [AdminController::class, 'getAppStat']);
             Route::get('/locals-stat', [AdminController::class, 'getLocalsStat']);
             Route::get('/foreigners-stat', [AdminController::class, 'getForeignersStat']);
-            Route::get('/users/{type}/{offset}', [AdminController::class, 'getUsers']);
+            Route::get('/users', [AdminController::class, 'getUsers']);
         });
         Route::group(['prefix' => 'foreigners'], function () {
             Route::get('/favorites', [ForeignerController::class, 'getFavorites']);
