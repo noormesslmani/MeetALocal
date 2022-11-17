@@ -11,12 +11,12 @@ Route::group(['prefix' => 'v1.0.0'], function () {
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::group(['prefix' => 'users'], function () {
-            Route::get('/locals/{country}/{category}/{offset}', [UserController::class, 'getLocals']);
+            Route::get('/locals', [UserController::class, 'getLocals']);
             Route::get('/user/{id}', [UserController::class, 'getUser']);
-            Route::get('/events/{country}/{category}', [UserController::class, 'getEvents']);
+            Route::get('/events', [UserController::class, 'getEvents']);
             Route::get('/event/{id}', [UserController::class, 'getEvent']);
-            Route::get('/posts/{country}/{category}/{offset}', [UserController::class, 'getPosts']);
-            Route::get('/posts', [UserController::class, 'getOwnPosts']);
+            Route::get('/posts', [UserController::class, 'getPosts']);
+            Route::get('/own-posts', [UserController::class, 'getOwnPosts']);
             Route::post('/comment', [UserController::class, 'addComment']);
             Route::get('/comments/{id}', [UserController::class, 'getComments']);
             Route::post('/post', [UserController::class, 'createPost']);
@@ -32,7 +32,8 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::post('/appointment', [LocalController::class, 'addAppointment']);
             Route::get('/appointments', [LocalController::class, 'getAppointments']);
             Route::get('/is-booked-appointment', [LocalController::class, 'isBookedAppointment']);
-            //edit profile
+            Route::post('/highlight', [LocalController::class, 'addHighlight']);
+            
         });
         Route::group(['prefix' => 'admins'], function () {
             Route::post('/toggle-ban', [AdminController::class, 'toggleBan']);
@@ -58,6 +59,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
             Route::post('/toggle-appointment-booking', [ForeignerController::class, 'toggleBookedAppointment']);
             Route::get('/is-booked-event', [ForeignerController::class, 'isBookedEvent']);
             Route::get('/appointments', [ForeignerController::class, 'getAvailableAppointments']);
+            Route::get('/booked-appointments', [ForeignerController::class, 'getBookedAppointments']);
         });
         Route::group(['prefix' => 'auth'], function ($router) { 
             Route::post('/logout', [AuthController::class, 'logout']);
