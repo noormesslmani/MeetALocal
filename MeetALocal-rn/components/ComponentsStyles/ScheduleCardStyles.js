@@ -8,6 +8,7 @@ const ScheduleCardStyles = StyleSheet.create({
         margin:5,
         marginTop:15,
         borderRadius:20,
+        padding:10,
         width:0.4*widths.width,
         height:0.25*widths.width,
         backgroundColor:'white',
@@ -21,6 +22,18 @@ const ScheduleCardStyles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 5,
         elevation: 5,
+    },
+    longerContainer:{
+        height:170,
+        alignItems:"flex-start",
+        justifyContent:"flex-start"
+
+    },
+    localContainer:{
+        flexDirection:"row", 
+        alignItems:"center", 
+        marginVertical:10,
+       
     },
     timeContainer:{
         flexDirection:"row",
@@ -40,6 +53,16 @@ const ScheduleCardStyles = StyleSheet.create({
     },
     booked:{
         backgroundColor:colors.lightViolet,
-    }
+    },
+    name:{
+        fontWeight:"600",
+        fontSize:16,
+        marginLeft:2
+    },
+    dateTime:{
+        fontSize:16,
+        marginBottom:5
+    },
+    trash:{position:"absolute", bottom:10, right:10}
 });
 export default ScheduleCardStyles;
