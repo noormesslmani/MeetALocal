@@ -67,13 +67,18 @@ const Posts=({navigation})=> {
       }
     }
     else {
-      result = await getAllPosts(country, category, 20*page)
+      const params={
+        country,
+        category,
+        offset:20*page
+      }
+      result = await getAllPosts(params)
       if (result.success){
         setIsLoading(false)
         setIsLoadingMore(false)
         if(result.data.data.length==0){
           setIsListEnd(true)
-          console.log(page)
+  
         }
         else{
           setdata( data =>[...data, ...result.data.data])

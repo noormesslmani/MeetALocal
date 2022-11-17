@@ -3,12 +3,13 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { address } from '../constants/address';
 const baseURL= `${address}/api/v1.0.0/`
 
-export async function getLocals(country, category, offset){
+export async function getLocals(params){
     const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
+      params,
       headers: { Authorization: `Bearer ${token}`},
-      url:`${baseURL}users/locals/${country}/${category}/${offset}`,
+      url:`${baseURL}users/locals`,
     }
     try{
       const res = await axios(config)
@@ -36,12 +37,13 @@ export async function getLocals(country, category, offset){
       return {'success': false, error}
     }
   }
-  export async function getAllEvents(country, category){
+  export async function getAllEvents(params){
     const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
+      params,
       headers: { Authorization: `Bearer ${token}`},
-      url:`${baseURL}users/events/${country}/${category}`,
+      url:`${baseURL}users/events`,
     }
     try{
       const res = await axios(config)
@@ -101,12 +103,13 @@ export async function getLocals(country, category, offset){
       return {'success': false, error}
     }
   }
-  export async function getAllPosts(country, category, offset){
+  export async function getAllPosts(params){
     const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
+      params,
       headers: { Authorization: `Bearer ${token}`},
-      url:`${baseURL}users/posts/${country}/${category}/${offset}`,
+      url:`${baseURL}users/posts`,
     }
     try{
       const res = await axios(config)
@@ -122,7 +125,7 @@ export async function getLocals(country, category, offset){
     const config = {
       method: "get",
       headers: { Authorization: `Bearer ${token}`},
-      url:`${baseURL}users/posts`,
+      url:`${baseURL}users/own-posts`,
     }
     try{
       const res = await axios(config)
