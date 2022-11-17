@@ -50,7 +50,7 @@ const Foreigners=()=> {
   return (
     <div className='home-container'>
         <Header type={2}/>
-        <div className='flex'>
+        <div className='subcontainer'>
             <NavBar/>
             <div className='dashboard-container flex-col align-center'>
                 <h1 className='home-title'>Foreigners</h1>
