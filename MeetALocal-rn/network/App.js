@@ -523,4 +523,21 @@ export async function getLocals(country, category, offset){
       return {'success': false, error}
     }
   }
+  export async function addHighlight(data){
+    const token = await AsyncStorage.getItem('@token')
+    const config = {
+      method: "post",
+      data,
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}locals/highlights`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.warn(error)
+      return {'success': false, error}
+    }
+  }
 

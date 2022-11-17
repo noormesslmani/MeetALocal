@@ -6,11 +6,15 @@ import AppButton from '../Buttons/AppButtons';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { address } from '../../constants/address';
 import HighlightsModalStyle from './Styles/HighlightsModalStyle';
+import { UserContext } from '../../App';
+import { addHighlight } from '../../network/App';
 import * as ImagePicker from 'expo-image-picker';
 const HighlightsModal=({navigation, setModalVisible, modalVisible, highlights})=> {
+    const { user, setUser} = useContext(UserContext);
     const [base64, setBase64]= useState(null)
     const [ext, setext]= useState(null)
     const [image, setImage] = useState(null);
+    const [isLoading, setIsLoading ]=useState(false)
     const addImage = async () => {
         let _image = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -29,9 +33,25 @@ const HighlightsModal=({navigation, setModalVisible, modalVisible, highlights})=
             setext(image.split('.').pop())
         }
     },[image])
-    const handleSave=()=>{
-        console.log('hi')
+    const handleSave=async ()=>{
+        if(image){
+            setIsLoading(true)
+            const data={
+                photo: base64,
+                ext,
+            }
+            console.log(data)
+            const result= await addHighlight(data)
+            if(result.success){
+                setUser({...user,highlights:[...highlights, result.data.data]})
+                setImage(null)
+                setModalVisible(false)
+                setIsLoading(false)
+            }
+
+        }
     }
+    console.log(user)
   return (
     <Modal
         animationType="fade"
@@ -47,7 +67,7 @@ const HighlightsModal=({navigation, setModalVisible, modalVisible, highlights})=
             <FlatList
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
-            data={highlights.length<4?[...highlights,image,'icon']: highlights}
+            data={highlights.length<4?[...highlights,'icon', image]: highlights}
             renderItem={({ item, index })=>
             <View>
                 {item == 'icon' && !image? <Pressable onPress={addImage} style={HighlightsModalStyle.addImage}><Icon name='plus' color={colors.lightGrey} size={60} /></Pressable> : <Image source={image && item==image?{uri: `${image}`}: {uri: `${address}/${item}`}} style={HighlightsModalStyle.highlightImage} /> }
@@ -57,6 +77,7 @@ const HighlightsModal=({navigation, setModalVisible, modalVisible, highlights})=
             Key={2}
             style={HighlightsModalStyle.list}          
             />
+            {isLoading && <ActivityIndicator color={colors.violet} /> }
             <View style={HighlightsModalStyle.btnContainer} >
                 <AppButton text={'Save'} handlePress={handleSave}/>
                 <AppButton text={'Cancel'} handlePress={()=>setModalVisible(false)} />
