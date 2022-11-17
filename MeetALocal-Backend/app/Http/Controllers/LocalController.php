@@ -91,23 +91,26 @@ class LocalController extends Controller
         ], 403);
     }
     public function addHighlights(Request $request){
+        $validator = Validator::make($request->all(), [
+            'ext' => 'required|string',
+            'photo' => 'required|string',
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
         $extension=$request->ext;
         $image_64 = $request->photo; 
         $img = base64_decode($image_64);
         $path = uniqid() . "." . $extension;
         file_put_contents($path, $img);
-        if(Hightlight::where('user_id',Auth::id())->count()<4){
-            Highlight::create([
-                'user_id'=>Auth::id(),
-                'photo'=>$path
-            ]);
-            return response()->json([
-                'message' => 'ok',
-            ], 201);
-        }
+        Highlight::create([
+            'user_id'=>Auth::id(),
+            'photo'=>$path
+        ]);
         return response()->json([
-            'message' => 'action forbidden',
-        ], 403);
+            'message' => 'ok',
+            'data'=>$path
+        ], 201);
     }
     public function addAppointment(Request $request){
         $validator = Validator::make($request->all(), [
