@@ -1,13 +1,12 @@
 import React from 'react'
-import { useState, useEffect, useContext } from "react";
 import Slider from '@react-native-community/slider';
 import { colors } from '../../constants/colors';
-import SliderStyles from '../ComponentsStyles/SliderStyles';
+import SliderStyle from './Styles/SliderStyle';
 const FeesSlider=({setFees})=>{
     return(
         <Slider
             step={1}
-            style={SliderStyles.slider}
+            style={SliderStyle.slider}
             minimumValue={0}
             maximumValue={100}
             minimumTrackTintColor={colors.lightViolet}

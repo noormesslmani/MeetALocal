@@ -2,7 +2,6 @@ import { View, Text, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingVi
 import React from 'react'
 import { useState, useEffect, useContext } from "react";
 import BackArrow from '../../components/Header/BackArrow';
-import * as Location from 'expo-location';
 import Map from '../../components/map/Map';
 import { useRoute } from '@react-navigation/native';
 import { widths } from '../../constants/dimensions';

@@ -6,9 +6,7 @@ import { colors } from '../../constants/colors';
 import ScheduleCard from '../../components/Cards/ScheduleCard';
 import ScheduleStyles from './Styles/ScheduleScreenStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { color } from 'react-native-reanimated';
 import WavyBackground from "react-native-wavy-background";
-import { IconButton, MD3Colors } from 'react-native-paper'
 import ScheduleModal from '../../components/Modals/ScheduleModal';
 const Schedules=()=> {
   const [schedule, setSchedule]=useState(null)
@@ -34,7 +32,7 @@ const Schedules=()=> {
     setIsLoading(false)
   }
   const renderItem = ({ item, index }) => (
-    <ScheduleCard item={item} key={index}/>
+    <ScheduleCard item={item} key={index} type={1}/>
   );
  
   return (

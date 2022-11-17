@@ -1,20 +1,14 @@
-import { View, Text, TouchableOpacity,TextInput ,Image, Modal, Pressable, ScrollView, ActivityIndicator } from 'react-native'
+import { View, Text, TouchableOpacity, Modal, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { useState, useEffect, useContext } from "react";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { address } from '../../constants/address';
-import { UserContext } from '../../App'
 import { colors } from '../../constants/colors';
-import { Button} from 'react-native-paper';
 import DatePicker from '../General/datePicker';
 import TimePicker from '../General/TimePicker';
 import AntDesign from 'react-native-vector-icons/AntDesign'
-import ScheduleModalStyles from '../ComponentsStyles/ScheduleModalStyles';
-import { Time } from 'react-native-gifted-chat';
-import { widths } from '../../constants/dimensions';
 import AppButton from '../Buttons/AppButtons';
 import { addSchedule } from '../../network/App';
+import ScheduleModalStyle from './Styles/ScheduleModalStyle';
 const ScheduleModal=({setModalVisible, modalVisible, setScheduleAdded })=> {
     const [date, setDate]=useState(new Date())
     const [startTime, setStartTime]= useState(new Date() )
@@ -69,18 +63,18 @@ const ScheduleModal=({setModalVisible, modalVisible, setScheduleAdded })=> {
         onRequestClose={() => {
         setModalVisible(!modalVisible);
         }}>
-        <View style={ScheduleModalStyles.centeredView}>
-        <View style={ScheduleModalStyles.modalView}>
+        <View style={ScheduleModalStyle.centeredView}>
+        <View style={ScheduleModalStyle.modalView}>
         
-            <Text style={ScheduleModalStyles.modalTitle}>Add an appointment</Text> 
+            <Text style={ScheduleModalStyle.modalTitle}>Add an appointment</Text> 
             <View style={{flexDirection:"row", alignItems:"flex-start"}}>
-            <View style={ScheduleModalStyles.dateContainer}><Text style={ScheduleModalStyles.text}>Date</Text>
+            <View style={ScheduleModalStyle.dateContainer}><Text style={ScheduleModalStyle.text}>Date</Text>
             <TouchableOpacity onPress={()=>setDatePicker(true)}><Icon name="calendar" size={25} color={colors.violet}/></TouchableOpacity></View>
             
-            <View style={ScheduleModalStyles.dateContainer}><Text style={ScheduleModalStyles.text}>From</Text>
+            <View style={ScheduleModalStyle.dateContainer}><Text style={ScheduleModalStyle.text}>From</Text>
             <TouchableOpacity onPress={()=>setStartTimePicker(true)}><AntDesign name="clockcircleo" size={25} color={colors.violet}/></TouchableOpacity></View>
             
-            <View style={ScheduleModalStyles.dateContainer}><Text style={ScheduleModalStyles.text}>To</Text>
+            <View style={ScheduleModalStyle.dateContainer}><Text style={ScheduleModalStyle.text}>To</Text>
             <TouchableOpacity onPress={()=>setEndTimePicker(true)}><AntDesign name="clockcircleo" size={25} color={colors.violet}/></TouchableOpacity></View>
             </View>
             
@@ -88,7 +82,7 @@ const ScheduleModal=({setModalVisible, modalVisible, setScheduleAdded })=> {
             {startTimePicker && <TimePicker time={startTime} handleTime={handleStartTime}/> }
             {endTimePicker && <TimePicker time={endTime} handleTime={handleEndTime}/> }
             {isLoading && <ActivityIndicator color={colors.violet} /> }
-            <View style={ScheduleModalStyles.ButtonContianer}>
+            <View style={ScheduleModalStyle.ButtonContianer}>
                 <AppButton text={'Submit'} handlePress={handleSubmit} />
                 <AppButton text={'Cancel'} handlePress={()=>setModalVisible(false)} />
             </View>

@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { widths } from "../../constants/dimensions";
-import { colors } from "../../constants/colors";
-const ReviewStyles = StyleSheet.create({
+import { widths } from "../../../constants/dimensions";
+import { colors } from "../../../constants/colors";
+const ReviewerCardStyle = StyleSheet.create({
     cotainer:{
         width: widths.width9, 
         padding:10,
@@ -41,4 +41,4 @@ const ReviewStyles = StyleSheet.create({
     }
    
 });
-export default ReviewStyles;
+export default ReviewerCardStyle;

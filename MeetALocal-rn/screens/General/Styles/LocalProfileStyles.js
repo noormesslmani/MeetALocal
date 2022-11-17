@@ -103,7 +103,16 @@ const LocalProfileStyles = StyleSheet.create({
         fontWeight:"300"},
     categoryIcon:{
         width:25, 
-        height:25}
+        height:25},
+    bookBtn:{
+        marginVertical:10,
+        width:widths.width9,
+        backgroundColor:'white',
+        borderColor:colors.violet,
+        borderRadius:10,
+        alignItems:"center",
+        justifyContent:"center"
+    }
 
 });
 export default LocalProfileStyles;

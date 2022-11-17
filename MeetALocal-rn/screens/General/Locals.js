@@ -14,6 +14,7 @@ import { colors } from '../../constants/colors';
 import ListFooter from '../../components/General/ListFooter';
 import { useDidMountEffect } from '../../hooks/Hooks';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+
 const Locals=({navigation})=> {
     const [country, setCountry]=useState('all');
     const [category, setCategory]=useState('all');
@@ -26,6 +27,8 @@ const Locals=({navigation})=> {
     const { user, setUser, locals, setLocals} = useContext(UserContext);
     const [page, setPage]=useState(0)
 
+
+   
     useEffect(() => {
       navigation.setOptions({
         headerLeft: () => <BackArrow navigation={navigation} type={1}/>,
@@ -40,6 +43,7 @@ const Locals=({navigation})=> {
       page==0? getLocalsList(): setPage(0)
       setdata([])
       setIsListEnd(false)
+      
     }, [viewFav, country, category]); 
 
     const isFocused = useIsFocused();
@@ -53,6 +57,9 @@ const Locals=({navigation})=> {
       }
     },[isFocused, page])
     
+    
+
+
 
   const getLocalsList= async()=>{
     page==0? setIsLoading(true): setIsLoadingMore(true)

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Image, View, Platform, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import UploadImageStlye from './Styles/UploadImageStyle';
 export default function UploadImage({setBase64, setext, uri=null}) {
   const [image, setImage] = useState(null);
   useEffect(()=>{
@@ -23,12 +24,12 @@ export default function UploadImage({setBase64, setext, uri=null}) {
   useEffect(()=>{ image? setext(image.split('.').pop()):null},[image])
   
   return (
-            <View style={imageUploaderStyles.container}>
+            <View style={UploadImageStlye.container}>
                 {
                     image  && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
                 }
-                    <View style={imageUploaderStyles.uploadBtnContainer}>
-                        <TouchableOpacity onPress={addImage} style={imageUploaderStyles.uploadBtn} >
+                    <View style={UploadImageStlye.uploadBtnContainer}>
+                        <TouchableOpacity onPress={addImage} style={UploadImageStlye.uploadBtn} >
                             <Text>{image ? 'Edit' : 'Upload'} Image</Text>
                             <AntDesign name="camera" size={20} color="black" />
                         </TouchableOpacity>
@@ -36,28 +37,3 @@ export default function UploadImage({setBase64, setext, uri=null}) {
             </View>
   );
 }
-const imageUploaderStyles=StyleSheet.create({
-    container:{
-        elevation:2,
-        height:200,
-        width:200,
-        backgroundColor:'#efefef',
-        position:'relative',
-        borderRadius:999,
-        overflow:'hidden',
-    },
-    uploadBtnContainer:{
-        opacity:0.7,
-        position:'absolute',
-        right:0,
-        bottom:0,
-        backgroundColor:'lightgrey',
-        width:'100%',
-        height:'25%',
-    },
-    uploadBtn:{
-        display:'flex',
-        alignItems:"center",
-        justifyContent:'center'
-    }
-})

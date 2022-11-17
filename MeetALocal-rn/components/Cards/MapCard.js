@@ -1,23 +1,21 @@
 import { View, Text, TouchableOpacity, Image, FlatList, Animated } from 'react-native'
 import React from 'react'
-import { useState, useEffect, useContext } from "react";
 import { address } from '../../constants/address';
-import { Surface } from 'react-native-paper';
-import MapCardStyles from '../ComponentsStyles/MapCardStyles';
+import MapCardStyle from './Styles/MapCardStyle';
 const MapCard=({data, myList, navigation})=> {
     const renderItem = ({ item, index }) => (
         <TouchableOpacity onPress={()=>navigation.navigate('local-page',{item})}
             >
-              <View style={MapCardStyles.card_view} >
+              <View style={MapCardStyle.card_view} >
                 <Image
                   source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')}
               
-                  style={MapCardStyles.card_image}
+                  style={MapCardStyle.card_image}
                 />
                 <View style={{flex:2,padding:10}}>
-                  <Text numberOfLines={1} style={MapCardStyles.title}>{item.name}</Text>
-                  <Text numberOfLines={1} style={MapCardStyles.country}>{item.country}</Text>
-                  <View style={MapCardStyles.card_inner_view}>
+                  <Text numberOfLines={1} style={MapCardStyle.title}>{item.name}</Text>
+                  <Text numberOfLines={1} style={MapCardStyle.country}>{item.country}</Text>
+                  <View style={MapCardStyle.card_inner_view}>
                   </View>
                 </View>
               </View>
@@ -29,7 +27,7 @@ const MapCard=({data, myList, navigation})=> {
             keyExtractor={item => item.id.toString()}
             scrollEventThrottle={1}
             showsHorizontalScrollIndicator={false}
-            style={MapCardStyles.card_scroll_view}
+            style={MapCardStyle.card_scroll_view}
             data={data}
             ref={myList}
             initialScrollIndex={0}

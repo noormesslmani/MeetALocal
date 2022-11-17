@@ -1,9 +1,9 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { colors } from "../../constants/colors";
-import { widths } from "../../constants/dimensions";
+import { colors } from "../../../constants/colors";
+import { widths } from "../../../constants/dimensions";
 
 const windowHeight = Dimensions.get("window").height;
-const PostModalStyles = StyleSheet.create({
+const NewPostModalStyle = StyleSheet.create({
     centeredView: {
       flex: 1,
       justifyContent: "center",
@@ -75,4 +75,4 @@ const PostModalStyles = StyleSheet.create({
     }
 
 });
-export default PostModalStyles;
+export default NewPostModalStyle;

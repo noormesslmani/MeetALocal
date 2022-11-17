@@ -1,27 +1,11 @@
-import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, Modal, Pressable, StyleSheet, ScrollView, TextInput, KeyboardAvoidingView} from 'react-native'
+import {  Text, TouchableOpacity, } from 'react-native'
 import React from 'react'
-import { widths } from '../../constants/dimensions'
-import { colors } from '../../constants/colors'
+import AppButtonStyle from './Styles/AppButtonStyle'
 const AppButton=({text, handlePress})=>{
     return (
-        <TouchableOpacity style={styles.button} onPress={handlePress}>
-        <Text style={styles.text}>{text}</Text>
+        <TouchableOpacity style={[AppButtonStyle.button, text=='Cancel'?{backgroundColor:"#D3D3D3"}:null]} onPress={handlePress}>
+        <Text style={AppButtonStyle.text}>{text}</Text>
         </TouchableOpacity>
     )
 }
 export default AppButton
-const styles=StyleSheet.create({
-    button:{
-        alignItems:"center",
-        justifyContent:"center",
-        backgroundColor:colors.lightViolet,
-        borderRadius: 20,
-        padding:10,
-        width:0.25*widths.width,
-        height:40
-    },
-    text:{
-        fontWeight:"700",
-        color:"white"
-    }
-})

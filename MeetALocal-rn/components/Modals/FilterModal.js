@@ -1,13 +1,11 @@
 import { View, Text, TouchableOpacity, Image, Modal, Pressable } from 'react-native'
 import React from 'react'
 import { useState, useEffect, useContext } from "react";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ModalStyles from '../ComponentsStyles/FilterModalStyles';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { countriesOptions } from '../../constants/countries';
 import { categoriesOptions } from '../../constants/categories';
 import AppButton from '../Buttons/AppButtons';
+import FilterModalStyle from './Styles/FilterModalStyle';
 const FilterModal=({navigation, modalVisible, setModalVisible, setCountry, setCategory})=> {
     const [selectedCountry, setSelectedCountry]=useState('all')
     const [selectedCategory, setSelectedCategory]=useState('all')
@@ -28,13 +26,13 @@ const FilterModal=({navigation, modalVisible, setModalVisible, setCountry, setCa
         onRequestClose={() => {
         setModalVisible(!modalVisible);
         }}>
-        <View style={ModalStyles.centeredView}>
-        <View style={ModalStyles.modalView}>
-            <Text style={ModalStyles.modalTitle}>Apply Filters</Text>
-            <View style={ModalStyles.dropDownContainer}>
+        <View style={FilterModalStyle.centeredView}>
+        <View style={FilterModalStyle.modalView}>
+            <Text style={FilterModalStyle.modalTitle}>Apply Filters</Text>
+            <View style={FilterModalStyle.dropDownContainer}>
               <Text>Select a country</Text>
               <DropDownPicker
-              style={ModalStyles.dropDown}
+              style={FilterModalStyle.dropDown}
               zIndex={3000}
               zIndexInverse={1000}
               open={openCountry}
@@ -55,10 +53,10 @@ const FilterModal=({navigation, modalVisible, setModalVisible, setCountry, setCa
                 }}
               />
             </View>
-            <View style={ModalStyles.dropDownContainer}>
+            <View style={FilterModalStyle.dropDownContainer}>
             <Text>Select a category</Text>
             <DropDownPicker
-            style={ModalStyles.dropDown}
+            style={FilterModalStyle.dropDown}
             zIndex={2000}
             zIndexInverse={2000}
             open={openCategory}

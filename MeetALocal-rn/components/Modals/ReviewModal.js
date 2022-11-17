@@ -1,12 +1,12 @@
 import { View, Text, TouchableOpacity, Image, Modal, Pressable, TextInput, ActivityIndicator } from 'react-native'
 import React from 'react'
-import ReviewModalStyles from '../ComponentsStyles/ReviewModalStyles';
 import { useState, useEffect, useContext, useRef } from "react";
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import AppButton from '../Buttons/AppButtons';
 import { addReview } from '../../network/App';
 import { colors } from '../../constants/colors';
 import { sendNotification, Notify } from '../../Notifications/Notifications';
+import ReviewModalStyle from './Styles/ReviewModalStyle';
 const ReviewModal=({setModalVisible, modalVisible, id,setReviewAdded })=> {
     const [review, setReview]=useState(null)
     const [rating,setRating]=useState(3)
@@ -52,18 +52,18 @@ const ReviewModal=({setModalVisible, modalVisible, id,setReviewAdded })=> {
         onRequestClose={() => {
         setModalVisible(!modalVisible);
         }}>
-        <View style={ReviewModalStyles.centeredView}>
-        <View style={ReviewModalStyles.modalView}>
-          <Text style={ReviewModalStyles.title}>Add a review</Text>  
+        <View style={ReviewModalStyle.centeredView}>
+        <View style={ReviewModalStyle.modalView}>
+          <Text style={ReviewModalStyle.title}>Add a review</Text>  
           <Rating size={35} startingValue={3} imageSize={35} 
-          style={ReviewModalStyles.stars} 
+          style={ReviewModalStyle.stars} 
           onFinishRating={(rating)=>setRating(rating)}/>
-          <View style={ReviewModalStyles.textContainer}>
+          <View style={ReviewModalStyle.textContainer}>
             <Text>Text review:</Text>
-            <TextInput placeholder='Enter a review' style={ReviewModalStyles.input} value={review} onChangeText={setReview}></TextInput>
+            <TextInput placeholder='Enter a review' style={ReviewModalStyle.input} value={review} onChangeText={setReview}></TextInput>
           </View> 
           {isLoading && <ActivityIndicator color={colors.violet} />}
-            <View style={ReviewModalStyles.btnContainer}>
+            <View style={ReviewModalStyle.btnContainer}>
                 <AppButton text='submit' handlePress={handleSubmit} />
                 <AppButton text='discard' handlePress={handleDiscard} />
             </View>

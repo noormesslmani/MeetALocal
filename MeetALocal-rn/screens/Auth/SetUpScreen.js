@@ -4,7 +4,7 @@ import styles from './Authstyles';
 import { TextInput, Avatar } from 'react-native-paper';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'
-import AuthButton from '../../components/AuthButton';
+import AuthButton from '../../components/Buttons/AuthButton';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'

@@ -1,20 +1,15 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import React from 'react'
-import { useState, useEffect, useContext } from "react";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Icon from 'react-native-vector-icons/FontAwesome'
 import image from '../../assets/profile.jpg'
-import EventModal from '../Modals/EventModal';
-import CommentStyles from '../ComponentsStyles/CommentStyles';
+import CommentStyle from './Styles/CommentStyle';
 const Comment=({navigation, item, comment})=> {
-  console.log(comment)
+
   return (
-    <View style={CommentStyles.commentContainer}>
-        <View style={CommentStyles.headerContainer}>
+    <View style={CommentStyle.commentContainer}>
+        <View style={CommentStyle.headerContainer}>
             <View style={{flexDirection:"row"}}>
-                <Image source={image} style={CommentStyles.image} />
-                <View style={CommentStyles.details}>
+                <Image source={image} style={CommentStyle.image} />
+                <View style={CommentStyle.details}>
                     <Text style={{fontSize:10, fontWeight:"600"}}>{comment.user.name}</Text>
                     <View style={{flexDirection:"row", alignItems:"center"}}>
                       <Text style={{fontSize:10}}>country</Text>

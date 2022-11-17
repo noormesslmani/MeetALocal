@@ -1,9 +1,9 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { colors } from "../../constants/colors";
-import { widths } from "../../constants/dimensions";
+import { colors } from "../../../constants/colors";
+import { widths } from "../../../constants/dimensions";
 
 const windowHeight = Dimensions.get("window").height;
-const ReviewModalStyles = StyleSheet.create({
+const ReviewModalStyle = StyleSheet.create({
     centeredView: {
         flex: 1,
         justifyContent: "center",
@@ -52,4 +52,4 @@ const ReviewModalStyles = StyleSheet.create({
       }
 
 });
-export default ReviewModalStyles;
+export default ReviewModalStyle;

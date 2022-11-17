@@ -1,12 +1,12 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Image } from 'react-native'
 import React from 'react'
-import { useState, useEffect, useContext } from "react";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useContext } from "react";
 import HomeStyles from './Styles/HomeStyles';
 import { UserContext } from '../../App'
 import { address } from '../../constants/address';
 import HomeCard from '../../components/Cards/HomeCard';
+import WavyBackground from "react-native-wavy-background";
+import { colors } from '../../constants/colors';
 const Home=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const handleLocals=()=>{
@@ -21,7 +21,23 @@ const Home=({navigation})=> {
 
   return (
     <View style={HomeStyles.container}>
-        <Text style={HomeStyles.welcome}>Welcome</Text>
+        <View
+          style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+          }}>
+          <WavyBackground
+            height={300}
+            width={1100}
+            amplitude={30}
+            frequency={1}
+            offset={70}
+            color= {colors.lightViolet}
+            top
+          />
+        </View>
         <Image source={user.profile_picture?{ uri:`${address}/${user.profile_picture}`}: require('../../assets/blank-profile.webp')} style={HomeStyles.photo }/>
         <HomeCard label={'Locals'} handlePress={handleLocals}/>
         <HomeCard label={'Events'} handlePress={handleEvents}/>

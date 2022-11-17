@@ -4,7 +4,7 @@ import { widths } from "../../../constants/dimensions";
 const EventsStyles = StyleSheet.create({
     view:{
         flexDirection:"row",
-        width:widths.width6,
+        width:widths.width8,
         justifyContent:"space-between",
     },
     title:{
@@ -12,7 +12,7 @@ const EventsStyles = StyleSheet.create({
        margin:10,
     },
     options:{
-        fontSize:18,
+        fontSize:15,
         marginTop:10,
         marginBottom:25,
     },

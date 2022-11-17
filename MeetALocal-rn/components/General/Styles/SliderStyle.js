@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { widths } from "../../constants/dimensions";
-const SliderStyles = StyleSheet.create({
+import { widths } from "../../../constants/dimensions";
+const SliderStyle = StyleSheet.create({
     slider:{
         width: widths.width8, 
         height: 40,
@@ -8,4 +8,4 @@ const SliderStyles = StyleSheet.create({
     },
    
 });
-export default SliderStyles;
+export default SliderStyle;

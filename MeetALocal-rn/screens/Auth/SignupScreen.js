@@ -3,7 +3,7 @@ import React from 'react'
 import { TextInput } from 'react-native-paper';
 import styles from './Authstyles';
 import { useState, useEffect } from "react";
-import AuthButton from '../../components/AuthButton';
+import AuthButton from '../../components/Buttons/AuthButton';
 import DatePicker from '../../components/General/datePicker';
 import Icon from 'react-native-vector-icons/AntDesign'
 import { colors } from '../../constants/colors';

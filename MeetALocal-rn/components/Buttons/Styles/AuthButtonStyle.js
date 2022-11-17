@@ -1,6 +1,6 @@
 import { StyleSheet} from "react-native";
-import { colors } from "../../constants/colors";
-const styles = StyleSheet.create({
+import { colors } from "../../../constants/colors";
+const AuthButtonStyle = StyleSheet.create({
     button1:{
         width:100,
         height: 35,
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
 
 
 })
-export default styles;
+export default AuthButtonStyle;

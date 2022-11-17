@@ -1,8 +1,7 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { widths } from "../../constants/dimensions";
-import { colors } from "../../constants/colors";
-import { color } from "react-native-reanimated";
-const MessageCardStyles = StyleSheet.create({
+import { widths } from "../../../constants/dimensions";
+import { colors } from "../../../constants/colors";
+const MessageCardStyle = StyleSheet.create({
     container:{
         width:widths.width,
         height:120,
@@ -41,4 +40,4 @@ const MessageCardStyles = StyleSheet.create({
     
    
 });
-export default MessageCardStyles;
+export default MessageCardStyle;

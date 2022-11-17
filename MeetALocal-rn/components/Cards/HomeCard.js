@@ -1,8 +1,8 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { useState, useEffect, useContext } from "react";
-import HomeStyles from '../../screens/General/Styles/HomeStyles';
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import HomeCardStyle from './Styles/HomeCardStyle';
 const HomeCard=({label, handlePress})=> {
     const [icon, setIcon]=useState('')
     useEffect(()=>{
@@ -17,10 +17,10 @@ const HomeCard=({label, handlePress})=> {
         }
     },[])
   return (
-    <View style={HomeStyles.cardContainer}>
-        <TouchableOpacity style={[HomeStyles.card]} onPress={handlePress} >
-            <View style={HomeStyles.cardItems}>
-                <Text style={HomeStyles.label}>{label}</Text>
+    <View style={HomeCardStyle.cardContainer}>
+        <TouchableOpacity style={[HomeCardStyle.card]} onPress={handlePress} >
+            <View style={HomeCardStyle.cardItems}>
+                <Text style={HomeCardStyle.label}>{label}</Text>
                 <Icon name={icon} size={50} color="white"/>
             </View>
         </TouchableOpacity>

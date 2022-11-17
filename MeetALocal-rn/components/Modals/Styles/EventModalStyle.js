@@ -1,9 +1,8 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { widths } from "../../constants/dimensions";
-import { colors } from "../../constants/colors";
-const windowWidth = Dimensions.get("window").width;
+import { widths } from "../../../constants/dimensions";
+import { colors } from "../../../constants/colors";
 const windowHeight = Dimensions.get("window").height;
-const EventModalStyles = StyleSheet.create({
+const EventModalStyle = StyleSheet.create({
     centeredView: {
         flex: 1,
         justifyContent: "center",
@@ -79,4 +78,4 @@ const EventModalStyles = StyleSheet.create({
         justifyContent:"center"
     }
 });
-export default EventModalStyles;
+export default EventModalStyle;
