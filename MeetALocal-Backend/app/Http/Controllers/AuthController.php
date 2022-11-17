@@ -43,6 +43,7 @@ class AuthController extends Controller
         $user['residence']=Country::find($user->residence_id)->country;
         if($user->type_id==1){
             $categories=LocalCategory::join('categories','categories.id','category_id')->where('local_id',$user->id)->pluck('category');
+            $user['highlights']= $user->highlights()->pluck('photo');
             $user['categories']= $categories;
         }
         return response()->json([
@@ -135,6 +136,7 @@ class AuthController extends Controller
         if($user->type_id==1){
             $categories=LocalCategory::join('categories','categories.id','category_id')->where('local_id',$user->id)->pluck('category');
             $user['categories']= $categories;
+            $user['highlights']=[];
         }
         return response()->json([
             'user'=>Auth::user(),
