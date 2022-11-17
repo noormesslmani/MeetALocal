@@ -9,6 +9,10 @@ class Highlight extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $fillable = [
+        'user_id',
+        'photo'
+    ];
     public function User()
     {
         return $this->belongsTo(User::class, 'user_id');

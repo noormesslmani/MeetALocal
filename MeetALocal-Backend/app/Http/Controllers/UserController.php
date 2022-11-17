@@ -193,6 +193,7 @@ class UserController extends Controller
             'latitude' =>"numeric",
             'longitude' =>"numeric",
             'fees' => 'integer',
+            'highlights'=>'array'
         ]);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
@@ -221,6 +222,7 @@ class UserController extends Controller
                 array_push($categ_ids,Category::where('category',$category)->get('id')[0]['id']);
             }
             $user['categories']=$request->categories;
+            $user['highlights']=$request->highlights;
         }
         Auth::user()->languages()->sync($lang_ids);
         return response()->json([
