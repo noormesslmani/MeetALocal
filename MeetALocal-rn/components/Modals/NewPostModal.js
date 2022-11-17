@@ -3,13 +3,13 @@ import React from 'react'
 import { useState, useEffect, useContext } from "react";
 import Icon from 'react-native-vector-icons/Ionicons'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import PostModalStyles from '../ComponentsStyles/PostModalStyles';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { categoriesOptions } from '../../constants/categories';
 import { countriesOptions } from '../../constants/countries';
 import AppButton from '../Buttons/AppButtons';
 import { createNewPost } from '../../network/App';
 import { colors } from '../../constants/colors';
+import NewPostModalStyle from './Styles/NewPostModalStyle';
 const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
     const [selectedCountry, setSelectedCountry]=useState(null)
     const [selectedCategory, setSelectedCategory]=useState([])
@@ -65,22 +65,22 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
         visible={modalVisible}
         onRequestClose={() => {
         setModalVisible(!modalVisible);}}>
-        <View style={PostModalStyles.centeredView}>
-            <View style={PostModalStyles.modalView}>
+        <View style={NewPostModalStyle.centeredView}>
+            <View style={NewPostModalStyle.modalView}>
             <KeyboardAwareScrollView style={{width:"100%"}}>
               <View style={{alignItems:"center", width:"100%"}}>
-                <Text style={PostModalStyles.title}>Create New Post</Text>
-                <Pressable style={PostModalStyles.closeModal} onPress={()=>setModalVisible(false)}><Icon name="close" size={25} color="grey" /></Pressable>
-                <View style={PostModalStyles.contentContainer}>
+                <Text style={NewPostModalStyle.title}>Create New Post</Text>
+                <Pressable style={NewPostModalStyle.closeModal} onPress={()=>setModalVisible(false)}><Icon name="close" size={25} color="grey" /></Pressable>
+                <View style={NewPostModalStyle.contentContainer}>
                     <Text>Post *</Text>
-                    <TextInput placeholder='new post' style={PostModalStyles.input} multiline={true} value={details} onChangeText={setDetails}></TextInput>
-                    {invalidDetails && <Text style={PostModalStyles.error}>Please enter a valid text</Text>}
+                    <TextInput placeholder='new post' style={NewPostModalStyle.input} multiline={true} value={details} onChangeText={setDetails}></TextInput>
+                    {invalidDetails && <Text style={NewPostModalStyle.error}>Please enter a valid text</Text>}
                 </View>
                 <View style={{width:"90%",marginBottom:40}}>
                     <Text >Select a country *</Text>
                     <DropDownPicker
                     defaultValue={null}
-                    style={PostModalStyles.optionsContainer}
+                    style={NewPostModalStyle.optionsContainer}
                     zIndex={3000}
                     zIndexInverse={1000}
                     open={openCountry}
@@ -102,7 +102,7 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                         borderWidth:0.5
                     }}
                     />
-                    {invalidCountry && <Text style={PostModalStyles.error}>Please select a country</Text>}
+                    {invalidCountry && <Text style={NewPostModalStyle.error}>Please select a country</Text>}
                 </View >
                 <View style={{marginTop:10, width:"90%"}}>
                     <Text>Select Categories * (max 3)</Text>
@@ -111,7 +111,7 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                     min={0}
                     max={3}
                     mode="BADGE"
-                    style={PostModalStyles.optionsContainer}
+                    style={NewPostModalStyle.optionsContainer}
                     zIndex={2000}
                     zIndexInverse={2000}
                     open={openCategory}
@@ -133,9 +133,9 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                         borderWidth:0.5
                     }}
                     />
-                    {invalidCategory && <Text style={PostModalStyles.error}>Please select a least 1 categroy</Text>}
+                    {invalidCategory && <Text style={NewPostModalStyle.error}>Please select a least 1 categroy</Text>}
                 </View>
-                <View style={PostModalStyles.buttonContainer}>
+                <View style={NewPostModalStyle.buttonContainer}>
                   <AppButton text={'Submit'} handlePress={handleSubmit} />
                 </View>
                 </View>

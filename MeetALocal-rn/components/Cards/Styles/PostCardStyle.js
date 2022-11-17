@@ -1,8 +1,8 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { widths } from "../../constants/dimensions";
+import { widths } from "../../../constants/dimensions";
 
 const windowHeight = Dimensions.get("window").height;
-const PostCardStyles = StyleSheet.create({
+const PostCardStyle = StyleSheet.create({
     card:{
         alignSelf:"center",
         marginTop:15,
@@ -74,4 +74,4 @@ const PostCardStyles = StyleSheet.create({
     }
    
 });
-export default PostCardStyles;
+export default PostCardStyle;

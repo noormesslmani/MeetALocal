@@ -1,8 +1,6 @@
-import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, Modal, Pressable, StyleSheet, ScrollView, TextInput, KeyboardAvoidingView} from 'react-native'
+import { View, Text, Image, Pressable, TextInput, KeyboardAvoidingView} from 'react-native'
 import React from 'react'
 import { useState, useEffect, useContext } from "react";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import image from '../../assets/profile.jpg'
 import Comment from '../../components/General/Comment';

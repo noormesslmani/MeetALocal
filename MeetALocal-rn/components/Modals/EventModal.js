@@ -1,7 +1,6 @@
 import { View, Text, TouchableOpacity, Image, Modal, Pressable, ScrollView, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { useState, useEffect, useContext, useRef } from "react";
-import EventModalStyles from '../ComponentsStyles/EventModalStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { address } from '../../constants/address';
 import { categoryIcons } from '../../constants/categories';
@@ -10,7 +9,7 @@ import { UserContext } from '../../App'
 import { deleteEvents } from '../../network/App';
 import { colors } from '../../constants/colors';
 import { Button} from 'react-native-paper';
-import EventsModalStyles from '../ComponentsStyles/EventsModalStyles';
+import EventModalStyle from './Styles/EventModalStyle';
 import { isEventBooked, toggleBookedEvent } from '../../network/App';
 import { sendNotification, Notify } from '../../Notifications/Notifications';
 const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setDeleted, setBooked})=> {
@@ -95,12 +94,12 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
         onRequestClose={() => {
         setModalVisible(!modalVisible);
         }}>
-        <View style={EventModalStyles.centeredView}>
-        <View style={EventModalStyles.modalView}>
-            <Image source={item.photo?{ uri:`${address}/${item.photo}`}: require('../../assets/blank-profile.webp')} style={EventModalStyles.image}/>
+        <View style={EventModalStyle.centeredView}>
+        <View style={EventModalStyle.modalView}>
+            <Image source={item.photo?{ uri:`${address}/${item.photo}`}: require('../../assets/blank-profile.webp')} style={EventModalStyle.image}/>
             <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={EventModalStyles.titleContainer}>
-              <Text style={EventModalStyles.title}>{item.title}</Text>
+            <View style={EventModalStyle.titleContainer}>
+              <Text style={EventModalStyle.title}>{item.title}</Text>
               {user.type_id==2 && <Pressable onPress={handleSave}>
                 {isSaved?<Icon name="star" color={colors.gold} size={30} />: <Icon name="star-o" color={colors.gold} size={30} />}
               </Pressable>}
@@ -108,35 +107,35 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
                 <Icon name="trash-o" color="grey" size={30} />
               </Pressable>}
             </View>
-            <View style={EventModalStyles.infoContainer}>
-              <Text style={EventModalStyles.info}>By: {item.name}</Text>
-              <Text style={EventModalStyles.info}>Where: {item.place}, {item.country}</Text>
+            <View style={EventModalStyle.infoContainer}>
+              <Text style={EventModalStyle.info}>By: {item.name}</Text>
+              <Text style={EventModalStyle.info}>Where: {item.place}, {item.country}</Text>
               <View style={{flexDirection:"row", justifyContent:"space-between"}}>
-                <Text style={EventModalStyles.info}>When: {item.date}</Text>
-                <Text style={EventModalStyles.fees}>Fees: {item.fees}$</Text>
+                <Text style={EventModalStyle.info}>When: {item.date}</Text>
+                <Text style={EventModalStyle.fees}>Fees: {item.fees}$</Text>
               </View>
               <Text>Seats: {item.seats - item.bookings}</Text>
               {isLoading && <ActivityIndicator color={colors.violet} /> }
               {user.type_id==2 && ((item.seats - item.bookings) >0) && !isBooked &&
-                <Button onPress={handleBooking} compact uppercase={false} labelStyle={{ color: colors.violet, fontSize: 16 }} style={EventModalStyles.bookBtn} icon={()=><Icon name='calendar' color={colors.violet} size={18} />}  mode="outlined" > 
+                <Button onPress={handleBooking} compact uppercase={false} labelStyle={{ color: colors.violet, fontSize: 16 }} style={EventModalStyle.bookBtn} icon={()=><Icon name='calendar' color={colors.violet} size={18} />}  mode="outlined" > 
                 Book
                </Button>
               }
               {user.type_id==2 && isBooked &&
-                <Button onPress={handleBooking} compact uppercase={false} labelStyle={{ color: colors.violet, fontSize: 16 }} style={EventModalStyles.bookBtn} icon={()=><Icon name='calendar' color={colors.violet} size={18} />}  mode="outlined" > 
+                <Button onPress={handleBooking} compact uppercase={false} labelStyle={{ color: colors.violet, fontSize: 16 }} style={EventModalStyle.bookBtn} icon={()=><Icon name='calendar' color={colors.violet} size={18} />}  mode="outlined" > 
                 Cancel Booking
                </Button>
               }
               {choice==3 && <View style={{flexDirection:"row", alignItems:"center"}}><Icon style={{margin:2}} name="star" color={colors.gold} size={20} /><Text>: {item.saves}</Text></View>}
             </View>
-            <View style={EventModalStyles.detailsContianer}>
-              <Text style={EventModalStyles.detailsTitle}>Details:</Text>
-              <Text style={EventModalStyles.details}>{item.details}</Text>
+            <View style={EventModalStyle.detailsContianer}>
+              <Text style={EventModalStyle.detailsTitle}>Details:</Text>
+              <Text style={EventModalStyle.details}>{item.details}</Text>
             </View>
-            <View style={EventModalStyles.detailsContianer}>
-              <Text style={EventModalStyles.categoriesTitle}>Categories:</Text>
+            <View style={EventModalStyle.detailsContianer}>
+              <Text style={EventModalStyle.categoriesTitle}>Categories:</Text>
               <View style={{flexDirection:"row"}}>
-              {categories.map((category)=><Image source={categoryIcons[category]} style={EventModalStyles.icons} />)}
+              {categories.map((category)=><Image source={categoryIcons[category]} style={EventModalStyle.icons} />)}
               </View>
             </View>
           </ScrollView> 

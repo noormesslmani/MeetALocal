@@ -2,7 +2,7 @@ import { View, Text, TextInput, KeyboardAvoidingView } from 'react-native'
 import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect } from "react";
-import AuthButton from '../../components/AuthButton';
+import AuthButton from '../../components/Buttons/AuthButton';
 import BackArrow from '../../components/Header/BackArrow';
 import Logo from '../Navigation/Logo';
 import DropDownPicker from 'react-native-dropdown-picker';

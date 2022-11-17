@@ -1,6 +1,5 @@
 import { View, Text, TouchableOpacity, Image, TextInput, ScrollView, Pressable} from 'react-native'
 import React from 'react'
-import HomeStyles from '../General/Styles/HomeStyles';
 import { UserContext } from '../../App'
 import { useState, useEffect, useContext } from "react";
 import ProfileStyles from './ProfileStyles/ProfileStyles';
@@ -8,8 +7,6 @@ import Icon from 'react-native-vector-icons/AntDesign'
 import UploadImage from '../../components/General/UploadImage';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import DropDownPicker from 'react-native-dropdown-picker';
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from 'axios';
 import DatePicker from '../../components/General/datePicker';
 import { countriesOptionsOneCountry} from '../../constants/countries';
 import { languagesOptions } from '../../constants/languages';

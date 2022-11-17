@@ -1,6 +1,6 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet} from "react-native";
 
-const MapStyles = StyleSheet.create({
+const MapStyle = StyleSheet.create({
     map:{
       alignSelf:"flex-end",
       width:"100%",
@@ -12,4 +12,4 @@ const MapStyles = StyleSheet.create({
     },
    
 });
-export default MapStyles;
+export default MapStyle;

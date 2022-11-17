@@ -48,7 +48,7 @@ const Bookings=()=> {
             amplitude={30}
             frequency={1}
             offset={70}
-            color= {colors.lighterViolet}
+            color= {colors.lightViolet}
             top
           />
         </View>

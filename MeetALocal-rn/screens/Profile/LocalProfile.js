@@ -4,12 +4,9 @@ import { UserContext } from '../../App'
 import { useState, useEffect, useContext } from "react";
 import ProfileStyles from './ProfileStyles/ProfileStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { AntDesign } from '@expo/vector-icons';
-import * as ImagePicker from 'expo-image-picker';
 import { address } from '../../constants/address';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { colors } from '../../constants/colors';
-import { widths } from '../../constants/dimensions';
 import ImageView from "react-native-image-viewing";
 import WavyBackground from "react-native-wavy-background";
 import AppButton from '../../components/Buttons/AppButtons';

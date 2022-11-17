@@ -1,7 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { colors } from "../../constants/colors";
-import { widths } from "../../constants/dimensions";
-const EventCardStyles = StyleSheet.create({
+import { widths } from "../../../constants/dimensions";
+const EventCardStyle = StyleSheet.create({
     cardContainer:{
         margin:5,
         marginTop:15,
@@ -40,4 +39,4 @@ const EventCardStyles = StyleSheet.create({
         fontSize:10,
     }
 });
-export default EventCardStyles;
+export default EventCardStyle;

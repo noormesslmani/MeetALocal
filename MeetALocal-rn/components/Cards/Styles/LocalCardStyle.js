@@ -1,8 +1,8 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { colors } from "../../constants/colors";
-import { widths } from "../../constants/dimensions";
+import { colors } from "../../../constants/colors";
+import { widths } from "../../../constants/dimensions";
 const windowHeight = Dimensions.get("window").height;
-const LocalCardStyles = StyleSheet.create({
+const LocalCardStyle = StyleSheet.create({
     container:{
         marginTop:40,
         alignItems:"center",
@@ -89,4 +89,4 @@ const LocalCardStyles = StyleSheet.create({
     }
 
 });
-export default LocalCardStyles;
+export default LocalCardStyle;

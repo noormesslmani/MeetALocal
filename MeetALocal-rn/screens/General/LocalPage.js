@@ -19,7 +19,6 @@ import { checkReviewed, addReview } from '../../network/App';
 import ReviewModal from '../../components/Modals/ReviewModal';
 import { colors } from '../../constants/colors';
 import BackArrow from '../../components/Header/BackArrow';
-import DatePicker from '../../components/General/datePicker';
 import { Button} from 'react-native-paper';
 import AppointmentsModal from '../../components/Modals/AppointmentModal';
 const LocalPage=({navigation})=> {

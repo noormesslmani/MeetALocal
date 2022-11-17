@@ -1,8 +1,8 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { colors } from "../../constants/colors";
-import { widths } from "../../constants/dimensions";
+import { colors } from "../../../constants/colors";
+import { widths } from "../../../constants/dimensions";
 const windowHeight = Dimensions.get("window").height;
-const EventsModalStyles = StyleSheet.create({
+const NewEventModalStyles = StyleSheet.create({
     centeredView: {
         flex:1,
         width:widths.width,
@@ -92,4 +92,4 @@ const EventsModalStyles = StyleSheet.create({
     marginTop:30
   }
 });
-export default EventsModalStyles;
+export default NewEventModalStyles;

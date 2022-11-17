@@ -3,8 +3,7 @@ import React from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useState, useEffect, useContext } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome'
-import EventsModalStyles from '../ComponentsStyles/EventsModalStyles';
-import SwipeUpDownModal from 'react-native-swipe-modal-up-down';
+import NewEventModalStyles from './Styles/NewEventModalStyle';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
@@ -91,15 +90,15 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
         onRequestClose={() => {
         setModalVisible(!modalVisible);
         }}>
-        <View style={EventsModalStyles.centeredView}>
-            <View style={EventsModalStyles.modalView}>
-                <Text style={EventsModalStyles.title}>Create New Event</Text>
-                <View style={EventsModalStyles.container}>
+        <View style={NewEventModalStyles.centeredView}>
+            <View style={NewEventModalStyles.modalView}>
+                <Text style={NewEventModalStyles.title}>Create New Event</Text>
+                <View style={NewEventModalStyles.container}>
                 {
                     image  && <Image source={{ uri: image }} style={{ width: "100%", height: "100%" }} />
                 }
-                    <View style={EventsModalStyles.uploadBtnContainer}>
-                        <TouchableOpacity onPress={addImage} style={EventsModalStyles.uploadBtn} >
+                    <View style={NewEventModalStyles.uploadBtnContainer}>
+                        <TouchableOpacity onPress={addImage} style={NewEventModalStyles.uploadBtn} >
                             <Text>{image ? 'Edit' : 'Upload'} Image</Text>
                             <AntDesign name="camera" size={20} color="black" />
                         </TouchableOpacity>
@@ -109,23 +108,23 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
                 >
-                <View style={EventsModalStyles.contentContainer}>
+                <View style={NewEventModalStyles.contentContainer}>
                     <Text>Title *</Text>
-                    <TextInput placeholder='Event title' style={EventsModalStyles.input} value={title} onChangeText={setTtitle}></TextInput>
+                    <TextInput placeholder='Event title' style={NewEventModalStyles.input} value={title} onChangeText={setTtitle}></TextInput>
                 </View>
                 
-                <View style={EventsModalStyles.contentContainer}>
+                <View style={NewEventModalStyles.contentContainer}>
                     <Text>Details *</Text>
-                    <TextInput placeholder='Event details' style={EventsModalStyles.input} value={details} onChangeText={setDetails}></TextInput>
+                    <TextInput placeholder='Event details' style={NewEventModalStyles.input} value={details} onChangeText={setDetails}></TextInput>
                 </View>
-                <View style={EventsModalStyles.contentContainer}>
+                <View style={NewEventModalStyles.contentContainer}>
                     <Text>Fees *</Text>
-                    <TextInput placeholder='Enter fees' style={EventsModalStyles.input} value={fees} onChangeText={setFees}></TextInput>
+                    <TextInput placeholder='Enter fees' style={NewEventModalStyles.input} value={fees} onChangeText={setFees}></TextInput>
                 </View>
-                <View style={EventsModalStyles.contentContainer}>
+                <View style={NewEventModalStyles.contentContainer}>
                     <Text>Categories*</Text>
                     <DropDownPicker
-                    style={EventsModalStyles.optionsContainer}
+                    style={NewEventModalStyles.optionsContainer}
                     zIndex={2000}
                     zIndexInverse={2000}
                     open={openCategory}
@@ -151,11 +150,11 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
                     }}
                     />
                 </View>
-                <View style={EventsModalStyles.contentContainer}>
+                <View style={NewEventModalStyles.contentContainer}>
                     <Text>Where *</Text>
-                    <TextInput placeholder='Event location' style={EventsModalStyles.input} value={place} onChangeText={setPlace}></TextInput>
+                    <TextInput placeholder='Event location' style={NewEventModalStyles.input} value={place} onChangeText={setPlace}></TextInput>
                 </View>
-                <View style={EventsModalStyles.dateContainer}>
+                <View style={NewEventModalStyles.dateContainer}>
                     <Text style={{marginRight:"20%"}}>When *</Text>
                     <View style={{flexDirection:"row", alignItems:"center", alignSelf:"center"}}>
                         <Text style={{fontSize:12}}>Date</Text>
@@ -164,7 +163,7 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
                     </View>
                 </View>
                 {isLoading && <ActivityIndicator color="#8C57BA" />}
-                <View style={EventsModalStyles.btnContainer}><AppButton text={'Create'} handlePress={hanldePress}/></View>
+                <View style={NewEventModalStyles.btnContainer}><AppButton text={'Create'} handlePress={hanldePress}/></View>
                 </KeyboardAwareScrollView> 
             </View>
         </View>

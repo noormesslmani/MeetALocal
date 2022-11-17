@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useContext } from 'react'
+import React, { useState, useCallback, useContext } from 'react'
 import {ActivityIndicator, ScrollView } from 'react-native'
 import { UserContext } from '../../App'
 import { database } from "../../firebase";
@@ -8,19 +8,16 @@ import { useFocusEffect } from '@react-navigation/native';
 import {
   collection,
   orderBy,
-  onSnapshot,
   query,
   where,
-  doc,
   getDocs,
-  limit
 } from "firebase/firestore";
 import { address } from '../../constants/address';
 const Chats=({navigation})=> {
   const [chats, setChats]= useState([])
   const { user, setUser} = useContext(UserContext);
   const [isLoading, setIsLoading]=useState(true)
-  const uri=`${address}/${user.profile_picture}`
+  
   
  
   async function getChats(){

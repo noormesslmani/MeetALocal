@@ -1,10 +1,8 @@
 import { View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import styles from './Authstyles';
-import { useState, useEffect } from "react";
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AuthButton from '../../components/AuthButton';
+import AuthButton from '../../components/Buttons/AuthButton';
+
 import { Surface, Text } from 'react-native-paper';
 const UserTypeScreen=({navigation})=> {
   const handleLocal=()=>{

@@ -1,11 +1,9 @@
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, FlatList} from 'react-native'
 import React, { useState, useRef, useEffect } from 'react'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import {Marker, Callout} from 'react-native-maps';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { colors } from '../../constants/colors';
-import MapStyles from '../ComponentsStyles/MapStyles';
 import MapCard from '../Cards/MapCard';
+import MapStyle from './Styles/MapStyle';
 const Map=({lat, lng, data, type, handleDrag, navigation})=> { 
   const myList = useRef()
   
@@ -18,7 +16,7 @@ const Map=({lat, lng, data, type, handleDrag, navigation})=> {
                       latitudeDelta: 5,
                       longitudeDelta: 5,
                   }}
-                  style={[type !=2  && MapStyles.map, type==2 && MapStyles.map2]}
+                  style={[type !=2  && MapStyle.map, type==2 && MapStyle.map2]}
                   loadingEnabled={true}
                   showsUserLocation={true}
                   provider={PROVIDER_GOOGLE}

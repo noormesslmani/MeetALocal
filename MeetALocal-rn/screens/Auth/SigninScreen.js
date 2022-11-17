@@ -4,11 +4,10 @@ import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'
-import AuthButton from '../../components/AuthButton';
+import AuthButton from '../../components/Buttons/AuthButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { colors } from '../../constants/colors';
 import { signin } from '../../network/Auth';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 const SigninScreen= ({ navigation })=> {
   const { user, setUser} = useContext(UserContext);
   const [email, setEmail]=useState('');

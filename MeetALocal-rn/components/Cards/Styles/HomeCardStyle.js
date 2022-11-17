@@ -1,19 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { colors } from "../../../constants/colors";
 import { widths } from "../../../constants/dimensions";
-const windowHeight = Dimensions.get("window").height;
-const HomeStyles = StyleSheet.create({
-    container:{
-        alignItems:"center",
-        paddingVertical:40,
-        
-    },
-    photo:{
-        width: widths.width5,
-        height: widths.width5,
-        borderRadius: 0.25*widths.width,
-        margin:30
-    },
+const HomeCardStyle = StyleSheet.create({
     cardContainer:{
         alignItems:"center",
     },
@@ -38,5 +25,4 @@ const HomeStyles = StyleSheet.create({
     }
    
 });
-
-export default HomeStyles;
+export default HomeCardStyle;

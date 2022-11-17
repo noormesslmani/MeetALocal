@@ -1,9 +1,8 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { colors } from "../../constants/colors";
-import { widths } from "../../constants/dimensions";
+import { colors } from "../../../constants/colors";
+import { widths } from "../../../constants/dimensions";
 
-const windowHeight = Dimensions.get("window").height;
-const ScheduleCardStyles = StyleSheet.create({
+const ScheduleCardStyle = StyleSheet.create({
     container:{
         margin:5,
         marginTop:15,
@@ -65,4 +64,4 @@ const ScheduleCardStyles = StyleSheet.create({
     },
     trash:{position:"absolute", bottom:10, right:10}
 });
-export default ScheduleCardStyles;
+export default ScheduleCardStyle;

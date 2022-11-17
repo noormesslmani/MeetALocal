@@ -1,8 +1,7 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { widths } from "../../constants/dimensions";
-import { colors } from "../../constants/colors";
-const windowHeight = Dimensions.get("window").height;
-const AppointmentsModalStyles = StyleSheet.create({
+import { colors } from "../../../constants/colors";
+import { widths } from "../../../constants/dimensions";
+const AppointmentsModalStyle = StyleSheet.create({
     centeredView: {
         flex: 1,
         justifyContent: "center",
@@ -46,4 +45,4 @@ const AppointmentsModalStyles = StyleSheet.create({
     }
       
 });
-export default AppointmentsModalStyles;
+export default AppointmentsModalStyle;

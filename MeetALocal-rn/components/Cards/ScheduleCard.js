@@ -4,10 +4,9 @@ import { useState, useEffect, useContext } from "react";
 import { address } from '../../constants/address';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors } from '../../constants/colors';
-import { Surface} from 'react-native-paper';
-import ScheduleCardStyles from '../ComponentsStyles/ScheduleCardStyles';
 import { isAppointmentBooked, isEventBooked, toggleBookAppointment } from '../../network/App';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+import ScheduleCardStyle from './Styles/ScheduleCardStyle';
 const ScheduleCard=({item, type, setDeleted})=> {
 
   const [booked, setBooked]=useState(false)
@@ -34,21 +33,21 @@ console.log(type)
   }
   console.log('hi')
   return (
-    <View style={[ScheduleCardStyles.container, booked? ScheduleCardStyles.booked:null, type==2 && ScheduleCardStyles.longerContainer ]} >
+    <View style={[ScheduleCardStyle.container, booked? ScheduleCardStyle.booked:null, type==2 && ScheduleCardStyle.longerContainer ]} >
       {type==2 && 
-      <View style={ScheduleCardStyles.localContainer}>
+      <View style={ScheduleCardStyle.localContainer}>
       <Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={{width:40, height:40, borderRadius:20, marginHorizontal:3}} /> 
-      <Text style={ScheduleCardStyles.name}>{item.name}</Text>
+      <Text style={ScheduleCardStyle.name}>{item.name}</Text>
       </View>
       }
-      <Text style={ScheduleCardStyles.dateTime}>Date and time:</Text>
-      <Text style={[ScheduleCardStyles.date, booked? ScheduleCardStyles.bookedDate: null]}>{item.date}</Text>
-      <View style={ScheduleCardStyles.timeContainer}>
+      <Text style={ScheduleCardStyle.dateTime}>Date and time:</Text>
+      <Text style={[ScheduleCardStyle.date, booked? ScheduleCardStyle.bookedDate: null]}>{item.date}</Text>
+      <View style={ScheduleCardStyle.timeContainer}>
         <Text>{item.start_time.substring(0, 5)}</Text>
-        <Icon name="long-arrow-right" style={ScheduleCardStyles.arrow} color={colors.violet} />
+        <Icon name="long-arrow-right" style={ScheduleCardStyle.arrow} color={colors.violet} />
         <Text>{item.end_time.substring(0, 5)}</Text>
       </View>
-      {type==2 && <Pressable onPress={hanldeUnbook} style={ScheduleCardStyles.trash} ><Icon name='trash' size={25} color='grey' /></Pressable> }
+      {type==2 && <Pressable onPress={hanldeUnbook} style={ScheduleCardStyle.trash} ><Icon name='trash' size={25} color='grey' /></Pressable> }
     </View>
   )
 }

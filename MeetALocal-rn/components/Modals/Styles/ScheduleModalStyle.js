@@ -1,8 +1,7 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { widths } from "../../constants/dimensions";
-import { colors } from "../../constants/colors";
-const windowHeight = Dimensions.get("window").height;
-const ScheduleModalStyles = StyleSheet.create({
+import { widths } from "../../../constants/dimensions";
+import { colors } from "../../../constants/colors";
+const ScheduleModalStyle = StyleSheet.create({
     centeredView: {
         flex: 1,
         justifyContent: "center",
@@ -55,4 +54,4 @@ const ScheduleModalStyles = StyleSheet.create({
       }
       
 });
-export default ScheduleModalStyles;
+export default ScheduleModalStyle;

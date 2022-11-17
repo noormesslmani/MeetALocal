@@ -3,7 +3,7 @@ import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'
-import AuthButton from '../../components/AuthButton';
+import AuthButton from '../../components/Buttons/AuthButton';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { setUpAccount } from '../../network/Auth';

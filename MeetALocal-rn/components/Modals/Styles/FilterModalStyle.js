@@ -1,9 +1,9 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { colors } from "../../constants/colors";
-import { widths } from "../../constants/dimensions";
+import { colors } from "../../../constants/colors";
+import { widths } from "../../../constants/dimensions";
 
 const windowHeight = Dimensions.get("window").height;
-const ModalStyles = StyleSheet.create({
+const FilterModalStyle = StyleSheet.create({
     centeredView: {
         flex: 1,
         justifyContent: "center",
@@ -46,7 +46,7 @@ const ModalStyles = StyleSheet.create({
         borderRightWidth:0,
         borderBottomRightRadius:0,
         borderBottomLeftRadius:0,
-        borderBottomColor:colors.blue,
+        borderBottomColor:colors.lightViolet,
         borderBottomWidth:0.5,
       },
       dropDownContainer:{
@@ -55,4 +55,4 @@ const ModalStyles = StyleSheet.create({
 
 
 });
-export default ModalStyles;
+export default FilterModalStyle;

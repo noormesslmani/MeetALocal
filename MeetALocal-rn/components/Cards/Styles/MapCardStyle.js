@@ -1,8 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { widths } from "../../constants/dimensions";
-import { colors } from "../../constants/colors";
-import { color } from "react-native-reanimated";
-const MapCardStyles = StyleSheet.create({
+import { colors } from "../../../constants/colors";
+const MapCardStyle = StyleSheet.create({
         card_scroll_view: {
         position:'absolute',
         bottom:10,
@@ -15,13 +13,13 @@ const MapCardStyles = StyleSheet.create({
         backgroundColor:'white',
         borderRadius:10,
         marginHorizontal: 10,
-        height: 200,
-        width: 250,
+        height: 180,
+        width: 200,
         overflow: 'hidden'
         },
         card_image: {
-            width: 250,
-            height: 140,
+            width: 200,
+            height: 120,
         },
         title: {
             fontSize: 16, 
@@ -36,4 +34,4 @@ const MapCardStyles = StyleSheet.create({
         },
    
 });
-export default MapCardStyles;
+export default MapCardStyle;

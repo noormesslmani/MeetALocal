@@ -34,7 +34,7 @@ const DrawerNavigation=()=>{
     }}> 
       <Drawer.Screen name='home' component={Home}
       options={{headerTitle:'Welcome',
-        headerTitleAlign: 'center', headerTitleStyle:{fontSize:30}, headerStyle:{backgroundColor: colors.lighterViolet},
+        headerTitleAlign: 'center', headerTitleStyle:{fontSize:40, color:"white"}, headerStyle:{backgroundColor: colors.lightViolet},
         headerShadowVisible:false
       }}
       />
@@ -46,7 +46,7 @@ const DrawerNavigation=()=>{
           tabBarIcon: ({ color, size }) => (
             <Icon name="user" color={color} size={size} />
           ),
-          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
+          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false,
           headerTitleAlign: 'center', headerTitle:'Profile'
         }}
       />}
@@ -58,7 +58,7 @@ const DrawerNavigation=()=>{
           tabBarIcon: ({ color, size }) => (
             <Icon name="user" color={color} size={size} />
           ),
-          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
+          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false,
           headerTitleAlign: 'center', headerTitle:'profile'
         }}
       />}
@@ -67,7 +67,7 @@ const DrawerNavigation=()=>{
         component={Schedules}
         options={{
           headerTitle:"Schedule", headerTitleAlign:"center", 
-          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
+          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false,
         }}
         
       />}
@@ -76,7 +76,7 @@ const DrawerNavigation=()=>{
         component={Bookings}
         options={{
           headerTitle:"Bookings", headerTitleAlign:"center", 
-          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
+          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false,
         }}
         
       />}

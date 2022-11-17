@@ -1,7 +1,6 @@
-import { StyleSheet, Dimensions } from "react-native";
-import { colors } from "../../constants/colors";
-import { widths } from "../../constants/dimensions";
-const CommentStyles = StyleSheet.create({
+import { StyleSheet } from "react-native";
+import { widths } from "../../../constants/dimensions";
+const CommentStyle = StyleSheet.create({
     headerContainer:{
         flexDirection:"row",
         justifyContent:"space-between",
@@ -30,4 +29,4 @@ const CommentStyles = StyleSheet.create({
     }
    
 });
-export default CommentStyles;
+export default CommentStyle;

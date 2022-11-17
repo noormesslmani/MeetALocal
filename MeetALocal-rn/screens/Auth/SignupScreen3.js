@@ -3,7 +3,7 @@ import React from 'react'
 import styles from './Authstyles';
 import { useState, useEffect } from "react";
 import { TextInput } from 'react-native-paper';
-import AuthButton from '../../components/AuthButton';
+import AuthButton from '../../components/Buttons/AuthButton';
 import BackArrow from '../../components/Header/BackArrow';
 import Logo from '../Navigation/Logo';
 import { useRoute } from '@react-navigation/native';

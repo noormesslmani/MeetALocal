@@ -4,7 +4,6 @@ import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext, useCallback } from "react";
 import LocalCard from '../../components/Cards/LocalCard';
 import { Searchbar } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/FontAwesome5'
 import { colors } from '../../constants/colors';
 import { widths } from '../../constants/dimensions';
 import WavyBackground from "react-native-wavy-background";
@@ -63,7 +62,7 @@ console.log(data)
             amplitude={30}
             frequency={1}
             offset={70}
-            color= {colors.lighterViolet}
+            color= {colors.lightViolet}
             top
           />
         </View>
