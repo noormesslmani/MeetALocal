@@ -490,13 +490,29 @@ export async function getLocals(country, category, offset){
       return {'success': false, error}
     }
   }
-  export async function bookAppointment(data){
+  export async function toggleBookAppointment(data){
     const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "post",
       data,
       headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}foreigners/toggle-appointment-booking`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.warn(error)
+      return {'success': false, error}
+    }
+  }
+  export async function getBookedAppointments(){
+    const token = await AsyncStorage.getItem('@token')
+    const config = {
+      method: "get",
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}foreigners/booked-appointments`,
     }
     try{
       const res = await axios(config)

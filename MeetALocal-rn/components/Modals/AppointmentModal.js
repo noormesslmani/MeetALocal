@@ -5,7 +5,7 @@ import { colors } from '../../constants/colors';
 import { Button} from 'react-native-paper';
 import AppointmentButton from '../Buttons/AppointmentButton';
 import AppointmentsModalStyles from '../ComponentsStyles/AppointmentModalStyles';
-import { getAppointments, bookAppointment } from '../../network/App';
+import { getAppointments, toggleBookAppointment } from '../../network/App';
 import AppButton from '../Buttons/AppButtons';
 import { sendNotification, Notify } from '../../Notifications/Notifications';
 const AppointmentsModal=({navigation, setModalVisible, modalVisible, id})=> {
@@ -37,7 +37,7 @@ const AppointmentsModal=({navigation, setModalVisible, modalVisible, id})=> {
       const data={
         appointment_id:selected.id
       }
-      const result= await bookAppointment(data)
+      const result= await toggleBookAppointment(data)
       if (result.success){
         setModalVisible(false)
         sendNotification('Meet A Local','Appointment successfully Booked')
