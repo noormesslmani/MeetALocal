@@ -8,15 +8,17 @@ import { address } from '../../constants/address';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { colors } from '../../constants/colors';
 import ImageView from "react-native-image-viewing";
-import WavyBackground from "react-native-wavy-background";
 import AppButton from '../../components/Buttons/AppButtons';
 import { categoryIcons } from '../../constants/categories';
 import Carousel from 'react-native-reanimated-carousel';
+import ImageCarousel from '../../components/General/Carousel';
+import WavyBack from '../../components/General/WavyBackground';
 const ForeignerProfile=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const [image, setImage]= useState(null)
   const [imageView, setImageView]=useState(false)
  
+  const images = user.highlights?.map((image)=>({ uri: `${address}/${image}`}))
   useEffect(()=>{
     if(user.profile_picture){
       setImage(user.profile_picture)
@@ -29,23 +31,7 @@ const ForeignerProfile=({navigation})=> {
   return (
     <View style={ProfileStyles.container}>
       
-        <View
-          style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-          }}>
-          <WavyBackground
-            height={300}
-            width={1100}
-            amplitude={30}
-            frequency={1}
-            offset={70}
-            color= {colors.lighterViolet}
-            top
-          />
-        </View>
+        <WavyBack/>
         <TouchableOpacity onPress={()=>setImageView(true)}><Image source={image?{ uri:`${address}/${image}`}: require('../../assets/blank-profile.webp')} style={{ width: 200, height: 200, borderRadius:100, marginTop:20 }} /></TouchableOpacity>
         <Text style={ProfileStyles.name}>{user.name}</Text>
         <AppButton handlePress={handleEdit} text={'Edit profile'} />
@@ -61,11 +47,11 @@ const ForeignerProfile=({navigation})=> {
           <View style={{flexDirection:"row",margin:5}}><Ionicons name="location-sharp" size={20} color={colors.violet} />
           <Text style={{marginLeft:5}}>{user.residence}</Text></View>
         </View>
-        <View style={{marginTop:40}}>
+        {user.about && <View style={{marginTop:40}}>
           <Text style={{fontWeight:"500"}}>About</Text>
           <View style={ProfileStyles.separator}/>
           <Text>{user.about}</Text>
-        </View>
+        </View>}
         {ImageView && image &&  
           <ImageView
           images={[{uri:`${address}/${image}`}]}
@@ -85,10 +71,15 @@ const ForeignerProfile=({navigation})=> {
             )}
           </View>
           </View>
-          <View style={{marginTop:40}}>
-          <Text style={{fontWeight:"500"}}>Highlights</Text>
-          <View style={ProfileStyles.separator}/>
+
+          
+          {user.highlights && <View style={{marginTop:40}}>
+            <Text style={{fontWeight:"500"}}>Highlights</Text>
+            <View style={ProfileStyles.separator}/>
+            <View style={{ flex: 1, alignSelf:"center" }}>
+            <ImageCarousel images={images} />
           </View>
+          </View>}
           
         </ScrollView>
     </View>
