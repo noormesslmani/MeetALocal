@@ -40,3 +40,12 @@
   .ban-icon{
     cursor: pointer;
   }
+  @media only screen and (max-width: 500px){
+   td{
+    font-size: 10px;
+    font-weight: 600;
+   }
+   th{
+    font-size: 12px;
+   }
+}
