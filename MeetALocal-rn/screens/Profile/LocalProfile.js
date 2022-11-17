@@ -10,14 +10,19 @@ import { colors } from '../../constants/colors';
 import ImageView from "react-native-image-viewing";
 import AppButton from '../../components/Buttons/AppButtons';
 import { categoryIcons } from '../../constants/categories';
-import Carousel from 'react-native-reanimated-carousel';
 import ImageCarousel from '../../components/General/Carousel';
 import WavyBack from '../../components/General/WavyBackground';
+import { getReviews } from '../../network/App';
+import LocalProfileStyles from '../General/Styles/LocalProfileStyles';
+import { Rating, AirbnbRating } from 'react-native-ratings';
+import ReviewCard from '../../components/Cards/ReviewerCrad';
 const ForeignerProfile=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const [image, setImage]= useState(null)
   const [imageView, setImageView]=useState(false)
- 
+  const [reviews, setReviews]=useState([])
+  const [stars, setStars]=useState([])
+  const [average, setAverage]= useState(0)
   const images = user.highlights?.map((image)=>({ uri: `${address}/${image}`}))
   useEffect(()=>{
     if(user.profile_picture){
@@ -25,6 +30,29 @@ const ForeignerProfile=({navigation})=> {
     }
   },[user.profile_picture])
 
+  useEffect(()=>{
+    getAllReviews()
+  },[])
+
+  useEffect(()=>{
+    let starsArr=[0,0,0,0,0]
+    for(let review of reviews){
+      starsArr[review.stars -1] +=1
+    }
+    setStars(starsArr)
+  },[reviews])
+
+  useEffect(()=>{
+    if(stars)
+    setAverage((stars[0]+2*stars[1]+3*stars[2]+4*stars[3]+5*stars[4])/(stars[0]+stars[1]+stars[2]+stars[3]+stars[4]))
+  },[stars])
+
+  const getAllReviews=async()=>{
+    const result = await getReviews(user.id)
+    if (result.success){
+      setReviews(result.data.data)
+    }
+  }
     const handleEdit=()=>{
       navigation.navigate('edit-local-profile')
     }
@@ -80,6 +108,21 @@ const ForeignerProfile=({navigation})=> {
             <ImageCarousel images={images} />
           </View>
           </View>}
+
+          <View style={ProfileStyles.separator}/>
+
+          <View style={{marginTop:40}}>
+            <Text style={{fontWeight:"500"}}>Reviews</Text>
+
+            {stars.length>0 && 
+            <AirbnbRating size={25} showRating showReadOnlyText={false} defaultRating={average} readonly= {true}  imageSize={25} style={{marginVertical:3, marginHorizontal:10}}/>
+            }
+            <Text style={{alignSelf:"center", fontSize:10}}>Based on {reviews.length} reviews</Text>
+          </View>
+         
+          {reviews.map((review, index)=><ReviewCard review={review} key={index}/>)}
+          
+    
           
         </ScrollView>
     </View>
