@@ -32,16 +32,16 @@ const Home=()=> {
   return (
     <div className='home-container'>
         <Header type={2}/>
-        <div className='flex'>
+        <div className='subcontainer'>
             <NavBar/>
             <div className='dashboard-container flex-col align-center'>
                 <h1 className='home-title'>General Statistics</h1>
                 {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
-                {!isLoading && <div className='flex wrap'>
+                {!isLoading && <div className='flex wrap cards-container'>
                     <CountsCard count={usersCount} />
                     <CountsCard count={eventCount} />
                 </div>}
-                {!isLoading && <div className='flex wrap'>
+                {!isLoading && <div className='flex wrap cards-container'>
                     <CountsCard count={postsCount} />
                     <CountsCard count={commentsCount} />
                 </div>}

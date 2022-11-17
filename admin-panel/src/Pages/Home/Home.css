@@ -11,10 +11,9 @@
     height: auto;
     box-sizing: border-box;
 }
-/* .home-container{
-    overflow-y: hidden;
-    overflow-x: hidden;
-} */
+.subcontainer{
+    display: flex;
+}
 .home-title{
     font-size: 38px;
     color:rgb(158, 109, 202)
@@ -56,4 +55,21 @@
 .charts-container{
     width: 80%;
     margin-top: 40px;
+}
+
+@media only screen and (max-width: 800px){
+    .subcontainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .dashboard-container{
+        width: 100vw;
+        height: auto;
+        box-sizing: border-box;
+        justify-content: center;
+    }
+    .cards-container{
+        flex-direction: column;
+    }
 }
