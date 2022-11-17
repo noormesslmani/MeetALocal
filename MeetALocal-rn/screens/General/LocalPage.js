@@ -22,6 +22,7 @@ import BackArrow from '../../components/Header/BackArrow';
 import Carousel from 'react-native-reanimated-carousel';
 import { widths } from '../../constants/dimensions';
 import AppointmentsModal from '../../components/Modals/AppointmentModal';
+import ImageCarousel from '../../components/General/Carousel';
 const LocalPage=({navigation})=> {
   const route = useRoute();
   const item =route.params.item
@@ -211,21 +212,7 @@ const LocalPage=({navigation})=> {
           {item.highlights.length>0 && 
           <View style={LocalProfileStyles.sectionContainer}>
           <Text style={LocalProfileStyles.sectionTitle}>Highlights</Text>
-          <View style={{ flex: 1, alignSelf:"center" }}>
-            <Carousel
-                loop
-                width={widths.width8}
-                height={200}
-                autoPlay={true}
-                mode="parallax"
-                data={images}
-                scrollAnimationDuration={10000}
-                autoPlayInterval={2000}
-                renderItem={({ index }) => (
-                    <Image source={images[index]} style={{width:widths.width7, height:200}}/>
-                )}
-              />
-        </View>
+          <ImageCarousel images={images} />
           </View>}
           <ImageView
           images={images}
@@ -247,23 +234,6 @@ const LocalPage=({navigation})=> {
           {user.type_id==2 && reviewed && <Text style={LocalProfileStyles.addReview}>Reviewed</Text>}
           {reviews && reviews.map((review, index)=><ReviewCard review={review} key={index}/>)}
           {reviewModalVisible && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} setReviewAdded={setReviewAdded} id={item.id} />}
-      
-
-
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
         </View>
     </ScrollView>
     
