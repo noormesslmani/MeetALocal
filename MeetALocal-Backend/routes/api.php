@@ -9,6 +9,12 @@ use App\Http\Controllers\AuthController;
 
 Route::group(['prefix' => 'v1.0.0'], function () {
 
+    Route::group(['prefix' => 'auth'], function ($router) {
+        Route::post('/login', [AuthController::class, 'login']);
+        Route::post('/register', [AuthController::class, 'register']); 
+        Route::get('/not-found', [AuthController::class, 'notFound'])->name("not-found"); 
+    }); 
+
     Route::group(['middleware' => 'auth:api'], function () {
         Route::group(['prefix' => 'users'], function () {
             
@@ -77,11 +83,6 @@ Route::group(['prefix' => 'v1.0.0'], function () {
         });
     });
 
-    Route::group(['prefix' => 'auth'], function ($router) {
-        Route::post('/login', [AuthController::class, 'login']);
-        Route::post('/register', [AuthController::class, 'register']); 
-        Route::get('/not-found', [AuthController::class, 'notFound'])->name("not-found"); 
-    }); 
 });
 
 
