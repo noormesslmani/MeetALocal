@@ -17,7 +17,8 @@ class Event extends Model
         'place',
         'date',
         'fees',
-        'photo'
+        'photo',
+        'seats'
     ];
     public function organizer(){
         return $this->belongsTo(User::class, 'organizer_id');
