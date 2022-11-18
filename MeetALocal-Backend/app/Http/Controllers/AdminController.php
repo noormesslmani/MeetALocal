@@ -162,4 +162,11 @@ class AdminController extends Controller
             'data' => $data,
         ], 201);
     }
+    public function getLocations(){
+        $locations=User::where('type_id',1)->get(['latitude','longitude']);
+        return response()->json([
+            'message' => 'ok',
+            'data' => $locations,
+        ], 201);
+    }
 }
