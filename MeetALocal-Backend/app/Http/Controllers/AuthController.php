@@ -37,10 +37,13 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         $user=Auth::user();
-        $languages=UserLanguage::join('languages','languages.id','language_id')->where('user_id',$user->id)->pluck('language');
-        $user['languages']=$languages;
-        $user['nationality']=Country::find($user->nationality_id)->country;
-        $user['residence']=Country::find($user->residence_id)->country;
+        if($user->type_id!=3)
+        {
+            $languages=UserLanguage::join('languages','languages.id','language_id')->where('user_id',$user->id)->pluck('language');
+            $user['languages']=$languages;
+            $user['nationality']=Country::find($user->nationality_id)->country;
+            $user['residence']=Country::find($user->residence_id)->country;
+        }
         if($user->type_id==1){
             $categories=LocalCategory::join('categories','categories.id','category_id')->where('local_id',$user->id)->pluck('category');
             $user['highlights']= $user->highlights()->pluck('photo');
@@ -63,37 +66,6 @@ class AuthController extends Controller
             'phone' =>'required|integer',
             'languages' =>'required|array',
             'date_of_birth' => 'required|date',
-        ]);
-        if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
-        }
-        $user = User::create(array_merge(
-                    $validator->validated(),
-                    ['password' => bcrypt($request->password),
-                    'nationality_id'=> Country::where('country',$request->nationality)->pluck('id')[0],
-                    'residence_id'=> Country::where('country',$request->residence)->pluck('id')[0],
-                    'type_id'=>1,
-                    'gender'=>'Male'
-                    ]
-                ));
-        foreach($request->languages as $language){
-            UserLanguage::create([
-                'user_id' => $user->id,
-                'language_id'=> Language::where('language',$language)->pluck('id')[0]
-            ]);
-        }
-        $credentials = $request->only('email', 'password');
-        $token= auth()->attempt($credentials);
-        return response()->json([
-            'message' => 'ok',
-            'user' => $user,
-            'token'=> $token
-        ], 201);
-    }
- 
-     
-    public function setUp(Request $request){
-        $validator = Validator::make($request->all(), [
             'type' => 'required|string|in:Local,Foreigner',
             'gender' =>'required|in:Male,Female',
             'categories' =>'array',
@@ -113,36 +85,45 @@ class AuthController extends Controller
             $path = uniqid() . "." . $extension;
             file_put_contents($path, $img);
         }
-        Auth::user()->update(array_merge(
-            $validator->validated(),
-            [
-            'type_id' => UserType::where('user_type',$request->type)->pluck('id')[0],
-            'profile_picture'=>$path
-            ])
-        );
+        $user = User::create(array_merge(
+                    $validator->validated(),
+                    ['password' => bcrypt($request->password),
+                    'nationality_id'=> Country::where('country',$request->nationality)->pluck('id')[0],
+                    'residence_id'=> Country::where('country',$request->residence)->pluck('id')[0],
+                    'type_id'=>UserType::where('user_type',$request->type)->pluck('id')[0],
+                    'profile_picture'=>$path
+                    ]
+                ));
+        foreach($request->languages as $language){
+            UserLanguage::create([
+                'user_id' => $user->id,
+                'language_id'=> Language::where('language',$language)->pluck('id')[0]
+            ]);
+        }
         if($request->type=='Local'){
             foreach($request->categories as $category){
                 LocalCategory::create([
-                    'local_id' => Auth::id(),
+                    'local_id' => $user->id,
                     'category_id'=> Category::where('category',$category)->pluck('id')[0]
                 ]);
             }
         }
-        $user=Auth::user();
-        $languages=UserLanguage::join('languages','languages.id','language_id')->where('user_id',$user->id)->pluck('language');
-        $user['languages']=$languages;
-        $user['nationality']=Country::find($user->nationality_id)->country;
-        $user['residence']=Country::find($user->residence_id)->country;
+        $user['languages']=$request->languages;
+        $user['nationality']=$request->nationality;
+        $user['residence']=$request->residence;
         if($user->type_id==1){
-            $categories=LocalCategory::join('categories','categories.id','category_id')->where('local_id',$user->id)->pluck('category');
-            $user['categories']= $categories;
+            $user['categories']= $request->categories;
             $user['highlights']=[];
         }
+        $credentials = $request->only('email', 'password');
+        $token= auth()->attempt($credentials);
         return response()->json([
-            'user'=>Auth::user(),
             'message' => 'ok',
+            'user' => $user,
+            'token'=> $token
         ], 201);
     }
+ 
 
     public function logout() {
         auth()->logout();

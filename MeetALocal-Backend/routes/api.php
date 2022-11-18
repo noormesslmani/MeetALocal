@@ -11,7 +11,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::group(['prefix' => 'users'], function () {
-            Route::group(['middleware' => 'user'], function () {
+            
                 Route::get('/locals', [UserController::class, 'getLocals']);
                 Route::get('/user/{id}', [UserController::class, 'getUser']);
                 Route::get('/events', [UserController::class, 'getEvents']);
@@ -24,7 +24,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
                 Route::put('/profile-photo', [UserController::class, 'changePhoto']);
                 Route::put('/edit-profile', [UserController::class, 'editProfile']);
                 Route::get('/reviews', [UserController::class, 'getReviews']);
-            });
+        
         });
         Route::group(['prefix' => 'locals'], function () {
             Route::group(['middleware' => 'local'], function () {
@@ -72,8 +72,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
         });
         Route::group(['prefix' => 'auth'], function ($router) { 
             Route::post('/logout', [AuthController::class, 'logout']);
-            Route::post('/refresh', [AuthController::class, 'refresh']);
-            Route::post('/setup', [AuthController::class, 'setUp']);   
+            Route::post('/refresh', [AuthController::class, 'refresh']); 
             Route::get('/user-profile', [AuthController::class, 'userProfile']);    
         });
     });
