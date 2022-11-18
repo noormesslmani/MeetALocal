@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, Image, ActivityIndicator, FlatList, SafeAreaView, Modal, Pressable, StyleSheet, ScrollView, TextInput, KeyboardAvoidingView} from 'react-native'
 import React from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome'
 import NewEventModalStyles from './Styles/NewEventModalStyle';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -12,6 +12,7 @@ import { categoriesSpecificOptions } from '../../constants/categories';
 import DatePicker from '../General/datePicker';
 import AppButton from '../Buttons/AppButtons';
 import { createNewEvent } from '../../network/App';
+import { sendNotification, Notify } from '../../Notifications/Notifications';
 const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated})=> {
     const { user, setUser} = useContext(UserContext);
     const[title, setTtitle]=useState(null)
@@ -28,6 +29,12 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
     const [ext, setext]= useState(null)
     const [seats, setSeats]= useState(null)
     const [isLoading, setIsLoading]=useState(false)
+
+    const [expoPushToken, setExpoPushToken] = useState('');
+    const [notification, setNotification] = useState(false);
+    const notificationListener = useRef();
+    const responseListener = useRef();
+
     const addImage = async () => {
         let _image = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -47,6 +54,9 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
         }
     },[image])
 
+    useEffect(()=>{
+       modalVisible && Notify(setExpoPushToken, setNotification, notificationListener, responseListener)
+    },[modalVisible])
     const handleDate= (event, value)=>{
         setDatePicker(false)
         setDate(value)
@@ -79,6 +89,7 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
             setTimeout(() => {
                 setModalVisible(false);
               }, 2000);
+            sendNotification('Meet A Local','Event successfully created')
             setEventCreated(true)
         }
         else(setIsLoading(false))
