@@ -2,7 +2,7 @@ import axios from 'axios';
 const baseURL= "http://192.168.1.7:8000/api/v1.0.0/"
 const headers= { Authorization: `Bearer ${localStorage.getItem('token')}`}
 export async function signin(data){
-    console.log(123)
+
     const config = {
       method: "post",
       data,
@@ -103,6 +103,21 @@ export async function signin(data){
       method: "get",
       headers,
       url:`${baseURL}admins/bans`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.log(error)
+      return {'success': false, error}
+    }
+  }
+  export async function getLocations(){
+    const config = {
+      method: "get",
+      headers,
+      url:`${baseURL}admins/locations`,
     }
     try{
       const res = await axios(config)
