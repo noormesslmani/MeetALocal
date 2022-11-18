@@ -26,6 +26,7 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
     const [image, setImage] = useState(null);
     const [base64, setBase64]= useState(null)
     const [ext, setext]= useState(null)
+    const [seats, setSeats]= useState(null)
     const [isLoading, setIsLoading]=useState(false)
     const addImage = async () => {
         let _image = await ImagePicker.launchImageLibraryAsync({
@@ -55,6 +56,7 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
         
         createEvent()
     }
+
     const createEvent= async()=>{
         const data = {
             title,
@@ -65,9 +67,10 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
             date:`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`,
             photo: base64,
             ext,
-            country: user.residence
+            country: user.residence,
+            seats: parseInt(seats)
         }
-        console.log(ext)
+        
        
         setIsLoading(true)
         const result = await createNewEvent(data)
@@ -120,6 +123,10 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
                 <View style={NewEventModalStyles.contentContainer}>
                     <Text>Fees *</Text>
                     <TextInput placeholder='Enter fees' style={NewEventModalStyles.input} value={fees} onChangeText={setFees}></TextInput>
+                </View>
+                <View style={NewEventModalStyles.contentContainer}>
+                    <Text>Seats </Text>
+                    <TextInput placeholder='Enter seats' style={NewEventModalStyles.input} value={seats} onChangeText={setSeats} keyboardType = 'numeric'></TextInput>
                 </View>
                 <View style={NewEventModalStyles.contentContainer}>
                     <Text>Categories*</Text>
