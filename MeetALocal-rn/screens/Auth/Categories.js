@@ -6,13 +6,14 @@ import { UserContext } from '../../App'
 import AuthButton from '../../components/Buttons/AuthButton';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { setUpAccount } from '../../network/Auth';
 import FeesSlider from '../../components/General/Slider';
 import { colors } from '../../constants/colors';
 import BackArrow from '../../components/Header/BackArrow';
 import { categoryIcons } from '../../constants/categories';
 import { Avatar } from 'react-native-paper';
 import { widths } from '../../constants/dimensions';
+import WavyBack from '../../components/General/WavyBackground';
+import { registerAccount } from '../../network/Auth';
 const Categories=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const route = useRoute();
@@ -21,6 +22,16 @@ const Categories=({navigation})=> {
     const ext= route.params.ext
     const latitude=route.params.lat
     const longitude= route.params.lng
+    const about= route.params.about
+    const type= route.params.type
+    const fullName= route.params.fullName
+    const phone= route.params.phone
+    const dob =route.params.dob
+    const country= route.params.country
+    const nationality =route.params.nationality
+    const language = route.params.language
+    const email= route.params.email
+    const password= route.params.password
     const [categories, setCategories]=useState([])
     const [fees, setFees]=useState(0)
     const [isLoading, setIsLoading]= useState(false)
@@ -34,7 +45,7 @@ const Categories=({navigation})=> {
         if(limitExceeded){
             setTimeout(() => {
                 setLimitExceeded(false);
-              }, 1500);
+              }, 2000);
         }
     },[limitExceeded])
     const handleTourism=()=>{
@@ -70,6 +81,15 @@ const Categories=({navigation})=> {
     const setUp= async()=>{
         setIsLoading(true)
         const data = {
+            name:fullName,
+            email,
+            password,
+            about,
+            nationality,
+            residence:country,
+            date_of_birth:dob,
+            languages:language,
+            phone: parseInt(phone),
             type: 'Local',
             gender,
             photo: base64,
@@ -79,16 +99,16 @@ const Categories=({navigation})=> {
             latitude,
             longitude,
           };
-          console.log(typeof(fees))
-        const result = await setUpAccount(data)
+        const result = await registerAccount(data)
         if (result.success){
-          await AsyncStorage.setItem("@user", JSON.stringify(result.data['user']));
-          setUser(result.data.user)
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'tabs' }],
+            await AsyncStorage.setItem("@token", JSON.stringify(result.data['token']));
+            await AsyncStorage.setItem("@user", JSON.stringify(result.data['user']));
+            setUser(result.data.user)
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'app' }],
           })
-          navigation.navigate('tabs')
+          navigation.navigate('app')
         }
         else{
           setIsLoading(false)
@@ -96,6 +116,7 @@ const Categories=({navigation})=> {
       }
     return (
     <View style={[styles.background, {backgroundColor:'white'}]} >
+        <WavyBack />
         <Text style={styles.selectCategory}>Select at least 1 category<Text style={{fontSize:10, color:colors.violet}}> (max 3)</Text></Text> 
         <View style={styles.categoryContainer}>
             <View style={styles.categoryRow}>

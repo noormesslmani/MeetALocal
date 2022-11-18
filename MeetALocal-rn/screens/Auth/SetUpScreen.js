@@ -9,14 +9,23 @@ import { useRoute } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import UploadImage from '../../components/General/UploadImage';
-import { setUpAccount } from '../../network/Auth';
 import BackArrow from '../../components/Header/BackArrow';
 import { colors } from '../../constants/colors';
 import { widths } from '../../constants/dimensions';
+import WavyBack from '../../components/General/WavyBackground';
+import { registerAccount } from '../../network/Auth';
 const SetUpScreen=({navigation})=> {
 const { user, setUser} = useContext(UserContext);
 const route = useRoute();
 const type= route.params.type
+const fullName= route.params.fullName
+const phone= route.params.phone
+const dob =route.params.dob
+const country= route.params.country
+const nationality =route.params.nationality
+const language = route.params.language
+const email= route.params.email
+const password= route.params.password
 const [isLoading, setIsLoading]=useState(false)
 const [gender, setGender]=useState('')
 const [genderunset, setGenderUnset]=useState(false)
@@ -25,7 +34,7 @@ const [ext, setext]=useState(null)
 const [about, setAbout]= useState(null)
 useEffect(() => {
   navigation.setOptions({
-    headerLeft: () => <BackArrow navigation={navigation}/>,
+    headerLeft: () => <BackArrow navigation={navigation} type={2}/>,
   });
 }, [navigation]);
 const handleSubmit=()=>{
@@ -38,38 +47,46 @@ const handleSubmit=()=>{
   else{
     setGenderUnset(false)
     if(type=='Foreigner'){
-      setUp()
+      register()
     }
     else if(type=='Local'){
-      navigation.navigate('setup-map',{gender, base64, ext, about, type:2})
+      navigation.navigate('setup-map',{gender, base64, ext, about, type, fullName,phone,dob,country,nationality,language,email,password})
     }
   }
 }
-console.log(type)
+
 const handleMale=()=>{
   setGender('Male')
 }
 const handleFemale=()=>{
   setGender('Female')
 }
-const setUp= async()=>{
+const register= async()=>{
   setIsLoading(true)
   const data = {
+    name: fullName,
+    email,
+    password,
+    nationality,
+    residence: country,
+    phone: parseInt(phone),
+    date_of_birth: dob,
+    languages: language,
     type,
     gender,
     photo: base64,
     ext,
   };
-  console.log(gender)
-  const result = await setUpAccount(data)
+  const result = await registerAccount(data)
   if (result.success){
-    await AsyncStorage.setItem("@user", JSON.stringify(response.data['user']));
-    setUser(response.data.user)
+    await AsyncStorage.setItem("@token", JSON.stringify(result.data['token']));
+    await AsyncStorage.setItem("@user", JSON.stringify(result.data['user']));
+    setUser(result.data.user)
     navigation.reset({
       index: 0,
-      routes: [{ name: 'tabs' }],
+      routes: [{ name: 'app' }],
     })
-    navigation.navigate('tabs')
+    navigation.navigate('app')
   }
   else{
     setIsLoading(false)
@@ -78,6 +95,7 @@ const setUp= async()=>{
 
 return (
   <View style={[styles.background,{backgroundColor:'white'}]} >
+    <WavyBack/>
     <KeyboardAwareScrollView style={styles.scrollView} scrollEnabled={false}  showsVerticalScrollIndicator={false}>
       <View style={styles.setUpContainer}>
         <View style={styles.picContainer}>

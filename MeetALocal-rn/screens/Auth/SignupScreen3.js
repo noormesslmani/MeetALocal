@@ -8,9 +8,7 @@ import BackArrow from '../../components/Header/BackArrow';
 import Logo from '../Navigation/Logo';
 import { useRoute } from '@react-navigation/native';
 import { colors } from '../../constants/colors';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { registerAccount } from '../../network/Auth';
 const SignupScreen3 = ({navigation}) => {
   const route = useRoute();
   const fullName= route.params.fullName
@@ -26,24 +24,26 @@ const SignupScreen3 = ({navigation}) => {
   const [invalidPassword, setInvalidPassword]= useState(false)
   const [unmatchedPassword, setUnmatchedPassword]= useState(false)
   const [isLoading, setIsLoading]= useState(false)
+  const emailFormat=/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  const passFormat= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => <BackArrow navigation={navigation}/>,
       headerTitle: () => <Logo/>,
       });
   }, [navigation]);
-  const handleSubmit=()=>{
+  const handleNext=()=>{
     setInvalidEmail(false)
     setInvalidPassword(false)
     setUnmatchedPassword(false)
-    if(! email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
+    if(! email.match(emailFormat))
     {
       setInvalidEmail(true)
       setTimeout(() => {
         setInvalidEmail(false);
       }, 1500);
     }
-    else if(! password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/)){
+    else if(! password.match(passFormat)){
       setInvalidPassword(true)
       setTimeout(() => {
         setInvalidPassword(false);
@@ -56,33 +56,10 @@ const SignupScreen3 = ({navigation}) => {
       }, 1500);
     }
     else{
-      register()
+      navigation.navigate('user-type',{fullName,email,password,nationality,country,phone,dob,language})
     }
   }
-  const register= async()=>{
-    setIsLoading(true)
-    const data = {
-      name: fullName,
-      email,
-      password,
-      nationality,
-      residence: country,
-      phone: parseInt(phone),
-      date_of_birth: dob,
-      languages: language,
-    };
-    console.log(data)
-    const result = await registerAccount(data)
-    setIsLoading(false)
-    if (result.success){
-      await AsyncStorage.setItem("@token", result.data['token']);
-      navigation.reset({
-        index: 0,
-        routes: [{ name: 'user-type' }],
-      });
-      navigation.navigate('user-type')
-    }
-  }
+ 
   return (
     <View style={styles.background}>
       <KeyboardAwareScrollView style={styles.scrollView} scrollEnabled={false}  showsVerticalScrollIndicator={false}>
@@ -110,7 +87,7 @@ const SignupScreen3 = ({navigation}) => {
             {unmatchedPassword && <Text style={styles.error}>Passwords do not match!</Text>}
           </View>
           {isLoading && <ActivityIndicator color={colors.violet}/>}
-          <AuthButton title={'Register'} handleSubmit={handleSubmit} ></AuthButton>
+          <AuthButton title={'Next'} handleSubmit={handleNext} ></AuthButton>
           <Text style={styles.text}>Already have an account?
           </Text>
           <Text style={styles.link} onPress={() => navigation.navigate('signin')}>

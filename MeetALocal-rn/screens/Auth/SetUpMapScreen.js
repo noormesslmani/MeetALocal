@@ -13,6 +13,15 @@ const SetUpMap=({navigation})=> {
     const gender= route.params.gender
     const ext= route.params.ext
     const about= route.params.about
+    const type= route.params.type
+    const fullName= route.params.fullName
+    const phone= route.params.phone
+    const dob =route.params.dob
+    const country= route.params.country
+    const nationality =route.params.nationality
+    const language = route.params.language
+    const email= route.params.email
+    const password= route.params.password
     const [location, setLocation] = useState(null);
     const [lat, setLat]=useState(33.888630)
     const [lng, setLng]=useState(35.495480)
@@ -44,7 +53,7 @@ const SetUpMap=({navigation})=> {
       setLng( e.nativeEvent.coordinate.longitude)
     }
     const handleNext=()=>{
-        navigation.navigate('categories',{gender, base64, ext, lat, lng})
+        navigation.navigate('categories',{gender, base64, ext, lat, lng, about, type, fullName,phone,dob,country,nationality,language,email,password})
     }
 
     
