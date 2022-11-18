@@ -8,6 +8,8 @@ import LocalStatistics from './Pages/Statistics/LocalStatistics';
 import ForeignerStatistics from './Pages/Statistics/ForeignerStatistics';
 import BannedLocals from './Pages/Users/BannedLocals';
 import BannedForeigners from './Pages/Users/BannedFreigners';
+import Map from './Pages/Map/Map';
+
 function App() {
   return (
     <>
@@ -21,6 +23,7 @@ function App() {
           <Route path='/foreigners-statistics' exact element={<ForeignerStatistics/>} />
           <Route path='/banned-locals' exact element={<BannedLocals/>} />
           <Route path='/banned-foreigners' exact element={<BannedForeigners/>} />
+          <Route path='/maps' exact element={<Map/>} />
         </Routes>
       </Router>
     </>

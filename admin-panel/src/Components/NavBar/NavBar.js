@@ -10,6 +10,7 @@ const NavBar=()=> {
         <NavLink className='link' to="/locals">Locals</NavLink>
         <NavLink className='link' to="/foreigners">Foreigners</NavLink>
         <NavLink className='link' to='/locals-statistics'>Statistics</NavLink>
+        <NavLink className='link' to='/maps'>Maps</NavLink>
         <NavLink className='link' to="/" onClick={()=>localStorage.clear()} >LogOut</NavLink>
     </nav>
   )
