@@ -15,6 +15,7 @@ use App\Models\Message;
 use App\Models\Notification;
 use App\Models\PostCategory;
 use App\Models\Post;
+use App\Models\Ban;
 use App\Models\SavedEvent;
 use App\Models\UserType;
 use App\Models\UserLanguage;
@@ -33,10 +34,17 @@ class AuthController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
+
         if (! $token = auth()->attempt($validator->validated())) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         $user=Auth::user();
+        if(Ban::where('banned_id',$user->id)->exists()){
+            return response()->json([
+                "message" => "Unauthorized",
+                "data"=>'account banned'
+            ], 404);
+        }
         if($user->type_id!=3)
         {
             $languages=UserLanguage::join('languages','languages.id','language_id')->where('user_id',$user->id)->pluck('language');
