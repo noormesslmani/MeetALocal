@@ -15,6 +15,7 @@ use App\Models\Notification;
 use App\Models\PostCategory;
 use App\Models\Post;
 use App\Models\SavedEvent;
+use App\Models\EventBooking;
 use App\Models\Appointment;
 use App\Models\BookedAppointment;
 use App\Models\UserType;
@@ -72,6 +73,7 @@ class LocalController extends Controller
             $event['categories']=$category;
             $event['name']=Auth::user()->name;
             $event['saves']=SavedEvent::where('event_id',$event->id)->count();
+            $event['bookings']= EventBooking::where('event_id', $event->id)->count();
         }
         return response()->json([
             'message' => 'ok',
