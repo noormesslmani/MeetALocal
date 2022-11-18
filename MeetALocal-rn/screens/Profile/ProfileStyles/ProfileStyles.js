@@ -74,7 +74,22 @@ const ProfileStyles = StyleSheet.create({
     },
     categoryIcon:{
         width:25, 
-        height:25}
+        height:25},
+    highlightsContainer:{
+        width:widths.width9,
+        flexDirection:"row",
+        justifyContent:"space-between"
+    },
+    logOut:{
+        color:colors.violet,
+        textDecorationLine:"underline",
+        fontSize:16,
+    },
+    logOutContainer:{
+        position:"absolute",
+        bottom:0.15*windowHeight,
+        right: widths.width4
+    }
     
 });
 

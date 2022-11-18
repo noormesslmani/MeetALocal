@@ -5,8 +5,7 @@ import HomeStyles from './Styles/HomeStyles';
 import { UserContext } from '../../App'
 import { address } from '../../constants/address';
 import HomeCard from '../../components/Cards/HomeCard';
-import WavyBackground from "react-native-wavy-background";
-import { colors } from '../../constants/colors';
+import WavyBack from '../../components/General/WavyBackground';
 const Home=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const handleLocals=()=>{
@@ -18,26 +17,10 @@ const Home=({navigation})=> {
     const handleEvents=()=>{
         navigation.navigate('events')
     }
-
+    console.log(user.type_id)
   return (
     <View style={HomeStyles.container}>
-        <View
-          style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-          }}>
-          <WavyBackground
-            height={300}
-            width={1100}
-            amplitude={30}
-            frequency={1}
-            offset={70}
-            color= {colors.lightViolet}
-            top
-          />
-        </View>
+        <WavyBack/>
         <Image source={user.profile_picture?{ uri:`${address}/${user.profile_picture}`}: require('../../assets/blank-profile.webp')} style={HomeStyles.photo }/>
         <HomeCard label={'Locals'} handlePress={handleLocals}/>
         <HomeCard label={'Events'} handlePress={handleEvents}/>

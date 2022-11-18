@@ -8,7 +8,7 @@ import { getAppStat } from '../../Network/Api';
 import CountsCard from '../../Components/Cards/CountsCard';
 import { render } from "react-dom";
 import { Bounce } from "react-activity";
-import "react-activity/dist/library.css";
+
 const Home=()=> {
     const [usersCount, setUsersCount]=useState(null)
     const [eventCount, setEventsCount]=useState(null)

@@ -86,7 +86,8 @@ const EditLocalProfile=({navigation})=> {
           categories,
           date_of_birth: dob,
           latitude: parseFloat(latitude),
-          longitude: parseFloat(longitude)
+          longitude: parseFloat(longitude),
+          highlights: user.highlights
         };
         console.log(data)
         const result= await editProfile(data)

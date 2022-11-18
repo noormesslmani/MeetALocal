@@ -29,7 +29,6 @@ const TabNavigation=()=>{
       }}
       >
       <Tab.Screen name='home' component={Home}
-      
       options={{
         tabBarLabel: 'Home',
           tabBarIcon: ({ color, size }) => (

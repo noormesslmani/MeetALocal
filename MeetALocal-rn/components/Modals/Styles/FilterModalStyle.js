@@ -1,7 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { colors } from "../../../constants/colors";
 import { widths } from "../../../constants/dimensions";
-
+import { colors } from "../../../constants/colors";
 const windowHeight = Dimensions.get("window").height;
 const FilterModalStyle = StyleSheet.create({
     centeredView: {

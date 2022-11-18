@@ -6,7 +6,7 @@ import { colors } from '../../constants/colors';
 import ScheduleCard from '../../components/Cards/ScheduleCard';
 import ScheduleStyles from './Styles/ScheduleScreenStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
-import WavyBackground from "react-native-wavy-background";
+import WavyBack from '../../components/General/WavyBackground';
 import ScheduleModal from '../../components/Modals/ScheduleModal';
 const Schedules=()=> {
   const [schedule, setSchedule]=useState(null)
@@ -37,23 +37,7 @@ const Schedules=()=> {
  
   return (
         <View style={ScheduleStyles.container}>
-          <View
-          style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-          }}>
-          <WavyBackground
-            height={300}
-            width={1100}
-            amplitude={30}
-            frequency={1}
-            offset={70}
-            color= {colors.lighterViolet}
-            top
-          />
-        </View>
+          <WavyBack />
           <View style={ScheduleStyles.labelsContainer}>
             <View style={ScheduleStyles.label}>
               <View style={ScheduleStyles.circle}></View>

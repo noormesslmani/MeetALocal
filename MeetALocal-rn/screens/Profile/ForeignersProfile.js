@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image, Pressable } from 'react-native'
 import React from 'react'
 import { UserContext } from '../../App'
 import { useState, useEffect, useContext } from "react";
@@ -7,9 +7,10 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { address } from '../../constants/address';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { colors } from '../../constants/colors';
-import WavyBackground from "react-native-wavy-background";
 import AppButton from '../../components/Buttons/AppButtons';
 import ImageView from "react-native-image-viewing";
+import WavyBack from '../../components/General/WavyBackground';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const ForeignerProfile=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const [image, setImage]= useState(null)
@@ -24,25 +25,14 @@ const ForeignerProfile=({navigation})=> {
     const handleEdit=()=>{
       navigation.navigate('edit-foreigner-profile')
     }
+
+    const handleLogout=async()=>{
+      await AsyncStorage.clear();
+      navigation.navigate("auth")
+    }
   return (
     <View style={ProfileStyles.container}>
-        <View
-          style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-          }}>
-          <WavyBackground
-            height={300}
-            width={1100}
-            amplitude={30}
-            frequency={1}
-            offset={70}
-            color= {colors.lighterViolet}
-            top
-          />
-        </View>
+        <WavyBack/>
         <TouchableOpacity onPress={()=>setImageView(true)}><Image source={image?{ uri:`${address}/${image}`}: require('../../assets/blank-profile.webp')} style={{ width: 180, height: 180, borderRadius:90, marginTop:20 }} /></TouchableOpacity>
         <Text style={ProfileStyles.name}>{user.name}</Text>
         <AppButton handlePress={handleEdit} text={'Edit profile'} />
@@ -67,6 +57,7 @@ const ForeignerProfile=({navigation})=> {
           imageIndex={0}
           visible={imageView}
           onRequestClose={() => setImageView(false)}/>}
+          <Pressable onPress={handleLogout} style={ProfileStyles.logOutContainer}><Text style={ProfileStyles.logOut} >Log Out</Text></Pressable>
     </View>
     
   )

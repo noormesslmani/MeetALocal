@@ -13,7 +13,7 @@ export const categoryIcons={'Tourism':Tourism, 'Culture':Culture, 'Education':Ed
 export const categoriesOptions=[
     {label: 'All categories', value: 'all'},
     {label: 'Tourism', value: 'Tourism', icon: () => <Image source={Tourism} style={{width:20, height:20}} />},
-    {label: 'Languages', value: 'Languages', icon: () => <Image source={Language} style={{width:20, height:20}}/>},
+    {label: 'Language', value: 'Language', icon: () => <Image source={Language} style={{width:20, height:20}}/>},
     {label: 'Culture', value: 'Culture', icon: () => <Image source={Culture} style={{width:20, height:20}}/>},
     {label: 'Education', value: 'Education', icon: () => <Image source={Education} style={{width:20, height:20}}/>},
     {label: 'History', value: 'History', icon: () => <Image source={History} style={{width:20, height:20}}/>},
@@ -25,7 +25,7 @@ export const categoriesOptions=[
 
 export const categoriesSpecificOptions=[
     {label: 'Tourism', value: 'Tourism', icon: () => <Image source={Tourism} style={{width:20, height:20}} />},
-    {label: 'Languages', value: 'Languages', icon: () => <Image source={Language} style={{width:20, height:20}}/>},
+    {label: 'Language', value: 'Language', icon: () => <Image source={Language} style={{width:20, height:20}}/>},
     {label: 'Culture', value: 'Culture', icon: () => <Image source={Culture} style={{width:20, height:20}}/>},
     {label: 'Education', value: 'Education', icon: () => <Image source={Education} style={{width:20, height:20}}/>},
     {label: 'History', value: 'History', icon: () => <Image source={History} style={{width:20, height:20}}/>},

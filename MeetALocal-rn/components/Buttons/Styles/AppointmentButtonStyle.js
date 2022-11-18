@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { widths } from "../../../constants/dimensions";
-import { colors } from "../../../constants/colors";
+// import { colors } from "../../../constants/colors";
 
 const AppointmentButtonStyle = StyleSheet.create({
     bookBtn:{
@@ -11,7 +11,7 @@ const AppointmentButtonStyle = StyleSheet.create({
         paddingHorizontal:0.1*widths.width,
         justifyContent:"space-between",
         backgroundColor:'white',
-        borderColor:colors.violet,
+        borderColor:"#8C57BA",
         borderRadius:10,
         alignItems:"center",
         shadowOffset: {
@@ -23,7 +23,7 @@ const AppointmentButtonStyle = StyleSheet.create({
           elevation: 3
     },
     pressedBtn:{
-        backgroundColor:colors.lightViolet, 
+        backgroundColor:"#e2d2ef", 
     },
     date:{
         fontSize:16,

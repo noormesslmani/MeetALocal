@@ -6,13 +6,14 @@ const AppointmentsModalStyle = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 22
+        backgroundColor: 'rgb(0,0,0)',
+        backgroundColor: 'rgba(0,0,0,0.5)', 
       },
       modalView: {
         backgroundColor: "white",
         width:widths.width9,
         flex:0.8,
-        borderRadius: 20,
+        borderRadius: 15,
         alignItems: "center",
         shadowColor: "#000",
         padding:20,
@@ -30,7 +31,7 @@ const AppointmentsModalStyle = StyleSheet.create({
       },
       bookBtn:{
         marginVertical:10,
-        width:widths.width7,
+        width:widths.width6,
         height:55,
         backgroundColor:'white',
         borderColor:colors.violet,

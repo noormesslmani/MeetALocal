@@ -1,5 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { widths } from "../../../constants/dimensions";
+const windowHeight = Dimensions.get("window").height;
 const HomeCardStyle = StyleSheet.create({
     cardContainer:{
         alignItems:"center",
@@ -10,7 +11,7 @@ const HomeCardStyle = StyleSheet.create({
         width:"60%"
     },
     card:{
-        backgroundColor:colors.lightViolet,
+        backgroundColor:"#e2d2ef",
         width: widths.width7,
         height: 0.12*windowHeight,
         borderRadius:10,

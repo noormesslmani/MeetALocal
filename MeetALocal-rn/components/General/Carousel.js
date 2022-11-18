@@ -12,8 +12,8 @@ const ImageCarousel=({images})=>{
                 autoPlay={true}
                 mode="parallax"
                 data={images}
-                scrollAnimationDuration={10000}
-                autoPlayInterval={2000}
+                scrollAnimationDuration={8000}
+                autoPlayInterval={1000}
                 renderItem={({ index }) => (
                     <Image source={images[index]} style={{width:widths.width7, height:200}}/>
                 )}

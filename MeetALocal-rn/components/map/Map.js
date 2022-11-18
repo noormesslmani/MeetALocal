@@ -24,6 +24,7 @@ const Map=({lat, lng, data, type, handleDrag, navigation})=> {
 
                   {type!=2  && data.map((local, index) => (
                   <Marker
+                  key={index}
                   coordinate={{latitude: local.latitude, longitude: local.longitude}}
                   pinColor={colors.violet}
                   onPress={()=> myList.current.scrollToIndex({index: index, animated: true, viewPosition:0.5 })}

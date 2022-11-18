@@ -58,6 +58,7 @@ const AppointmentsModal=({navigation, setModalVisible, modalVisible, id})=> {
             <Text style={AppointmentsModalStyle.title}>Pick an appointment</Text>
             <ScrollView  showsVerticalScrollIndicator={false} >
             {appointments && appointments.map((appointment, index)=> <AppointmentButton appointment={appointment} setSelected={setSelected} selected={selected} /> ) }
+            {appointments && appointments.length==0 && <Text>No available appointments</Text>}
             {! appointments && <Text>Nothing to display</Text>}
             </ScrollView>
             {isloading && <ActivityIndicator color={colors.violet} />}
