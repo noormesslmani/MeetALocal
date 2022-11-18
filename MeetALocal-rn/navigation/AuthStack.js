@@ -39,17 +39,17 @@ const AuthStack=()=>{
         <Stack.Screen name="setup"
           options={{ 
           headerLeft: () => (<BackArrow type={2}/>),
-          headerBackVisible:false, headerTitleAlign: 'center', headerTitle:'Account Setup', headerTintColor:'white', headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false}}  
+          headerBackVisible:false, headerTitleAlign: 'center', headerTitle:'Account Setup', headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false}}  
          component={SetUpScreen} />
         <Stack.Screen  name="setup-map"
             options={{ 
             headerLeft: () =>(<BackArrow type={2}/>),
-            headerBackVisible:false, headerTitleAlign: 'center', headerTitle:'Location Setup', headerTintColor:'white', headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false}} 
+            headerBackVisible:false, headerTitleAlign: 'center', headerTitle:'Location Setup', headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false}} 
             component={SetUpMap}/>
         <Stack.Screen name="categories" 
             options={{ 
             headerLeft: () =>(<BackArrow type={2}/>),
-            headerBackVisible:false, headerTitleAlign: 'center', headerTitle:'Categories', headerTintColor:'white', headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false}} 
+            headerBackVisible:false, headerTitleAlign: 'center', headerTitle:'Categories', headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false}} 
             component={Categories} />
        
       </Stack.Navigator>

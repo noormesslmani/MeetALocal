@@ -107,11 +107,21 @@ const LocalProfileStyles = StyleSheet.create({
     bookBtn:{
         marginVertical:10,
         width:widths.width9,
+        height:45,
         backgroundColor:'white',
         borderColor:colors.violet,
+        flexDirection:"row",
+        justifyContent:"center",
         borderRadius:10,
         alignItems:"center",
-        justifyContent:"center"
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 2,
+            height: 2,
+        },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+        elevation: 2,
     }
 
 });

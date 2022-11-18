@@ -2,8 +2,8 @@ import { StyleSheet} from "react-native";
 import { colors } from "../../../constants/colors";
 const AuthButtonStyle = StyleSheet.create({
     button1:{
-        width:100,
-        height: 35,
+        width:120,
+        height: 40,
         borderRadius: 10,
         borderColor: colors.violet,
         borderWidth:1,

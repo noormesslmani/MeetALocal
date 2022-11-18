@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { colors } from "../../../constants/colors";
+// import { colors } from "../../../constants/colors";
 import { widths } from "../../../constants/dimensions";
 const windowHeight = Dimensions.get("window").height;
 const LocalCardStyle = StyleSheet.create({
@@ -64,7 +64,7 @@ const LocalCardStyle = StyleSheet.create({
         justifyContent:"center",
         width: widths.width9,
         height: 0.09*windowHeight,
-        backgroundColor: colors.lighterViolet,
+        backgroundColor: "rgba(140, 87, 186, 0.20)",
         borderBottomLeftRadius:5,
         borderBottomRightRadius:5
     },
@@ -75,7 +75,7 @@ const LocalCardStyle = StyleSheet.create({
     },
     iconLabel:{
         fontSize:14,
-        color:colors.violet,
+        color:"#8C57BA",
         fontWeight:"bold",
     },
     categoryBtn:{

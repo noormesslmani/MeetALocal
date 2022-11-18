@@ -13,9 +13,11 @@ import { categoryIcons } from '../../constants/categories';
 import ImageCarousel from '../../components/General/Carousel';
 import WavyBack from '../../components/General/WavyBackground';
 import { getReviews } from '../../network/App';
-import LocalProfileStyles from '../General/Styles/LocalProfileStyles';
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import ReviewCard from '../../components/Cards/ReviewerCrad';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import HighlightsModal from '../../components/Modals/HighlightsModal';
 const ForeignerProfile=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const [image, setImage]= useState(null)
@@ -23,6 +25,7 @@ const ForeignerProfile=({navigation})=> {
   const [reviews, setReviews]=useState([])
   const [stars, setStars]=useState([])
   const [average, setAverage]= useState(0)
+  const [modalVisible, setModalVisible]= useState(false)
   const images = user.highlights?.map((image)=>({ uri: `${address}/${image}`}))
   useEffect(()=>{
     if(user.profile_picture){
@@ -55,6 +58,11 @@ const ForeignerProfile=({navigation})=> {
   }
     const handleEdit=()=>{
       navigation.navigate('edit-local-profile')
+    }
+
+    const handleLogout=async()=>{
+      await AsyncStorage.clear();
+      navigation.navigate("auth")
     }
   return (
     <View style={ProfileStyles.container}>
@@ -102,7 +110,10 @@ const ForeignerProfile=({navigation})=> {
 
           
           {user.highlights && <View style={{marginTop:40}}>
-            <Text style={{fontWeight:"500"}}>Highlights</Text>
+            <View style={ProfileStyles.highlightsContainer}>
+              <Text style={{fontWeight:"500"}}>Highlights</Text>
+              <Pressable onPress={()=>setModalVisible(true)} ><Icon name='pencil' size={20} color={colors.violet} /></Pressable>
+            </View>
             <View style={ProfileStyles.separator}/>
             <View style={{ flex: 1, alignSelf:"center" }}>
             <ImageCarousel images={images} />
@@ -122,8 +133,8 @@ const ForeignerProfile=({navigation})=> {
          
           {reviews.map((review, index)=><ReviewCard review={review} key={index}/>)}
           
-    
-          
+          <Pressable onPress={handleLogout} style={ProfileStyles.logOutContainer}><Text style={ProfileStyles.logOut} >Log Out</Text></Pressable>
+          {modalVisible && <HighlightsModal setModalVisible={setModalVisible} modalVisible={modalVisible} highlights={user.highlights} /> }
         </ScrollView>
     </View>
     

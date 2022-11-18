@@ -4,10 +4,12 @@ import '../../Constants/Flex.css'
 import './LogInForm.css'
 import Button from '../Buttons/Button';
 import { signin } from '../../Network/Api';
+import { Bounce } from "react-activity";
 const LogInForm=()=> {
   const navigate = useNavigate();
   const [email,setEmail]=useState(null)
   const [password, setPassword]=useState(null)
+  const [isLoading, setIsloading]=useState(false)
   const handleEmail=(e)=>{
     setEmail(e.target.value)
   }
@@ -25,8 +27,10 @@ const LogInForm=()=> {
     const data = {
     email,
     password,}
+    setIsloading(true)
     const result =await signin(data)
     if (result.success){
+        setIsloading(false)
         localStorage.setItem('user',JSON.stringify(result.data.user))
         navigate('/home')
         }
@@ -43,6 +47,7 @@ const LogInForm=()=> {
             <label>Password</label>
             <input type="password"  placeholder='Enter your password' className='input' onChange={handlePassword} required/>
         </div>
+        {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
         <Button handleSubmit={handleSubmit}/>
 
       </form>

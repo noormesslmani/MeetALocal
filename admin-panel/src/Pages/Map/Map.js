@@ -9,7 +9,7 @@ import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
 import markerIconPng from "leaflet/dist/images/marker-icon.png";
 import { getLocations } from "../../Network/Api";
 import '../Home/Home.css'
-export default function Map(){
+export default function SimpleMap(){
     const [locations, setLocations]=useState(null)
     const position = [33.888630, 35.495480]
     useEffect(()=>{
@@ -18,9 +18,11 @@ export default function Map(){
     const getLocalsLocations=async()=>{
         const result =await getLocations()
         if(result.success){
+            console.log(result.data.data)
             setLocations(result.data.data)
         }
     }
+    console.log('hi')
   return (
    
 
@@ -34,7 +36,7 @@ export default function Map(){
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {locations.map((location)=>
+        {locations && locations.map((location)=>
         <Marker position={[location.latitude, location.longitude]}
         icon={
             new icon({
