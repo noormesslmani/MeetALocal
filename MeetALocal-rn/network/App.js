@@ -8,9 +8,11 @@ export async function getLocals(params){
     const config = {
       method: "get",
       params,
-      headers: { Authorization: `Bearer ${token}`},
+      headers: {'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
       url:`${baseURL}users/locals`,
     }
+    console.log(token)
+    console.log(config)
     try{
       const res = await axios(config)
       return {success:true, data: res.data}

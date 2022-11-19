@@ -21,12 +21,13 @@ export async function signin(data){
   }
 
   export async function getAppStat(){
-    console.log(headers)
+   
     const config = {
       method: "get",
       headers,
       url:`${baseURL}admins/app-stat`,
     }
+    console.log(config)
     try{
       const res = await axios(config)
       return {success:true, data: res.data}
