@@ -2,13 +2,14 @@ import { View, Text, Image } from 'react-native'
 import React from 'react'
 import image from '../../assets/profile.jpg'
 import CommentStyle from './Styles/CommentStyle';
+import { address } from '../../constants/address';
 const Comment=({navigation, item, comment})=> {
-
+  console.log(comment)
   return (
     <View style={CommentStyle.commentContainer}>
         <View style={CommentStyle.headerContainer}>
             <View style={{flexDirection:"row"}}>
-                <Image source={image} style={CommentStyle.image} />
+                <Image source={comment.user.profile_picture?{ uri:`${address}/${comment.user.profile_picture}`}: require('../../assets/blank-profile.webp')} style={CommentStyle.image} />
                 <View style={CommentStyle.details}>
                     <Text style={{fontSize:10, fontWeight:"600"}}>{comment.user.name}</Text>
                     <View style={{flexDirection:"row", alignItems:"center"}}>
