@@ -22,6 +22,8 @@ import BackArrow from '../../components/Header/BackArrow';
 import AppointmentsModal from '../../components/Modals/AppointmentModal';
 import ImageCarousel from '../../components/General/Carousel';
 import { Avatar } from 'react-native-paper';
+import { Button} from 'react-native-paper';
+import ProfileCard from '../../components/Cards/ProfileCard';
 const LocalPage=({navigation})=> {
   const route = useRoute();
   const item =route.params.item
@@ -30,7 +32,7 @@ const LocalPage=({navigation})=> {
   const [likes, setLikes]= useState(item.likes)
   
 
-  const [average, setAverage]= useState(0)
+  const [average, setAverage]= useState(null)
   const [reviews, setReviews]=useState([])
   const [stars, setStars]=useState([])
   const [reviewed, setReviewed]=useState(true)
@@ -82,10 +84,11 @@ const LocalPage=({navigation})=> {
 
   //finding the average
   useEffect(()=>{
-    if(stars)
-    setAverage((stars[0]+2*stars[1]+3*stars[2]+4*stars[3]+5*stars[4])/(stars[0]+stars[1]+stars[2]+stars[3]+stars[4]))
+    if(stars.length>0){
+    reviews.length>0?setAverage((stars[0]+2*stars[1]+3*stars[2]+4*stars[3]+5*stars[4])/(stars[0]+stars[1]+stars[2]+stars[3]+stars[4])):setAverage(0)
+    }
   },[stars])
-
+  console.log(average)
   //getting all reviews
   const getAllReviews=async()=>{
     const result = await getReviews(item.id)
@@ -160,45 +163,33 @@ const LocalPage=({navigation})=> {
             <Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={LocalProfileStyles.image}/>
             <View style={{margin:15}}>
               <Text style={LocalProfileStyles.name}>{item.name}</Text>
-              <Text style={LocalProfileStyles.country}>{item.country}</Text>
+              <View style={{flexDirection:"row"}}><Text style={LocalProfileStyles.country}>{item.country} </Text>{user.type_id==2 && <Map handleMap={handleMap} small={true} />}</View>
               <View style={LocalProfileStyles.likesContainer}>
                 <Text style={LocalProfileStyles.likes}>{likes}</Text>
                 <Icon name="heart" color={colors.violet} size={15} /> 
               </View>
             </View>
           </View>
+
           <View style={LocalProfileStyles.infoContainer}>
+            
             <View>
-
               <View style={LocalProfileStyles.linksContainer}>
-
-                <Text>Contact:</Text>
+                <Text style={{fontWeight:'500'}}>Contact: </Text>
                 <Pressable style={LocalProfileStyles.phoneContainer} onPress={handlePhone}>
-                  <Avatar.Icon size={25} icon="phone" style={{backgroundColor:'white', borderWidth:0.5, borderColor:colors.violet}} color={colors.violet} />
-                </Pressable>
-                  
+                  <Avatar.Icon size={28} icon="phone" style={{backgroundColor:'white', borderWidth:0.5, borderColor:colors.violet}} color={colors.violet} />
+                </Pressable> 
                 <Pressable style={LocalProfileStyles.phoneContainer} onPress={handleWhatsapp}>
-                  <Avatar.Icon size={25} icon="whatsapp" style={{backgroundColor:'white', borderWidth:0.5, borderColor:colors.violet}} color={colors.violet} />
-                </Pressable>
-                  
+                  <Avatar.Icon size={28} icon="whatsapp" style={{backgroundColor:'white', borderWidth:0.5, borderColor:colors.violet}} color={colors.violet} />
+                </Pressable> 
               </View>
-
-              <View style={{flexDirection:"row", alignItems:"center"}}>
-                <Text>Location:</Text>
-                <Pressable style={LocalProfileStyles.phoneContainer} onPress={handlePhone}>
-                  {item.type_id==1 && <Map handleMap={handleMap} small={true} />}
-                </Pressable>  
-              </View>
-
-              {/* <View style={LocalProfileStyles.likesContainer}>
-                <Ionicons name="language" size={20} color="grey" />
-                {item.languages.map((language)=><Text style={LocalProfileStyles.language} key={language}>{language}</Text>)}
-              </View> */}
             </View>
+
             <View style={LocalProfileStyles.likesContainer}>
               {user.type_id==2 && <Pressable style={{marginRight:10}} onPress={handleLike}>{isFavorite?<Icon name="heart" size={25} color={colors.mediumViolet} />:<Icon name="heart-o" size={25} color={colors.mediumViolet} />}</Pressable>}
               <Pressable style={LocalProfileStyles.message} onPress={handleMessage}><Text style={{color:"white"}}>Message</Text></Pressable>
             </View>
+
           </View>
           
 
@@ -209,21 +200,30 @@ const LocalPage=({navigation})=> {
           </TouchableOpacity>:null}
           {appointmentModal && <AppointmentsModal modalVisible={appointmentModal} setModalVisible={setAppointmentModal} id={item.id} /> }
 
-          
+          <View style={LocalProfileStyles.separator} />
+
+          <View style={LocalProfileStyles.sectionContainer}>
+            <Text style={LocalProfileStyles.sectionTitle}>Basic Info</Text>
+            <ProfileCard icon={'language'} data={item.languages} />
+            <ProfileCard icon={'birthday-cake'} data={item.date_of_birth} />
+            <ProfileCard icon={'user'} data={item.gender} />
+          </View>
+
+
+
           {item.about && <View style={LocalProfileStyles.sectionContainer}>
             <Text style={LocalProfileStyles.sectionTitle}>About</Text>
-            <Text style={LocalProfileStyles.about}>{item.about}</Text>
+            <ProfileCard icon='info' data={item.about} />
           </View>}
 
 
           <View style={LocalProfileStyles.sectionContainer}>
             <Text style={LocalProfileStyles.sectionTitle}>Categories</Text>
-            <View style={{flexDirection:"row"}}>
-              {item.categories.map((category)=>
-              <View style={LocalProfileStyles.iconContainer}>
-              <Image source={categoryIcons[category]} style={LocalProfileStyles.categoryIcon}/>
-              <Text style={{fontSize:12}}>{category}</Text>
-              </View>
+            <View style={{flexDirection:"row"}} >
+            {item.categories.map((category)=>
+              <Button compact uppercase={false} labelStyle={{ color: 'black' }} style={LocalProfileStyles.categoryBtn} icon={()=><Image source={categoryIcons[category]} style={{width:25, height:25}} />} mode="contained" >
+                {category}
+              </Button>
             )}
             </View>
           </View>
@@ -241,21 +241,34 @@ const LocalPage=({navigation})=> {
           visible={visible}
           onRequestClose={() => setIsVisible(false)}/>
 
-        <View style={LocalProfileStyles.separator}></View>
-
           <View style={LocalProfileStyles.sectionContainer}>
-          <Text style={LocalProfileStyles.sectionTitle}>Reviews</Text>
+            <Text style={LocalProfileStyles.sectionTitle}>Reviews</Text>
 
-          {stars.length>0 && 
-          <AirbnbRating size={25} showRating showReadOnlyText={false} defaultRating={average} readonly= {true}  imageSize={25} style={{marginVertical:3, marginHorizontal:10}}/>
-          }
-          <Text style={{alignSelf:"center", fontSize:10}}>Based on {reviews.length} reviews</Text>
+            <View style={LocalProfileStyles.ratingsContainer}>
+              <View style={{alignItems:"center"}} >
+              {average!=null ?<Text style={LocalProfileStyles.averageText} >{average}/5</Text>:null}
+              {average!=null ?<Rating size={25} startingValue={average} imageSize={25} readonly/>:null}
+              <Text style={LocalProfileStyles.reviewNb}>Based on {reviews.length} reviews</Text>
+              </View>
+              <View>
+                {stars.length>0 && stars.map((star, index)=><View style={{flexDirection:"row",alignItems:"center"}}><Text style={{marginRight:5}}>{star}</Text><Rating size={15} startingValue={index} imageSize={15} readonly/></View>)}
+                <TouchableOpacity style={LocalProfileStyles.reviewsLink}>
+                <Text style={{marginHorizontal:7}} >reviews</Text>
+                <Icon name='chevron-right' color={colors.gold} size={18}/>
+                </TouchableOpacity>
+              </View>
+            </View>
+
           </View>
-          {user.type_id==2 && !reviewed && <Pressable onPress={()=>{setReviewModalVisible(true)}} ><Text style={LocalProfileStyles.addReview}>Add a review</Text></Pressable>}
-          {user.type_id==2 && reviewed && <Text style={LocalProfileStyles.addReview}>Reviewed</Text>}
-          {reviews.length>0 && reviews.map((review, index)=><ReviewCard review={review} key={index}/>)}
-          {reviewModalVisible && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} setReviewAdded={setReviewAdded} id={item.id} />}
+           
+            
+           
         </View>
+
+        {reviewModalVisible && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} setReviewAdded={setReviewAdded} id={item.id} />}
+         {/* {user.type_id==2 && !reviewed && <Pressable onPress={()=>{setReviewModalVisible(true)}} ><Text style={LocalProfileStyles.addReview}>Add a review</Text></Pressable>}
+            {user.type_id==2 && reviewed && <Text style={LocalProfileStyles.addReview}>Reviewed</Text>} */}
+        {/* {reviews.length>0 && reviews.map((review, index)=><ReviewCard review={review} key={index}/>)} */}
     </ScrollView>
     
   )

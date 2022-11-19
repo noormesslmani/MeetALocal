@@ -16,6 +16,7 @@ const LocalProfileStyles = StyleSheet.create({
         width:widths.width9,
         flexDirection:"row",
         justifyContent:"space-between",
+        alignItems:"flex-end",
         marginBottom:20
     },
     image:{
@@ -24,7 +25,7 @@ const LocalProfileStyles = StyleSheet.create({
         borderRadius:60
     },
     message:{
-        backgroundColor: colors.lightViolet,
+        backgroundColor: colors.mediumViolet,
         width:80,
         height:30,
         alignItems:"center",
@@ -32,20 +33,47 @@ const LocalProfileStyles = StyleSheet.create({
         borderRadius:10
     },
     separator:{
-        width:widths.width9,
-        borderBottomColor: colors.lightViolet,
+        width:widths.width,
+        borderBottomColor: colors.lightGrey,
         borderBottomWidth: 0.3,
-        marginBottom:20,
+        marginVertical:15,
     },
     sectionContainer:{
         width:widths.width9,
         marginBottom:40
     },
-    iconContainer:{
+    categoryContainer:{
         alignItems:"center",
         marginTop:20,
         marginRight:25,
-        flexWrap:"wrap"
+        flexWrap:"wrap",
+        width:widths.width9,
+        height:'auto',
+        flexDirection:"row",
+        backgroundColor:"white",
+        borderRadius:10,
+        padding:20,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 2,
+            height: 2,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
+        elevation: 1,
+    },
+    iconContainer:{
+        alignItems:"center",
+        marginRight:30
+    },
+    categoryBtn:{
+        width:"auto",
+        height:55,
+        margin:5,
+        backgroundColor:'white',
+        borderRadius:10,
+        alignItems:"center",
+        justifyContent:"center"
     },
     highlightImages:{
         flexDirection:"row",
@@ -68,29 +96,39 @@ const LocalProfileStyles = StyleSheet.create({
         marginLeft:10
     },
     name:{
-    fontSize:18, 
-    fontWeight:"600", 
-    marginBottom:3},
+        fontSize:18, 
+        fontWeight:"600", 
+        marginBottom:3
+    },
     country:
-    {fontSize:14, 
-    fontWeight:"400", 
-    marginBottom:3},
-    likesContainer:{
+    {
+        fontSize:14, 
+        fontWeight:"400", 
+        marginBottom:3
+    },
+    likesContainer:
+    {
         flexDirection:"row", 
-        alignItems:"center"},
+        alignItems:"center"
+    },
     likes:{
         fontSize:13, 
         fontWeight:"400", 
-        marginRight:3},
+        marginRight:3
+    },
     phoneContainer:{
-        flexDirection:"row", 
-        alignItems:"center"},
+       marginHorizontal:3
+    },
     phone:{
         fontSize:13, 
         fontWeight:"400", 
         marginLeft:10, 
         color:'blue', 
         textDecorationLine:"underline"},
+    linksContainer:{
+        flexDirection:"row", 
+        alignItems:"center",
+    },
     language:{
         fontSize:10, 
         fontWeight:"400", 
@@ -103,7 +141,8 @@ const LocalProfileStyles = StyleSheet.create({
         fontWeight:"300"},
     categoryIcon:{
         width:25, 
-        height:25},
+        height:25
+    },
     bookBtn:{
         marginVertical:10,
         width:widths.width9,
@@ -122,6 +161,41 @@ const LocalProfileStyles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 3,
         elevation: 2,
+    },
+    ratingsContainer:{
+        marginTop:20,
+        marginRight:25,
+        width:widths.width9,
+        height:'auto',
+        flexDirection:"row",
+        justifyContent:"space-around",
+        backgroundColor:"white",
+        borderRadius:10,
+        paddingTop:30,
+        paddingBottom:20,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 2,
+            height: 2,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
+        elevation: 2,
+    },
+    averageText:{
+        fontSize:30, 
+        color: colors.gold, 
+        marginBottom:10
+    },
+    reviewNb:{
+        fontSize:10, 
+        marginVertical:5
+    },
+    reviewsLink:{
+        flexDirection:"row", 
+        alignItems:"center", 
+        justifyContent:"center",
+        marginTop:10,
     }
 
 });
