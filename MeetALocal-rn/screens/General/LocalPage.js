@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, ScrollView, Pressable } from 'react-native'
+import { View, Text, TouchableOpacity, Image, ScrollView, Pressable, Linking } from 'react-native'
 import React from 'react'
 import { UserContext } from '../../App'
 import { useState, useEffect, useContext } from "react";
@@ -19,10 +19,9 @@ import { checkReviewed, addReview } from '../../network/App';
 import ReviewModal from '../../components/Modals/ReviewModal';
 import { colors } from '../../constants/colors';
 import BackArrow from '../../components/Header/BackArrow';
-import Carousel from 'react-native-reanimated-carousel';
-import { widths } from '../../constants/dimensions';
 import AppointmentsModal from '../../components/Modals/AppointmentModal';
 import ImageCarousel from '../../components/General/Carousel';
+import { Avatar } from 'react-native-paper';
 const LocalPage=({navigation})=> {
   const route = useRoute();
   const item =route.params.item
@@ -140,6 +139,12 @@ const LocalPage=({navigation})=> {
   const handlePhone=()=>{
     call(args).catch(console.error)
   }
+
+  const handleWhatsapp=()=>{
+    Linking.openURL(
+      `http://api.whatsapp.com/send?phone=${item.phone}` 
+    );
+  }
   //booking appointments
   const handleBooking=()=>{
     console.log('hi')
@@ -150,11 +155,12 @@ const LocalPage=({navigation})=> {
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
         <View style={LocalProfileStyles.mainContainer}>
+
           <View style={LocalProfileStyles.imageContainer}>
             <Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={LocalProfileStyles.image}/>
             <View style={{margin:15}}>
               <Text style={LocalProfileStyles.name}>{item.name}</Text>
-              <View style={{flexDirection:"row"}}><Text style={LocalProfileStyles.country}>{item.country}</Text>{item.type_id==2 && <Map handleMap={handleMap} small={true}/>}</View>
+              <Text style={LocalProfileStyles.country}>{item.country}</Text>
               <View style={LocalProfileStyles.likesContainer}>
                 <Text style={LocalProfileStyles.likes}>{likes}</Text>
                 <Icon name="heart" color={colors.violet} size={15} /> 
@@ -163,17 +169,34 @@ const LocalPage=({navigation})=> {
           </View>
           <View style={LocalProfileStyles.infoContainer}>
             <View>
-              <Pressable style={LocalProfileStyles.phoneContainer} onPress={handlePhone}>
-                <Icon name="phone" size={20} color="grey" />
-                <Text style={LocalProfileStyles.phone}>{item.phone}</Text>
-              </Pressable>
-              <View style={LocalProfileStyles.likesContainer}>
+
+              <View style={LocalProfileStyles.linksContainer}>
+
+                <Text>Contact:</Text>
+                <Pressable style={LocalProfileStyles.phoneContainer} onPress={handlePhone}>
+                  <Avatar.Icon size={25} icon="phone" style={{backgroundColor:'white', borderWidth:0.5, borderColor:colors.violet}} color={colors.violet} />
+                </Pressable>
+                  
+                <Pressable style={LocalProfileStyles.phoneContainer} onPress={handleWhatsapp}>
+                  <Avatar.Icon size={25} icon="whatsapp" style={{backgroundColor:'white', borderWidth:0.5, borderColor:colors.violet}} color={colors.violet} />
+                </Pressable>
+                  
+              </View>
+
+              <View style={{flexDirection:"row", alignItems:"center"}}>
+                <Text>Location:</Text>
+                <Pressable style={LocalProfileStyles.phoneContainer} onPress={handlePhone}>
+                  {item.type_id==1 && <Map handleMap={handleMap} small={true} />}
+                </Pressable>  
+              </View>
+
+              {/* <View style={LocalProfileStyles.likesContainer}>
                 <Ionicons name="language" size={20} color="grey" />
                 {item.languages.map((language)=><Text style={LocalProfileStyles.language} key={language}>{language}</Text>)}
-              </View>
+              </View> */}
             </View>
             <View style={LocalProfileStyles.likesContainer}>
-              {user.type_id==2 && <Pressable style={{marginRight:10}} onPress={handleLike}>{isFavorite?<Icon name="heart" size={25} color={colors.lightViolet} />:<Icon name="heart-o" size={25} color={colors.lightViolet} />}</Pressable>}
+              {user.type_id==2 && <Pressable style={{marginRight:10}} onPress={handleLike}>{isFavorite?<Icon name="heart" size={25} color={colors.mediumViolet} />:<Icon name="heart-o" size={25} color={colors.mediumViolet} />}</Pressable>}
               <Pressable style={LocalProfileStyles.message} onPress={handleMessage}><Text style={{color:"white"}}>Message</Text></Pressable>
             </View>
           </View>
@@ -186,8 +209,6 @@ const LocalPage=({navigation})=> {
           </TouchableOpacity>:null}
           {appointmentModal && <AppointmentsModal modalVisible={appointmentModal} setModalVisible={setAppointmentModal} id={item.id} /> }
 
-
-          <View style={LocalProfileStyles.separator}></View>
           
           {item.about && <View style={LocalProfileStyles.sectionContainer}>
             <Text style={LocalProfileStyles.sectionTitle}>About</Text>
@@ -232,7 +253,7 @@ const LocalPage=({navigation})=> {
           </View>
           {user.type_id==2 && !reviewed && <Pressable onPress={()=>{setReviewModalVisible(true)}} ><Text style={LocalProfileStyles.addReview}>Add a review</Text></Pressable>}
           {user.type_id==2 && reviewed && <Text style={LocalProfileStyles.addReview}>Reviewed</Text>}
-          {reviews && reviews.map((review, index)=><ReviewCard review={review} key={index}/>)}
+          {reviews.length>0 && reviews.map((review, index)=><ReviewCard review={review} key={index}/>)}
           {reviewModalVisible && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} setReviewAdded={setReviewAdded} id={item.id} />}
         </View>
     </ScrollView>
