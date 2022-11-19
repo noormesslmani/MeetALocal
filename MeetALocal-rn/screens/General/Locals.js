@@ -14,7 +14,10 @@ import { colors } from '../../constants/colors';
 import ListFooter from '../../components/General/ListFooter';
 import { useDidMountEffect } from '../../hooks/Hooks';
 import {  useIsFocused } from '@react-navigation/native';
-
+import AppButton from '../../components/Buttons/AppButtons';
+import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import ListHeader from '../../components/General/ListHeaders';
 const Locals=({navigation})=> {
     const [country, setCountry]=useState('all');
     const [category, setCategory]=useState('all');
@@ -54,6 +57,7 @@ const Locals=({navigation})=> {
       }
       else{
         setdata([])
+        setPage(0)
       }
     },[isFocused, page])
     
@@ -69,6 +73,7 @@ const Locals=({navigation})=> {
           category,
           offset:15*page
         }
+        console.log(params)
         const result = await getLocals(params)
         if (result.success){
           setIsLoading(false)
@@ -111,20 +116,23 @@ const Locals=({navigation})=> {
  
   return (
       <View style={HomeStyles.container}>
+         
         {user.type_id==2 && <View style={LocalsStyles.view}>
-            <TouchableOpacity onPress={()=>setViewFav(false)} >{ <Text style={[LocalsStyles.options,viewFav? null: LocalsStyles.selected ]}>View All</Text>}</TouchableOpacity>
-            <TouchableOpacity onPress={()=>setViewFav(true)}>{ <Text style={[LocalsStyles.options, viewFav? LocalsStyles.selected: null]}>Favorites</Text>}</TouchableOpacity>
+            <AppButton text='View All' handlePress={()=>setViewFav(false)} type={viewFav?2:1} />
+            <AppButton text='Favorites' handlePress={()=>setViewFav(true)} type={viewFav?1:2} />
         </View>}
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
+       
         <SafeAreaView>
           <FlatList
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             data={data}
+            keyExtractor={item => item.id}
             renderItem={renderItem}
             style={LocalsStyles.list}
             contentContainerStyle={{ paddingBottom: 300}}
-            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:null}
+            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />: <ListHeader country={country} category={category}/>}
             onEndReachedThreshold={0.1}
             onEndReached={fetchMore}
             ListFooterComponent={<ListFooter isLoadingMore={isLoadingMore} isListEnd={isListEnd} />}

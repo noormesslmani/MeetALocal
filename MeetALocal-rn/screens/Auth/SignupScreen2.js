@@ -68,7 +68,7 @@ const SignupScreen2 = ({navigation}) => {
         <KeyboardAvoidingView style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
           <Text style={styles.signIn}>Register</Text>
           <View style={styles.inputContainer}>
-            <Text>Nationality</Text>
+            <Text style={styles.labels}>Nationality</Text>
             <DropDownPicker
              searchable={true}
              searchPlaceholder="Search..."
@@ -88,6 +88,7 @@ const SignupScreen2 = ({navigation}) => {
             setOpen={setOpenNationality}
             setValue={setNationality}
             setItems={setcountries}
+            maxHeight={300}
             dropDownContainerStyle={{
               marginTop:10,
               borderWidth:0.2,
@@ -104,7 +105,7 @@ const SignupScreen2 = ({navigation}) => {
             {invalidNationality && <Text style={styles.error}>Please select your nationality</Text>}
           </View>
           <View style={styles.inputContainer}>
-            <Text>Country of Residence</Text>
+            <Text style={styles.labels}>Country of Residence</Text>
             <DropDownPicker
             searchable={true}
             searchPlaceholder="Search..."
@@ -121,6 +122,7 @@ const SignupScreen2 = ({navigation}) => {
             zIndexInverse={2000}
             dropDownDirection="BOTTOM"
             items={countries}
+            maxHeight={300}
             setOpen={setOpenCountry}
             setValue={setCountry}
             setItems={setcountries}
@@ -141,7 +143,7 @@ const SignupScreen2 = ({navigation}) => {
             {invalidCountry && <Text style={styles.error}>Please select your country of residence</Text>}
           </View>
           <View style={styles.inputContainer}>
-            <Text>Languages</Text>
+            <Text style={styles.labels}>Languages</Text>
             <DropDownPicker
             searchable={true}
             searchPlaceholder="Search..."
@@ -160,6 +162,7 @@ const SignupScreen2 = ({navigation}) => {
             zIndexInverse={3000}
             dropDownDirection="BOTTOM"
             items={languages}
+            maxHeight={250}
             setOpen={setOpenLanguages}
             setValue={setLanguage}
             setItems={setLanguages}

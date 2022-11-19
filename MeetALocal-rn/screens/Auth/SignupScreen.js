@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import AuthButton from '../../components/Buttons/AuthButton';
 import DatePicker from '../../components/General/datePicker';
 import Icon from 'react-native-vector-icons/AntDesign'
+
 import { colors } from '../../constants/colors';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
@@ -68,20 +69,18 @@ const SignupScreen = ({navigation}) => {
         <View style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
           <Text style={styles.signIn}>Register</Text>
           <View style={styles.inputContainer}>
-            <Text>Full Name</Text>
-            <TextInput placeholder="Full Name" style={styles.input} onChangeText={setFullName} 
+            <TextInput label="Full Name" style={styles.input} onChangeText={setFullName} 
             value={fullName} left={<TextInput.Icon icon={()=><FontAwesome name='user' size={20} />} />} underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}></TextInput>
             {invalidName && <Text style={styles.error}>Please enter your name</Text>}
           </View>
           <View style={styles.inputContainer}>
-            <Text>Phone Number</Text>
-            <TextInput placeholder="Phone" style={styles.input} onChangeText={setPhone} value={phone} 
+            <TextInput label="Phone" style={styles.input} onChangeText={setPhone} value={phone} 
             keyboardType={'numeric'} left={<TextInput.Icon icon='phone' />} underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}></TextInput>
             {invalidPhone && <Text style={styles.error}>Please enter your phone number</Text>}
           </View>
           <View style={styles.inputContainer}>
             <Text>Date of birth</Text>
-            <TouchableOpacity onPress={()=>setDatePicker(true)} style={{alignSelf:'center', marginTop:10}}><Icon name="calendar" size={30}/></TouchableOpacity>
+            <TouchableOpacity onPress={()=>setDatePicker(true)} style={{alignSelf:'center', marginTop:10}}><FontAwesome name="birthday-cake" size={30}/></TouchableOpacity>
             {invalidDate && <Text style={styles.error}>Please select the date of birth</Text>}
           </View>
           <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>

@@ -24,7 +24,7 @@ const EventCard=({navigation, item, choice, setEventDeleted, setEventBooked})=> 
       setBooked(false)
     }
    },[deleted, booked])
-  console.log(choice) 
+  
   return (
     <>
     <TouchableOpacity style={EventCardStyle.cardContainer} onPress={handleEvent}>

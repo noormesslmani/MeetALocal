@@ -53,15 +53,13 @@ const SigninScreen= ({ navigation })=> {
         <View style={[styles.formContainer, styles.shadowProp]}>
           <Text style={styles.signIn}>Sign In</Text>
           <View style={styles.inputContainer}>
-            <Text>Email</Text>
-            <TextInput placeholder="Email" style={styles.input} onChangeText={setEmail} value={email}
+            <TextInput label='Email' style={styles.input} onChangeText={setEmail} value={email}
             left={<TextInput.Icon icon="email" />} underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet} ></TextInput>
             {invalidEmail?<Text style={styles.error}>Please enter a valid email</Text>:null}
           </View>
           <View style={styles.inputContainer}>
-            <Text>Password</Text>
-            <TextInput left={<TextInput.Icon icon="lock" />}
-            secureTextEntry={true} placeholder="Password" style={styles.input} onChangeText={setPassword} value={password}
+            <TextInput label='Password' left={<TextInput.Icon icon="lock" />}
+            secureTextEntry={true}  style={styles.input} onChangeText={setPassword} value={password}
             underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}></TextInput>
           </View>
           {isLoading && <ActivityIndicator color={colors.violet} />}

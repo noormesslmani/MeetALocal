@@ -14,7 +14,8 @@ const CommentsStyles = StyleSheet.create({
     justifyContent:"space-between",
     width:widths.width9,
     padding:10,
-    paddingBottom:0
+    paddingBottom:0,
+    height:"auto"
   },
   image:{
     width:50,
@@ -22,7 +23,8 @@ const CommentsStyles = StyleSheet.create({
     borderRadius:25
   },
   details:{
-  fontSize:11, 
+  fontSize:13, 
+  fontWeight:"500",
   margin:10, 
   fontWeight:"300", 
   alignSelf:"flex-start",
@@ -42,8 +44,8 @@ const CommentsStyles = StyleSheet.create({
   borderWidth:0.5,
   marginBottom:10
   },
-  userName:{fontSize:10, marginLeft:10, fontWeight:"600"},
-  userCountry:{fontSize:10, marginLeft:10},
+  userName:{fontSize:14, marginLeft:10, fontWeight:"500"},
+  userCountry:{fontSize:11, marginLeft:10},
   center:{alignItems:"center"},
   totalComments:{fontSize:10, fontWeight:"300", marginBottom:3,marginLeft:10, alignSelf:"flex-start"},
   scrollView:{marginBottom:10},

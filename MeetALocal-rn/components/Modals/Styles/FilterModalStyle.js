@@ -10,6 +10,11 @@ const FilterModalStyle = StyleSheet.create({
         backgroundColor: 'rgb(0,0,0)',
         backgroundColor: 'rgba(0,0,0,0.5)', 
       },
+      btnContainer:{
+        width:widths.width6,
+        flexDirection:"row",
+        justifyContent:"space-between"
+      },
       modalView: {
         margin: 20,
         backgroundColor: "white",

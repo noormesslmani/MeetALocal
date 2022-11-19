@@ -6,6 +6,7 @@ import { countriesOptions } from '../../constants/countries';
 import { categoriesOptions } from '../../constants/categories';
 import AppButton from '../Buttons/AppButtons';
 import FilterModalStyle from './Styles/FilterModalStyle';
+import { colors } from '../../constants/colors';
 const FilterModal=({navigation, modalVisible, setModalVisible, setCountry, setCategory})=> {
     const [selectedCountry, setSelectedCountry]=useState('all')
     const [selectedCategory, setSelectedCategory]=useState('all')
@@ -32,6 +33,15 @@ const FilterModal=({navigation, modalVisible, setModalVisible, setCountry, setCa
             <View style={FilterModalStyle.dropDownContainer}>
               <Text>Select a country</Text>
               <DropDownPicker
+              searchable={true}
+              searchPlaceholder="Search..."
+              searchPlaceholderTextColor="grey"
+              searchContainerStyle={{
+                borderBottomColor: colors.lighterViolet
+              }}
+              searchTextInputStyle={{
+                borderColor:colors.lightViolet,
+              }}
               style={FilterModalStyle.dropDown}
               zIndex={3000}
               zIndexInverse={1000}
@@ -77,7 +87,10 @@ const FilterModal=({navigation, modalVisible, setModalVisible, setCountry, setCa
             }}
             />
             </View>
+            <View style={FilterModalStyle.btnContainer}>
             <AppButton text={'Apply'} handlePress={handleSave}/>
+            <AppButton text={'Cancel'} handlePress={()=>setModalVisible(false)}/>
+            </View>
         </View>
         </View>
     </Modal>

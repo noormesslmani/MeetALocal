@@ -24,7 +24,9 @@ const LocalsStyles = StyleSheet.create({
     },
     list:{
         width:widths.width,
-        flex: 1
+        flex: 1,
+        marginTop:20,
     },
+    
 });
 export default LocalsStyles;

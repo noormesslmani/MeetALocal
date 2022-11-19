@@ -13,9 +13,9 @@ const HomeCardStyle = StyleSheet.create({
     card:{
         backgroundColor:"#e2d2ef",
         width: widths.width7,
-        height: 0.12*windowHeight,
+        height: 0.13*windowHeight,
         borderRadius:10,
-        margin:5,
+        margin:7,
         alignItems:"center",
         justifyContent:"center"
     },

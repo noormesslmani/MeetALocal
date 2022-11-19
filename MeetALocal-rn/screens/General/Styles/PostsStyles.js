@@ -31,7 +31,8 @@ const PostsStyles = StyleSheet.create({
     },
     list:{
         width:widths.width,
-        flex: 1
+        flex: 1, 
+        marginTop:20
     },
     scrollContainer:{
         height:600,
@@ -49,6 +50,10 @@ const PostsStyles = StyleSheet.create({
         margin:10,
         fontSize:12,
         color:colors.violet
+    },
+    add:{
+        position:"absolute",
+        bottom:50
     }
 });
 export default PostsStyles;

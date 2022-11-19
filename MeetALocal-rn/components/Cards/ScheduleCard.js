@@ -31,7 +31,7 @@ console.log(type)
       setDeleted(true)
     }
   }
-  console.log('hi')
+  console.log(item)
   return (
     <View style={[ScheduleCardStyle.container, booked? ScheduleCardStyle.booked:null, type==2 && ScheduleCardStyle.longerContainer ]} >
       {type==2 && 

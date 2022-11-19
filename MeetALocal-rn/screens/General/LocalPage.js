@@ -41,7 +41,7 @@ const LocalPage=({navigation})=> {
 
   const [visible, setIsVisible] = useState(false);
   const [imageIndex, setImageIndex]= useState(0)
-  const images = item.highlights.map((image)=>({ uri: `${address}/${image}`}))
+  const images = item.highlights?.map((image)=>({ uri: `${address}/${image}`}))
 
 
   const [appointmentModal, setAppointmentModal]=useState(false)
@@ -104,7 +104,7 @@ const LocalPage=({navigation})=> {
   //navigating to chat screen
   const handleMessage=()=>{
     console.log('hi')
-    navigation.navigate('chat-screen', { chatId: null, userId: item.id, image:item.profile_Picture, name:item.name})
+    navigation.navigate('chat-screen', { chatId: null, userId: item.id, image:item.profile_picture, name:item.name})
   }
 
   //checking if favorited
@@ -209,7 +209,7 @@ const LocalPage=({navigation})=> {
 
      
 
-          {item.highlights.length>0 && 
+          {images && 
           <View style={LocalProfileStyles.sectionContainer}>
           <Text style={LocalProfileStyles.sectionTitle}>Highlights</Text>
           <ImageCarousel images={images} />

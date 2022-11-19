@@ -15,7 +15,7 @@ const NewPostModalStyle = StyleSheet.create({
         marginTop: 0.1*windowHeight,
         backgroundColor: "white",
         width:widths.width,
-        flex:0.9,
+        flex:0.8,
         borderRadius: 20,
         alignItems: "center",
         justifyContent:"center",
@@ -43,7 +43,7 @@ const NewPostModalStyle = StyleSheet.create({
         height:50,
         width:"100%",
         borderBottomWidth:0.5,
-        borderColor:colors.blue,
+        borderColor:colors.violet,
       },
       optionsContainer:{
         marginTop:10,
@@ -52,14 +52,15 @@ const NewPostModalStyle = StyleSheet.create({
         borderRightWidth:0,
         borderBottomRightRadius:0,
         borderBottomLeftRadius:0,
-        borderBottomColor:colors.blue,
+        borderBottomColor:colors.violet,
         borderBottomWidth:0.5,
         width:"100%",
       },
       buttonContainer:{
-        width:widths.width9,
+        width:widths.width6,
         alignItems:"center",
-        justifyContent:"center",
+        flexDirection:"row",
+        justifyContent:"space-between",
         paddingTop:50
       },
       error:{
