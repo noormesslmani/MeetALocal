@@ -8,6 +8,8 @@ import { getComments, addComment } from '../../network/App';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import CommentsStyles from './Styles/CommentsStyles';
 import { useRoute } from '@react-navigation/native';
+import { address } from '../../constants/address';
+import { colors } from '../../constants/colors';
 const PostComments=()=> {
     const route = useRoute();
     const item= route.params.item
@@ -50,7 +52,7 @@ const PostComments=()=> {
         <KeyboardAvoidingView style={CommentsStyles.centeredView}>
             <View style={CommentsStyles.headerContainer}>
                 <View style={{flexDirection:"row"}}>
-                    <Image source={image} style={CommentsStyles.image} />
+                    <Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={CommentsStyles.image} />
                     <View>
                         <Text style={CommentsStyles.userName}>{item.name}</Text>
                         <Text style={CommentsStyles.userCountry}>{item.country}</Text>
@@ -68,7 +70,7 @@ const PostComments=()=> {
             <View style={CommentsStyles.addComment}>
             <TextInput placeholder='Add a comment' onChangeText={setNewComment} value={newComment} />
             <Pressable style={CommentsStyles.pressable} onPress={handleComment}>
-                <Icon name="send" color="blue" size={20}/>
+                <Icon name="send" color={colors.violet} size={20}/>
             </Pressable>
             </View>
         </KeyboardAvoidingView>
