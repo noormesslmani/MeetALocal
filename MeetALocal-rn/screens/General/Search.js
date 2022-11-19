@@ -8,8 +8,9 @@ import { colors } from '../../constants/colors';
 import { widths } from '../../constants/dimensions';
 import WavyBack from '../../components/General/WavyBackground';
 import { searchLocals } from '../../network/App';
-import LocalsStyles from './Styles/LocalsPageStyles';
 import { useFocusEffect } from '@react-navigation/native';
+import SearchPageStyles from './Styles/SearchPageStyles';
+import EmptyPage from '../../components/General/EmptyPage';
 const SearchScreen=({navigation})=> {
   const [data, setdata]=useState(null)
   const [isLoading, setIsLoading]= useState(false)
@@ -18,7 +19,7 @@ const SearchScreen=({navigation})=> {
   
   navigation.setOptions({
     headerTitle: () => <Searchbar placeholder="Search" onChangeText={setSearchQuery}
-    value={searchQuery} style={{width:widths.width8}} onSubmitEditing={handleSearch}
+    value={searchQuery} style={{width:widths.width8}} 
     />,  headerTitleAlign: 'center'  })
     
     useFocusEffect(
@@ -26,13 +27,14 @@ const SearchScreen=({navigation})=> {
         setSearchQuery(null)
         setSearched(false)
         setdata(null)
-      }, []), )
+      }
+      
+      , []), )
+    
+      useEffect(()=>{
+        searchQuery && getSearchedLocals()
+      },[searchQuery])
 
-
-  const handleSearch=()=>{
-    getSearchedLocals()
-
-  } 
   const getSearchedLocals=async ()=>{
     setSearched(false)
     setIsLoading(true)
@@ -50,15 +52,16 @@ console.log(data)
   return (
       <View style={HomeStyles.container}>
         <WavyBack />
-        <SafeAreaView>
+        <SafeAreaView style={SearchPageStyles.listContainer}>
+        {!isLoading && data && data.length==0? <EmptyPage />:null}
           <FlatList
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             data={data}
             renderItem={renderItem}
-            style={[LocalsStyles.list,{marginTop:100}]}
+            style={SearchPageStyles.list}
             contentContainerStyle={{ paddingBottom: 100}}
-            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:data && data.length>0?<Text>Search results</Text>:data && data.length==0?<Text>Nothing to display</Text>:null}
+            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:data && data.length>0?<Text>Search results</Text>:null}
             ListHeaderComponentStyle={{alignItems:"center", justifyContent:"center"}}
           />
            
