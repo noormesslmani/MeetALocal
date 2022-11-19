@@ -13,6 +13,9 @@ import { colors } from '../../constants/colors';
 import ListFooter from '../../components/General/ListFooter';
 import { useDidMountEffect } from '../../hooks/Hooks';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import AppButton from '../../components/Buttons/AppButtons';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import ListHeader from '../../components/General/ListHeaders';
 const Posts=({navigation})=> {
   const [viewOwn, setViewOwn]=useState(false)
   const [country, setCountry]=useState('all');
@@ -52,6 +55,7 @@ const Posts=({navigation})=> {
       }
       else{
         setdata([])
+        setPage(0)
       }
     },[isFocused, page])
 
@@ -101,14 +105,11 @@ const Posts=({navigation})=> {
   return (
       <View style={HomeStyles.container}>
         <View style={PostsStyles.view}>
-            <TouchableOpacity onPress={()=>setViewOwn(false)} >{ <Text style={[PostsStyles.options,viewOwn? null: PostsStyles.selected ]}>All Posts</Text>}</TouchableOpacity>
-            <TouchableOpacity onPress={()=>setViewOwn(true)}>{ <Text style={[PostsStyles.options, viewOwn? PostsStyles.selected: null]}>My Posts</Text>}</TouchableOpacity>
+            <AppButton text='All Posts' handlePress={()=>setViewOwn(false)} type={viewOwn?2:1} />
+            <AppButton text='My Posts' handlePress={()=>setViewOwn(true)} type={viewOwn?1:2} />
         </View>
 
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
-        <TouchableOpacity onPress={()=>{setNewPostModalVisible(true)}}>
-          <Text style={PostsStyles.newPost}>New Post</Text>
-        </TouchableOpacity>
         <NewPostModal modalVisible={newPostModalVisible} setModalVisible={setNewPostModalVisible}/>
         <SafeAreaView>
           <FlatList
@@ -117,12 +118,13 @@ const Posts=({navigation})=> {
             keyExtractor={item => item.id}
             style={PostsStyles.list}
             contentContainerStyle={{ paddingBottom: 300}}
-            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:null}
+            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:<ListHeader country={country} category={category} /> }
             onEndReachedThreshold={1}
             onEndReached={fetchMore}
             ListFooterComponent={<ListFooter isLoadingMore={isLoadingMore} isListEnd={isListEnd} />}
           />
         </SafeAreaView>
+        <TouchableOpacity onPress={()=>setNewPostModalVisible(true)} style={PostsStyles.add} ><Icon name= 'plus' size={50} color={colors.lightViolet} /></TouchableOpacity>
       </View>
     )
 }

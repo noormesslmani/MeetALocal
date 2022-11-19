@@ -67,22 +67,19 @@ const SignupScreen3 = ({navigation}) => {
         <View style={[styles.formContainer, styles.shadowProp, styles.signUp]}>
           <Text style={styles.signIn}>Register</Text>
           <View style={styles.inputContainer}>
-            <Text>Email</Text>
-            <TextInput placeholder="Email" style={styles.input} onChangeText={setEmail} value={email}
+            <TextInput label="Email" style={styles.input} onChangeText={setEmail} value={email}
             left={<TextInput.Icon icon="email" />} underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}></TextInput>
             {invalidEmail && <Text style={styles.error}>Please enter a valid email</Text>}
           </View>
           <View style={styles.inputContainer}>
-            <Text>Password</Text>
             <TextInput left={<TextInput.Icon icon="lock" />}
-            secureTextEntry={true} placeholder="Password" style={styles.input} onChangeText={setPassword} value={password}
+            secureTextEntry={true} label="Password" style={styles.input} onChangeText={setPassword} value={password}
             underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}></TextInput>
             {invalidPassword && <Text style={styles.error}>Password must contain atleast 8 characters, 1 uppercase letter, 1 lowercase letter, and 1 number</Text>}
           </View>
           <View style={styles.inputContainer}>
-            <Text>Confirm Password</Text>
             <TextInput left={<TextInput.Icon icon="lock" />}
-            secureTextEntry={true} placeholder="Confirm password" style={styles.input} onChangeText={setConfirmPassword} value={confirmPassword}
+            secureTextEntry={true} label="Confirm password" style={styles.input} onChangeText={setConfirmPassword} value={confirmPassword}
             underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}></TextInput>
             {unmatchedPassword && <Text style={styles.error}>Passwords do not match!</Text>}
           </View>

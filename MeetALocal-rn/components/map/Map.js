@@ -13,8 +13,8 @@ const Map=({lat, lng, data, type, handleDrag, navigation})=> {
                   region= {{
                       latitude: lat,
                       longitude: lng,
-                      latitudeDelta: 5,
-                      longitudeDelta: 5,
+                      latitudeDelta: 1,
+                      longitudeDelta: 1,
                   }}
                   style={[type !=2  && MapStyle.map, type==2 && MapStyle.map2]}
                   loadingEnabled={true}

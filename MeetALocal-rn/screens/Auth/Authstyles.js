@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     },
     input:{
         width: widths.width6,
-        height: 40,
+        height: 55,
         backgroundColor: "white",
         paddingLeft: 10,
         marginTop: 5,
@@ -93,7 +93,9 @@ const styles = StyleSheet.create({
         textAlign:"center",
         fontWeight:"500"
     },
-    
+    labels:{
+        fontSize:15
+    },
     profilePic:{
         width:160,
         height:160,

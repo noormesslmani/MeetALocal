@@ -12,15 +12,11 @@ const AppointmentsModal=({navigation, setModalVisible, modalVisible, id})=> {
   const [selected, setSelected]=useState(null)
   const [isloading, setIsLoading]=useState(false)
 
-  const [expoPushToken, setExpoPushToken] = useState('');
-  const [notification, setNotification] = useState(false);
-  const notificationListener = useRef();
-  const responseListener = useRef();
 
   useEffect(()=>{
     if(modalVisible){
     getAvailalbeAppointments()
-    Notify(setExpoPushToken, setNotification, notificationListener, responseListener)
+
     }
   },[modalVisible])
   const getAvailalbeAppointments=async()=>{

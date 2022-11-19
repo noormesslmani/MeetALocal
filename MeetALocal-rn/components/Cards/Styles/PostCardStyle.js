@@ -53,24 +53,31 @@ const PostCardStyle = StyleSheet.create({
         justifyContent:"center"
     },
     comments:{
-        fontSize:11, 
-        fontWeight:"300", 
+        fontSize:11,  
         margin:2,
-        fontWeight:"100"
+        fontWeight:"300"
     },
     details:{
-        fontSize:11, 
+        fontSize:12, 
         marginLeft:70, 
         fontWeight:"300", 
         alignSelf:"flex-start",
         marginBottom:10
     },
+    userInfo:{
+        flexDirection:'row',
+        justifyContent:"space-between",
+        width:widths.width7,
+        alignItems:"center"
+    },
     postDetails:{
-        fontSize:11, 
+        fontSize:12, 
         marginLeft:10, 
-        fontWeight:"200", 
+        marginVertical:4,
+        fontWeight:"300", 
         alignSelf:"flex-start",
-        width:widths.width7
+        width:widths.width7,
+        overflow:"hidden"
     }
    
 });

@@ -87,9 +87,11 @@ const NewEventModalStyles = StyleSheet.create({
     marginBottom:20
   },
   btnContainer:{
-    width:"100%",
     alignItems:"center",
-    marginTop:30
+    marginTop:30,
+    width:widths.width6, 
+    flexDirection:"row", 
+    justifyContent:"space-between"
   }
 });
 export default NewEventModalStyles;

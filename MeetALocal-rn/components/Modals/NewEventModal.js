@@ -13,6 +13,8 @@ import DatePicker from '../General/datePicker';
 import AppButton from '../Buttons/AppButtons';
 import { createNewEvent } from '../../network/App';
 import { sendNotification, Notify } from '../../Notifications/Notifications';
+import { colors } from '../../constants/colors';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated})=> {
     const { user, setUser} = useContext(UserContext);
     const[title, setTtitle]=useState(null)
@@ -29,11 +31,6 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
     const [ext, setext]= useState(null)
     const [seats, setSeats]= useState(null)
     const [isLoading, setIsLoading]=useState(false)
-
-    const [expoPushToken, setExpoPushToken] = useState('');
-    const [notification, setNotification] = useState(false);
-    const notificationListener = useRef();
-    const responseListener = useRef();
 
     const addImage = async () => {
         let _image = await ImagePicker.launchImageLibraryAsync({
@@ -54,9 +51,7 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
         }
     },[image])
 
-    useEffect(()=>{
-       modalVisible && Notify(setExpoPushToken, setNotification, notificationListener, responseListener)
-    },[modalVisible])
+   
     const handleDate= (event, value)=>{
         setDatePicker(false)
         setDate(value)
@@ -89,8 +84,10 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
             setTimeout(() => {
                 setModalVisible(false);
               }, 2000);
-            sendNotification('Meet A Local','Event successfully created')
+            const token = await AsyncStorage.getItem('@expoToken')
+            sendNotification(token,'Meet A Local','Event successfully created')
             setEventCreated(true)
+            setIsLoading(false)
         }
         else(setIsLoading(false))
       }
@@ -107,81 +104,88 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
         <View style={NewEventModalStyles.centeredView}>
             <View style={NewEventModalStyles.modalView}>
                 <Text style={NewEventModalStyles.title}>Create New Event</Text>
-                <View style={NewEventModalStyles.container}>
-                {
-                    image  && <Image source={{ uri: image }} style={{ width: "100%", height: "100%" }} />
-                }
-                    <View style={NewEventModalStyles.uploadBtnContainer}>
-                        <TouchableOpacity onPress={addImage} style={NewEventModalStyles.uploadBtn} >
-                            <Text>{image ? 'Edit' : 'Upload'} Image</Text>
-                            <AntDesign name="camera" size={20} color="black" />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <KeyboardAwareScrollView style={{width:"90%", margin:10, alignSelf:"center"}}
+                <KeyboardAwareScrollView style={{width:"90%", margin:10}}
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
                 >
-                <View style={NewEventModalStyles.contentContainer}>
-                    <Text>Title *</Text>
-                    <TextInput placeholder='Event title' style={NewEventModalStyles.input} value={title} onChangeText={setTtitle}></TextInput>
-                </View>
-                
-                <View style={NewEventModalStyles.contentContainer}>
-                    <Text>Details *</Text>
-                    <TextInput placeholder='Event details' style={NewEventModalStyles.input} value={details} onChangeText={setDetails}></TextInput>
-                </View>
-                <View style={NewEventModalStyles.contentContainer}>
-                    <Text>Fees *</Text>
-                    <TextInput placeholder='Enter fees' style={NewEventModalStyles.input} value={fees} onChangeText={setFees}></TextInput>
-                </View>
-                <View style={NewEventModalStyles.contentContainer}>
-                    <Text>Seats </Text>
-                    <TextInput placeholder='Enter seats' style={NewEventModalStyles.input} value={seats} onChangeText={setSeats} keyboardType = 'numeric'></TextInput>
-                </View>
-                <View style={NewEventModalStyles.contentContainer}>
-                    <Text>Categories*</Text>
-                    <DropDownPicker
-                    style={NewEventModalStyles.optionsContainer}
-                    zIndex={2000}
-                    zIndexInverse={2000}
-                    open={openCategory}
-                    value={selectedCategory}
-                    dropDownDirection="TOP"
-                    items={categories}
-                    setOpen={setOpenCategory}
-                    setValue={setSelectedCategory}
-                    setItems={setCategories}
-                    listMode="SCROLLVIEW"
-                    multiple={true}
-                    mode="BADGE"
-                    placeholder="Select a category"
-                    placeholderStyle={{
-                    color: "grey"
-                    }}
-                    
-                    closeAfterSelecting={true}
-                    dropDownContainerStyle={{
-                        borderRadius:0,
-                        borderWidth:0.5,
-                        marginBottom:15
-                    }}
-                    />
-                </View>
-                <View style={NewEventModalStyles.contentContainer}>
-                    <Text>Where *</Text>
-                    <TextInput placeholder='Event location' style={NewEventModalStyles.input} value={place} onChangeText={setPlace}></TextInput>
-                </View>
-                <View style={NewEventModalStyles.dateContainer}>
-                    <Text style={{marginRight:"20%"}}>When *</Text>
-                    <View style={{flexDirection:"row", alignItems:"center", alignSelf:"center"}}>
-                        <Text style={{fontSize:12}}>Date</Text>
-                    <TouchableOpacity onPress={()=>setDatePicker(true)} style={{alignSelf:'center', marginLeft:5}}><Icon name="calendar" size={20}/></TouchableOpacity>
-                        { datePicker && <DatePicker date={date} handleDate={handleDate} type={2} />}
+                <View style={{width:'100%', alignItems:"center"}} >
+                    <View style={NewEventModalStyles.container}>
+                    {
+                        image  && <Image source={{ uri: image }} style={{ width: "100%", height: "100%" }} />
+                    }
+                        <View style={NewEventModalStyles.uploadBtnContainer}>
+                            <TouchableOpacity onPress={addImage} style={NewEventModalStyles.uploadBtn} >
+                                <Text>{image ? 'Edit' : 'Upload'} Image</Text>
+                                <AntDesign name="camera" size={20} color="black" />
+                            </TouchableOpacity>
+                        </View>
                     </View>
+                    <View style={NewEventModalStyles.contentContainer}>
+                        <Text>Title *</Text>
+                        <TextInput placeholder='Event title' style={NewEventModalStyles.input} value={title} onChangeText={setTtitle}></TextInput>
+                    </View>
+                    
+                    <View style={NewEventModalStyles.contentContainer}>
+                        <Text>Details *</Text>
+                        <TextInput placeholder='Event details' style={NewEventModalStyles.input} value={details} onChangeText={setDetails}></TextInput>
+                    </View>
+                    <View style={NewEventModalStyles.contentContainer}>
+                        <Text>Fees *</Text>
+                        <TextInput placeholder='Enter fees' style={NewEventModalStyles.input} value={fees} onChangeText={setFees}></TextInput>
+                    </View>
+                    <View style={NewEventModalStyles.contentContainer}>
+                        <Text>Seats </Text>
+                        <TextInput placeholder='Enter seats' style={NewEventModalStyles.input} value={seats} onChangeText={setSeats} keyboardType = 'numeric'></TextInput>
+                    </View>
+                    <View style={NewEventModalStyles.contentContainer}>
+                        <Text>Categories*</Text>
+                        <DropDownPicker
+                        style={NewEventModalStyles.optionsContainer}
+                        zIndex={2000}
+                        zIndexInverse={2000}
+                        open={openCategory}
+                        value={selectedCategory}
+                        dropDownDirection="TOP"
+                        items={categories}
+                        setOpen={setOpenCategory}
+                        setValue={setSelectedCategory}
+                        setItems={setCategories}
+                        listMode="SCROLLVIEW"
+                        multiple={true}
+                        mode="BADGE"
+                        placeholder="Select a category"
+                        placeholderStyle={{
+                        color: "grey"
+                        }}
+                        
+                        closeAfterSelecting={true}
+                        dropDownContainerStyle={{
+                            borderRadius:0,
+                            borderWidth:0.5,
+                            marginBottom:15
+                        }}
+                        />
+                    </View>
+                    <View style={NewEventModalStyles.contentContainer}>
+                        <Text>Where *</Text>
+                        <TextInput placeholder='Event location' style={NewEventModalStyles.input} value={place} onChangeText={setPlace}></TextInput>
+                    </View>
+                    <View style={NewEventModalStyles.dateContainer}>
+                        <Text style={{marginRight:"20%"}}>When *</Text>
+                        <View style={{flexDirection:"row", alignItems:"center", alignSelf:"center"}}>
+                            <Text style={{fontSize:12}}>Date</Text>
+                        <TouchableOpacity onPress={()=>setDatePicker(true)} style={{alignSelf:'center', marginLeft:5}}><Icon name="calendar" size={20}/></TouchableOpacity>
+                            { datePicker && <DatePicker date={date} handleDate={handleDate} type={2} />}
+                        </View>
+                    </View>
+                    {isLoading && <ActivityIndicator color={colors.violet} />}
+                    
+                    <View style={NewEventModalStyles.btnContainer}>
+                        <AppButton text={'Create'} handlePress={hanldePress}/>
+                        <AppButton text={'Cancel'} handlePress={()=>setModalVisible(false)}/>
+                    </View>
+                  
                 </View>
-                {isLoading && <ActivityIndicator color="#8C57BA" />}
-                <View style={NewEventModalStyles.btnContainer}><AppButton text={'Create'} handlePress={hanldePress}/></View>
                 </KeyboardAwareScrollView> 
             </View>
         </View>

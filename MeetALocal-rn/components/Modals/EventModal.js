@@ -9,6 +9,7 @@ import { UserContext } from '../../App'
 import { deleteEvents } from '../../network/App';
 import { colors } from '../../constants/colors';
 import { Button} from 'react-native-paper';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import EventModalStyle from './Styles/EventModalStyle';
 import { isEventBooked, toggleBookedEvent } from '../../network/App';
 import { sendNotification, Notify } from '../../Notifications/Notifications';
@@ -19,15 +20,10 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
     const [isLoading, setIsLoading]=useState(false)
     const [isBooked, setIsBooked]=useState(false)
 
-    const [expoPushToken, setExpoPushToken] = useState('');
-    const [notification, setNotification] = useState(false);
-    const notificationListener = useRef();
-    const responseListener = useRef();
 
     useEffect(()=>{
         if(modalVisible)
         {
-          Notify(setExpoPushToken, setNotification, notificationListener, responseListener)
           setCategories(item.categories)
           if(user.type_id==2){
             isSavedEvent()
@@ -82,7 +78,8 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
       if (result.success){
         setModalVisible(false)
         setBooked(true)
-        isBooked? sendNotification('Meet A Local','Event successfully unbooked'):sendNotification('Meet A Local','Event successfully booked')
+        const token = await AsyncStorage.getItem('@expoToken')
+        isBooked? sendNotification(token,'Meet A Local','Event successfully unbooked'):sendNotification(token,'Meet A Local','Event successfully booked')
       }
       setIsLoading(false)
     }

@@ -1,11 +1,12 @@
 import { View, Image } from 'react-native'
-import React from 'react'
-import { useContext } from "react";
+import React, { useEffect } from 'react'
+import { useContext, useRef, useState } from "react";
 import HomeStyles from './Styles/HomeStyles';
 import { UserContext } from '../../App'
 import { address } from '../../constants/address';
 import HomeCard from '../../components/Cards/HomeCard';
 import WavyBack from '../../components/General/WavyBackground';
+import { sendNotification, Notify } from '../../Notifications/Notifications';
 const Home=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const handleLocals=()=>{
@@ -17,7 +18,15 @@ const Home=({navigation})=> {
     const handleEvents=()=>{
         navigation.navigate('events')
     }
-    console.log(user.type_id)
+
+    const [expoPushToken, setExpoPushToken] = useState('');
+    const [notification, setNotification] = useState(false);
+    const notificationListener = useRef();
+    const responseListener = useRef();
+    useEffect(()=>{
+        Notify(setExpoPushToken, setNotification, notificationListener, responseListener)
+    },[])
+   
   return (
     <View style={HomeStyles.container}>
         <WavyBack/>

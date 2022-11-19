@@ -60,7 +60,7 @@ const Schedules=()=> {
           contentContainerStyle={{ paddingBottom: 300, paddingTop:20, paddingHorizontal:10}}
           ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:null}
           />
-          <TouchableOpacity onPress={()=>setScheduleModal(true)} ><Icon name= 'plus' size={50} color={colors.lightViolet} /></TouchableOpacity>
+          <TouchableOpacity onPress={()=>setScheduleModal(true)} style={ScheduleStyles.add} ><Icon name= 'plus' size={50} color={colors.lightViolet} /></TouchableOpacity>
           {scheduleModal && <ScheduleModal setModalVisible={setScheduleModal} modalVisible={scheduleModal} setScheduleAdded={setScheduleAdded} />}
         </View>
      

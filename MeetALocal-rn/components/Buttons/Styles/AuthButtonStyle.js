@@ -23,7 +23,15 @@ const AuthButtonStyle = StyleSheet.create({
         justifyContent: "center",
         marginTop: 10,
     },
-
+    button3:{
+        width:120,
+        height: 40,
+        borderRadius: 10,
+        backgroundColor:colors.lightViolet,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 20,
+    },
 
 })
 export default AuthButtonStyle;

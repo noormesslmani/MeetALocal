@@ -7,6 +7,7 @@ import { addReview } from '../../network/App';
 import { colors } from '../../constants/colors';
 import { sendNotification, Notify } from '../../Notifications/Notifications';
 import ReviewModalStyle from './Styles/ReviewModalStyle';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const ReviewModal=({setModalVisible, modalVisible, id,setReviewAdded })=> {
     const [review, setReview]=useState(null)
     const [rating,setRating]=useState(3)
@@ -23,7 +24,6 @@ const ReviewModal=({setModalVisible, modalVisible, id,setReviewAdded })=> {
 
     const handleSubmit=()=>{
       addNewReview()
-      sendNotification('Meet A Local','Review successfully Added')
     }
     const handleDiscard=()=>{
       setModalVisible(false)
@@ -41,6 +41,8 @@ const ReviewModal=({setModalVisible, modalVisible, id,setReviewAdded })=> {
       if (result.success){
         setIsLoading(false)
         setReviewAdded(true)
+        const token = await AsyncStorage.getItem('@expoToken')
+        sendNotification(token,'Meet A Local','Review successfully Added')
         setModalVisible(false)
       }
     }
@@ -64,8 +66,8 @@ const ReviewModal=({setModalVisible, modalVisible, id,setReviewAdded })=> {
           </View> 
           {isLoading && <ActivityIndicator color={colors.violet} />}
             <View style={ReviewModalStyle.btnContainer}>
-                <AppButton text='submit' handlePress={handleSubmit} />
-                <AppButton text='discard' handlePress={handleDiscard} />
+                <AppButton text='Submit' handlePress={handleSubmit} />
+                <AppButton text='Cancel' handlePress={handleDiscard} />
             </View>
         </View>
       </View>

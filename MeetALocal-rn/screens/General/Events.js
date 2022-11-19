@@ -11,6 +11,10 @@ import {getAllEvents, getSavedEvents, getOwnEvents, getBookedEvents} from '../..
 import BackArrow from '../../components/Header/BackArrow';
 import Filters from '../../components/Header/Filters';
 import { colors } from '../../constants/colors';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+import Icon from 'react-native-vector-icons/FontAwesome'
+import AppButton from '../../components/Buttons/AppButtons';
+import ListHeader from '../../components/General/ListHeaders';
 const Events=({navigation})=> {
   const [choice, setChoice]=useState(1)
   const [modalVisible, setModalVisible] = useState(false)
@@ -81,27 +85,30 @@ const Events=({navigation})=> {
     
   return (
     <View style={HomeStyles.container}>
-        <View style={EventsStyles.view}>
-            <TouchableOpacity onPress={()=>setChoice(1)} >{ <Text style={[EventsStyles.options,choice==1 ? EventsStyles.selected: null ]}>All Events</Text>}</TouchableOpacity>
-            {user.type_id==2 && <TouchableOpacity onPress={()=>setChoice(2)}>{ <Text style={[EventsStyles.options, choice==2 ? EventsStyles.selected: null]}>Saved Events</Text>}</TouchableOpacity>}
-            {user.type_id==2 && <TouchableOpacity onPress={()=>setChoice(4)}>{ <Text style={[EventsStyles.options, choice==4 ? EventsStyles.selected: null]}>Bookings</Text>}</TouchableOpacity>}
-            {user.type_id==1 && <TouchableOpacity onPress={()=>setChoice(3)}>{ <Text style={[EventsStyles.options, choice==3? EventsStyles.selected: null]}>My Events</Text>}</TouchableOpacity>}
+        <View style={user.type_id==1? EventsStyles.view1: EventsStyles.view2}>
+            <AppButton text="All Events" handlePress={()=>setChoice(1)} type={choice==1?1:2} /> 
+            {user.type_id==2 && <AppButton text="Saved" handlePress={()=>setChoice(2)} type={choice==2?1:2}/> }
+            {user.type_id==1 && <AppButton text="My Events" handlePress={()=>setChoice(3)} type={choice==3?1:2}/> }
+            {user.type_id==2 && <AppButton text="Bookings" handlePress={()=>setChoice(4)} type={choice==4?1:2}/> }
         </View>
         <View style={EventsStyles.separator}/>
-        {user.type_id==1 && <TouchableOpacity onPress={()=>{setEventModalVisible(true)}}><Text style={{color:"#8C57BA", marginBottom:5, textDecorationLine:"underline"}}>Create an event</Text></TouchableOpacity>}
+
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
         <NewEventModal modalVisible={eventModalVisible} setModalVisible={setEventModalVisible} setEventCreated={setEventCreated}/>
         <SafeAreaView style={EventsStyles.listContainer}>
           <FlatList
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
             data={data}
             renderItem={renderItem}
             numColumns={2}
             Key={2}
             keyExtractor={item => item.id}
             style={EventsStyles.list}
-            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:null}
+            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:<ListHeader country={country} category={category} />}
             contentContainerStyle={{paddingTop:20, paddingBottom: 300}}
           />
+          {user.type_id==1 && <TouchableOpacity onPress={()=>setEventModalVisible(true)} style={EventsStyles.add} ><Icon name= 'plus' size={50} color={colors.lightViolet} /></TouchableOpacity>}
         </SafeAreaView>
       </View>
   )

@@ -70,7 +70,6 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
             <KeyboardAwareScrollView style={{width:"100%"}}>
               <View style={{alignItems:"center", width:"100%"}}>
                 <Text style={NewPostModalStyle.title}>Create New Post</Text>
-                <Pressable style={NewPostModalStyle.closeModal} onPress={()=>setModalVisible(false)}><Icon name="close" size={25} color="grey" /></Pressable>
                 <View style={NewPostModalStyle.contentContainer}>
                     <Text>Post *</Text>
                     <TextInput placeholder='new post' style={NewPostModalStyle.input} multiline={true} value={details} onChangeText={setDetails}></TextInput>
@@ -79,13 +78,22 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                 <View style={{width:"90%",marginBottom:40}}>
                     <Text >Select a country *</Text>
                     <DropDownPicker
+                    searchable={true}
+                    searchPlaceholder="Search..."
+                    searchPlaceholderTextColor="grey"
+                    searchContainerStyle={{
+                      borderBottomColor: colors.lighterViolet
+                    }}
+                    searchTextInputStyle={{
+                      borderColor:colors.lightViolet,
+                    }}
                     defaultValue={null}
                     style={NewPostModalStyle.optionsContainer}
-                    zIndex={3000}
-                    zIndexInverse={1000}
+                    zIndex={1000}
+                    zIndexInverse={3000}
                     open={openCountry}
                     value={selectedCountry}
-                    dropDownDirection="TOP"
+                    dropDownDirection='TOP'
                     items={countries}
                     setOpen={setOpenCountry}
                     setValue={setSelectedCountry}
@@ -98,7 +106,6 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                     }}
                     dropDownContainerStyle={{
                         marginTop:10,
-                        borderColor:colors.lightBlue,
                         borderWidth:0.5
                     }}
                     />
@@ -129,7 +136,6 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                     closeAfterSelecting={true}
                     dropDownContainerStyle={{
                         marginTop:10,
-                        borderColor:"#4BB0F9",
                         borderWidth:0.5
                     }}
                     />
@@ -137,6 +143,7 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                 </View>
                 <View style={NewPostModalStyle.buttonContainer}>
                   <AppButton text={'Submit'} handlePress={handleSubmit} />
+                  <AppButton text={'Cancel'} handlePress={()=>setModalVisible(false)} />
                 </View>
                 </View>
                 </KeyboardAwareScrollView>

@@ -9,6 +9,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import AppButton from '../Buttons/AppButtons';
 import { addSchedule } from '../../network/App';
 import ScheduleModalStyle from './Styles/ScheduleModalStyle';
+
 const ScheduleModal=({setModalVisible, modalVisible, setScheduleAdded })=> {
     const [date, setDate]=useState(new Date())
     const [startTime, setStartTime]= useState(new Date() )
