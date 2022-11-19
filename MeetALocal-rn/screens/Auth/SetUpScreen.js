@@ -79,7 +79,6 @@ const register= async()=>{
   };
   const result = await registerAccount(data)
   if (result.success){
-    await AsyncStorage.setItem("@token", JSON.stringify(result.data['token']));
     await AsyncStorage.setItem("@user", JSON.stringify(result.data['user']));
     setUser(result.data.user)
     navigation.reset({
@@ -107,14 +106,16 @@ return (
           left={<TextInput.Icon icon="pen" />} underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}
           ></TextInput>
         </View>
-        <Text style={styles.gender}>Gender *</Text>
+        <Text>Gender *</Text>
         {genderunset?<Text style={styles.error}>Please select your gender</Text>:null}
         <View style={styles.genderContainer}>
           <TouchableOpacity onPress={handleMale}><Avatar.Icon size={0.25*widths.width} style={[styles.genderAvatar, gender=='Male'?styles.selectedGender: null]} icon={()=><Image source={require('../../assets/male.png')} style={styles.genderIcon} />} /></TouchableOpacity>
           <TouchableOpacity onPress={handleFemale}><Avatar.Icon size={0.25*widths.width} style={[styles.genderAvatar, gender=='Female'?styles.selectedGender: null]} icon={()=><Image source={require('../../assets/female.png')} style={styles.genderIcon} />} /></TouchableOpacity>
         </View>
         {isLoading && <ActivityIndicator color="#8C57BA" />}
-        <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>
+        <View style={{position:"absolute", bottom:20}}>
+        <AuthButton title={'Next'} handleSubmit={handleSubmit} type={3} ></AuthButton>
+        </View>
       </View>
       </KeyboardAwareScrollView>
   </View>

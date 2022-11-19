@@ -99,9 +99,9 @@ const Categories=({navigation})=> {
             latitude,
             longitude,
           };
+          console.log(data)
         const result = await registerAccount(data)
         if (result.success){
-            await AsyncStorage.setItem("@token", JSON.stringify(result.data['token']));
             await AsyncStorage.setItem("@user", JSON.stringify(result.data['user']));
             setUser(result.data.user)
             navigation.reset({
@@ -174,7 +174,9 @@ const Categories=({navigation})=> {
         <Text style={styles.fees}>{fees && +fees} $/h</Text>
         <FeesSlider setFees={setFees}/>
          {isLoading && <ActivityIndicator color="#8C57BA" />}
-        <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>
+         <View style={{position:"absolute", bottom:50}}>
+        <AuthButton title={'Register'} handleSubmit={handleSubmit} type={3}></AuthButton>
+        </View>
     </View>
   )
 }
