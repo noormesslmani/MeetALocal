@@ -14,8 +14,6 @@ import { address } from '../../constants/address';
 import call from 'react-native-phone-call'
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import { getReviews } from '../../network/App';
-import ReviewCard from '../../components/Cards/ReviewerCrad';
-import { checkReviewed, addReview } from '../../network/App';
 import ReviewModal from '../../components/Modals/ReviewModal';
 import { colors } from '../../constants/colors';
 import BackArrow from '../../components/Header/BackArrow';
@@ -24,6 +22,8 @@ import ImageCarousel from '../../components/General/Carousel';
 import { Avatar } from 'react-native-paper';
 import { Button} from 'react-native-paper';
 import ProfileCard from '../../components/Cards/ProfileCard';
+import WideButton from '../../components/Buttons/wideButtons';
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 const LocalPage=({navigation})=> {
   const route = useRoute();
   const item =route.params.item
@@ -35,7 +35,6 @@ const LocalPage=({navigation})=> {
   const [average, setAverage]= useState(null)
   const [reviews, setReviews]=useState([])
   const [stars, setStars]=useState([])
-  const [reviewed, setReviewed]=useState(true)
   
   const [reviewModalVisible, setReviewModalVisible]=useState(false)
   const [reviewAdded, setReviewAdded]=useState(false)
@@ -59,19 +58,16 @@ const LocalPage=({navigation})=> {
   useEffect(()=>{
     if(user.type_id==2){
       checkFavorite()
-      isReviewed()
     }
     setLocals([item])
-    getAllReviews()
+    
   },[])
 
-  //after adding a review
-  useEffect(()=>{
-    if(reviewAdded){
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if(isFocused)  
       getAllReviews()
-      setReviewed(true)
-    }
-  },[reviewAdded])
+  },[isFocused])
 
   //getting stars to find the average
   useEffect(()=>{
@@ -96,13 +92,8 @@ const LocalPage=({navigation})=> {
       setReviews(result.data.data)
     }
   } 
-  //checking if reviewed
-  const isReviewed=async()=>{
-    const result = await checkReviewed(item.id)
-    if (result.success){
-      setReviewed(result.data.data)
-    }
-  } 
+
+  
   //navigating to chat screen
   const handleMessage=()=>{
     console.log('hi')
@@ -154,7 +145,9 @@ const LocalPage=({navigation})=> {
     setAppointmentModal(true)
   }
  
-
+  const handleReviews=()=>{
+    navigation.navigate('reviews',{average, reviews, id:item.id})
+  }
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
         <View style={LocalProfileStyles.mainContainer}>
@@ -192,12 +185,7 @@ const LocalPage=({navigation})=> {
 
           </View>
           
-
-
-          {user.type_id==2? <TouchableOpacity onPress={handleBooking} style={LocalProfileStyles.bookBtn} > 
-            <Icon name='calendar' size={25} style={{marginHorizontal:5}} color={colors.violet} />
-            <Text style={{color:colors.violet, fontSize:18, fontWeight:'500'}} >Book</Text>
-          </TouchableOpacity>:null}
+          {user.type_id==2? <WideButton handlePress={handleBooking} icon='calendar' color={colors.violet} text='Book' />:null}
           {appointmentModal && <AppointmentsModal modalVisible={appointmentModal} setModalVisible={setAppointmentModal} id={item.id} /> }
 
           <View style={LocalProfileStyles.separator} />
@@ -230,7 +218,7 @@ const LocalPage=({navigation})=> {
 
      
 
-          {images && 
+          {item.highlights.length>0 && 
           <View style={LocalProfileStyles.sectionContainer}>
           <Text style={LocalProfileStyles.sectionTitle}>Highlights</Text>
           <ImageCarousel images={images} />
@@ -251,8 +239,8 @@ const LocalPage=({navigation})=> {
               <Text style={LocalProfileStyles.reviewNb}>Based on {reviews.length} reviews</Text>
               </View>
               <View>
-                {stars.length>0 && stars.map((star, index)=><View style={{flexDirection:"row",alignItems:"center"}}><Text style={{marginRight:5}}>{star}</Text><Rating size={15} startingValue={index} imageSize={15} readonly/></View>)}
-                <TouchableOpacity style={LocalProfileStyles.reviewsLink}>
+                {stars.length>0 && stars.map((star, index)=><View style={{flexDirection:"row",alignItems:"center"}} key={index} ><Text style={{marginRight:5}}>{star}</Text><Rating size={15} startingValue={index} imageSize={15} readonly/></View>)}
+                <TouchableOpacity style={LocalProfileStyles.reviewsLink} onPress={handleReviews} >
                 <Text style={{marginHorizontal:7}} >reviews</Text>
                 <Icon name='chevron-right' color={colors.gold} size={18}/>
                 </TouchableOpacity>
@@ -260,15 +248,10 @@ const LocalPage=({navigation})=> {
             </View>
 
           </View>
-           
-            
-           
         </View>
 
         {reviewModalVisible && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} setReviewAdded={setReviewAdded} id={item.id} />}
-         {/* {user.type_id==2 && !reviewed && <Pressable onPress={()=>{setReviewModalVisible(true)}} ><Text style={LocalProfileStyles.addReview}>Add a review</Text></Pressable>}
-            {user.type_id==2 && reviewed && <Text style={LocalProfileStyles.addReview}>Reviewed</Text>} */}
-        {/* {reviews.length>0 && reviews.map((review, index)=><ReviewCard review={review} key={index}/>)} */}
+     
     </ScrollView>
     
   )
