@@ -38,12 +38,12 @@ const Home=()=> {
                 <h1 className='home-title'>General Statistics</h1>
                 {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
                 {!isLoading && <div className='flex wrap cards-container'>
-                    <CountsCard count={usersCount} />
-                    <CountsCard count={eventCount} />
+                    <CountsCard count={usersCount} title={'Users'} />
+                    <CountsCard count={eventCount} title={'Events'} />
                 </div>}
                 {!isLoading && <div className='flex wrap cards-container'>
-                    <CountsCard count={postsCount} />
-                    <CountsCard count={commentsCount} />
+                    <CountsCard count={postsCount} title={'Posts'} />
+                    <CountsCard count={commentsCount} title={'Comments'} />
                 </div>}
             </div>
         </div>

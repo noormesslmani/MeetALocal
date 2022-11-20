@@ -4,7 +4,6 @@ import { useState, useEffect, useContext } from "react";
 import { countriesOptionsOneCountry } from '../../constants/countries';
 import { countriesOptions } from '../../constants/countries';
 import { colors } from '../../constants/colors';
-import { widths } from '../../constants/dimensions';
 import PickerStyle from './Styles/PickerStyle';
 const CountryPicker=({open, value, setOpen, setValue, type=1})=>{
     

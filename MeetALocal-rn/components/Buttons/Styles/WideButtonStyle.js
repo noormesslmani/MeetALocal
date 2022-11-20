@@ -6,7 +6,7 @@ const WideButtonStyle = StyleSheet.create({
     button:{
         marginVertical:10,
         width:widths.width9,
-        height:45,
+        height:55,
         backgroundColor:'white',
         borderColor:colors.violet,
         flexDirection:"row",

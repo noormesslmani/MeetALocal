@@ -68,7 +68,7 @@ const Reviews=()=>{
                 <Text style={ReviewStyles.reviewsNb}>Based on {reviews.length} reviews</Text>
             </View>
             
-            {isReviewed?<WideButton text='Reviewed' icon='star' color={colors.gold} handlePress={null} />:<WideButton text='Review' icon='star' color={colors.gold} handlePress={()=>setReviewModalVisible(true)} />}
+            {isReviewed && user.type_id==2?<WideButton text='Reviewed' icon='star' color={colors.gold} handlePress={null} />:user.type_id==2?<WideButton text='Review' icon='star' color={colors.gold} handlePress={()=>setReviewModalVisible(true)} />: null}
             <View style={ReviewStyles.separator} />
             {reviewModalVisible && user.type_id==2 && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} id={id} setReviewAdded={setReviewAdded}  />}
             <ScrollView>

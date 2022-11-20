@@ -13,7 +13,8 @@ const ProfileCard=({icon, data, type=1})=> {
   return (<>
             <View style={ProfileCardStyle.card}>
                 <Icon name={icon} size={20} color={colors.mediumViolet} />
-                <Text style={ProfileCardStyle.data}>{data}</Text>
+                {icon=='language'? data.map((language)=><Text style={ProfileCardStyle.arr}>{language}</Text>):
+                <Text style={[ProfileCardStyle.data, icon==null? ProfileCardStyle.about:null]}>{data}</Text>}
             </View>
     </>
   )

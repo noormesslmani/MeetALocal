@@ -15,8 +15,7 @@ import ListFooter from '../../components/General/ListFooter';
 import { useDidMountEffect } from '../../hooks/Hooks';
 import {  useIsFocused } from '@react-navigation/native';
 import AppButton from '../../components/Buttons/AppButtons';
-import { Ionicons } from '@expo/vector-icons';
-import { MaterialIcons } from '@expo/vector-icons';
+import EmptyPage from '../../components/General/EmptyPage';
 import ListHeader from '../../components/General/ListHeaders';
 const Locals=({navigation})=> {
     const [country, setCountry]=useState('all');
@@ -61,7 +60,7 @@ const Locals=({navigation})=> {
       }
     },[isFocused, page])
     
-    
+    console.log(data)
 
 
 
@@ -123,7 +122,8 @@ const Locals=({navigation})=> {
         </View>}
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
        
-        <SafeAreaView>
+        <SafeAreaView style={LocalsStyles.listContainer}>
+        {!isLoading && data.length==0? <EmptyPage />:null}
           <FlatList
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
@@ -132,7 +132,7 @@ const Locals=({navigation})=> {
             renderItem={renderItem}
             style={LocalsStyles.list}
             contentContainerStyle={{ paddingBottom: 300}}
-            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />: <ListHeader country={country} category={category}/>}
+            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />: !viewFav? <ListHeader country={country} category={category}/>:null}
             onEndReachedThreshold={0.1}
             onEndReached={fetchMore}
             ListFooterComponent={<ListFooter isLoadingMore={isLoadingMore} isListEnd={isListEnd} />}

@@ -31,6 +31,13 @@ const ProfileStyles = StyleSheet.create({
         width: widths.width9,
         margin:5,
     },
+    profilePicture:{ width: 180, 
+        height: 180, 
+        borderRadius:90, 
+        marginTop:20,
+        borderWidth:2,
+        borderColor:colors.lightGrey
+    },
     inputContainer:{
         marginTop:30,
         width:widths.width8,
@@ -84,13 +91,18 @@ const ProfileStyles = StyleSheet.create({
         color:colors.violet,
         textDecorationLine:"underline",
         fontSize:16,
+        alignSelf:"center",
+        marginVertical:20
     },
-    logOutContainer:{
-        position:"absolute",
-        bottom:0.15*windowHeight,
-        right: widths.width4
+    // logOutContainer:{
+    //     position:"absolute",
+    //     bottom:0.15*windowHeight,
+    //     right: widths.width4
+    // }
+    pickerContainer:{
+        width:widths.width8,
+        marginTop:10
     }
-    
 });
 
 export default ProfileStyles;

@@ -54,6 +54,11 @@ const PostsStyles = StyleSheet.create({
     add:{
         position:"absolute",
         bottom:50
-    }
+    },
+    listContainer:{
+        width:widths.width,
+        alignItems:"center",
+        height:windowHeight
+    },
 });
 export default PostsStyles;
