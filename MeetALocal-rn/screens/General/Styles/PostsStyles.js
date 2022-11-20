@@ -4,6 +4,15 @@ import { widths } from "../../../constants/dimensions";
 const windowHeight = Dimensions.get("window").height;
 
 const PostsStyles = StyleSheet.create({
+    container:{
+        alignItems:"center",
+        paddingVertical:40,
+        height:windowHeight
+    },
+    add:{
+        position:'absolute',
+        top:"85%"
+    },
     view:{
         flexDirection:"row",
         width:widths.width6,
@@ -31,7 +40,6 @@ const PostsStyles = StyleSheet.create({
     },
     list:{
         width:widths.width,
-        flex: 1, 
         marginTop:20
     },
     scrollContainer:{
@@ -51,14 +59,9 @@ const PostsStyles = StyleSheet.create({
         fontSize:12,
         color:colors.violet
     },
-    add:{
-        position:"absolute",
-        bottom:50
-    },
     listContainer:{
         width:widths.width,
         alignItems:"center",
-        height:windowHeight
     },
 });
 export default PostsStyles;

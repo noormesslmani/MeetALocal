@@ -69,14 +69,27 @@ const ScheduleModal=({setModalVisible, modalVisible, setScheduleAdded })=> {
         
             <Text style={ScheduleModalStyle.modalTitle}>Add an appointment</Text> 
             <View style={{flexDirection:"row", alignItems:"flex-start"}}>
-            <View style={ScheduleModalStyle.dateContainer}><Text style={ScheduleModalStyle.text}>Date</Text>
-            <TouchableOpacity onPress={()=>setDatePicker(true)}><Icon name="calendar" size={25} color={colors.violet}/></TouchableOpacity></View>
+
+            <View style={ScheduleModalStyle.dateContainer}>
+            <Text style={ScheduleModalStyle.title}>Date</Text>
+            <TouchableOpacity onPress={()=>setDatePicker(true)}>
+                <Icon name="calendar" size={30} color={colors.mediumViolet}/></TouchableOpacity>
+                <Text style={ScheduleModalStyle.text}>{date.getFullYear()}-{date.getMonth()+1}-{date.getDate()}</Text>
+            </View>
             
-            <View style={ScheduleModalStyle.dateContainer}><Text style={ScheduleModalStyle.text}>From</Text>
-            <TouchableOpacity onPress={()=>setStartTimePicker(true)}><AntDesign name="clockcircleo" size={25} color={colors.violet}/></TouchableOpacity></View>
+            <View style={ScheduleModalStyle.dateContainer}>
+            <Text style={ScheduleModalStyle.title}>Start</Text>
+            <TouchableOpacity onPress={()=>setStartTimePicker(true)}>
+                <AntDesign name="clockcircleo" size={30} color={colors.mediumViolet}/></TouchableOpacity>
+                <Text style={ScheduleModalStyle.text}>{startTime.getHours()}:{startTime.getMinutes()}</Text>
+            </View>
             
-            <View style={ScheduleModalStyle.dateContainer}><Text style={ScheduleModalStyle.text}>To</Text>
-            <TouchableOpacity onPress={()=>setEndTimePicker(true)}><AntDesign name="clockcircleo" size={25} color={colors.violet}/></TouchableOpacity></View>
+            <View style={ScheduleModalStyle.dateContainer}>
+            <Text style={ScheduleModalStyle.title}>End</Text>
+            <TouchableOpacity onPress={()=>setEndTimePicker(true)}><AntDesign name="clockcircleo" size={30} color={colors.mediumViolet}/></TouchableOpacity>
+            <Text style={ScheduleModalStyle.text}>{endTime.getHours()}:{endTime.getMinutes()}</Text>
+            </View>
+            
             </View>
             
             {datePicker && <DatePicker date={date} handleDate={handleDate} type={2} />}

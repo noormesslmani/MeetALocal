@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, Image, Modal, Pressable, ScrollView, Acti
 import React from 'react'
 import { useState, useEffect, useContext, useRef } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { Ionicons } from '@expo/vector-icons';
 import { address } from '../../constants/address';
 import { categoryIcons } from '../../constants/categories';
 import { toggleSaveEvent, isEventSaved } from '../../network/App';
@@ -94,6 +95,7 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
         <View style={EventModalStyle.centeredView}>
         <View style={EventModalStyle.modalView}>
             <Image source={item.photo?{ uri:`${address}/${item.photo}`}: require('../../assets/blank-profile.webp')} style={EventModalStyle.image}/>
+            <Pressable style={{position:"absolute", right:10, top:10}} onPress={()=>setModalVisible(false)} ><Ionicons name='close' size={30} /></Pressable>
             <ScrollView showsVerticalScrollIndicator={false}>
             <View style={EventModalStyle.titleContainer}>
               <Text style={EventModalStyle.title}>{item.title}</Text>
@@ -123,6 +125,7 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
                 Cancel Booking
                </Button>
               }
+              
               {choice==3 && <View style={{flexDirection:"row", alignItems:"center"}}><Icon style={{margin:2}} name="star" color={colors.gold} size={20} /><Text>: {item.saves}</Text></View>}
             </View>
             <View style={EventModalStyle.detailsContianer}>

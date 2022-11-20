@@ -3,6 +3,11 @@ import { colors } from "../../../constants/colors";
 import { widths } from "../../../constants/dimensions";
 const windowHeight = Dimensions.get("window").height;
 const EventsStyles = StyleSheet.create({
+    container:{
+        alignItems:"center",
+        paddingVertical:40,
+        height:windowHeight
+    },
     view1:{
         flexDirection:"row",
         width:widths.width6,
@@ -33,11 +38,10 @@ const EventsStyles = StyleSheet.create({
     listContainer:{
         width:widths.width,
         alignItems:"center",
-        height:windowHeight
     },
     add:{
         position:'absolute',
-        bottom:50
+        top:"85%"
     }
 });
 export default EventsStyles;

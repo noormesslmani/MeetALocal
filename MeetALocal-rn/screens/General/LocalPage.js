@@ -121,7 +121,7 @@ const LocalPage=({navigation})=> {
   }
   //navigating to map
   const handleMap=()=>{
-    navigation.navigate('locals-map',{data:[item], type:3})
+     navigation.navigate('locals-map',{data:[item], type:3})
   }
 
   //calling phone number
@@ -146,7 +146,7 @@ const LocalPage=({navigation})=> {
   }
  
   const handleReviews=()=>{
-    navigation.navigate('reviews',{average, reviews, id:item.id})
+    user.type_id==2 && navigation.navigate('reviews',{average, reviews, id:item.id})
   }
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
@@ -240,10 +240,10 @@ const LocalPage=({navigation})=> {
               </View>
               <View>
                 {stars.length>0 && stars.map((star, index)=><View style={{flexDirection:"row",alignItems:"center"}} key={index} ><Text style={{marginRight:5}}>{star}</Text><Rating size={15} startingValue={index} imageSize={15} readonly/></View>)}
-                <TouchableOpacity style={LocalProfileStyles.reviewsLink} onPress={handleReviews} >
+                {user.type_id==2 && <TouchableOpacity style={LocalProfileStyles.reviewsLink} onPress={handleReviews} >
                 <Text style={{marginHorizontal:7}} >reviews</Text>
                 <Icon name='chevron-right' color={colors.gold} size={18}/>
-                </TouchableOpacity>
+                </TouchableOpacity>}
               </View>
             </View>
 
