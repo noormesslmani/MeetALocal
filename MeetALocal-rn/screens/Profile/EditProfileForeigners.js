@@ -4,16 +4,17 @@ import { UserContext } from '../../App'
 import { useState, useEffect, useContext } from "react";
 import ProfileStyles from './ProfileStyles/ProfileStyles';
 import Icon from 'react-native-vector-icons/AntDesign'
+import { FontAwesome } from '@expo/vector-icons';
 import UploadImage from '../../components/General/UploadImage';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import DropDownPicker from 'react-native-dropdown-picker';
 import DatePicker from '../../components/General/datePicker';
-import { countriesOptionsOneCountry} from '../../constants/countries';
-import { languagesOptions } from '../../constants/languages';
 import AppButton from '../../components/Buttons/AppButtons';
 import { address } from '../../constants/address';
-import { colors } from '../../constants/colors';
 import { editProfile } from '../../network/App';
+import BackArrow from '../../components/Header/BackArrow';
+import CountryPicker from '../../components/General/CountryPicker';
+import LanguagePicker from '../../components/General/LanguagePicker';
+import GenderPicker from '../../components/General/GenderPicker';
 const EditForeignerProfile=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const [uri, setUri]= useState(null)
@@ -36,8 +37,6 @@ const EditForeignerProfile=({navigation})=> {
     const [genders, setGenders] = useState([
         {label: 'Male', value: 'Male'},
         {label: 'Female', value: 'Female'}])
-    const [countries, setCountries] = useState(countriesOptionsOneCountry);
-      const [languages, setLanguages] = useState(languagesOptions);
       const handleDate= (event, value)=>{
         setDatePicker(false)
         setDate(value)
@@ -48,9 +47,12 @@ const EditForeignerProfile=({navigation})=> {
         setUri(`${address}/${user.profile_picture}`)
       }
     },[user.profile_picture])
-    const handleCancel=()=>{
-      navigation.navigate("profile-foreigner")
-    }
+    useEffect(()=>{
+      navigation.setOptions({
+        headerLeft: () => (<BackArrow type={1}  />),
+          headerBackVisible:false, headerTitle:"Edit Profile", headerTitleAlign:"center"
+      })
+    },[navigation])
     const handleSave=async ()=>{
         const data = {
             name,
@@ -88,118 +90,48 @@ const EditForeignerProfile=({navigation})=> {
                 </View>
                 <View style={{margin:10}}>
                     <Text>Date of birth</Text>
-                    <TouchableOpacity onPress={()=>setDatePicker(true)} style={{alignSelf:'center', marginTop:10}}><Icon name="calendar" size={25}/></TouchableOpacity>
+                    <TouchableOpacity onPress={()=>setDatePicker(true)} style={{alignSelf:'center', marginTop:10}}><FontAwesome name="birthday-cake" size={25}/></TouchableOpacity>
                 </View>
                 { datePicker && <DatePicker date={date} handleDate={handleDate} />}
-                <View style={{margin:10}}>
+                <View style={ProfileStyles.pickerContainer}>
                     <Text>Nationality</Text>
-                    <DropDownPicker
-                    searchable={true}
-                    searchPlaceholder="Search..."
-                    searchPlaceholderTextColor="grey"
-                    searchContainerStyle={{
-                      borderBottomColor: colors.lighterViolet
-                    }}
-                    searchTextInputStyle={{
-                      borderColor:colors.lightViolet,
-                    }}
-                    open={openNationality}
+                    <CountryPicker open={openNationality}
                     value={nationality}
-                    zIndex={2000}
-                    zIndexInverse={2000}
-                    dropDownDirection="TOP"
-                    items={countries}
                     setOpen={setOpenNationality}
-                    setValue={setNationality}
-                    setItems={setCountries}
-                    dropDownContainerStyle={ProfileStyles.dropDownContainer}
-                    style={ProfileStyles.dropDown}
-                    placeholder="Select a country"
-                    placeholderStyle={{
-                    color: "grey"
-                    }}
-                    listMode="SCROLLVIEW"
-                    closeAfterSelecting={true}
-                    />
+                    setValue={setNationality}  />
+              
                 </View>
-                <View style={{margin:10}}>
+                <View style={ProfileStyles.pickerContainer}>
                     <Text>Country of Residence</Text>
-                    <DropDownPicker
-                    searchable={true}
-                    searchPlaceholder="Search..."
-                    searchPlaceholderTextColor="grey"
-                    searchContainerStyle={{
-                      borderBottomColor: colors.lighterViolet
-                    }}
-                    searchTextInputStyle={{
-                      borderColor:colors.lightViolet,
-                    }}
-                    open={openResidece}
+                    <CountryPicker open={openResidece}
                     value={residence}
-                    zIndex={3000}
-                    zIndexInverse={2000}
-                    dropDownDirection="TOP"
-                    items={countries}
                     setOpen={setOpenResidence}
-                    setValue={setResidence}
-                    setItems={setCountries}
-                    dropDownContainerStyle={ProfileStyles.dropDownContainer}
-                    style={ProfileStyles.dropDown}
-                    placeholder="Select a country"
-                    placeholderStyle={{
-                    color: "grey"
-                    }}
-                    listMode="SCROLLVIEW"
-                    closeAfterSelecting={true}
-                    />
+                    setValue={setResidence}  />
                 </View>
-                <View style={{margin:10}}>
+
+                <View style={ProfileStyles.pickerContainer}>
                     <Text>Languages</Text>
-                    <DropDownPicker
-                    open={openLanguages}
-                    multiple={true}
-                    mode="BADGE"
+                    <LanguagePicker open={openLanguages}
                     value={spokenLanguages}
-                    zIndex={1000}
-                    zIndexInverse={3000}
-                    dropDownDirection="TOP"
-                    items={languages}
                     setOpen={setOpenLanguages}
-                    setValue={setSpokenLanguages}
-                    setItems={setLanguages}
-                    dropDownContainerStyle={ProfileStyles.dropDownContainer}
-                    style={ProfileStyles.dropDown}
-                    placeholder="Select languages"
-                    listMode="SCROLLVIEW"
-                    placeholderStyle={{
-                    color: "grey"
-                    }}
-                    />
+                    setValue={setSpokenLanguages}  />
                 </View>
-                <View style={{margin:10}}>
+
+                <View style={ProfileStyles.pickerContainer}>
                     <Text>Gender</Text>
-                    <DropDownPicker
-                    open={openGenders}
+                    <GenderPicker  open={openGenders}
                     value={gender}
                     zIndex={1000}
-                    zIndexInverse={3000}
-                    dropDownDirection="TOP"
-                    items={genders}
+                    zInverse={5000} 
+                    direction="TOP"
                     setOpen={setOpenGenders}
                     setValue={setGender}
-                    setItems={setGenders}
-                    dropDownContainerStyle={ProfileStyles.dropDownContainer}
-                    style={ProfileStyles.dropDown}
-                    placeholder="Select gender"
-                    listMode="SCROLLVIEW"
-                    placeholderStyle={{
-                    color: "grey"
-                    }}
                     />
+                   
                 </View>
                 <View style={ProfileStyles.btnContainer}>
                     <AppButton text={'Save'} handlePress={handleSave} />
-                    <AppButton text={'Cancel'} handlePress={handleCancel} />
+                    <AppButton text={'Cancel'} handlePress={() => navigation.goBack()} />
                 </View>
             </View>
         </KeyboardAwareScrollView>
