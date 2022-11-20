@@ -15,6 +15,7 @@ import TabNavigation from './TabStack';
 import EditLocalProfile from '../screens/Profile/EditProfileLocals';
 import { colors } from '../constants/colors';
 import EditLocation from '../screens/Profile/EditLocation';
+import Reviews from '../screens/General/LocalReviews';
 const HomeStack=()=>{
   
   const Stack = createNativeStackNavigator();
@@ -25,7 +26,7 @@ const HomeStack=()=>{
         <Stack.Screen name="comments"  component={PostComments} />
         <Stack.Screen  name="posts" component={Posts} 
           options={{ 
-            headerLeft: () => <BackArrow type={1} />,
+            headerLeft: () => <BackArrow type={1}  />,
             headerRight:()=>(<Pressable><Ionicons name="filter" size={25} color="#8C57BA"/></Pressable>),
             headerBackVisible:false, headerTitleAlign: 'center'}}/>
         <Stack.Screen  name="events" component={Events} options={{ 
@@ -43,8 +44,16 @@ const HomeStack=()=>{
               headerBackVisible:false, headerTitle:""
           }}
         />
-        <Stack.Screen  name="edit-foreigner-profile" component={EditForeignerProfile} />
-        <Stack.Screen  name="edit-local-profile" component={EditLocalProfile} />
+        <Stack.Screen  name="edit-foreigner-profile" component={EditForeignerProfile} 
+        options={{
+          headerLeft: () => (<BackArrow type={1}  />),
+            headerBackVisible:false, headerTitle:"Edit Profile", headerTitleAlign:"center"
+        }}/>
+        <Stack.Screen  name="edit-local-profile" component={EditLocalProfile}
+        options={{
+          headerLeft: () => (<BackArrow type={1} />),
+            headerBackVisible:false, headerTitle:"Edit Profile", headerTitleAlign:"center"
+        }} />
         <Stack.Screen  name="edit-location" component={EditLocation} 
         options={{
           headerLeft: () => (<BackArrow type={1} />),
@@ -56,6 +65,13 @@ const HomeStack=()=>{
           headerLeft: () => (<BackArrow type={2} />),
             headerBackVisible:false, headerTitle:"",
             headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
+        }}
+        />
+        <Stack.Screen  name="reviews" component={Reviews}
+        options={{
+          headerLeft: () => (<BackArrow type={2} />),
+            headerBackVisible:false, headerTitle:"Reviews", headerTitleAlign:"center",
+            headerShadowVisible:false,
         }}
         />
         <Stack.Screen  name="locals" component={Locals}   options={{ 
