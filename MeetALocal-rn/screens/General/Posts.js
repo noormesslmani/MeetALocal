@@ -16,6 +16,7 @@ import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import AppButton from '../../components/Buttons/AppButtons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ListHeader from '../../components/General/ListHeaders';
+import EmptyPage from '../../components/General/EmptyPage';
 const Posts=({navigation})=> {
   const [viewOwn, setViewOwn]=useState(false)
   const [country, setCountry]=useState('all');
@@ -111,14 +112,15 @@ const Posts=({navigation})=> {
 
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
         <NewPostModal modalVisible={newPostModalVisible} setModalVisible={setNewPostModalVisible}/>
-        <SafeAreaView>
+        <SafeAreaView style={PostsStyles.listContainer}>
+        {!isLoading && data.length==0? <EmptyPage />:null}
           <FlatList
             data={data}
             renderItem={renderItem}
             keyExtractor={item => item.id}
             style={PostsStyles.list}
             contentContainerStyle={{ paddingBottom: 300}}
-            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:<ListHeader country={country} category={category} /> }
+            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />: data.length>0 ?<ListHeader country={country} category={category} />: null }
             onEndReachedThreshold={1}
             onEndReached={fetchMore}
             ListFooterComponent={<ListFooter isLoadingMore={isLoadingMore} isListEnd={isListEnd} />}

@@ -4,8 +4,19 @@ import { colors } from "../../../constants/colors";
 const ReviewerCardStyle = StyleSheet.create({
     cotainer:{
         width: widths.width9, 
-        padding:10,
-        marginBottom:10
+        padding:20,
+        marginBottom:10,
+        height:'auto',
+        shadowColor: "#000",
+        backgroundColor:"white",
+        borderRadius:10,
+        shadowOffset: {
+            width: 2,
+            height: 2,
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 2,
+        elevation: 2,
     },
     imageContianer:{
         flexDirection:"row",

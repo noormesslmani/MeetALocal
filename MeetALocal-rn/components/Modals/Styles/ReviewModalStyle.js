@@ -15,7 +15,7 @@ const ReviewModalStyle = StyleSheet.create({
         margin: 20,
         backgroundColor: "white",
         width:widths.width8,
-        height:0.45*windowHeight,
+        height:0.6*windowHeight,
         borderRadius: 20,
         padding: 20,
         alignItems: "center",

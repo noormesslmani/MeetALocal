@@ -33,6 +33,7 @@ const EventsStyles = StyleSheet.create({
     listContainer:{
         width:widths.width,
         alignItems:"center",
+        height:windowHeight
     },
     add:{
         position:'absolute',

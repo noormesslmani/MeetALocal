@@ -1,10 +1,12 @@
 import React, { useState, useCallback, useContext } from 'react'
-import {ActivityIndicator, ScrollView } from 'react-native'
+import {ActivityIndicator, ScrollView, View } from 'react-native'
 import { UserContext } from '../../App'
 import { database } from "../../firebase";
 import { colors } from '../../constants/colors';
 import MessageCard from '../../components/Cards/MessageCard'
 import { useFocusEffect } from '@react-navigation/native';
+import ChatScreenStyles from './Styles/ChatScreenStyles';
+import EmptyPage from '../../components/General/EmptyPage';
 import {
   collection,
   orderBy,
@@ -37,11 +39,12 @@ const Chats=({navigation})=> {
       getChats()
     }, []), )
   return (
+          <View style={ChatScreenStyles.chatsList}>
           <ScrollView style={{backgroundColor:"white"}}>
           {isLoading && <ActivityIndicator color={colors.violet} style={{marginTop:10}} />}
           {! isLoading &&  chats.map((chat, index)=><MessageCard chat={chat} navigation={navigation} key={index}/>)}
           </ScrollView>
-          
+          </View>
         )
 }
 export default Chats

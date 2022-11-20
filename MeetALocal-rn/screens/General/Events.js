@@ -11,10 +11,11 @@ import {getAllEvents, getSavedEvents, getOwnEvents, getBookedEvents} from '../..
 import BackArrow from '../../components/Header/BackArrow';
 import Filters from '../../components/Header/Filters';
 import { colors } from '../../constants/colors';
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+import { FontAwesome5 } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppButton from '../../components/Buttons/AppButtons';
 import ListHeader from '../../components/General/ListHeaders';
+import EmptyPage from '../../components/General/EmptyPage';
 const Events=({navigation})=> {
   const [choice, setChoice]=useState(1)
   const [modalVisible, setModalVisible] = useState(false)
@@ -96,6 +97,7 @@ const Events=({navigation})=> {
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
         <NewEventModal modalVisible={eventModalVisible} setModalVisible={setEventModalVisible} setEventCreated={setEventCreated}/>
         <SafeAreaView style={EventsStyles.listContainer}>
+          {!isLoading && data.length==0? <EmptyPage />:null}
           <FlatList
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
@@ -105,7 +107,7 @@ const Events=({navigation})=> {
             Key={2}
             keyExtractor={item => item.id}
             style={EventsStyles.list}
-            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:<ListHeader country={country} category={category} />}
+            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:choice==1?<ListHeader country={country} category={category} />: null}
             contentContainerStyle={{paddingTop:20, paddingBottom: 300}}
           />
           {user.type_id==1 && <TouchableOpacity onPress={()=>setEventModalVisible(true)} style={EventsStyles.add} ><Icon name= 'plus' size={50} color={colors.lightViolet} /></TouchableOpacity>}

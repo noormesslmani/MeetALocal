@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { colors } from "../../../constants/colors";
 import { widths } from "../../../constants/dimensions";
-
+const windowHeight = Dimensions.get("window").height;
 const LocalsStyles = StyleSheet.create({
     view:{
         flexDirection:"row",
@@ -24,8 +24,12 @@ const LocalsStyles = StyleSheet.create({
     },
     list:{
         width:widths.width,
-        flex: 1,
         marginTop:20,
+    },
+    listContainer:{
+        width:widths.width,
+        alignItems:"center",
+        height:windowHeight
     },
     
 });

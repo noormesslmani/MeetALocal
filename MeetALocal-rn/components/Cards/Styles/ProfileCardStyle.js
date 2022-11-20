@@ -24,6 +24,15 @@ const ProfileCardStyle = StyleSheet.create({
         fontSize:16,
         fontWeight:"500",
         marginHorizontal:10
+    },
+    arr:{
+        fontSize:14,
+        fontWeight:"500",
+        marginLeft:10
+    },
+    about:{
+        fontWeight:"400",
+        fontSize:14,
     }
    
 });
