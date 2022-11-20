@@ -14,6 +14,7 @@ import { colors } from '../../constants/colors';
 import { widths } from '../../constants/dimensions';
 import WavyBack from '../../components/General/WavyBackground';
 import { registerAccount } from '../../network/Auth';
+
 const SetUpScreen=({navigation})=> {
 const { user, setUser} = useContext(UserContext);
 const route = useRoute();
@@ -102,9 +103,9 @@ return (
         </View>
         <View style={styles.aboutContainer}>
           <Text>About <Text style={{fontSize:10, fontWeight:"300"}}>(max 255 characters)</Text></Text>
-          <TextInput placeholder='About' value={about} onChangeText={setAbout} style={styles.aboutInput} maxLength={255}
-          left={<TextInput.Icon icon="pen" />} underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}
-          ></TextInput>
+          <TextInput placeholder='Write about yourself' value={about} onChangeText={setAbout} style={styles.aboutInput} maxLength={255}
+           outlineColor={colors.lightGrey} activeOutlineColor={colors.lighterViolet}
+          mode='outlined' multiline={true} numberOfLines={5} />
         </View>
         <Text>Gender *</Text>
         {genderunset?<Text style={styles.error}>Please select your gender</Text>:null}

@@ -36,7 +36,7 @@ const Locals=({navigation})=> {
         headerLeft: () => <BackArrow navigation={navigation} type={1}/>,
         headerRight:()=>(<View style={{flexDirection:"row"}}>
         {!viewFav && <Filters handleFilter={handleFilter}/>}
-        <Map handleMap={handleMap} />
+        {user.type_id==2 && <Map handleMap={handleMap} />}
         </View>)
       });
     }, [navigation, data, viewFav]);

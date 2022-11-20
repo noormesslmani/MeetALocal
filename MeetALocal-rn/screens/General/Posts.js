@@ -1,6 +1,5 @@
 import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
 import React from 'react'
-import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext, useCallback } from "react";
 import FilterModal from '../../components/Modals/FilterModal';
 import PostsStyles from './Styles/PostsStyles';
@@ -17,6 +16,7 @@ import AppButton from '../../components/Buttons/AppButtons';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import ListHeader from '../../components/General/ListHeaders';
 import EmptyPage from '../../components/General/EmptyPage';
+import AddIcon from '../../components/General/AddIcon';
 const Posts=({navigation})=> {
   const [viewOwn, setViewOwn]=useState(false)
   const [country, setCountry]=useState('all');
@@ -104,7 +104,8 @@ const Posts=({navigation})=> {
       }
     }
   return (
-      <View style={HomeStyles.container}>
+      <View style={PostsStyles.container}>
+        <AddIcon handlePress={()=>setNewPostModalVisible(true)} />
         <View style={PostsStyles.view}>
             <AppButton text='All Posts' handlePress={()=>setViewOwn(false)} type={viewOwn?2:1} />
             <AppButton text='My Posts' handlePress={()=>setViewOwn(true)} type={viewOwn?1:2} />

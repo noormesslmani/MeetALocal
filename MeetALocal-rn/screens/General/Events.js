@@ -11,11 +11,11 @@ import {getAllEvents, getSavedEvents, getOwnEvents, getBookedEvents} from '../..
 import BackArrow from '../../components/Header/BackArrow';
 import Filters from '../../components/Header/Filters';
 import { colors } from '../../constants/colors';
-import { FontAwesome5 } from '@expo/vector-icons';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import AppButton from '../../components/Buttons/AppButtons';
 import ListHeader from '../../components/General/ListHeaders';
 import EmptyPage from '../../components/General/EmptyPage';
+import AddIcon from '../../components/General/AddIcon';
 const Events=({navigation})=> {
   const [choice, setChoice]=useState(1)
   const [modalVisible, setModalVisible] = useState(false)
@@ -85,7 +85,8 @@ const Events=({navigation})=> {
     }, [navigation, choice])
     
   return (
-    <View style={HomeStyles.container}>
+    <View style={EventsStyles.container}>
+        {user.type_id==1 && choice==3 && <AddIcon handlePress={()=>setEventModalVisible(true)} />}
         <View style={user.type_id==1? EventsStyles.view1: EventsStyles.view2}>
             <AppButton text="All Events" handlePress={()=>setChoice(1)} type={choice==1?1:2} /> 
             {user.type_id==2 && <AppButton text="Saved" handlePress={()=>setChoice(2)} type={choice==2?1:2}/> }
@@ -110,8 +111,8 @@ const Events=({navigation})=> {
             ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:choice==1?<ListHeader country={country} category={category} />: null}
             contentContainerStyle={{paddingTop:20, paddingBottom: 300}}
           />
-          {user.type_id==1 && <TouchableOpacity onPress={()=>setEventModalVisible(true)} style={EventsStyles.add} ><Icon name= 'plus' size={50} color={colors.lightViolet} /></TouchableOpacity>}
         </SafeAreaView>
+       
       </View>
   )
 }

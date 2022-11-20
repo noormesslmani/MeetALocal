@@ -52,7 +52,7 @@ const ReviewModal=({setModalVisible, modalVisible, id,setReviewAdded })=> {
           <View style={ReviewModalStyle.textContainer}>
             <Text style={{fontSize:16}}>Text review:</Text>
             <TextInput placeholder='Write a review'  onChangeText={setReview} value={review} outlineColor={colors.lightGrey} activeOutlineColor={colors.lighterViolet}
-             mode='outlined' multiline={true} numberOfLines={5} style={{backgroundColor:'white', marginVertical:10}} maxLength={20}  ></TextInput>
+             mode='outlined' multiline={true} numberOfLines={5} style={{backgroundColor:'white', marginVertical:10}} maxLength={100}  ></TextInput>
 
            
           </View> 

@@ -10,7 +10,7 @@ const EventModalStyle = StyleSheet.create({
         marginTop: 22
       },
       modalView: {
-        marginTop: 0.15*windowHeight,
+        marginTop: 0.1*windowHeight,
         backgroundColor: "white",
         width:widths.width9,
         flex:0.9,
@@ -63,8 +63,8 @@ const EventModalStyle = StyleSheet.create({
         height:0.15*windowHeight
       },
       title:{fontSize:20, fontWeight:"600"},
-      info:{fontSize:13},
-      fees:{fontSize:13, fontWeight:"500"},
+      info:{fontSize:14},
+      fees:{fontSize:14, fontWeight:"700"},
       detailsTitle:{fontSize:20, fontWeight:"400"},
       details:{fontSize:12, marginTop:5},
       categoriesTitle:{fontWeight:"400"},

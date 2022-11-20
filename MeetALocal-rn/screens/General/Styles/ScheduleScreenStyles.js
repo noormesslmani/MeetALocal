@@ -2,11 +2,13 @@ import { StyleSheet, Dimensions } from "react-native";
 import { colors } from "../../../constants/colors";
 import { widths } from "../../../constants/dimensions";
 const windowHeight = Dimensions.get("window").height;
+
 const ScheduleStyles = StyleSheet.create({
     container:{
         alignItems:"center",
         paddingTop:80,
         width:widths.width,
+        height:windowHeight
     },
     list:{
         width:widths.width9,
@@ -44,7 +46,7 @@ const ScheduleStyles = StyleSheet.create({
     },
     add:{
         position:'absolute',
-        bottom:50
+        top:"85%"
     }
 });
 export default ScheduleStyles;

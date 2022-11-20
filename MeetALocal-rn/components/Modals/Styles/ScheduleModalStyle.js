@@ -12,7 +12,7 @@ const ScheduleModalStyle = StyleSheet.create({
       modalView: {
         backgroundColor: "white",
         width:widths.width9,
-        flex:0.3,
+        flex:0.35,
         borderRadius: 20,
         alignItems: "center",
         shadowColor: "#000",
@@ -32,9 +32,16 @@ const ScheduleModalStyle = StyleSheet.create({
         fontSize:24
 
       },
+      title:{
+        fontSize:14,
+        margin:20,
+        marginVertical:10,
+      },
       text:{
-        fontSize:18,
-        margin:10
+        fontSize:14,
+        margin:20,
+        textDecorationLine:"underline",
+        color:'grey'
       },
       dateContainer:{
         alignItems:"center", 
