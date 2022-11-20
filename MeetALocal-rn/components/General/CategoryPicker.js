@@ -4,8 +4,8 @@ import { useState, useEffect, useContext } from "react";
 import { categoriesOptions } from '../../constants/categories';
 import { categoriesSpecificOptions } from '../../constants/categories';
 import PickerStyle from './Styles/PickerStyle';
-const CategoryPicker=({open, value, setOpen, setValue, type=1})=>{
-    const [categories, setCategories]=useState(categoriesOptions)
+const CategoryPicker=({open, value, setOpen, setValue, type=1, multiple=false})=>{
+    const [categories, setCategories]=useState(type==1?categoriesOptions: categoriesSpecificOptions)
    
     console.log(type)
     return(
@@ -18,11 +18,15 @@ const CategoryPicker=({open, value, setOpen, setValue, type=1})=>{
             setItems={setCategories}
             style={PickerStyle.picker}
             placeholder="Select a Category"
+            max={3}
+            min={1}
+            mode="BADGE"
             placeholderStyle={{
             color: "grey"
             }}
             listMode="MODAL"
             closeAfterSelecting={true}
+            multiple={multiple}
             />
     )
 }

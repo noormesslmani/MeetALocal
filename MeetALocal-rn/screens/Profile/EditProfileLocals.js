@@ -1,23 +1,23 @@
 import { View, Text, TouchableOpacity, Image, TextInput, ScrollView, Pressable, ActivityIndicator} from 'react-native'
 import React from 'react'
-import HomeStyles from '../General/Styles/HomeStyles';
 import { UserContext } from '../../App'
 import { useState, useEffect, useContext, createContext } from "react";
 import ProfileStyles from './ProfileStyles/ProfileStyles';
 import Icon from 'react-native-vector-icons/AntDesign'
 import UploadImage from '../../components/General/UploadImage';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import DropDownPicker from 'react-native-dropdown-picker';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DatePicker from '../../components/General/datePicker';
-import { countriesOptionsOneCountry} from '../../constants/countries';
-import { languagesOptions } from '../../constants/languages';
+
 import AppButton from '../../components/Buttons/AppButtons';
 import { address } from '../../constants/address';
 import { colors } from '../../constants/colors';
-import { categoriesSpecificOptions } from '../../constants/categories';
 import Map from '../../components/Header/Map';
 import { editProfile } from '../../network/App';
+import CategoryPicker from '../../components/General/CategoryPicker';
+import CountryPicker from '../../components/General/CountryPicker';
+import LanguagePicker from '../../components/General/LanguagePicker';
+import GenderPicker from '../../components/General/GenderPicker';
 const EditLocalProfile=({navigation})=> {
 
     const { user, setUser} = useContext(UserContext);
@@ -41,12 +41,7 @@ const EditLocalProfile=({navigation})=> {
     const [gender, setGender]= useState(user.gender)
     const [about, setAbout]= useState(user.about)
     const [fees, setFees]= useState(user.fees)
-    const [genders, setGenders] = useState([
-        {label: 'Male', value: 'Male'},
-        {label: 'Female', value: 'Female'}])
-    const [countries, setCountries] = useState(countriesOptionsOneCountry);
-    const [languages, setLanguages] = useState(languagesOptions);
-    const [categoriesOptions, setCategoriesOptions]=useState(categoriesSpecificOptions)
+
     const [isLoading, setIsLoading]=useState(false)
       const handleDate= (event, value)=>{
         setDatePicker(false)
@@ -58,9 +53,7 @@ const EditLocalProfile=({navigation})=> {
         setUri(`${address}/${user.profile_picture}`)
       }
     },[user.profile_picture])
-    const handleCancel=()=>{
-      navigation.navigate("profile-foreigner")
-    }
+    
     useEffect(()=>{
       setLocation()
     },[])
@@ -126,140 +119,60 @@ const EditLocalProfile=({navigation})=> {
                     <TouchableOpacity onPress={()=>setDatePicker(true)} style={{alignSelf:'center', marginTop:10}}><Icon name="calendar" size={25}/></TouchableOpacity>
                 </View>
                 { datePicker && <DatePicker date={date} handleDate={handleDate} />}
-                <View style={{margin:10}}>
+
+                <View style={ProfileStyles.pickerContainer}>
                     <Text>Nationality</Text>
-                    <DropDownPicker
-                    searchable={true}
-                    searchPlaceholder="Search..."
-                    searchPlaceholderTextColor="grey"
-                    searchContainerStyle={{
-                      borderBottomColor: colors.lighterViolet
-                    }}
-                    searchTextInputStyle={{
-                      borderColor:colors.lightViolet,
-                    }}
-                    open={openNationality}
+                    <CountryPicker open={openNationality}
                     value={nationality}
-                    zIndex={2000}
-                    zIndexInverse={2000}
-                    dropDownDirection="TOP"
-                    items={countries}
                     setOpen={setOpenNationality}
-                    setValue={setNationality}
-                    setItems={setCountries}
-                    dropDownContainerStyle={ProfileStyles.dropDownContainer}
-                    style={ProfileStyles.dropDown}
-                    placeholder="Select a country"
-                    placeholderStyle={{
-                    color: "grey"
-                    }}
-                    listMode="SCROLLVIEW"
-                    closeAfterSelecting={true}
+                    setValue={setNationality}  
                     />
                 </View>
-                <View style={{margin:10}}>
+
+                <View style={ProfileStyles.pickerContainer}>
                     <Text>Country of Residence</Text>
-                    <DropDownPicker
-                    searchable={true}
-                    searchPlaceholder="Search..."
-                    searchPlaceholderTextColor="grey"
-                    searchContainerStyle={{
-                      borderBottomColor: colors.lighterViolet
-                    }}
-                    searchTextInputStyle={{
-                      borderColor:colors.lightViolet,
-                    }}
-                    open={openResidece}
+                    <CountryPicker open={openResidece}
                     value={residence}
-                    zIndex={3000}
-                    zIndexInverse={2000}
-                    dropDownDirection="TOP"
-                    items={countries}
                     setOpen={setOpenResidence}
-                    setValue={setResidence}
-                    setItems={setCountries}
-                    dropDownContainerStyle={ProfileStyles.dropDownContainer}
-                    style={ProfileStyles.dropDown}
-                    placeholder="Select a country"
-                    placeholderStyle={{
-                    color: "grey"
-                    }}
-                    listMode="SCROLLVIEW"
-                    closeAfterSelecting={true}
-                    />
+                    setValue={setResidence}  />
                 </View>
-                <View style={{margin:10}}>
+
+                <View style={ProfileStyles.pickerContainer}>
                     <Text>Languages</Text>
-                    <DropDownPicker
-                    open={openLanguages}
-                    multiple={true}
-                    mode="BADGE"
+                    <LanguagePicker open={openLanguages}
                     value={spokenLanguages}
-                    zIndex={1000}
-                    zIndexInverse={3000}
-                    dropDownDirection="TOP"
-                    items={languages}
                     setOpen={setOpenLanguages}
-                    setValue={setSpokenLanguages}
-                    setItems={setLanguages}
-                    dropDownContainerStyle={ProfileStyles.dropDownContainer}
-                    style={ProfileStyles.dropDown}
-                    placeholder="Select languages"
-                    listMode="SCROLLVIEW"
-                    placeholderStyle={{
-                    color: "grey"
-                    }}
+                    setValue={setSpokenLanguages}  
                     />
                 </View>
-                <View style={{margin:10}}>
+
+                <View style={ProfileStyles.pickerContainer}>
                     <Text>Categories</Text>
-                    <DropDownPicker
+                    <CategoryPicker
                     open={openCategories}
                     value={categories}
-                    zIndex={1000}
-                    zIndexInverse={3000}
-                    multiple={true}
-                    mode="BADGE"
-                    dropDownDirection="TOP"
-                    items={categoriesOptions}
                     setOpen={setOpenCategories}
                     setValue={setCategories}
-                    setItems={setCategoriesOptions}
-                    dropDownContainerStyle={ProfileStyles.dropDownContainer}
-                    style={ProfileStyles.dropDown}
-                    placeholder="Select categories"
-                    listMode="SCROLLVIEW"
-                    placeholderStyle={{
-                    color: "grey"
-                    }}
+                    multiple={true}
                     />
                 </View>
-                <View style={{margin:10}}>
+                <View style={ProfileStyles.pickerContainer}>
                     <Text>Gender</Text>
-                    <DropDownPicker
-                    open={openGenders}
+                    <GenderPicker  open={openGenders}
                     value={gender}
                     zIndex={1000}
-                    zIndexInverse={3000}
-                    dropDownDirection="TOP"
-                    items={genders}
+                    zInverse={5000} 
+                    direction="TOP"
                     setOpen={setOpenGenders}
                     setValue={setGender}
-                    setItems={setGenders}
-                    dropDownContainerStyle={ProfileStyles.dropDownContainer}
-                    style={ProfileStyles.dropDown}
-                    placeholder="Select gender"
-                    listMode="SCROLLVIEW"
-                    placeholderStyle={{
-                    color: "grey"
-                    }}
                     />
                 </View>
+
                 <View style={{flexDirection:"row", margin:10}}><Text>Location</Text><Pressable><Map handleMap={handleMap} small={true}/></Pressable></View>
                 {isLoading && <ActivityIndicator colors={colors.violet}/>}
                 <View style={ProfileStyles.btnContainer}>
                     <AppButton text={'Save'} handlePress={handleSave} />
-                    <AppButton text={'Cancel'} handlePress={handleCancel} />
+                    <AppButton text={'Cancel'} handlePress={() => navigation.goBack()} />
                 </View>
             </View>
         </KeyboardAwareScrollView>
