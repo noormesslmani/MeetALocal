@@ -147,7 +147,26 @@ const ProfileStyles = StyleSheet.create({
         alignSelf:"center",
         color: colors.lightGrey,
         fontSize:12
-    }
+    },
+    mapContainer:{
+        width:widths.width,
+        height:"100%",
+        alignItems:"center",
+        backgroundColor:"white",
+        flex:1,
+        paddingTop:20,
+        justifyContent:"space-between"
+      },
+      saveBtn:{
+        position:"absolute",
+        bottom:10,
+        // width:100,
+        // height: 45,
+        // borderRadius: 10,
+        // backgroundColor: colors.mediumViolet,
+        alignItems: "center",
+        justifyContent: "center",
+      },
 });
 
 export default ProfileStyles;
