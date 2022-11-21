@@ -8,7 +8,7 @@ import SignupScreen2 from '../screens/Auth/SignupScreen2';
 import SignupScreen3 from '../screens/Auth/SignupScreen3';
 import Categories from '../screens/Auth/Categories';
 import UserTypeScreen from '../screens/Auth/UserTypeScreen';
-import Logo from '../screens/Navigation/Logo';
+import Logo from '../components/Header/Logo';
 import BackArrow from '../components/Header/BackArrow';
 import { colors } from '../constants/colors';
 const AuthStack=()=>{

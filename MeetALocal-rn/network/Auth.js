@@ -20,15 +20,14 @@ export async function signin(data){
     }
   }
   export async function registerAccount(data){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "post",
       data,
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}auth/register`,
     }
     try{
       const res = await axios(config)
+      await AsyncStorage.setItem("@token", res.data['token']);
       return {success:true, data: res.data}
     }
     catch (error) {

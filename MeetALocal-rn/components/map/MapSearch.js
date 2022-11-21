@@ -1,13 +1,14 @@
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import React from 'react'
 import { colors } from '../../constants/colors';
+import {API_KEY} from "@env"
 const MapSearch=({handlePress})=> {
        
   return (
         <GooglePlacesAutocomplete
             placeholder="Search"
             query={{
-            key: 'AIzaSyCoxD1F6k0dnxHoKGbCpjYo-O23mkBBvts',
+            key: API_KEY,
             language: 'en', 
             }}
             fetchDetails={true}

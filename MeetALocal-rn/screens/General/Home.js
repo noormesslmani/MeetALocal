@@ -6,7 +6,7 @@ import { UserContext } from '../../App'
 import { address } from '../../constants/address';
 import HomeCard from '../../components/Cards/HomeCard';
 import WavyBack from '../../components/General/WavyBackground';
-import { sendNotification, Notify } from '../../Notifications/Notifications';
+import { sendNotification, Notify } from '../../notifications/Notifications';
 const Home=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const handleLocals=()=>{

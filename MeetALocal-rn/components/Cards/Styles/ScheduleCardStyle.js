@@ -23,7 +23,7 @@ const ScheduleCardStyle = StyleSheet.create({
         elevation: 5,
     },
     longerContainer:{
-        height:170,
+        height:"auto",
         alignItems:"flex-start",
         justifyContent:"flex-start"
 
@@ -55,12 +55,13 @@ const ScheduleCardStyle = StyleSheet.create({
     },
     name:{
         fontWeight:"600",
-        fontSize:16,
-        marginLeft:2
+        fontSize:14,
+        marginLeft:2,
+        overflow:"hidden"
     },
     dateTime:{
         fontSize:16,
-        marginBottom:5
+        marginVertical:5
     },
     trash:{position:"absolute", bottom:10, right:10}
 });

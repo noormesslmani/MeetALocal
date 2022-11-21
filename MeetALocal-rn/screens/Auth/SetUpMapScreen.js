@@ -25,6 +25,8 @@ const SetUpMap=({navigation})=> {
     const [location, setLocation] = useState(null);
     const [lat, setLat]=useState(33.888630)
     const [lng, setLng]=useState(35.495480)
+    const [lngDelta, setlngDelta]=useState(1)
+    const [latDelta, setLatDelta]=useState(1)
     const [errorMsg, setErrorMsg] = useState(null);
     console.log(about)
     useEffect(() => {

@@ -1,7 +1,7 @@
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { Text, View, Button, Platform } from 'react-native';
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -30,16 +30,36 @@ export  function Notify(setExpoPushToken, setNotification, notificationListener,
 
 }
 
-export async function sendNotification(title, body) {
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: title,
-      body: body,
-      data: { data: 'goes here' },
+export async function sendNotification(expoPushToken, title, body) {
+  const message = {
+    to: expoPushToken,
+    sound: 'default',
+    title: title,
+    body: body,
+    data: { someData: 'goes here' },
+  };
+
+  await fetch('https://exp.host/--/api/v2/push/send', {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Accept-encoding': 'gzip, deflate',
+      'Content-Type': 'application/json',
     },
-    trigger: { seconds: 1 },
+    body: JSON.stringify(message),
   });
 }
+
+// export async function sendNotification(title, body) {
+//   await Notifications.scheduleNotificationAsync({
+//     content: {
+//       title: title,
+//       body: body,
+//       data: { data: 'goes here' },
+//     },
+//     trigger: { seconds: 1 },
+//   });
+// }
 
 export async function registerForPushNotificationsAsync() {
   let token;
@@ -69,6 +89,6 @@ export async function registerForPushNotificationsAsync() {
   } else {
     alert('Must use physical device for Push Notifications');
   }
-
+  await AsyncStorage.setItem("@expoToken", token);
   return token;
 }
