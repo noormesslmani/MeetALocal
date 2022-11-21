@@ -21,7 +21,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
                 Route::get('/locals', [UserController::class, 'getLocals']);
                 Route::get('/user/{id}', [UserController::class, 'getUser']);
                 Route::get('/events', [UserController::class, 'getEvents']);
-                Route::get('/event/{id}', [UserController::class, 'getEvent']);
+                Route::get('/locals-events', [UserController::class, 'getLocalEvent']);
                 Route::get('/posts', [UserController::class, 'getPosts']);
                 Route::get('/own-posts', [UserController::class, 'getOwnPosts']);
                 Route::post('/comment', [UserController::class, 'addComment']);
