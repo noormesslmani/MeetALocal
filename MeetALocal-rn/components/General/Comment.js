@@ -1,6 +1,5 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
-import image from '../../assets/profile.jpg'
 import CommentStyle from './Styles/CommentStyle';
 import { address } from '../../constants/address';
 const Comment=({navigation, item, comment})=> {

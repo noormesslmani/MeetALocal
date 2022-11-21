@@ -33,8 +33,8 @@ const LocalCard=({navigation, item})=> {
                 <Text style={{fontSize:14, fontWeight:"900"}}>{item.fees}$/hr</Text>
             </View>
             <View style={LocalCardStyle.categoryContainer}>
-                {categories.map((category)=>
-                <Button compact uppercase={false} labelStyle={{ color: colors.violet, fontSize: 12 }} style={LocalCardStyle.categoryBtn} icon={()=><Image source={categoryIcons[category]} style={{width:20, height:20}} />} mode="contained" >
+                {categories.map((category,index)=>
+                <Button key={index} compact uppercase={false} labelStyle={{ color: colors.violet, fontSize: 12 }} style={LocalCardStyle.categoryBtn} icon={()=><Image source={categoryIcons[category]} style={{width:20, height:20}} />} mode="contained" >
                  {category}
                 </Button>
                 )}

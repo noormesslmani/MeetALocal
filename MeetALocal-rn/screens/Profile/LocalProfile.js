@@ -110,8 +110,8 @@ const ForeignerProfile=({navigation})=> {
         {viewInfo && <View style={{marginTop:40}}>
           <Text style={{fontWeight:"500", fontSize:16}}>Categories</Text>
             <View style={{flexDirection:"row"}} >
-            {user.categories.map((category)=>
-              <Button compact uppercase={false} labelStyle={{ color: 'black' }} style={ProfileStyles.categoryBtn} icon={()=><Image source={categoryIcons[category]} style={{width:25, height:25}} />} mode="contained" >
+            {user.categories.map((category, index)=>
+              <Button key={index} compact uppercase={false} labelStyle={{ color: 'black' }} style={ProfileStyles.categoryBtn} icon={()=><Image source={categoryIcons[category]} style={{width:25, height:25}} />} mode="contained" >
                 {category}
               </Button>
             )}
@@ -142,7 +142,7 @@ const ForeignerProfile=({navigation})=> {
             <View style={ProfileStyles.separator}/>
             </View>}  
 
-          {!viewInfo &&  reviews.map((review)=><ReviewCard review={review} />)} 
+          {!viewInfo &&  reviews.map((review, index)=><ReviewCard  key={index} review={review} />)} 
           {!viewInfo &&  reviews.length==0 && <Text style={ProfileStyles.noReviews}>No reviews yet</Text> }     
 
           {viewInfo && <Pressable onPress={handleLogout} style={ProfileStyles.logOutContainer}><Text style={ProfileStyles.logOut} >Log Out</Text></Pressable>}

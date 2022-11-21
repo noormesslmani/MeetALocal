@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { address } from '../../constants/address';
-import { Rating, AirbnbRating } from 'react-native-ratings';
+import { Rating} from 'react-native-ratings';
 import ReviewerCardStyle from './Styles/ReviewerCardStyle';
 const ReviewCard=({review})=> {
 

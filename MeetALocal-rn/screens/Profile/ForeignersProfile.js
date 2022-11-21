@@ -3,10 +3,7 @@ import React from 'react'
 import { UserContext } from '../../App'
 import { useState, useEffect, useContext } from "react";
 import ProfileStyles from './ProfileStyles/ProfileStyles';
-import Icon from 'react-native-vector-icons/FontAwesome'
 import { address } from '../../constants/address';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { colors } from '../../constants/colors';
 import AppButton from '../../components/Buttons/AppButtons';
 import ImageView from "react-native-image-viewing";
 import WavyBack from '../../components/General/WavyBackground';
