@@ -6,7 +6,7 @@ const ListFooter=({isLoadingMore, isListEnd})=>{
     return (
     <View style={ListFooterStyle.contianer}>
       {isLoadingMore?<ActivityIndicator color={colors.lightViolet} />:null}
-      {isListEnd?<Text> You reached the end of the list</Text>:null}
+      {isListEnd?<Text style={ListFooterStyle.text}> You reached the end of the list</Text>:null}
     </View>
   )}
 export default ListFooter

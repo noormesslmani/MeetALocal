@@ -1,22 +1,26 @@
 import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, Modal, Pressable, StyleSheet, ScrollView, TextInput,  ActivityIndicator} from 'react-native'
 import React from 'react'
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import { getSchedule } from '../../network/App';
 import { colors } from '../../constants/colors';
 import ScheduleCard from '../../components/Cards/ScheduleCard';
 import ScheduleStyles from './Styles/ScheduleScreenStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import WavyBack from '../../components/General/WavyBackground';
-import ScheduleModal from '../../components/Modals/ScheduleModal';
-const Schedules=()=> {
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import ScheduleModal from '../../components/Modals/NewScheduleModal';
+const Schedules=({navigation})=> {
   const [schedule, setSchedule]=useState(null)
   const [isLoading, setIsLoading]=useState(false)
   const [scheduleModal, setScheduleModal]=useState(false)
   const [scheduleAdded, setScheduleAdded]=useState(false)
-    useEffect(()=>{
+ 
+    useFocusEffect(
+      useCallback(() => {
       getMySchedule()
-  
-   },[])
+      }, []), )
+    
+ 
    useEffect(()=>{
     if(scheduleAdded){
       getMySchedule()
@@ -34,7 +38,7 @@ const Schedules=()=> {
   const renderItem = ({ item, index }) => (
     <ScheduleCard item={item} key={index} type={1}/>
   );
- 
+  
   return (
         <View style={ScheduleStyles.container}>
           <WavyBack />
@@ -61,7 +65,7 @@ const Schedules=()=> {
           ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:null}
           />
           <TouchableOpacity onPress={()=>setScheduleModal(true)} style={ScheduleStyles.add} ><Icon name= 'plus' size={50} color={colors.lightViolet} /></TouchableOpacity>
-          {scheduleModal && <ScheduleModal setModalVisible={setScheduleModal} modalVisible={scheduleModal} setScheduleAdded={setScheduleAdded} />}
+          <ScheduleModal setModalVisible={setScheduleModal} modalVisible={scheduleModal} setScheduleAdded={setScheduleAdded}  />
         </View>
      
   )

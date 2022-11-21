@@ -4,7 +4,7 @@ import styles from './Authstyles';
 import { useState, useEffect } from "react";
 import AuthButton from '../../components/Buttons/AuthButton';
 import BackArrow from '../../components/Header/BackArrow';
-import Logo from '../Navigation/Logo';
+import Logo from '../../components/Header/Logo'
 import { useRoute } from '@react-navigation/native';
 import LanguagePicker from '../../components/General/LanguagePicker';
 import CountryPicker from '../../components/General/CountryPicker';

@@ -7,8 +7,10 @@ import { colors } from '../../constants/colors';
 import { isAppointmentBooked, isEventBooked, toggleBookAppointment } from '../../network/App';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import ScheduleCardStyle from './Styles/ScheduleCardStyle';
+import ScheduleModal from '../Modals/ScheduleModal';
+import Map from '../../components/Header/Map';
 const ScheduleCard=({item, type, setDeleted})=> {
-
+  const [modalVisible, setModalVisible]=useState(false)
   const [booked, setBooked]=useState(false)
   const [isLoading, setIsLoading]=useState(false)
   useEffect(()=>{
@@ -33,12 +35,17 @@ console.log(type)
   }
   console.log(item)
   return (
-    <View style={[ScheduleCardStyle.container, booked? ScheduleCardStyle.booked:null, type==2 && ScheduleCardStyle.longerContainer ]} >
+    <TouchableOpacity style={[ScheduleCardStyle.container, booked? ScheduleCardStyle.booked:null, type==2 && ScheduleCardStyle.longerContainer ]} onPress={()=>{type==1 && setModalVisible(true)}} >
       {type==2 && 
       <View style={ScheduleCardStyle.localContainer}>
-      <Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={{width:40, height:40, borderRadius:20, marginHorizontal:3}} /> 
+      <Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={{width:30, height:30, borderRadius:15, marginHorizontal:3}} /> 
       <Text style={ScheduleCardStyle.name}>{item.name}</Text>
       </View>
+      }
+      {
+        type==2 && <View  style={ScheduleCardStyle.localContainer}>
+          <Text>Place:</Text> 
+        </View>
       }
       <Text style={ScheduleCardStyle.dateTime}>Date and time:</Text>
       <Text style={[ScheduleCardStyle.date, booked? ScheduleCardStyle.bookedDate: null]}>{item.date}</Text>
@@ -48,7 +55,9 @@ console.log(type)
         <Text>{item.end_time.substring(0, 5)}</Text>
       </View>
       {type==2 && <Pressable onPress={hanldeUnbook} style={ScheduleCardStyle.trash} ><Icon name='trash' size={25} color='grey' /></Pressable> }
-    </View>
+      {type==1 && <ScheduleModal setModalVisible={setModalVisible} modalVisible={modalVisible} item={item} />}
+    </TouchableOpacity>
+    
   )
 }
 export default ScheduleCard

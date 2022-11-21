@@ -7,7 +7,6 @@ import PickerStyle from './Styles/PickerStyle';
 const CategoryPicker=({open, value, setOpen, setValue, type=1, multiple=false})=>{
     const [categories, setCategories]=useState(type==1?categoriesOptions: categoriesSpecificOptions)
    
-    console.log(type)
     return(
         <DropDownPicker
             open={open}

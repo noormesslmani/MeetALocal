@@ -13,7 +13,7 @@ import { Button} from 'react-native-paper';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import EventModalStyle from './Styles/EventModalStyle';
 import { isEventBooked, toggleBookedEvent } from '../../network/App';
-import { sendNotification, Notify } from '../../Notifications/Notifications';
+import { sendNotification, Notify } from '../../notifications/Notifications';
 const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setDeleted, setBooked})=> {
     const { user, setUser} = useContext(UserContext);
     const [categories, setCategories]=useState([])

@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, ActivityIndicator, FlatList, SafeAreaView, Modal} from 'react-native'
+import { View, Text, TouchableOpacity, Image, ActivityIndicator, Modal, Linking} from 'react-native'
 import React from 'react'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { useState, useEffect, useContext, useRef } from "react";
@@ -7,11 +7,10 @@ import NewEventModalStyles from './Styles/NewEventModalStyle';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
 import { UserContext } from '../../App'
-import { categoriesSpecificOptions } from '../../constants/categories';
 import DatePicker from '../General/datePicker';
 import AppButton from '../Buttons/AppButtons';
 import { createNewEvent } from '../../network/App';
-import { sendNotification, Notify } from '../../Notifications/Notifications';
+import { sendNotification, Notify } from '../../notifications/Notifications';
 import { colors } from '../../constants/colors';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CategoryPicker from '../General/CategoryPicker';
@@ -89,6 +88,7 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
             sendNotification(token,'Meet A Local','Event successfully created')
             setEventCreated(true)
             setIsLoading(false)
+           
         }
         else(setIsLoading(false))
       }
@@ -133,7 +133,7 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
                         </View>
                         <View style={NewEventModalStyles.contentContainer}>
                             <Text>Fees *</Text>
-                            <TextInput placeholder='Enter fees' style={NewEventModalStyles.input} value={fees} onChangeText={setFees}
+                            <TextInput placeholder='Enter fees' style={NewEventModalStyles.input} value={fees} onChangeText={setFees} keyboardType = 'numeric'
                              underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}/>
                         </View>
                         <View style={NewEventModalStyles.contentContainer}>
@@ -148,6 +148,7 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
                             value={selectedCategory}
                             setOpen={setOpenCategory}
                             setValue={setSelectedCategory}
+                            multiple={true}
                             type={2}
                             />
                         </View>

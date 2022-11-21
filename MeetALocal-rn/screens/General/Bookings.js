@@ -6,7 +6,7 @@ import { useState, useEffect, useContext } from "react";
 import ScheduleCard from '../../components/Cards/ScheduleCard';
 import ScheduleStyles from './Styles/ScheduleScreenStyles';
 import WavyBack from '../../components/General/WavyBackground';
-const Bookings=()=> {
+const Bookings=({navigation})=> {
 
   const [appointments, setAppointments]=useState(null)
   const [isLoading, setIsLoading]=useState(false)
@@ -30,7 +30,7 @@ const Bookings=()=> {
     setIsLoading(false)
   }
   const renderItem = ({ item, index }) => (
-    <ScheduleCard item={item} key={index} type={2} setDeleted={setDeleted} />
+    <ScheduleCard item={item} key={index} type={2} setDeleted={setDeleted} navigation={navigation} />
   );
 
   return (

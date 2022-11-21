@@ -39,7 +39,7 @@ const ForeignerProfile=({navigation})=> {
         <AppButton handlePress={handleEdit} text={'Edit profile'} />
         <ScrollView showsVerticalScrollIndicator={false} style={{ marginBottom:100, marginTop:20}} >
         <View style={{marginTop:20}}>
-          <Text style={{fontWeight:"500", fontSize:16}}>Perosnal Information</Text>
+          <Text style={{fontWeight:"500", fontSize:16}}>Perosnal Info</Text>
           <ProfileCard icon={'birthday-cake'} data={user.date_of_birth} />
           <ProfileCard icon={'phone'} data={user.phone} />
           <ProfileCard icon={'envelope'} data={user.email}/>
