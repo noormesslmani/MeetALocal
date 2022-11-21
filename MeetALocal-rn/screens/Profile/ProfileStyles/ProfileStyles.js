@@ -28,8 +28,15 @@ const ProfileStyles = StyleSheet.create({
     separator:{
         borderBottomColor: 'grey',
         borderBottomWidth: 0.3,
-        width: widths.width9,
+        width: widths.width,
         margin:5,
+    },
+    view:{
+        flexDirection:"row",
+        width:widths.width6,
+        justifyContent:"space-between",
+        marginTop:30,
+        alignSelf:"center"
     },
     profilePicture:{ width: 180, 
         height: 180, 
@@ -102,6 +109,44 @@ const ProfileStyles = StyleSheet.create({
     pickerContainer:{
         width:widths.width8,
         marginTop:10
+    },
+    categoryBtn:{
+        width:"auto",
+        height:55,
+        margin:5,
+        backgroundColor:'white',
+        borderRadius:10,
+        alignItems:"center",
+        justifyContent:"center"
+    },
+    averageContainer:{
+        alignItems:"center",
+        padding:10
+    },
+    averageText:{
+        fontSize:30,
+        marginVertical:10,
+        color:colors.gold
+    },
+    reviewsNb:{
+        marginVertical:10,
+        fontSize:12
+    },
+    scrollView:{
+        marginBottom:100,
+        marginTop:20,
+        width:widths.width9
+    },
+    reviewsTitle:{
+        width:"100%",
+        alignItems:"center",
+        justifyContent:"center",
+        marginVertical:20
+    },
+    noReviews:{
+        alignSelf:"center",
+        color: colors.lightGrey,
+        fontSize:12
     }
 });
 
