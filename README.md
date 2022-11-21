@@ -59,7 +59,7 @@ Here's a brief high-level overview of the tech stacks the app uses:
 <br><br>
 - This project uses the [React Native framework](https://reactnative.dev/). React Native (also known as RN) is a popular JavaScript-based mobile app framework that allows you to build natively-rendered mobile apps for iOS and Android. The framework lets you create an application for various platforms by using the same codebase.
 <br><br>
-- The backend is implemented using [Laravel] (https://laravel.com/) which is a free and open-source PHP web framework, intended for the development of web applications following the model–view–controller (MVC) architectural pattern.
+- The backend is implemented using [Laravel](https://laravel.com/) which is a free and open-source PHP web framework, intended for the development of web applications following the model–view–controller (MVC) architectural pattern.
 <br><br>
 - For storing messages, the app uses the [Firebase](https://firebase.google.com/) package which is a Google-backed application development software that enables developers to develop iOS, Android and Web apps. Firebase Realtime Database is a cloud-hosted NoSQL database that enables data to be stored and synced between users in real time.
 <br><br>
