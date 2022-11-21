@@ -1,6 +1,6 @@
 import { View, Text, TextInput, KeyboardAvoidingView } from 'react-native'
 import React from 'react'
-import styles from './Authstyles';
+import styles from './Styles/AuthScreensStyle';
 import { useState, useEffect } from "react";
 import AuthButton from '../../components/Buttons/AuthButton';
 import BackArrow from '../../components/Header/BackArrow';
