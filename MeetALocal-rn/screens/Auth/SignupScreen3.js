@@ -1,6 +1,6 @@
 import { View, Text, ActivityIndicator } from 'react-native'
 import React from 'react'
-import styles from './Authstyles';
+import styles from './Styles/AuthScreensStyle';
 import { useState, useEffect } from "react";
 import { TextInput } from 'react-native-paper';
 import AuthButton from '../../components/Buttons/AuthButton';

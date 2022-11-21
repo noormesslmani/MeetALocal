@@ -3,7 +3,7 @@ import React from 'react'
 import { useState, useEffect, useContext } from "react";
 
 import { useRoute } from '@react-navigation/native';
-import styles from './Authstyles';
+import styles from './Styles/AuthScreensStyle';
 import BackArrow from '../../components/Header/BackArrow';
 import * as Location from 'expo-location';
 import Map from '../../components/map/Map';

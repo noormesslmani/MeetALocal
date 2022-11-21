@@ -1,9 +1,9 @@
 import { StyleSheet, Dimensions } from "react-native";
-import { widths } from "../../constants/dimensions";
+import { widths } from "../../../constants/dimensions";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-import { colors } from "../../constants/colors";
+import { colors } from "../../../constants/colors";
 const styles = StyleSheet.create({
     background:{
         backgroundColor: colors.lightViolet,

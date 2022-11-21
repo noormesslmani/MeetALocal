@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
 import React from 'react'
-import styles from './Authstyles';
+import styles from './Styles/AuthScreensStyle';
 import { TextInput, Avatar } from 'react-native-paper';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'

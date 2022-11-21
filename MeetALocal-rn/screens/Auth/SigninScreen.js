@@ -1,7 +1,7 @@
 import { View, Text, KeyboardAvoidingView, ActivityIndicator } from 'react-native'
 import { TextInput } from 'react-native-paper';
 import React from 'react'
-import styles from './Authstyles';
+import styles from './Styles/AuthScreensStyle';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'
 import AuthButton from '../../components/Buttons/AuthButton';

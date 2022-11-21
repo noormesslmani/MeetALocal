@@ -1,6 +1,6 @@
 import { View, TouchableOpacity } from 'react-native'
 import React from 'react'
-import styles from './Authstyles';
+import styles from './Styles/AuthScreensStyle';
 import AuthButton from '../../components/Buttons/AuthButton';
 import { Surface, Text } from 'react-native-paper';
 import { useRoute } from '@react-navigation/native';
