@@ -545,4 +545,21 @@ export async function getLocals(params){
       return {'success': false, error}
     }
   }
+  export async function getLocalsEvents(id){
+    const token = await AsyncStorage.getItem('@token')
+    const config = {
+      method: "get",
+      params:{id},
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}users/locals-events`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.warn(error)
+      return {'success': false, error}
+    }
+  }
 

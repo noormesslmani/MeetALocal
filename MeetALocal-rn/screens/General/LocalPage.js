@@ -9,7 +9,7 @@ import LocalProfileStyles from './Styles/LocalProfileStyles';
 import { categoryIcons } from '../../constants/categories';
 import ImageView from "react-native-image-viewing";
 import Map from '../../components/Header/Map';
-import { CheckFavoriteLocals, toggleFavoriteLocals } from '../../network/App';
+import { CheckFavoriteLocals, toggleFavoriteLocals, getLocalsEvents } from '../../network/App';
 import { address } from '../../constants/address';
 import call from 'react-native-phone-call'
 import { Rating, AirbnbRating } from 'react-native-ratings';
@@ -24,13 +24,14 @@ import { Button} from 'react-native-paper';
 import ProfileCard from '../../components/Cards/ProfileCard';
 import WideButton from '../../components/Buttons/wideButtons';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import EventCard from '../../components/Cards/EventCard';
 const LocalPage=({navigation})=> {
   const route = useRoute();
   const item =route.params.item
   const { user, setUser, locals, setLocals} = useContext(UserContext);
   const [isFavorite, SetIsFavorite]=useState(false)
   const [likes, setLikes]= useState(item.likes)
-  
+  const [events, setEvents]=useState([])
 
   const [average, setAverage]= useState(null)
   const [reviews, setReviews]=useState([])
@@ -60,7 +61,7 @@ const LocalPage=({navigation})=> {
       checkFavorite()
     }
     setLocals([item])
-    
+    getEvents()
   },[])
 
   const isFocused = useIsFocused();
@@ -93,7 +94,13 @@ const LocalPage=({navigation})=> {
     }
   } 
 
-  
+  const getEvents=async()=>{
+    const result = await getLocalsEvents(item.id)
+    if (result.success){
+      setEvents(result.data.data)
+    }
+  }
+  console.log(events)
   //navigating to chat screen
   const handleMessage=()=>{
     console.log('hi')
@@ -239,7 +246,7 @@ const LocalPage=({navigation})=> {
               <Text style={LocalProfileStyles.reviewNb}>Based on {reviews.length} reviews</Text>
               </View>
               <View>
-                {stars.length>0 && stars.map((star, index)=><View style={{flexDirection:"row",alignItems:"center"}} key={index} ><Text style={{marginRight:5}}>{star}</Text><Rating size={15} startingValue={index} imageSize={15} readonly/></View>)}
+                {stars.length>0 && stars.map((star, index)=><View style={{flexDirection:"row",alignItems:"center"}} key={index} ><Text style={{marginRight:5}}>{star}</Text><Rating size={15} startingValue={index+1} imageSize={15} readonly/></View>)}
                 {user.type_id==2 && <TouchableOpacity style={LocalProfileStyles.reviewsLink} onPress={handleReviews} >
                 <Text style={{marginHorizontal:7}} >reviews</Text>
                 <Icon name='chevron-right' color={colors.gold} size={18}/>
@@ -248,10 +255,21 @@ const LocalPage=({navigation})=> {
             </View>
 
           </View>
+
+          <View style={LocalProfileStyles.sectionContainer}>
+            <Text style={LocalProfileStyles.sectionTitle}>Upcoming Events</Text>
+          </View>
+
+          <ScrollView 
+          showsHorizontalScrollIndicator={false}
+          horizontal={true}
+          >
+            {events.map((event)=><EventCard item={event} choice={1} setEventBooked={null} />)}
+          </ScrollView>
         </View>
 
         {reviewModalVisible && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} setReviewAdded={setReviewAdded} id={item.id} />}
-     
+        
     </ScrollView>
     
   )
