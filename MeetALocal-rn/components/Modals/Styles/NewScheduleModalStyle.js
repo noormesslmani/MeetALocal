@@ -11,12 +11,13 @@ const ScheduleModalStyle = StyleSheet.create({
       },
       modalView: {
         backgroundColor: "white",
-        width:widths.width7,
-        height:"auto",
+        width:widths.width9,
+        flex:0.4,
         borderRadius: 20,
-        textAlign:"center",
+        alignItems: "center",
         shadowColor: "#000",
-        padding:30,
+        padding:20,
+        justifyContent:"space-between",
         shadowOffset: {
           width: 0,
           height: 2
@@ -27,31 +28,37 @@ const ScheduleModalStyle = StyleSheet.create({
       },
       modalTitle: {
         textAlign: "center",
-        fontWeight:"400",
-        fontSize:20,
+        fontWeight:"500",
+        fontSize:24
+
       },
-      detailsContainer:{
-        flexDirection:"row",
-        alignItems:"center",
-        marginTop:25
-      },
-      profileImage:{
-        width:24,
-        height:24,
-        borderRadius:12,
-        marginRight:10
-      },
-      bookerContainer:{
-        flexDirection:"row"
-      },
-      icon:{
-        marginRight:20
+      title:{
+        fontSize:14,
+        margin:20,
+        marginVertical:10,
       },
       text:{
-        fontWeight:"500",
-        color:"#525252"
-      }
+        fontSize:14,
+        margin:20,
+        textDecorationLine:"underline",
+        color:'grey'
+      },
+      dateContainer:{
+        alignItems:"center", 
+        margin:10,
 
+      },
+      ButtonContianer:{
+        flexDirection:"row",
+        width:"75%",
+        justifyContent:"space-between",
+        alignItems:"center",
+      },
+      input:{
+        width:"30%",
+        borderBottomWidth:0.5,
+        borderColor:colors.lightViolet
+      }
       
 });
 export default ScheduleModalStyle;
