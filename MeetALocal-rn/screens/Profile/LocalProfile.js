@@ -5,7 +5,6 @@ import { useState, useEffect, useContext } from "react";
 import ProfileStyles from './ProfileStyles/ProfileStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { address } from '../../constants/address';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { colors } from '../../constants/colors';
 import ImageView from "react-native-image-viewing";
 import AppButton from '../../components/Buttons/AppButtons';
@@ -15,18 +14,21 @@ import WavyBack from '../../components/General/WavyBackground';
 import { getReviews } from '../../network/App';
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import ReviewCard from '../../components/Cards/ReviewerCrad';
+import { Button} from 'react-native-paper';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HighlightsModal from '../../components/Modals/HighlightsModal';
+import ProfileCard from '../../components/Cards/ProfileCard';
 const ForeignerProfile=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const [image, setImage]= useState(null)
   const [imageView, setImageView]=useState(false)
+  const [average, setAverage]= useState(null)
   const [reviews, setReviews]=useState([])
   const [stars, setStars]=useState([])
-  const [average, setAverage]= useState(0)
   const [modalVisible, setModalVisible]= useState(false)
-  const images = user.highlights?.map((image)=>({ uri: `${address}/${image}`}))
+  const [viewInfo, setViewInfo]=useState(true)
+  const images = user.highlights.map((image)=>({ uri: `${address}/${image}`}))
   useEffect(()=>{
     if(user.profile_picture){
       setImage(user.profile_picture)
@@ -45,9 +47,11 @@ const ForeignerProfile=({navigation})=> {
     setStars(starsArr)
   },[reviews])
 
+
   useEffect(()=>{
-    if(stars)
-    setAverage((stars[0]+2*stars[1]+3*stars[2]+4*stars[3]+5*stars[4])/(stars[0]+stars[1]+stars[2]+stars[3]+stars[4]))
+    if(stars.length>0){
+    reviews.length>0?setAverage((stars[0]+2*stars[1]+3*stars[2]+4*stars[3]+5*stars[4])/(stars[0]+stars[1]+stars[2]+stars[3]+stars[4])):setAverage(0)
+    }
   },[stars])
 
   const getAllReviews=async()=>{
@@ -66,28 +70,36 @@ const ForeignerProfile=({navigation})=> {
     }
   return (
     <View style={ProfileStyles.container}>
-      
+
         <WavyBack/>
         <TouchableOpacity onPress={()=>setImageView(true)}><Image source={image?{ uri:`${address}/${image}`}: require('../../assets/blank-profile.webp')} style={{ width: 200, height: 200, borderRadius:100, marginTop:20 }} /></TouchableOpacity>
         <Text style={ProfileStyles.name}>{user.name}</Text>
         <AppButton handlePress={handleEdit} text={'Edit profile'} />
-
-        <ScrollView contentContainerStyle={{paddingBottom:300}} showsVerticalScrollIndicator={false}>
-        <View style={{marginTop:20}}>
-          <Text style={{fontWeight:"500"}}>Perosnal Information</Text>
-          <View style={ProfileStyles.separator}/>
-          <View style={{flexDirection:"row",margin:5}}><Icon name="phone" size={20} color={colors.violet} />
-          <Text style={{marginLeft:5}}>{user.phone}</Text></View>
-          <View style={{flexDirection:"row",margin:5}}><Icon name="calendar" size={20} color={colors.violet} />
-          <Text style={{marginLeft:5}}>{user.date_of_birth}</Text></View>
-          <View style={{flexDirection:"row",margin:5}}><Ionicons name="location-sharp" size={20} color={colors.violet} />
-          <Text style={{marginLeft:5}}>{user.residence}</Text></View>
+      
+        <ScrollView showsVerticalScrollIndicator={false} style={ProfileStyles.scrollView} >
+        
+        <View style={ProfileStyles.view}>
+            <AppButton text='Info' handlePress={()=>setViewInfo(true)} type={viewInfo?1:2} />
+            <AppButton text='Reviews' handlePress={()=>setViewInfo(false)} type={viewInfo?2:1} />
         </View>
-        {user.about && <View style={{marginTop:40}}>
-          <Text style={{fontWeight:"500"}}>About</Text>
+        <View style={ProfileStyles.separator}/>
+
+        {viewInfo && <View style={{marginTop:20}}>
+          <Text style={{fontWeight:"500", fontSize:16}}>Perosnal Info</Text>
+          <ProfileCard icon={'birthday-cake'} data={user.date_of_birth} />
+          <ProfileCard icon={'user'} data={user.gender}/>
+          <ProfileCard icon={'phone'} data={user.phone} />
+          <ProfileCard icon={'envelope'} data={user.email}/>
+          <ProfileCard icon={'flag'} data={user.nationality}/>
+          <ProfileCard icon={'language'} data={user.languages} />
+        </View>}
+        
+        {user.about && viewInfo && <View style={{marginTop:40}}>
+          <Text style={{fontWeight:"500", fontSize:16}}>About me</Text>
           <View style={ProfileStyles.separator}/>
           <Text>{user.about}</Text>
         </View>}
+
         {ImageView && image &&  
           <ImageView
           images={[{uri:`${address}/${image}`}]}
@@ -95,45 +107,45 @@ const ForeignerProfile=({navigation})=> {
           visible={imageView}
           onRequestClose={() => setImageView(false)}/>}
 
-        <View style={{marginTop:40}}>
-          <Text style={{fontWeight:"500"}}>Categories</Text>
-          <View style={ProfileStyles.separator}/>
-          <View style={{flexDirection:"row"}}>
-              {user.categories.map((category)=>
-              <View style={ProfileStyles.iconContainer}>
-              <Image source={categoryIcons[category]} style={ProfileStyles.categoryIcon}/>
-              <Text style={{fontSize:12}}>{category}</Text>
-              </View>
+        {viewInfo && <View style={{marginTop:40}}>
+          <Text style={{fontWeight:"500", fontSize:16}}>Categories</Text>
+            <View style={{flexDirection:"row"}} >
+            {user.categories.map((category)=>
+              <Button compact uppercase={false} labelStyle={{ color: 'black' }} style={ProfileStyles.categoryBtn} icon={()=><Image source={categoryIcons[category]} style={{width:25, height:25}} />} mode="contained" >
+                {category}
+              </Button>
             )}
-          </View>
-          </View>
+            </View>
+        </View>}
 
           
-          {user.highlights && <View style={{marginTop:40}}>
+         {viewInfo && <View style={{marginTop:40}}>
             <View style={ProfileStyles.highlightsContainer}>
               <Text style={{fontWeight:"500"}}>Highlights</Text>
               <Pressable onPress={()=>setModalVisible(true)} ><Icon name='pencil' size={20} color={colors.violet} /></Pressable>
             </View>
             <View style={ProfileStyles.separator}/>
-            <View style={{ flex: 1, alignSelf:"center" }}>
-            <ImageCarousel images={images} />
-          </View>
+            {user.highlights.length>0 && <View style={{ flex: 1, alignSelf:"center" }}>
+              <ImageCarousel images={images} />
+            </View>}
           </View>}
 
-          <View style={ProfileStyles.separator}/>
+        
+          {!viewInfo && average!=null && <View style={ProfileStyles.averageContainer}>
+            <Text style={ProfileStyles.averageText}>{average}/5</Text>
+            <Rating size={40} startingValue={average} imageSize={40} readonly />
+            <Text style={ProfileStyles.reviewsNb}>Based on {reviews.length} reviews</Text>
+          </View>}
 
-          <View style={{marginTop:40}}>
-            <Text style={{fontWeight:"500"}}>Reviews</Text>
+          {!viewInfo && <View style={ProfileStyles.reviewsTitle}>
+            <Text>Reviews</Text>
+            <View style={ProfileStyles.separator}/>
+            </View>}  
 
-            {stars.length>0 && 
-            <AirbnbRating size={25} showRating showReadOnlyText={false} defaultRating={average} readonly= {true}  imageSize={25} style={{marginVertical:3, marginHorizontal:10}}/>
-            }
-            <Text style={{alignSelf:"center", fontSize:10}}>Based on {reviews.length} reviews</Text>
-          </View>
-         
-          {reviews.map((review, index)=><ReviewCard review={review} key={index}/>)}
-          
-          <Pressable onPress={handleLogout} style={ProfileStyles.logOutContainer}><Text style={ProfileStyles.logOut} >Log Out</Text></Pressable>
+          {!viewInfo &&  reviews.map((review)=><ReviewCard review={review} />)} 
+          {!viewInfo &&  reviews.length==0 && <Text style={ProfileStyles.noReviews}>No reviews yet</Text> }     
+
+          {viewInfo && <Pressable onPress={handleLogout} style={ProfileStyles.logOutContainer}><Text style={ProfileStyles.logOut} >Log Out</Text></Pressable>}
           {modalVisible && <HighlightsModal setModalVisible={setModalVisible} modalVisible={modalVisible} highlights={user.highlights} /> }
         </ScrollView>
     </View>
