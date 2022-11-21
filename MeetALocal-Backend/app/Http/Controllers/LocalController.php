@@ -138,6 +138,9 @@ class LocalController extends Controller
     public function getAppointments(){
         $date = today()->format('Y-m-d');
         $appointments=Auth::user()->appointments()->where('date', '>=', $date)->orderBy('date', 'desc')->get();
+        foreach($appointments as $appointment){
+            $appointment['booker']=$appointment->booking()->join('users','booker_id','users.id')->get(['users.name','booker_id','users.profile_picture']);
+        }
         return response()->json([
             'message' => 'ok',
             'data' => $appointments,

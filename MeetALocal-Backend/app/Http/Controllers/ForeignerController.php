@@ -28,12 +28,11 @@ class ForeignerController extends Controller
     public function getFavorites(){
         $favorites=Auth::user()->favorites()->get();
         foreach($favorites as $local){
-            $category= $local->categories()->pluck('category');
-            $likes= FavoriteLocal::where('local_id',$local->id)->count();
-            $local['likes']=$likes;
-            $local['categories']=$category;
-            $country=Country::where('countries.id',$local->residence_id)->pluck('country')[0];
-            $local['country']=$country;
+            $local['likes']=FavoriteLocal::where('local_id',$local->id)->count();;
+            $local['categories']=$local->categories()->pluck('category');;
+            $local['country']=Country::where('countries.id',$local->residence_id)->pluck('country')[0];
+            $local['languages']=$local->languages()->pluck('language');
+            $local['highlights']=$local->highlights()->pluck('photo');
         }
         return response()->json([
             'message' => 'ok',
@@ -129,7 +128,6 @@ class ForeignerController extends Controller
     public function addReview(Request $request){
         $validator = Validator::make($request->all(), [
             'local_id' => 'required',
-            'review'=>'required|string',
             'stars'=>'required|between:0,5',
         ]);
         if($validator->fails()){
@@ -137,7 +135,9 @@ class ForeignerController extends Controller
         }
         $review = Review::create(array_merge(
             $validator->validated(),
-            ['reviewer_id'=> Auth::id()
+            [
+                'reviewer_id'=> Auth::id(),
+                'review'=>$request->review
             ]
         ));
         return response()->json([
