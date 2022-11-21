@@ -77,7 +77,6 @@ class AuthController extends Controller
             'type' => 'required|string|in:Local,Foreigner',
             'gender' =>'required|in:Male,Female',
             'categories' =>'array',
-            'about' => 'string',
             'latitude' =>"numeric",
             'longitude' =>"numeric",
             'fees' => 'numeric',
@@ -99,7 +98,8 @@ class AuthController extends Controller
                     'nationality_id'=> Country::where('country',$request->nationality)->pluck('id')[0],
                     'residence_id'=> Country::where('country',$request->residence)->pluck('id')[0],
                     'type_id'=>UserType::where('user_type',$request->type)->pluck('id')[0],
-                    'profile_picture'=>$path
+                    'profile_picture'=>$path,
+                    'about'=> $request->about
                     ]
                 ));
         foreach($request->languages as $language){
