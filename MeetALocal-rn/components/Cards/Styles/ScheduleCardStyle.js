@@ -42,10 +42,9 @@ const ScheduleCardStyle = StyleSheet.create({
         margin:3
     },
     date:{
-        fontSize:16,
+        fontSize:12,
         fontWeight:"500",
         color: colors.violet,
-        marginBottom:5
     },
     bookedDate:{
         color:"white"
@@ -60,9 +59,17 @@ const ScheduleCardStyle = StyleSheet.create({
         overflow:"hidden"
     },
     dateTime:{
-        fontSize:16,
-        marginVertical:5
+        fontSize:14,
+        marginRight:5
     },
-    trash:{position:"absolute", bottom:10, right:10}
+    trash:{position:"absolute", top:20, right:10},
+    locationContainer:{
+        flexDirection:"row",
+        alignItems:"center"
+    },
+    dateTimeContainer:{
+        flexDirection:"row",
+        alignItems:"flex-end"
+    },
 });
 export default ScheduleCardStyle;
