@@ -1,15 +1,19 @@
-import { View, Text, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
+import { View, Text, TouchableOpacity, KeyboardAvoidingView, StyleSheet, TextComponent } from 'react-native'
 import React from 'react'
 import { TextInput } from 'react-native-paper';
 import styles from './Authstyles';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import AuthButton from '../../components/Buttons/AuthButton';
 import DatePicker from '../../components/General/datePicker';
-import Icon from 'react-native-vector-icons/AntDesign'
 
+import PhoneInput from "react-native-phone-number-input";
 import { colors } from '../../constants/colors';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import { color } from 'react-native-reanimated';
+import { widths } from '../../constants/dimensions';
+
+
 const SignupScreen = ({navigation}) => {
   const [fullName, setFullName]=useState('');
   const [invalidName, setInvalidName]=useState(false);
@@ -20,7 +24,8 @@ const SignupScreen = ({navigation}) => {
   const [dob, setdob]=useState('')
   const [invalidDate, setinvalidDate] = useState(false);
   const [dateSelected, setDateSelected] = useState(false);
-  
+  const phoneRef = useRef(undefined);
+  const [focus, setFocus] = useState(false);
   const handleDate= (event, value)=>{
     setDatePicker(false)
     setDate(value)
@@ -55,13 +60,11 @@ const SignupScreen = ({navigation}) => {
     }
     else{
       navigation.navigate('signup-second', {
-        fullName, phone, dob,
+        fullName, phone:phone.substring(1) , dob,
       })
     }
   }
-
-
-
+ 
   return (
     <View style={styles.background}>
       <KeyboardAwareScrollView style={styles.scrollView} scrollEnabled={false}  showsVerticalScrollIndicator={false}>
@@ -73,16 +76,32 @@ const SignupScreen = ({navigation}) => {
             value={fullName} left={<TextInput.Icon icon={()=><FontAwesome name='user' size={20} />} />} underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}></TextInput>
             {invalidName && <Text style={styles.error}>Please enter your name</Text>}
           </View>
-          <View style={styles.inputContainer}>
-            <TextInput label="Phone" style={styles.input} onChangeText={setPhone} value={phone} 
-            keyboardType={'numeric'} left={<TextInput.Icon icon='phone' />} underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}></TextInput>
-            {invalidPhone && <Text style={styles.error}>Please enter your phone number</Text>}
-          </View>
+    
+          <PhoneInput
+
+            value={phone}
+            defaultCode="LB"
+            layout="second"
+            autoFocus
+            containerStyle={styles.phoneContainer}
+            textContainerStyle={styles.phoneText}
+            textInputStyle={styles.phoneInput}
+            countryPickerButtonStyle={{ height:55, width:70}}
+            codeTextStyle={styles.phoneInput}
+            placeholder= 'phone'
+            onChangeFormattedText={(text) => {
+              setPhone(text);
+            }}
+          />
+    
           <View style={styles.inputContainer}>
             <Text>Date of birth</Text>
             <TouchableOpacity onPress={()=>setDatePicker(true)} style={{alignSelf:'center', marginTop:10}}><FontAwesome name="birthday-cake" size={30}/></TouchableOpacity>
             {invalidDate && <Text style={styles.error}>Please select the date of birth</Text>}
           </View>
+
+          
+
           <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>
           <Text style={styles.text}>Already have an account? 
           </Text>
@@ -98,3 +117,5 @@ const SignupScreen = ({navigation}) => {
 }
 
 export default SignupScreen
+
+

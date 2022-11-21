@@ -229,6 +229,27 @@ const styles = StyleSheet.create({
         width:"100%",
         backgroundColor: "white",
         paddingLeft: 10,
+      },
+      phoneContainer: {
+        width:widths.width6,
+        justifyContent: 'center',
+        alignItems:"center",
+        backgroundColor:'white',
+        marginBottom:30,
+        borderBottomWidth:1,
+        borderBottomColor:colors.lighterViolet
+       
+      },
+      phoneInput: {
+        width:widths.width6,
+      },
+      phoneText:{
+        height: 55,
+        backgroundColor: "white",
+        borderBottomColor:colors.lightViolet
+      },
+      phoneInput:{
+        fontSize:16,
       }
     
 });
