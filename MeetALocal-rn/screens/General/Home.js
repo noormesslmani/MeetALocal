@@ -6,7 +6,7 @@ import { UserContext } from '../../App'
 import { address } from '../../constants/address';
 import HomeCard from '../../components/Cards/HomeCard';
 import WavyBack from '../../components/General/WavyBackground';
-import { sendNotification, Notify } from '../../notifications/Notifications';
+
 const Home=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const handleLocals=()=>{
@@ -18,14 +18,6 @@ const Home=({navigation})=> {
     const handleEvents=()=>{
         navigation.navigate('events')
     }
-
-    const [expoPushToken, setExpoPushToken] = useState('');
-    const [notification, setNotification] = useState(false);
-    const notificationListener = useRef();
-    const responseListener = useRef();
-    useEffect(()=>{
-        Notify(setExpoPushToken, setNotification, notificationListener, responseListener)
-    },[])
    
   return (
     <View style={HomeStyles.container}>
