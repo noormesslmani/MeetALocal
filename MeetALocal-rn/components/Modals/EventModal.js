@@ -135,7 +135,7 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
             <View style={EventModalStyle.detailsContianer}>
               <Text style={EventModalStyle.categoriesTitle}>Categories:</Text>
               <View style={{flexDirection:"row"}}>
-              {categories.map((category)=><Image source={categoryIcons[category]} style={EventModalStyle.icons} />)}
+              {categories.map((category, index)=><Image source={categoryIcons[category]} style={EventModalStyle.icons} key={index} />)}
               </View>
             </View>
           </ScrollView> 

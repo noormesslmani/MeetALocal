@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, Modal, Pressable, StyleSheet, ScrollView, TextInput,  ActivityIndicator} from 'react-native'
+import { View, FlatList,  ActivityIndicator} from 'react-native'
 import React from 'react'
 import { colors } from '../../constants/colors';
 import { bookAppointment, getBookedAppointments } from '../../network/App';

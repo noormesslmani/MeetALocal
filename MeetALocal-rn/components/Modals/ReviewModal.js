@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity, Image, Modal, Pressable, ActivityIndicator } from 'react-native'
 import React from 'react'
-import { useState, useEffect, useContext, useRef } from "react";
-import { Rating, AirbnbRating } from 'react-native-ratings';
+import { useState } from "react";
+import { Rating} from 'react-native-ratings';
 import AppButton from '../Buttons/AppButtons';
 import { addReview } from '../../network/App';
 import { colors } from '../../constants/colors';

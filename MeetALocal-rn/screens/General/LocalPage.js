@@ -215,8 +215,8 @@ const LocalPage=({navigation})=> {
           <View style={LocalProfileStyles.sectionContainer}>
             <Text style={LocalProfileStyles.sectionTitle}>Categories</Text>
             <View style={{flexDirection:"row"}} >
-            {item.categories.map((category)=>
-              <Button compact uppercase={false} labelStyle={{ color: 'black' }} style={LocalProfileStyles.categoryBtn} icon={()=><Image source={categoryIcons[category]} style={{width:25, height:25}} />} mode="contained" >
+            {item.categories.map((category, index)=>
+              <Button compact uppercase={false} labelStyle={{ color: 'black' }} style={LocalProfileStyles.categoryBtn} icon={()=><Image source={categoryIcons[category]} style={{width:25, height:25}} />} mode="contained" key={index} >
                 {category}
               </Button>
             )}

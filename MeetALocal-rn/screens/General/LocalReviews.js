@@ -2,10 +2,7 @@ import { View, Text, TouchableOpacity, Image, ScrollView, Pressable, Linking } f
 import React from 'react'
 import { UserContext } from '../../App'
 import { useState, useEffect, useContext } from "react";
-import Icon from 'react-native-vector-icons/FontAwesome'
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useRoute } from '@react-navigation/native';
-import { address } from '../../constants/address';
 import { Rating, AirbnbRating } from 'react-native-ratings';
 import { getReviews } from '../../network/App';
 import { checkReviewed, addReview } from '../../network/App';
@@ -15,7 +12,7 @@ import BackArrow from '../../components/Header/BackArrow';
 import ReviewCard from '../../components/Cards/ReviewerCrad';
 import ReviewStyles from './Styles/ReviewsStyles';
 import WideButton from '../../components/Buttons/wideButtons';
-const Reviews=()=>{
+const Reviews=({navigation})=>{
     const route = useRoute();
     const id=route.params.id
     const[reviews, setReviews]=useState(route.params.reviews)
@@ -34,6 +31,9 @@ const Reviews=()=>{
             setIsReviewed(true)
         }
     },[reviewAdded])
+
+    
+        
     
     useEffect(()=>{
         let newAvg=0
@@ -72,7 +72,7 @@ const Reviews=()=>{
             <View style={ReviewStyles.separator} />
             {reviewModalVisible && user.type_id==2 && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} id={id} setReviewAdded={setReviewAdded}  />}
             <ScrollView>
-                {reviews.map((review)=><ReviewCard review={review} />)}
+                {reviews.map((review, index)=><ReviewCard review={review} key={index} />)}
             </ScrollView>
         </View>
     )
