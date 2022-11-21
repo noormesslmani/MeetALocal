@@ -16,13 +16,13 @@ const Map=({lat, lng, data, type, handleDrag, navigation})=> {
                   latitudeDelta: 0.7,
                   longitudeDelta: 0.7,
               }}
-              style={[type !=2  && MapStyle.map, type==2 && MapStyle.map2]}
+              style={[type==1  && MapStyle.map, type==2 && MapStyle.map2, type==3  && MapStyle.map]}
               loadingEnabled={true}
               showsUserLocation={true}
               provider={PROVIDER_GOOGLE}
               maxZoomLevel={15}>
 
-              {type!=2  && data.map((local, index) => (
+              {type==1  && data.map((local, index) => (
               <Marker
               key={index}
               coordinate={{latitude: local.latitude, longitude: local.longitude}}
@@ -30,6 +30,13 @@ const Map=({lat, lng, data, type, handleDrag, navigation})=> {
               onPress={()=> myList.current.scrollToIndex({index: index, animated: true, viewPosition:0.5 })}
               >
               </Marker>))} 
+
+              {type==3  &&
+              <Marker
+              coordinate={{latitude: lat, longitude: lng}}
+              pinColor={colors.violet}
+              />
+              } 
 
               {type==2 && 
               <Marker coordinate={{latitude: lat,
@@ -39,7 +46,7 @@ const Map=({lat, lng, data, type, handleDrag, navigation})=> {
               onDragEnd={handleDrag}>
               </Marker>} 
             </MapView>
-            {type!=2 && <MapCard data={data} myList={myList} navigation={navigation}/> }
+            {type==1 && <MapCard data={data} myList={myList} navigation={navigation}/> }
           </>
   )
 }
