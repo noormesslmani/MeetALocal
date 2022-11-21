@@ -57,15 +57,13 @@ Note that i didn't use any styling library or theme, all from scratch and using 
 
 Here's a brief high-level overview of the tech stacks the app uses:
 <br><br>
-This project uses the React Native framework. React Native (also known as RN) is a popular JavaScript-based mobile app framework that allows you to build natively-rendered mobile apps for iOS and Android. 
+- This project uses the [React Native framework](https://reactnative.dev/). React Native (also known as RN) is a popular JavaScript-based mobile app framework that allows you to build natively-rendered mobile apps for iOS and Android. The framework lets you create an application for various platforms by using the same codebase.
 <br><br>
-The framework lets you create an application for various platforms by using the same codebase.
+- The backend is implemented using [Laravel] (https://laravel.com/) which is a free and open-source PHP web framework, intended for the development of web applications following the model–view–controller (MVC) architectural pattern.
 <br><br>
-The backend is implemented using Laravel which is a free and open-source PHP web framework, intended for the development of web applications following the model–view–controller (MVC) architectural pattern.
+- For storing messages, the app uses the [Firebase](https://firebase.google.com/) package which is a Google-backed application development software that enables developers to develop iOS, Android and Web apps. Firebase Realtime Database is a cloud-hosted NoSQL database that enables data to be stored and synced between users in real time.
 <br><br>
-For storing messages, the app uses the Firebase package which is a Google-backed application development software that enables developers to develop iOS, Android and Web apps. Firebase Realtime Database is a cloud-hosted NoSQL database that enables data to be stored and synced between users in real time.
-<br><br>
-React-native-maps is used to display user's and locals locations, and autocomplete service is used to fill the names of a place being searched for
+- [React-native-maps](https://docs.expo.dev/versions/latest/sdk/map-view/) is used to display user's and locals locations, and [autocomplete](https://developers.google.com/maps/documentation/places/web-service/overview) service is used to fill the names of a place being searched for
 
 
 
@@ -89,10 +87,7 @@ To get a local copy up and running follow these simple example steps.
 ### Prerequisites
 
 This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+
 
 ### Installation
 
