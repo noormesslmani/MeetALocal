@@ -32,7 +32,13 @@ const Reviews=({navigation})=>{
         }
     },[reviewAdded])
 
-    
+    useEffect(() => {
+        navigation.setOptions({
+            headerLeft: () => (<BackArrow type={2} />),
+            headerBackVisible:false, headerTitle:"Reviews", headerTitleAlign:"center",
+            headerShadowVisible:false,
+        });
+      }, [navigation]);
         
     
     useEffect(()=>{
