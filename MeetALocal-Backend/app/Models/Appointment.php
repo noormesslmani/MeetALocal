@@ -13,7 +13,9 @@ class Appointment extends Model
         'local_id',
         'date',
         'start_time',
-        'end_time'
+        'end_time',
+        'latitude',
+        'longitude'
     ];
     public function user()
     {

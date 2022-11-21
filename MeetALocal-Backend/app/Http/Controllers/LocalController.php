@@ -119,6 +119,8 @@ class LocalController extends Controller
             'date' => 'required|date',
             'start_time' => 'required',
             'end_time' => 'required',
+            'latitude'=>'required',
+            'longitude'=>"required"
         ]);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
