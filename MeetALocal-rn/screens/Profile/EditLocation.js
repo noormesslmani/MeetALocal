@@ -4,10 +4,10 @@ import { useState, useEffect, useContext } from "react";
 import BackArrow from '../../components/Header/BackArrow';
 import Map from '../../components/map/Map';
 import { useRoute } from '@react-navigation/native';
-import { widths } from '../../constants/dimensions';
 import { UserContext } from '../../App'
-import { colors } from '../../constants/colors';
+import ProfileStyles from './ProfileStyles/ProfileStyles';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import AppButton from '../../components/Buttons/AppButtons';
 const EditLocation=({navigation})=> {
     const route = useRoute();
     const [lat, setLat]=useState(route.params.lat)
@@ -34,34 +34,15 @@ const EditLocation=({navigation})=> {
    
   return (
 
-    <View style={styles.mapContainer}>
+    <View style={ProfileStyles.mapContainer}>
       <Text style={{fontSize:12, color:"grey"}}>Hold and drag the marker</Text>
       <Map lat={lat} lng={lng} type={2} handleDrag={handleDrag} />
-      <TouchableOpacity style={[styles.saveBtn, styles.button]} onPress={handleSave} ><Text style={{color: 'white', fontSize:16, fontWeight:"700"}}>Save</Text></TouchableOpacity>
+      <View style={ProfileStyles.saveBtn} >
+      <AppButton text='save' handlePress={handleSave} />
+      </View>
     </View>
              
   )
 }
 export default EditLocation
 
-const styles=StyleSheet.create({
-    mapContainer:{
-        width:widths.width,
-        height:"100%",
-        alignItems:"center",
-        backgroundColor:"white",
-        flex:1,
-        paddingTop:20,
-        justifyContent:"space-between"
-      },
-      saveBtn:{
-        position:"absolute",
-        bottom:10,
-        width:100,
-        height: 45,
-        borderRadius: 10,
-        backgroundColor: colors.mediumViolet,
-        alignItems: "center",
-        justifyContent: "center",
-      },
-})
