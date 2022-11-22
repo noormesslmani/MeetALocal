@@ -26,6 +26,7 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+    //Toggling ban 
     public function toggleBan(Request $request){
         $user_type=User::find($request->user_id)->type()->pluck('user_type')[0];
         if($user_type=='Admin'){
@@ -49,6 +50,7 @@ class AdminController extends Controller
             ], 201);
         }
     }
+    //get banned users
     public function getBans(){
         $bans=Ban::join('users','users.id','banned_id')->get();
         foreach($bans as $ban){
@@ -59,6 +61,7 @@ class AdminController extends Controller
             'data' => $bans,
         ], 201);
     }
+    //get general statistics
     public function getAppStat(){
         $users=User::count();
         $events=Event::count();
@@ -75,7 +78,7 @@ class AdminController extends Controller
             'data' => $data,
         ], 201);
     }
-   
+    //get users(by type) and check if banned
     public function getUsers(Request $request){
         $type=$request->query('type');
         $offset=$request->query('offset');
@@ -100,6 +103,7 @@ class AdminController extends Controller
             'data' => $users,
         ], 201);
     }
+    //search users by name and check if banned
     public function searchUsers(Request $request){
         $search=$request->query('name');
         $type=$request->query('type');
@@ -111,14 +115,21 @@ class AdminController extends Controller
             return response()->json($validator->errors()->toJson(), 400);
         }
         $type_id=UserType::where('user_type',$type)->pluck('id')[0];
-        $results=User::join('countries','residence_id','countries.id')->where('type_id',$type_id)->where('name', 'LIKE', '%'.$search.'%')->orderBy('created_at', 'desc')->offset($offset)->limit(10)->get(['users.id','name','email','created_at','country', 'gender']);
+        $users=User::join('countries','residence_id','countries.id')->where('type_id',$type_id)->where('name', 'LIKE', '%'.$search.'%')->orderBy('created_at', 'desc')->offset($offset)->limit(10)->get(['users.id','name','email','created_at','country', 'gender']);
+        foreach($users as $user){
+            $user['ban']=false;
+            if(Ban::where('banned_id', $user->id)->exists()){
+                $user['ban']=true;
+            }
+            
+        }
         return response()->json([
             'message' => 'ok',
             'data' => $results,
         ], 201);
     }
 
-
+    //get some statistics aboout locals
     public function getLocalsStat(){
         $young=0;
         $middle=0;
@@ -149,6 +160,7 @@ class AdminController extends Controller
             'data' => $data,
         ], 201);
     }
+    //get some statitistics about foreigners
     public function getForeignersStat(){
         $young=0;
         $middle=0;
@@ -179,6 +191,7 @@ class AdminController extends Controller
             'data' => $data,
         ], 201);
     }
+    //get locals locations
     public function getLocations(){
         $locations=User::where('type_id',1)->get(['latitude','longitude']);
         return response()->json([
