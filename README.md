@@ -61,9 +61,11 @@ Here's a brief high-level overview of the tech stacks the app uses:
 <br><br>
 - The backend is implemented using [Laravel](https://laravel.com/) which is a free and open-source PHP web framework, intended for the development of web applications following the model–view–controller (MVC) architectural pattern.
 <br><br>
+- For Database the project uses [MySQL](https://www.mysql.com/) database, which is a relational database management system based on the Structured Query Language.
+<br><br>
 - For storing messages, the app uses the [Firebase](https://firebase.google.com/) package which is a Google-backed application development software that enables developers to develop iOS, Android and Web apps. Firebase Realtime Database is a cloud-hosted NoSQL database that enables data to be stored and synced between users in real time.
 <br><br>
-- [React-native-maps](https://docs.expo.dev/versions/latest/sdk/map-view/) is used to display user's and locals locations, and [autocomplete](https://developers.google.com/maps/documentation/places/web-service/overview) service is used to fill the names of a place being searched for
+- [React-native-maps](https://docs.expo.dev/versions/latest/sdk/map-view/) is used to display locations, and [Google Maps API](https://developers.google.com/maps/documentation/places/web-service/overview) is used for places search service.
 
 
 
