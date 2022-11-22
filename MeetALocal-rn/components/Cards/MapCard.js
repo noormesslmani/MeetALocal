@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity, Image, FlatList, Animated } from 'react-n
 import React from 'react'
 import { address } from '../../constants/address';
 import MapCardStyle from './Styles/MapCardStyle';
+import { widths } from '../../constants/dimensions';
 const MapCard=({data, myList, navigation})=> {
     const renderItem = ({ item, index }) => (
         <TouchableOpacity onPress={()=>navigation.navigate('local-page',{item})}
@@ -27,7 +28,7 @@ const MapCard=({data, myList, navigation})=> {
             keyExtractor={item => item.id.toString()}
             scrollEventThrottle={1}
             showsHorizontalScrollIndicator={false}
-            style={MapCardStyle.card_scroll_view}
+            style={[MapCardStyle.card_scroll_view, data.length==1?{left:0.25*widths.width}:null]}
             data={data}
             ref={myList}
             initialScrollIndex={0}

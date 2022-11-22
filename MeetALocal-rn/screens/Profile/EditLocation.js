@@ -14,7 +14,7 @@ const EditLocation=({navigation})=> {
     const [lng, setLng]=useState(route.params.lng)
     const [newLat, setNewLat]= useState(route.params.lat)
     const [newlng, setNewlng]= useState(route.params.lng)
-    const { user, setUser} = useContext(UserContext);
+    //This page is only for locals
 
     useEffect(() => {
       navigation.setOptions({
@@ -22,11 +22,12 @@ const EditLocation=({navigation})=> {
       });
     }, [navigation]);
 
-
+    //update location 
     const handleDrag=(e)=>{
       setNewLat( e.nativeEvent.coordinate.latitude)
       setNewlng( e.nativeEvent.coordinate.longitude)
     }
+    //save new location in AsyncStorage
     const handleSave=async()=>{
         await AsyncStorage.setItem('lat', newLat.toString())
         await AsyncStorage.setItem('lng', newlng.toString())

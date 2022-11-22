@@ -20,14 +20,15 @@ const ForeignerProfile=({navigation})=> {
     }
   },[user.profile_picture])
   
-    const handleEdit=()=>{
-      navigation.navigate('edit-foreigner-profile')
-    }
+  
+  const handleEdit=()=>{
+    navigation.navigate('edit-foreigner-profile')
+  }
 
-    const handleLogout=async()=>{
-      await AsyncStorage.clear();
-      navigation.navigate("auth")
-    }
+  const handleLogout=async()=>{
+    await AsyncStorage.clear();
+    navigation.navigate("auth")
+  }
   return (
     <View style={ProfileStyles.container}>
         <WavyBack/>

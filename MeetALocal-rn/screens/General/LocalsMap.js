@@ -11,27 +11,32 @@ const LocalsMap=({navigation})=> {
     const [lat, setLat]=useState(33.888630)
     const [lng, setLng]=useState(35.495480)
     const data= route.params.data
-    const type= route.params.type
+    const type= route.params.type //3 types of maps
+
+    //change region upon map search
     const handlePress=(data,details)=>{
         setLat(details.geometry.location.lat)
         setLng(details.geometry.location.lng)
-      }
-    useEffect(() => {
-      navigation.setOptions({
-        headerLeft: () => <BackArrow navigation={navigation} type={1}/>,
-      });
-    }, [navigation]);
-    useEffect(()=>{
-        if(data.length==1){
-        setLat(data[0].latitude)
-        setLng(data[0].longitude)
-      }},[])
-     
+    }
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <BackArrow navigation={navigation} type={1}/>,
+    });
+  }, [navigation]);
+
+  //for a single item set region according to given data, else keep initial values
+  useEffect(()=>{
+      if(data.length==1){
+      setLat(data[0].latitude)
+      setLng(data[0].longitude)
+    }},[])
+
   return (
             <View style={LocalsMapStyles.mapContainer}>
                 <Map data={data} lat={lat} lng={lng} type={type} navigation={navigation}/>
                 <View style={styles.container}>
-                <MapSearch handlePress={handlePress} navigation={navigation}/>
+                {type!=3 && <MapSearch handlePress={handlePress} navigation={navigation}/>}
                 </View>
             </View>
   )

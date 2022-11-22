@@ -11,7 +11,7 @@ import {getAllEvents, getSavedEvents, getOwnEvents, getBookedEvents} from '../..
 import BackArrow from '../../components/Header/BackArrow';
 import Filters from '../../components/Header/Filters';
 import { colors } from '../../constants/colors';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Toast from 'react-native-toast-message'
 import AppButton from '../../components/Buttons/AppButtons';
 import ListHeader from '../../components/General/ListHeaders';
 import EmptyPage from '../../components/General/EmptyPage';
@@ -28,9 +28,11 @@ const Events=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const [eventCreated,setEventCreated]=useState(false)
   const [isLoading, setIsLoading]=useState(false)
+  //get events 
   useEffect(()=>{
     getEvents()
   },[choice, country, category, eventCreated])
+
   useEffect(()=>{
     if(eventDeleted || eventBooked){
       getEvents()
@@ -61,16 +63,26 @@ const Events=({navigation})=> {
     if (result.success){
       setdata(result.data.data)
     }
+    else{
+      Toast.show({
+        type: 'error',
+        text1: 'Something went wrong'
+      });
+    }
     setIsLoading(false)
   }
+  //show filter modal
   const handleFilter=()=>{
     setModalVisible(true)
   }
+  //Event card
   const renderItem = ({ item }) => (
     <View>
       <EventCard item={item} choice={choice} setEventDeleted={setEventDeleted} setEventBooked={setEventBooked}/>
     </View>
   )
+
+  //navigation options
   useEffect(() => {
     if(choice==1){
     navigation.setOptions({
@@ -112,7 +124,7 @@ const Events=({navigation})=> {
             contentContainerStyle={{paddingTop:20, paddingBottom: 300}}
           />
         </SafeAreaView>
-       
+        <Toast/>
       </View>
   )
 }

@@ -11,6 +11,7 @@ import { searchLocals } from '../../network/App';
 import { useFocusEffect } from '@react-navigation/native';
 import SearchPageStyles from './Styles/SearchPageStyles';
 import EmptyPage from '../../components/General/EmptyPage';
+import Toast from 'react-native-toast-message'
 const SearchScreen=({navigation})=> {
   const [data, setdata]=useState(null)
   const [isLoading, setIsLoading]= useState(false)
@@ -22,33 +23,41 @@ const SearchScreen=({navigation})=> {
     value={searchQuery} style={{width:widths.width8}} 
     />,  headerTitleAlign: 'center'  })
     
+    //reset data
     useFocusEffect(
       useCallback(() => {
         setSearchQuery(null)
         setSearched(false)
         setdata(null)
       }
-      
       , []), )
     
-      useEffect(()=>{
-        searchQuery && getSearchedLocals()
-      },[searchQuery])
+    //trigger search on searchquery change
+    useEffect(()=>{
+      searchQuery && getSearchedLocals()
+    },[searchQuery])
 
+  //get results
   const getSearchedLocals=async ()=>{
     setSearched(false)
     setIsLoading(true)
     const result = await searchLocals(searchQuery)
     if (result.success){
-      setIsLoading(false)
       setSearched(true)
       setdata(result.data.data)
     }
+    else{
+      Toast.show({
+        type: 'error',
+        text1: 'Something went wrong'
+      });
+    }
+    setIsLoading(false)
   }
 const renderItem = ({ item, index }) => (
   <LocalCard item={item}  navigation={navigation}/>
 );
-console.log(data)
+
   return (
       <View style={HomeStyles.container}>
         <WavyBack />
@@ -58,6 +67,7 @@ console.log(data)
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
             data={data}
+            keyExtractor={item => item.id}
             renderItem={renderItem}
             style={SearchPageStyles.list}
             contentContainerStyle={{ paddingBottom: 100}}
@@ -66,6 +76,7 @@ console.log(data)
           />
            
         </SafeAreaView>
+        <Toast/>
       </View>
     )
 }
