@@ -86,8 +86,8 @@ class AdminController extends Controller
             return response()->json($validator->errors()->toJson(), 400);
         }
         $type_id=UserType::where('user_type',$type)->pluck('id')[0];
-        $users=User::join('countries','residence_id','countries.id')->where('type_id',$type_id)->select('users.id','name','email','created_at','country', 'gender')->orderBy('created_at', 'desc')->offset($offset)
-        ->limit(10)->get();
+        $users=User::join('countries','residence_id','countries.id')->where('type_id',$type_id)->orderBy('created_at', 'desc')->offset($offset)
+        ->limit(10)->get(['users.id','name','email','created_at','country', 'gender']);
         foreach($users as $user){
             $user['ban']=false;
             if(Ban::where('banned_id', $user->id)->exists()){
