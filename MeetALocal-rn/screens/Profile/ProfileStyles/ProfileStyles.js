@@ -167,6 +167,12 @@ const ProfileStyles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
       },
+      imageSlider:{ 
+        flex: 1, 
+        alignSelf:"center", 
+        width:widths.width8,
+        marginVertical:20 
+    }
 });
 
 export default ProfileStyles;
