@@ -8,21 +8,53 @@ import { render } from "react-dom";
 import { Bounce } from "react-activity";
 import "react-activity/dist/library.css";
 import UsersTable from '../../Components/UsersTable/UserTable';
-import {getUsers} from '../../Network/Api'
+import {getUsers, getSearches} from '../../Network/Api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight} from '@fortawesome/free-solid-svg-icons'
 import { faArrowLeft} from '@fortawesome/free-solid-svg-icons'
+import Search from '../../Components/Search/Search';
 const Foreigners=()=> {
     const [isLoading, setIsLoading]= useState(true)
     const [banLoading, setBanLoading]= useState(false)
     const [data, setData]=useState(null)
     const [page, setPage]=useState(1)
     const [currentPage, setCurrentPage]=useState(1)
+    const [searchInput, setSearchInput]=useState('')
+
     useEffect(()=>{
-        getLocals()
-    },[page, banLoading])
+        setPage(1)
+        setCurrentPage(1)
+    },[searchInput])
+
+    useEffect(()=>{
+        if(searchInput==''){
+            getForeigners()
+        }
+        else{
+            getSearchedForeigners() 
+        }
+    },[page, banLoading, searchInput])
+
+    const getSearchedForeigners=async()=>{
+        setIsLoading(true)
+        const params={
+            name:searchInput,
+            type:'Foreigner',
+            offset:10*(page-1)
+        }
+        const result =await getSearches(params)
+        if (result.success){
+            if(result.data.data.length==0){
+                setPage(page-1)
+            }
+            else{
+            setData(result.data.data)
+            setCurrentPage(page)}
+        }
+        setIsLoading(false)
+    }
     
-    const getLocals= async()=>{
+    const getForeigners= async()=>{
         setIsLoading(true)
         const params={
             type:'Foreigner',
@@ -53,18 +85,21 @@ const Foreigners=()=> {
         <div className='subcontainer'>
             <NavBar/>
             <div className='dashboard-container flex-col align-center'>
-                <h1 className='home-title'>Foreigners</h1>
+                <div className='search-container flex space-between align-center'>
+                    <h1 className='home-title'>Foreigners</h1>
+                    <Search searchInput={searchInput} setSearchInput={setSearchInput} />
+                </div>
                 <div className='flex space-between stat-links-container'>
                 <NavLink to='/Foreigners' className='banned-link'>All</NavLink>
                 <NavLink to='/banned-foreigners' className='banned-link'>Banned</NavLink>
                 </div>
                 {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
                 {!isLoading && <UsersTable data={data} setBanLoading={setBanLoading} />}
-                <div className='flex align-center justify-center arrow-contianer'>
+                {!isLoading && <div className='flex align-center justify-center arrow-contianer'>
                     <FontAwesomeIcon icon={faArrowLeft} color='rgba(140,87,186,1)' className='arrow' onClick={hanldePrev}/>
                     <p>{currentPage}</p>
                     <FontAwesomeIcon icon={faArrowRight} color='rgba(140,87,186,1)' className='arrow' onClick={hanldeNext}/>
-                </div>
+                </div>}
             </div>
         </div>
     </div>
