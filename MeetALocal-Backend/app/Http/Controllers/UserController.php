@@ -56,7 +56,7 @@ class UserController extends Controller
         $date = today()->format('Y-m-d');
         $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
-        $events= Event::join('event_categories','events.id','=','event_id')->join('categories','event_categories.category_id','=','categories.id')->join('countries','events.country_id','=','countries.id')->join('users','events.organizer_id','=','users.id')->where('events.date', '>=', $date)->whereIn('events.country_id',$country_id)->whereIn('event_categories.category_id',$category_id)->orderBy('events.id', 'desc')->select('events.*','countries.country','users.name')->distinct()->latest()->get();
+        $events= Event::join('event_categories','events.id','=','event_id')->join('categories','event_categories.category_id','=','categories.id')->join('countries','events.country_id','=','countries.id')->join('users','events.organizer_id','=','users.id')->where('events.date', '>=', $date)->whereIn('events.country_id',$country_id)->whereIn('event_categories.category_id',$category_id)->orderBy('events.id', 'desc')->distinct()->latest()->get(['events.*','countries.country','users.name']);
         foreach($events as $event){ 
             $event['categories']=$event->categories()->pluck('category');
             $event['bookings']= EventBooking::where('event_id', $event->id)->count();
@@ -89,7 +89,7 @@ class UserController extends Controller
         $offset=$request->query('offset');
         $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
-        $posts= Post::join('post_categories','posts.id','=','post_id')->join('categories','post_categories.category_id','=','categories.id')->join('countries','posts.country_id','=','countries.id')->join('users','posts.user_id','=','users.id')->whereIn('posts.country_id',$country_id)->whereIn('post_categories.category_id',$category_id)->orderBy('posts.id', 'desc')->select('posts.*','countries.country','users.name', 'users.profile_picture')->distinct()->orderBy('created_at', 'desc')->offset($offset)->limit(20)->get();
+        $posts= Post::join('post_categories','posts.id','=','post_id')->join('categories','post_categories.category_id','=','categories.id')->join('countries','posts.country_id','=','countries.id')->join('users','posts.user_id','=','users.id')->whereIn('posts.country_id',$country_id)->whereIn('post_categories.category_id',$category_id)->orderBy('posts.id', 'desc')->distinct()->orderBy('created_at', 'desc')->offset($offset)->limit(20)->get(['posts.*','countries.country','users.name', 'users.profile_picture']);
         foreach($posts as $post){
             $post['comments']= Comment::where('post_id',$post->id)->count();
             $post['categories']=$post->categories()->pluck('category');
@@ -119,7 +119,7 @@ class UserController extends Controller
         $post['user']=$post->user()->get(['name'])[0]['name'];
         $post['country']=$post->country()->get(['country'])[0]['country'];
         $post['categories']=Post::find($id)->categories()->pluck('category');
-        $post['comments']=Comment::where('post_id',$id)->join('users','comments.user_id','users.id')->select('comments.content','comments.created_at','users.name','users.type_id')->get();
+        $post['comments']=Comment::where('post_id',$id)->join('users','comments.user_id','users.id')->get(['comments.content','comments.created_at','users.name','users.type_id']);
         return response()->json([
             'message' => 'ok',
             'data' => $post,
