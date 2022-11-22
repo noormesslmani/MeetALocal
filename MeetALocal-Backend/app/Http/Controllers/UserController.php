@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 class UserController extends Controller
 {
+    //getting locals filtered by country and category
     public function getLocals(Request $request){
         $country=$request->query('country');
         $category=$request->query('category');
@@ -50,13 +51,15 @@ class UserController extends Controller
             'data' => $user
         ], 201);
     }
+
+    //getting events filtered by country and category
     public function getEvents(Request $request){
         $country=$request->query('country');
         $category=$request->query('category');
         $date = today()->format('Y-m-d');
         $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
-        $events= Event::join('event_categories','events.id','=','event_id')->join('categories','event_categories.category_id','=','categories.id')->join('countries','events.country_id','=','countries.id')->join('users','events.organizer_id','=','users.id')->where('events.date', '>=', $date)->whereIn('events.country_id',$country_id)->whereIn('event_categories.category_id',$category_id)->orderBy('events.id', 'desc')->select('events.*','countries.country','users.name')->distinct()->latest()->get();
+        $events= Event::join('event_categories','events.id','=','event_id')->join('categories','event_categories.category_id','=','categories.id')->join('countries','events.country_id','=','countries.id')->join('users','events.organizer_id','=','users.id')->where('events.date', '>=', $date)->whereIn('events.country_id',$country_id)->whereIn('event_categories.category_id',$category_id)->orderBy('events.id', 'desc')->distinct()->latest()->get(['events.*','countries.country','users.name']);
         foreach($events as $event){ 
             $event['categories']=$event->categories()->pluck('category');
             $event['bookings']= EventBooking::where('event_id', $event->id)->count();
@@ -68,6 +71,8 @@ class UserController extends Controller
             'data' => $events
         ], 201);
     }
+
+    //getting events organized by a specific local
     public function getLocalEvent(Request $request){
         $events=User::find($request->query('id'))->events()->get();
         foreach($events as $event){
@@ -83,13 +88,15 @@ class UserController extends Controller
         ], 201);
     }
     
+
+    //getting posts filtered by country and category
     public function getPosts(Request $request){
         $country=$request->query('country');
         $category=$request->query('category');
         $offset=$request->query('offset');
         $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
-        $posts= Post::join('post_categories','posts.id','=','post_id')->join('categories','post_categories.category_id','=','categories.id')->join('countries','posts.country_id','=','countries.id')->join('users','posts.user_id','=','users.id')->whereIn('posts.country_id',$country_id)->whereIn('post_categories.category_id',$category_id)->orderBy('posts.id', 'desc')->select('posts.*','countries.country','users.name', 'users.profile_picture')->distinct()->orderBy('created_at', 'desc')->offset($offset)->limit(20)->get();
+        $posts= Post::join('post_categories','posts.id','=','post_id')->join('categories','post_categories.category_id','=','categories.id')->join('countries','posts.country_id','=','countries.id')->join('users','posts.user_id','=','users.id')->whereIn('posts.country_id',$country_id)->whereIn('post_categories.category_id',$category_id)->orderBy('posts.id', 'desc')->distinct()->orderBy('created_at', 'desc')->offset($offset)->limit(20)->get(['posts.*','countries.country','users.name', 'users.profile_picture']);
         foreach($posts as $post){
             $post['comments']= Comment::where('post_id',$post->id)->count();
             $post['categories']=$post->categories()->pluck('category');
@@ -100,6 +107,8 @@ class UserController extends Controller
             'data' => $posts,
         ], 201);
     }
+
+    //getting user's own posts
     public function getOwnPosts(){
         $posts= Auth::user()->posts()->get();
         foreach($posts as $post){
@@ -114,17 +123,21 @@ class UserController extends Controller
         ], 201);
 
     }
+
+    //getting a specific post
     public function getPost($id){
         $post=Post::find($id);
         $post['user']=$post->user()->get(['name'])[0]['name'];
         $post['country']=$post->country()->get(['country'])[0]['country'];
         $post['categories']=Post::find($id)->categories()->pluck('category');
-        $post['comments']=Comment::where('post_id',$id)->join('users','comments.user_id','users.id')->select('comments.content','comments.created_at','users.name','users.type_id')->get();
+        $post['comments']=Comment::where('post_id',$id)->join('users','comments.user_id','users.id')->get(['comments.content','comments.created_at','users.name','users.type_id']);
         return response()->json([
             'message' => 'ok',
             'data' => $post,
         ], 201);
     }
+
+    //adding a comment to a post
     public function addComment(Request $request){
         $comment = Comment::create([
             'post_id'=> $request->post_id,
@@ -136,6 +149,8 @@ class UserController extends Controller
             'data' => $comment,
         ], 201);
     }
+
+    //getting comments for a post
     public function getComments($id){
         $comments = Comment::where('post_id',$id)->get();
         foreach($comments as $comment){
@@ -146,6 +161,8 @@ class UserController extends Controller
             'data' => $comments,
         ], 201);
     }
+
+    //creating a new post
     public function createPost(Request $request){
         $post = Post::create([
             'user_id' => Auth::id(),
@@ -164,6 +181,7 @@ class UserController extends Controller
         ], 201);
     }
     
+    //getting reviews for a local
     public function getReviews(Request $request){
         $reviews= Review::where('local_id',$request->query('id'))->join('users','users.id','reviewer_id')->latest()->get(['reviews.*', 'users.name', 'users.profile_picture']);
         return response()->json([
@@ -171,6 +189,8 @@ class UserController extends Controller
             'data' => $reviews,
         ], 201);
     }
+
+    //changeing profile picture
     public function changePhoto( Request $request){
         $validator = Validator::make($request->all(), [
             'base64' => 'required|string',
@@ -191,6 +211,8 @@ class UserController extends Controller
             'message' => 'ok',
         ], 201);  
     }
+
+    //edit profile info
     public function editProfile(Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
