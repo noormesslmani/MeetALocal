@@ -129,3 +129,20 @@ export async function signin(data){
       return {'success': false, error}
     }
   }
+  export async function getSearches(params){
+   
+    const config = {
+      method: "get",
+      params,
+      headers,
+      url:`${baseURL}admins/search-users`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.log(error)
+      return {'success': false, error}
+    }
+  }
