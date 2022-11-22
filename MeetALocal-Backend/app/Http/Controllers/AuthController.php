@@ -25,7 +25,7 @@ use Validator;
 
 class AuthController extends Controller
 {
-    
+    //login and query some data according to user type
     public function login(Request $request){
     	$validator = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -63,7 +63,7 @@ class AuthController extends Controller
             "user"=>$user,
         ], 201);
     }
-    
+    //register account
     public function register(Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
@@ -162,6 +162,7 @@ class AuthController extends Controller
             'user' => auth()->user()
         ]);
     }
+    //directing unauthorized users
     public function notFound(){
         return response()->json([
             "message" => "Unauthorized"

@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 class UserController extends Controller
 {
+    //getting locals filtered by country and category
     public function getLocals(Request $request){
         $country=$request->query('country');
         $category=$request->query('category');
@@ -50,6 +51,8 @@ class UserController extends Controller
             'data' => $user
         ], 201);
     }
+
+    //getting events filtered by country and category
     public function getEvents(Request $request){
         $country=$request->query('country');
         $category=$request->query('category');
@@ -68,6 +71,8 @@ class UserController extends Controller
             'data' => $events
         ], 201);
     }
+
+    //getting events organized by a specific local
     public function getLocalEvent(Request $request){
         $events=User::find($request->query('id'))->events()->get();
         foreach($events as $event){
@@ -83,6 +88,8 @@ class UserController extends Controller
         ], 201);
     }
     
+
+    //getting posts filtered by country and category
     public function getPosts(Request $request){
         $country=$request->query('country');
         $category=$request->query('category');
@@ -100,6 +107,8 @@ class UserController extends Controller
             'data' => $posts,
         ], 201);
     }
+
+    //getting user's own posts
     public function getOwnPosts(){
         $posts= Auth::user()->posts()->get();
         foreach($posts as $post){
@@ -114,6 +123,8 @@ class UserController extends Controller
         ], 201);
 
     }
+
+    //getting a specific post
     public function getPost($id){
         $post=Post::find($id);
         $post['user']=$post->user()->get(['name'])[0]['name'];
@@ -125,6 +136,8 @@ class UserController extends Controller
             'data' => $post,
         ], 201);
     }
+
+    //adding a comment to a post
     public function addComment(Request $request){
         $comment = Comment::create([
             'post_id'=> $request->post_id,
@@ -136,6 +149,8 @@ class UserController extends Controller
             'data' => $comment,
         ], 201);
     }
+
+    //getting comments for a post
     public function getComments($id){
         $comments = Comment::where('post_id',$id)->get();
         foreach($comments as $comment){
@@ -146,6 +161,8 @@ class UserController extends Controller
             'data' => $comments,
         ], 201);
     }
+
+    //creating a new post
     public function createPost(Request $request){
         $post = Post::create([
             'user_id' => Auth::id(),
@@ -164,6 +181,7 @@ class UserController extends Controller
         ], 201);
     }
     
+    //getting reviews for a local
     public function getReviews(Request $request){
         $reviews= Review::where('local_id',$request->query('id'))->join('users','users.id','reviewer_id')->latest()->get(['reviews.*', 'users.name', 'users.profile_picture']);
         return response()->json([
@@ -171,6 +189,8 @@ class UserController extends Controller
             'data' => $reviews,
         ], 201);
     }
+
+    //changeing profile picture
     public function changePhoto( Request $request){
         $validator = Validator::make($request->all(), [
             'base64' => 'required|string',
@@ -191,6 +211,8 @@ class UserController extends Controller
             'message' => 'ok',
         ], 201);  
     }
+
+    //edit profile info
     public function editProfile(Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
