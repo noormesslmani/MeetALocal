@@ -24,6 +24,7 @@ use Illuminate\Http\Request;
 use Validator;
 class LocalController extends Controller
 {
+    //creating a new event and saving categories
     public function createEvent(Request $request){
         $validator = Validator::make($request->all(), [
             'country' => 'required|string',
@@ -65,6 +66,8 @@ class LocalController extends Controller
             'data' => $event,
         ], 201);
     }
+
+    //getting events created by user
     public function getMyEvents(){
         $events=Auth::user()->events()->get();
         foreach($events as $event){
@@ -80,6 +83,8 @@ class LocalController extends Controller
             'data' => $events,
         ], 201);
     }
+
+    //deleting an event created by user
     public function deleteEvent(Request $request){
         $event=Event::find($request->event_id);
         if(Auth::id()==$event->organizer()->pluck('id')[0]){
@@ -92,6 +97,8 @@ class LocalController extends Controller
             'message' => 'action forbidden',
         ], 403);
     }
+
+    //adding new highlight
     public function addHighlights(Request $request){
         $validator = Validator::make($request->all(), [
             'ext' => 'required|string',
@@ -114,11 +121,15 @@ class LocalController extends Controller
             'data'=>$path
         ], 201);
     }
+
+    //adding new appointment
     public function addAppointment(Request $request){
         $validator = Validator::make($request->all(), [
             'date' => 'required|date',
             'start_time' => 'required',
             'end_time' => 'required',
+            'latitude'=>'required',
+            'longitude'=>"required"
         ]);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
@@ -135,6 +146,8 @@ class LocalController extends Controller
             'data' => $appointment,
         ], 201);
     }
+
+    //getting appointments created by user
     public function getAppointments(){
         $date = today()->format('Y-m-d');
         $appointments=Auth::user()->appointments()->where('date', '>=', $date)->orderBy('date', 'desc')->get();
@@ -146,6 +159,8 @@ class LocalController extends Controller
             'data' => $appointments,
         ], 201);
     }
+
+    //checking whether an appointment is booked
     public function isBookedAppointment(Request $request){
         BookedAppointment::where('appointment_id',$request->query('id'))->exists()? $booked=true : $booked=false;
         return response()->json([
