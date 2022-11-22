@@ -50,6 +50,8 @@
     "react-native-hide-show-password-input": "^1.2.0",
     "react-native-image-base64": "^0.1.4",
     "react-native-image-converter": "^0.4.2",
+    "react-native-image-slider-banner": "^1.0.3",
+    "react-native-image-slider-box": "^2.0.7",
     "react-native-image-viewing": "^0.2.2",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-maps": "0.31.1",
