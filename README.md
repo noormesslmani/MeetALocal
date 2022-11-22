@@ -44,7 +44,7 @@ Note that i didn't use any styling library or theme, all from scratch and using 
 
 | Sign In  | Sign Up  |
 | -----------------| -----|
-| ![Landing] | ![Home/Search] |
+| ![Sign In](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/signin.svg) | ![Home/Search] |
 
 | Sign Up  | Sign Up  |
 | -----------------| -----|
