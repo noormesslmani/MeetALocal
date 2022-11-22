@@ -1,0 +1,14 @@
+.body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 90vh;
+    overflow-y: hidden; 
+    overflow-x: hidden;
+    background-image: linear-gradient( rgba(140,87,186,0.5), rgba(75,176,249,0.5));
+}
+.container{
+    overflow-y: hidden; 
+    overflow-x: hidden; 
+}
