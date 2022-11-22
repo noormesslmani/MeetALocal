@@ -100,12 +100,30 @@ class AdminController extends Controller
             'data' => $users,
         ], 201);
     }
+    public function searchUsers(Request $request){
+        $search=$request->query('name');
+        $type=$request->query('type');
+        $offset=$request->query('offset');
+        $validator = Validator::make(['type' => $type], [
+            'type' => 'required|in:Local,Foreigner',
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
+        $type_id=UserType::where('user_type',$type)->pluck('id')[0];
+        $results=User::join('countries','residence_id','countries.id')->where('type_id',$type_id)->where('name', 'LIKE', '%'.$search.'%')->orderBy('created_at', 'desc')->offset($offset)->limit(10)->get(['users.id','name','email','created_at','country', 'gender']);
+        return response()->json([
+            'message' => 'ok',
+            'data' => $results,
+        ], 201);
+    }
+
+
     public function getLocalsStat(){
-        $locals=User::where('type_id',1);
         $young=0;
         $middle=0;
         $old=0;
-        foreach($locals->get() as $local){
+        foreach(User::where('type_id',1)->get() as $local){
             if($local->age()<30)
                 $young ++;
             else if($local->age()>=60)
@@ -113,11 +131,11 @@ class AdminController extends Controller
             else 
                 $middle ++;
         }
-        $total=$locals->count();
-        $males=$locals->where('gender','Male')->count();
+        $total=User::where('type_id',1)->count();
+        $males=User::where('type_id',1)->where('gender','Male')->count();
         $females=$total-$males;
         $top_categories=LocalCategory::join('categories','categories.id','category_id')->selectRaw('category, COUNT(*) as count') ->groupBy('category')->orderBy('count', 'desc')->take(3)->get();
-        $top_languages=UserLanguage::whereIn('user_id',$locals->pluck('id'))->join('languages','languages.id','language_id')->selectRaw('language, COUNT(*) as count') ->groupBy('language')->orderBy('count', 'desc')->take(3)->get();
+        $top_languages=UserLanguage::whereIn('user_id',User::where('type_id',1)->pluck('id'))->join('languages','languages.id','language_id')->selectRaw('language, COUNT(*) as count') ->groupBy('language')->orderBy('count', 'desc')->take(3)->get();
         $data = array(
             'locals_nb' => $total,
             'male%' => $males/$total*100,
@@ -132,11 +150,10 @@ class AdminController extends Controller
         ], 201);
     }
     public function getForeignersStat(){
-        $foreigners=User::where('type_id',2);
         $young=0;
         $middle=0;
         $old=0;
-        foreach($foreigners->get() as $foreigner){
+        foreach(User::where('type_id',2)->get() as $foreigner){
             if($foreigner->age()<30)
                 $young ++;
             else if($foreigner->age()>=60)
@@ -144,11 +161,11 @@ class AdminController extends Controller
             else 
                 $middle ++;
         }
-        $total=$foreigners->count();
-        $males=$foreigners->where('gender','Male')->count();
+        $total=User::where('type_id',2)->count();
+        $males=User::where('type_id',2)->where('gender','Male')->count();
         $females=$total-$males;
-        $top_languages=UserLanguage::whereIn('user_id',$foreigners->pluck('id'))->join('languages','languages.id','language_id')->selectRaw('language, COUNT(*) as count') ->groupBy('language')->orderBy('count', 'desc')->take(3)->get();
-        $top_countries=Country::join('users','countries.id','residence_id')->whereIn('users.id',$foreigners->pluck('id'))->selectRaw('country, COUNT(*) as count') ->groupBy('country')->orderBy('count', 'desc')->take(3)->get();
+        $top_languages=UserLanguage::whereIn('user_id',User::where('type_id',2)->pluck('id'))->join('languages','languages.id','language_id')->selectRaw('language, COUNT(*) as count') ->groupBy('language')->orderBy('count', 'desc')->take(3)->get();
+        $top_countries=Country::join('users','countries.id','residence_id')->whereIn('users.id',User::where('type_id',2)->pluck('id'))->selectRaw('country, COUNT(*) as count') ->groupBy('country')->orderBy('count', 'desc')->take(3)->get();
         $data = array(
             'locals_nb' => $total,
             'male%' => $males/$total*100,

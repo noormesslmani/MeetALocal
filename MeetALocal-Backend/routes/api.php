@@ -54,6 +54,8 @@ Route::group(['prefix' => 'v1.0.0'], function () {
                 Route::get('/users', [AdminController::class, 'getUsers']);
                 Route::get('/enrollments', [AdminController::class, 'getEnrollments']);
                 Route::get('/locations', [AdminController::class, 'getLocations']);
+                Route::get('/search-users', [AdminController::class, 'searchUsers']);
+            
             });
         });
         Route::group(['prefix' => 'foreigners'], function () {
