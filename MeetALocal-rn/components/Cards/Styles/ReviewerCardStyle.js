@@ -49,6 +49,11 @@ const ReviewerCardStyle = StyleSheet.create({
         backgroundColor: 'grey',
         marginVertical:10
 
+    },
+    trash:{
+        position:'absolute',
+        right:10,
+        top:10
     }
    
 });

@@ -17,7 +17,7 @@ import ReviewModal from '../../components/Modals/ReviewModal';
 import { colors } from '../../constants/colors';
 import BackArrow from '../../components/Header/BackArrow';
 import AppointmentsModal from '../../components/Modals/AppointmentModal';
-import ImageCarousel from '../../components/General/Carousel';
+import ImagesSlider from '../../components/General/Carousel';
 import { Avatar } from 'react-native-paper';
 import { Button} from 'react-native-paper';
 import ProfileCard from '../../components/Cards/ProfileCard';
@@ -41,7 +41,7 @@ const LocalPage=({navigation})=> {
 
   const [visible, setIsVisible] = useState(false);
   const [imageIndex, setImageIndex]= useState(0)
-  const images = item.highlights?.map((image)=>({ uri: `${address}/${image}`}))
+  const images = item.highlights?.map((image)=>({ img: `${address}/${image}`}))
 
 
   const [appointmentModal, setAppointmentModal]=useState(false)
@@ -227,7 +227,7 @@ const LocalPage=({navigation})=> {
           {item.highlights.length>0 && 
           <View style={LocalProfileStyles.sectionContainer}>
           <Text style={LocalProfileStyles.sectionTitle}>Highlights</Text>
-          <ImageCarousel images={images} />
+          <ImagesSlider images={images}  />
           </View>}
           <ImageView
           images={images}

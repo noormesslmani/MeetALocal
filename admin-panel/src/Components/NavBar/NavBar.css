@@ -15,10 +15,18 @@
     text-decoration: none;
 }
 .link:hover{
-    text-decoration: underline;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10;
+    width: 150px;
+    text-align: center;
+    color:rgb(186, 154, 215)
 }
 .link.active{
-    text-decoration: underline;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10;
+    width: 150px;
+    text-align: center;
+    color:rgb(186, 154, 215)
 }
 @media only screen and (max-width: 800px){
     .NavBar{

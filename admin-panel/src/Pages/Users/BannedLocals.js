@@ -57,11 +57,11 @@ const BannedLocals=()=> {
                 </div>
                 {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
                 {!isLoading && <UsersTable data={data.filter((item)=>item.type_id==1)} setBanLoading={setBanLoading}/>}
-                <div className='flex align-center justify-center arrow-contianer'>
+                {!isLoading && <div className='flex align-center justify-center arrow-contianer'>
                     <FontAwesomeIcon icon={faArrowLeft} color='rgba(140,87,186,1)' className='arrow' onClick={hanldePrev}/>
                     <p>{currentPage}</p>
                     <FontAwesomeIcon icon={faArrowRight} color='rgba(140,87,186,1)' className='arrow' onClick={hanldeNext}/>
-                </div>
+                </div>}
             </div>
         </div>
     </div>

@@ -95,7 +95,7 @@ const Events=({navigation})=> {
         headerRight:()=><></>})
       }
     }, [navigation, choice])
-    
+
   return (
     <View style={EventsStyles.container}>
         {user.type_id==1 && choice==3 && <AddIcon handlePress={()=>setEventModalVisible(true)} />}
