@@ -135,7 +135,9 @@ const LocalProfileStyles = StyleSheet.create({
         marginLeft:10},
     sectionTitle:{
         fontSize:16, 
-        fontWeight:"500"},
+        fontWeight:"500",
+        marginVertical:15
+    },
     about:{
         fontSize:13, 
         fontWeight:"300"},
@@ -196,7 +198,8 @@ const LocalProfileStyles = StyleSheet.create({
         alignItems:"center", 
         justifyContent:"center",
         marginTop:10,
-    }
+    },
+    
 
 });
 export default LocalProfileStyles;

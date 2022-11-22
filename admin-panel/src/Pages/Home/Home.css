@@ -15,8 +15,8 @@
     display: flex;
 }
 .home-title{
-    font-size: 38px;
-    color:rgb(158, 109, 202)
+    font-size: 40px;
+    font-weight: 500;
 }
 /***/
 .arrow{
@@ -39,12 +39,19 @@
 .stat-link.active{
     text-decoration: underline;
 }
+.search-container{
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
 .banned-link{
-    color:rgba(140,87,186,0.5);
+    color:rgb(158, 109, 202);
     text-decoration: none;
     font-weight: 500;
     font-size: 18px;
     margin-top: 10px;
+    font-size: 22px;
 }
 .banned-link:hover{
     text-decoration: underline;

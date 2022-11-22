@@ -42,6 +42,10 @@ const EventsStyles = StyleSheet.create({
     add:{
         position:'absolute',
         top:"85%"
+    },
+    addIcon:{
+        position:'absolute',
+        top:"90%"
     }
 });
 export default EventsStyles;

@@ -9,7 +9,7 @@ import { colors } from '../../constants/colors';
 import ImageView from "react-native-image-viewing";
 import AppButton from '../../components/Buttons/AppButtons';
 import { categoryIcons } from '../../constants/categories';
-import ImageCarousel from '../../components/General/Carousel';
+import ImagesSlider from '../../components/General/Carousel';
 import WavyBack from '../../components/General/WavyBackground';
 import { getReviews } from '../../network/App';
 import { Rating, AirbnbRating } from 'react-native-ratings';
@@ -19,6 +19,9 @@ import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HighlightsModal from '../../components/Modals/HighlightsModal';
 import ProfileCard from '../../components/Cards/ProfileCard';
+// import { SliderBox } from "react-native-image-slider-box";
+
+import { widths } from '../../constants/dimensions';
 const ForeignerProfile=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const [image, setImage]= useState(null)
@@ -28,7 +31,7 @@ const ForeignerProfile=({navigation})=> {
   const [stars, setStars]=useState([])
   const [modalVisible, setModalVisible]= useState(false)
   const [viewInfo, setViewInfo]=useState(true)
-  const images = user.highlights.map((image)=>({ uri: `${address}/${image}`}))
+  const images = user.highlights.map((image)=>({img: `${address}/${image}`}))
   useEffect(()=>{
     if(user.profile_picture){
       setImage(user.profile_picture)
@@ -127,8 +130,9 @@ const ForeignerProfile=({navigation})=> {
               <Pressable onPress={()=>setModalVisible(true)} ><Icon name='pencil' size={20} color={colors.violet} /></Pressable>
             </View>
             <View style={ProfileStyles.separator}/>
-            {user.highlights.length>0 && <View style={{ flex: 1, alignSelf:"center" }}>
-              <ImageCarousel images={images} />
+            
+            {user.highlights.length>0 && <View style={ProfileStyles.imageSlider}>
+              <ImagesSlider images={images} />
             </View>}
           </View>}
 
