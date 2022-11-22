@@ -1,0 +1,31 @@
+.counts-card{
+    width: 25vw;
+    height: 27vh;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    padding: 20px;
+    margin: 10px 20px;
+}
+.lightViolet{
+    background-color: rgb(225, 208, 239);
+}
+
+.counts-card:hover{
+    scale: 1.1;
+}
+.count{
+    font-size: 36px;
+    color:white;
+    font-weight: 700;
+}
+.line-height{
+    line-height: 1px;
+}
+
+@media only screen and (max-width: 900px){
+    .counts-card{
+        width: 60vw;
+        align-self: center;
+    }
+    
+}
