@@ -563,3 +563,21 @@ export async function getLocals(params){
     }
   }
 
+  export async function deleteReview(data){
+    const token = await AsyncStorage.getItem('@token')
+    const config = {
+      method: "delete",
+      data,
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}foreigners/review`,
+    }
+    try{
+      const res = await axios(config)
+      return {success:true, data: res.data}
+    }
+    catch (error) {
+      console.warn(error)
+      return {'success': false, error}
+    }
+  }
+
