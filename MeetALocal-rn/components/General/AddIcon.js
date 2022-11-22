@@ -1,13 +1,13 @@
-import {TouchableOpacity } from 'react-native'
+import {Pressable } from 'react-native'
 import React from 'react'
 import { colors } from '../../constants/colors';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AddIconStyle from './Styles/AddIconStyle';
 const AddIcon=({handlePress})=>{
     return(
-        <TouchableOpacity onPress={handlePress} style={AddIconStyle.addIcon} >
+        <Pressable onPress={handlePress} style={AddIconStyle.addIcon} >
             <Icon name= 'plus' size={50} color={colors.lightViolet} />
-        </TouchableOpacity>
+        </Pressable>
     )
 }
 export default AddIcon
