@@ -42,13 +42,13 @@
 > This design was planned before on paper, then moved to Figma app for the fine details.
 Note that i didn't use any styling library or theme, all from scratch and using pure css modules
 
-| Sign In  | Sign Up  |
-| -----------------| -----|
-| ![Sign In](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/signin.svg) | ![Home/Search] |
+| Sign In  | Sign Up  | User Type  |
+| -----------------| ----------------| ----------------|
+| ![Sign In](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/signin.svg) | ![Sign Up](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/signup.svg) | ![User Type](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/user-type.svg) |
 
-| Sign Up  | Sign Up  |
-| -----------------| -----|
-| ![Artists results] | ![Artist's Albums] |
+| Home  | Locals  |
+| -----------------| ------------|
+| ![Home](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/home.svg) | ![Locals](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/locals.svg) |
 
 
 <br><br>
