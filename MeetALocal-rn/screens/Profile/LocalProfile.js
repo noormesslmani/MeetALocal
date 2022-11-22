@@ -35,10 +35,12 @@ const ForeignerProfile=({navigation})=> {
     }
   },[user.profile_picture])
 
+  //get all reviews to be displayed when viewInfo is set to false
   useEffect(()=>{
     getAllReviews()
   },[])
 
+  //finding the average
   useEffect(()=>{
     let starsArr=[0,0,0,0,0]
     for(let review of reviews){
@@ -46,7 +48,6 @@ const ForeignerProfile=({navigation})=> {
     }
     setStars(starsArr)
   },[reviews])
-
 
   useEffect(()=>{
     if(stars.length>0){
@@ -60,14 +61,15 @@ const ForeignerProfile=({navigation})=> {
       setReviews(result.data.data)
     }
   }
-    const handleEdit=()=>{
-      navigation.navigate('edit-local-profile')
-    }
 
-    const handleLogout=async()=>{
-      await AsyncStorage.clear();
-      navigation.navigate("auth")
-    }
+  const handleEdit=()=>{
+    navigation.navigate('edit-local-profile')
+  }
+
+  const handleLogout=async()=>{
+    await AsyncStorage.clear();
+    navigation.navigate("auth")
+  }
   return (
     <View style={ProfileStyles.container}>
 

@@ -6,11 +6,14 @@ import { useState, useEffect, useContext } from "react";
 import ScheduleCard from '../../components/Cards/ScheduleCard';
 import ScheduleStyles from './Styles/ScheduleScreenStyles';
 import WavyBack from '../../components/General/WavyBackground';
+import Toast from 'react-native-toast-message'
 const Bookings=({navigation})=> {
 
   const [appointments, setAppointments]=useState(null)
   const [isLoading, setIsLoading]=useState(false)
   const [deleted, setDeleted]=useState(false)
+
+  //Booking screen for foreigner user
   useEffect(()=>{
     getBookings()
   },[])
@@ -20,6 +23,8 @@ const Bookings=({navigation})=> {
       setDeleted(false)
     }
   },[deleted])
+
+  //get all bookings
   const getBookings=async()=>{
     setIsLoading(true)
     const result= await getBookedAppointments()
@@ -27,7 +32,14 @@ const Bookings=({navigation})=> {
       setAppointments(result.data.data)
       console.log(result.data.data)
     }
+    else{
+      Toast.show({
+        type: 'error',
+        text1: 'Something went wrong'
+      });
+    }
     setIsLoading(false)
+
   }
   const renderItem = ({ item, index }) => (
     <ScheduleCard item={item} key={index} type={2} setDeleted={setDeleted} navigation={navigation} />
@@ -48,6 +60,7 @@ const Bookings=({navigation})=> {
           contentContainerStyle={{ paddingBottom: 300, paddingTop:20, paddingHorizontal:10}}
           ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:null}
           />
+          <Toast/>
         </View>
      
   )

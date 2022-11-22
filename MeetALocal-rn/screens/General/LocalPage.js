@@ -3,7 +3,6 @@ import React from 'react'
 import { UserContext } from '../../App'
 import { useState, useEffect, useContext } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome'
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useRoute } from '@react-navigation/native';
 import LocalProfileStyles from './Styles/LocalProfileStyles';
 import { categoryIcons } from '../../constants/categories';
@@ -85,7 +84,7 @@ const LocalPage=({navigation})=> {
     reviews.length>0?setAverage((stars[0]+2*stars[1]+3*stars[2]+4*stars[3]+5*stars[4])/(stars[0]+stars[1]+stars[2]+stars[3]+stars[4])):setAverage(0)
     }
   },[stars])
-  console.log(average)
+ 
   //getting all reviews
   const getAllReviews=async()=>{
     const result = await getReviews(item.id)
@@ -94,16 +93,16 @@ const LocalPage=({navigation})=> {
     }
   } 
 
+  //get events organized by this local
   const getEvents=async()=>{
     const result = await getLocalsEvents(item.id)
     if (result.success){
       setEvents(result.data.data)
     }
   }
-  console.log(events)
-  //navigating to chat screen
+
+  //open chat room
   const handleMessage=()=>{
-    console.log('hi')
     navigation.navigate('chat-screen', { chatId: null, userId: item.id, image:item.profile_picture, name:item.name})
   }
 
@@ -128,7 +127,7 @@ const LocalPage=({navigation})=> {
   }
   //navigating to map
   const handleMap=()=>{
-     navigation.navigate('locals-map',{data:[item], type:3})
+    user.type_id==2 && navigation.navigate('locals-map',{data:[item], type:1})
   }
 
   //calling phone number
@@ -140,7 +139,7 @@ const LocalPage=({navigation})=> {
   const handlePhone=()=>{
     call(args).catch(console.error)
   }
-
+  //open whatsapp link
   const handleWhatsapp=()=>{
     Linking.openURL(
       `http://api.whatsapp.com/send?phone=${item.phone}` 
@@ -151,7 +150,7 @@ const LocalPage=({navigation})=> {
     console.log('hi')
     setAppointmentModal(true)
   }
- 
+ //navigate to reviews( access for foreigners only)
   const handleReviews=()=>{
     user.type_id==2 && navigation.navigate('reviews',{average, reviews, id:item.id})
   }
@@ -264,7 +263,7 @@ const LocalPage=({navigation})=> {
           showsHorizontalScrollIndicator={false}
           horizontal={true}
           >
-            {events.map((event)=><EventCard item={event} choice={1} setEventBooked={null} />)}
+            {events.map((event, index)=><EventCard key={index} item={event} choice={1} setEventBooked={null} />)}
           </ScrollView>
         </View>
 

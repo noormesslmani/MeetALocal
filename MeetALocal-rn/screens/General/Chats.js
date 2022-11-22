@@ -6,7 +6,6 @@ import { colors } from '../../constants/colors';
 import MessageCard from '../../components/Cards/MessageCard'
 import { useFocusEffect } from '@react-navigation/native';
 import ChatScreenStyles from './Styles/ChatScreenStyles';
-import EmptyPage from '../../components/General/EmptyPage';
 import {
   collection,
   orderBy,
@@ -14,7 +13,7 @@ import {
   where,
   getDocs,
 } from "firebase/firestore";
-import { address } from '../../constants/address';
+
 const Chats=({navigation})=> {
   const [chats, setChats]= useState([])
   const { user, setUser} = useContext(UserContext);

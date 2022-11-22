@@ -21,7 +21,7 @@ const Reviews=({navigation})=>{
     const [reviewAdded, setReviewAdded]=useState(false)
     const [isReviewed, setIsReviewed]=useState(false)
     const { user, setUser, locals, setLocals} = useContext(UserContext);
-    
+    //check if reviewed already
     useEffect(()=>{
         reviewed()
     },[])
@@ -40,7 +40,7 @@ const Reviews=({navigation})=>{
         });
       }, [navigation]);
         
-    
+    //getting new average after review submission
     useEffect(()=>{
         let newAvg=0
         if(reviewAdded){
@@ -74,7 +74,7 @@ const Reviews=({navigation})=>{
                 <Text style={ReviewStyles.reviewsNb}>Based on {reviews.length} reviews</Text>
             </View>
             
-            {isReviewed && user.type_id==2?<WideButton text='Reviewed' icon='star' color={colors.gold} handlePress={null} />:user.type_id==2?<WideButton text='Review' icon='star' color={colors.gold} handlePress={()=>setReviewModalVisible(true)} />: null}
+            {isReviewed && user.type_id==2?<WideButton text='Reviewed' icon='star' color={colors.gold} handlePress={null} />:user.type_id==2?<WideButton text='Add Review' icon='star' color={colors.gold} handlePress={()=>setReviewModalVisible(true)} />: null}
             <View style={ReviewStyles.separator} />
             {reviewModalVisible && user.type_id==2 && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} id={id} setReviewAdded={setReviewAdded}  />}
             <ScrollView>

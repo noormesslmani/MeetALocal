@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, Modal, Pressable, StyleSheet, ScrollView, TextInput,  ActivityIndicator} from 'react-native'
+import { View, Text, TouchableOpacity, Image, FlatList,  ActivityIndicator} from 'react-native'
 import React from 'react'
 import { useState, useEffect, useContext, useCallback } from "react";
 import { getSchedule } from '../../network/App';
@@ -15,10 +15,13 @@ const Schedules=({navigation})=> {
   const [scheduleModal, setScheduleModal]=useState(false)
   const [scheduleAdded, setScheduleAdded]=useState(false)
  
-    useFocusEffect(
-      useCallback(() => {
-      getMySchedule()
-      }, []), )
+  //This screen is for locals
+
+  //get schedule
+  useFocusEffect(
+    useCallback(() => {
+    getMySchedule()
+    }, []), )
     
  
    useEffect(()=>{
@@ -27,6 +30,7 @@ const Schedules=({navigation})=> {
       setScheduleAdded(false)
     }
    },[scheduleAdded])
+   
    const getMySchedule=async()=>{
     setIsLoading(true)
     const result=await getSchedule()

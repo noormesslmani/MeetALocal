@@ -10,20 +10,20 @@ const EventCard=({navigation, item, choice, setEventDeleted, setEventBooked})=> 
   const [modalVisible, setModalVisible]=useState(false)
   const [deleted, setDeleted]=useState(false)
   const [booked, setBooked]=useState(false)
-   const handleEvent=()=>{
-    console.log('pressed')
+  //show event modal
+  const handleEvent=()=>{
     setModalVisible(true)
    }
-   useEffect(()=>{
-    if(deleted){
-      setEventDeleted(true)
-      setDeleted(false)
-    }
-    if(booked){
-      setEventBooked(true)
-      setBooked(false)
-    }
-   },[deleted, booked])
+  useEffect(()=>{
+  if(deleted){
+    setEventDeleted(true)
+    setDeleted(false)
+  }
+  if(booked){
+    setEventBooked(true)
+    setBooked(false)
+  }
+  },[deleted, booked])
   
   return (
     <>

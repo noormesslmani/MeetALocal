@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
+import { View, Image, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
 import React from 'react'
 import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext, useRef } from "react";
@@ -41,6 +41,7 @@ const Locals=({navigation})=> {
       });
     }, [navigation, data, viewFav]);
 
+    //handle filtering data
     useDidMountEffect(() => {
       page==0? getLocalsList(): setPage(0)
       setdata([])
@@ -50,6 +51,7 @@ const Locals=({navigation})=> {
 
     const isFocused = useIsFocused();
 
+    //get locals( 15 per page)
     useEffect(() => {
       if(isFocused)  {
         getLocalsList()
@@ -59,8 +61,6 @@ const Locals=({navigation})=> {
         setPage(0)
       }
     },[isFocused, page])
-    
-    console.log(data)
 
 
 
@@ -72,7 +72,7 @@ const Locals=({navigation})=> {
           category,
           offset:15*page
         }
-        console.log(params)
+      
         const result = await getLocals(params)
         if (result.success){
           setIsLoading(false)
@@ -95,6 +95,7 @@ const Locals=({navigation})=> {
     }
   } 
  
+
   const renderItem = ({ item, index }) => (
     <LocalCard item={item}  navigation={navigation}/>
   );
@@ -102,11 +103,14 @@ const Locals=({navigation})=> {
   const handleFilter=()=>{
     setModalVisible(true)
   }
+
+  //navigate to map after loading data
   const handleMap=()=>{
     if(!isLoading){
       navigation.navigate('locals-map',{data: data, type:1})
     }
   }
+  //update page after each query
   const fetchMore=()=>{
     if(!isListEnd && !isLoadingMore){
       setPage(page+1)

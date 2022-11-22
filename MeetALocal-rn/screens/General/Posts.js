@@ -1,6 +1,6 @@
-import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
+import { View, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
 import React from 'react'
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect } from "react";
 import FilterModal from '../../components/Modals/FilterModal';
 import PostsStyles from './Styles/PostsStyles';
 import NewPostModal from '../../components/Modals/NewPostModal';
@@ -42,12 +42,14 @@ const Posts=({navigation})=> {
     }
   }, [navigation, viewOwn])
 
+  //hanlde filtering
   useDidMountEffect(() => {
     page==0? getPosts(): setPage(0)
     setdata([])
     setIsListEnd(false)
   }, [viewOwn, country, category]); 
 
+  //query posts (20 per page)
   const isFocused = useIsFocused();
 
     useEffect(() => {
@@ -98,14 +100,15 @@ const Posts=({navigation})=> {
   const renderItem = ({ item }) => (
     <PostCard item={item} navigation={navigation} key={item.id}/>);
   
-    const fetchMore=()=>{
-      if(!isListEnd){
-        setPage(page+1)
-      }
+  //update page when possible
+  const fetchMore=()=>{
+    if(!isListEnd){
+      setPage(page+1)
     }
+  }
   return (
       <View style={PostsStyles.container}>
-        <AddIcon handlePress={()=>setNewPostModalVisible(true)} />
+        {viewOwn && <AddIcon handlePress={()=>setNewPostModalVisible(true)} />}
         <View style={PostsStyles.view}>
             <AppButton text='All Posts' handlePress={()=>setViewOwn(false)} type={viewOwn?2:1} />
             <AppButton text='My Posts' handlePress={()=>setViewOwn(true)} type={viewOwn?1:2} />
@@ -127,7 +130,7 @@ const Posts=({navigation})=> {
             ListFooterComponent={<ListFooter isLoadingMore={isLoadingMore} isListEnd={isListEnd} />}
           />
         </SafeAreaView>
-        <TouchableOpacity onPress={()=>setNewPostModalVisible(true)} style={PostsStyles.add} ><Icon name= 'plus' size={50} color={colors.lightViolet} /></TouchableOpacity>
+       
       </View>
     )
 }

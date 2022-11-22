@@ -22,7 +22,6 @@ export const languagesOptions=[
     {label: 'Spanish', value: 'Spanish'},
     {label: 'Swahili', value: 'Swahili'},
     {label: 'Swedish', value: 'Swedish'},
-    {label: 'Thai', value: 'Thai'},
     {label: 'Turkish', value: 'Turkish'},
     {label: 'Urdu', value: 'Urdu'},
     {label: 'Vietnamese', value: 'Vietnamese'},

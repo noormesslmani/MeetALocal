@@ -43,23 +43,26 @@ const EditLocalProfile=({navigation})=> {
     const [fees, setFees]= useState(user.fees)
 
     const [isLoading, setIsLoading]=useState(false)
-      const handleDate= (event, value)=>{
-        setDatePicker(false)
-        setDate(value)
-        setdob(`${value.getFullYear()}-${value.getMonth()+1}-${value.getDate()}`)
-      }
+
+    useEffect(() => {
+      navigation.setOptions({
+        headerLeft: () => <BackArrow navigation={navigation} type={1}/>
+      });
+    }, [navigation]);
+
+    const handleDate= (event, value)=>{
+      setDatePicker(false)
+      setDate(value)
+      setdob(`${value.getFullYear()}-${value.getMonth()+1}-${value.getDate()}`)
+    }
     useEffect(()=>{
       if(user.profile_picture){
         setUri(`${address}/${user.profile_picture}`)
       }
     },[user.profile_picture])
 
-    useEffect(() => {
-      navigation.setOptions({
-        headerLeft: () => <BackArrow navigation={navigation} type={1}/>,
-      });
-    }, [navigation]);
     
+    //save location in AsyncStorage (could possibly be updated in edit location screen)
     useEffect(()=>{
       setLocation()
     },[])
@@ -67,6 +70,8 @@ const EditLocalProfile=({navigation})=> {
       await AsyncStorage.setItem('lat', user.latitude.toString())
       await AsyncStorage.setItem('lng', user.longitude.toString())
     }
+
+    //update profile
     const handleSave=async ()=>{
       setIsLoading(true)
       const latitude = await AsyncStorage.getItem('lat')
@@ -95,10 +100,11 @@ const EditLocalProfile=({navigation})=> {
         }
         setIsLoading(false)
   }
-    const handleMap=()=>{
+  //navigate to edit location screen
+  const handleMap=()=>{
 
-      navigation.navigate('edit-location',{lat:user.latitude, lng:user.longitude})
-    }
+    navigation.navigate('edit-location',{lat:user.latitude, lng:user.longitude})
+  }
   return (
     <View style={ProfileStyles.container}>
         <UploadImage setBase64={setBase64} setext={setext} uri={uri} />

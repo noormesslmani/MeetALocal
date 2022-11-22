@@ -13,8 +13,8 @@ const LocalCard=({navigation, item})=> {
     useEffect(()=>{
         setCategories(item.categories)
     },[item])
+    //navigate to local's profile page
     const handlePress=()=>{
-        console.log(item)
         navigation.navigate('local-page', {item});
     }
   return (

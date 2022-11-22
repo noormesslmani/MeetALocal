@@ -27,10 +27,12 @@ const ChatScreen=({navigation})=> {
     const [messages, setMessages] = useState([]);
     const { user, setUser} = useContext(UserContext);
     const uri=`${address}/${user.profile_picture}`
+   
     useEffect(() => {
         getMessages()
     }, []);
-    console.log(userId)
+   
+     //check if chat room exists between users, if not create a new one, else get old messages
     const getMessages = async () => {
         if(!chatId){
             var flag=true
@@ -65,6 +67,7 @@ const ChatScreen=({navigation})=> {
         };
     };
 
+    //sending a message
     const onSend = useCallback((messages = []) => {
         setMessages((previousMessages) =>
             GiftedChat.append(previousMessages, messages)
@@ -83,6 +86,8 @@ const ChatScreen=({navigation})=> {
             user,
         });
     }, []);
+
+    
     useEffect(() => {
         navigation.setOptions({
             headerLeft: () => <><BackArrow type={1} navigation={navigation} />

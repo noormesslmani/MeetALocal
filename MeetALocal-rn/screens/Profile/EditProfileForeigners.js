@@ -3,7 +3,6 @@ import React from 'react'
 import { UserContext } from '../../App'
 import { useState, useEffect, useContext } from "react";
 import ProfileStyles from './ProfileStyles/ProfileStyles';
-import Icon from 'react-native-vector-icons/AntDesign'
 import { FontAwesome } from '@expo/vector-icons';
 import UploadImage from '../../components/General/UploadImage';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -37,39 +36,43 @@ const EditForeignerProfile=({navigation})=> {
     const [genders, setGenders] = useState([
         {label: 'Male', value: 'Male'},
         {label: 'Female', value: 'Female'}])
-      const handleDate= (event, value)=>{
-        setDatePicker(false)
-        setDate(value)
-        setdob(`${value.getFullYear()}-${value.getMonth()+1}-${value.getDate()}`)
-      }
+    
+    useEffect(() => {
+      navigation.setOptions({
+        headerLeft: () => <BackArrow navigation={navigation} type={1}/>
+      });
+    }, [navigation]);
+    //handle date of birth
+    const handleDate= (event, value)=>{
+      setDatePicker(false)
+      setDate(value)
+      setdob(`${value.getFullYear()}-${value.getMonth()+1}-${value.getDate()}`)
+    }
+    //update profile picture
     useEffect(()=>{
       if(user.profile_picture){
         setUri(`${address}/${user.profile_picture}`)
       }
     },[user.profile_picture])
-    useEffect(()=>{
-      navigation.setOptions({
-        headerLeft: () => (<BackArrow type={1}  />),
-          headerBackVisible:false, headerTitle:"Edit Profile", headerTitleAlign:"center"
-      })
-    },[navigation])
+
+    //update profile and user with new data
     const handleSave=async ()=>{
-        const data = {
-            name,
-            phone,
-            gender,
-            nationality,
-            residence,
-            about,
-            photo:base64,
-            ext,
-            languages:spokenLanguages,
-            date_of_birth: dob
-          };
-          const result= await editProfile(data)
-          if (result.success){
-            setUser(response.data.data)
-          }
+      const data = {
+          name,
+          phone,
+          gender,
+          nationality,
+          residence,
+          about,
+          photo:base64,
+          ext,
+          languages:spokenLanguages,
+          date_of_birth: dob
+        };
+        const result= await editProfile(data)
+        if (result.success){
+          setUser(response.data.data)
+        }
     }
   return (
     <View style={ProfileStyles.container}>

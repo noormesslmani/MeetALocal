@@ -9,14 +9,16 @@ import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import ScheduleCardStyle from './Styles/ScheduleCardStyle';
 import ScheduleModal from '../Modals/ScheduleModal';
 import Map from '../../components/Header/Map';
-const ScheduleCard=({item, type, setDeleted, navigation})=> {
+import Toast from 'react-native-toast-message'
+const ScheduleCard=({item, type, setDeleted, navigation, setAppointments})=> {
   const [modalVisible, setModalVisible]=useState(false)
   const [booked, setBooked]=useState(false)
-  const [isLoading, setIsLoading]=useState(false)
+
+  //check if appointment is booked for locals(type=1)
   useEffect(()=>{
     type==1 && isBooked()
   },[])
-console.log(type)
+
   const isBooked=async()=>{
     const result = await isAppointmentBooked(item.id)
     if (result.success){
@@ -24,6 +26,7 @@ console.log(type)
     }
   }
   
+  //unbook function for foreigners(type=2)
   const hanldeUnbook=async()=>{
     const data={
       appointment_id:item.appointment_id
@@ -32,7 +35,14 @@ console.log(type)
     if (result.success){
       setDeleted(true)
     }
+    else{
+      Toast.show({
+        type: 'error',
+        text1: 'Something went wrong'
+      });
+    }
   }
+  //display appointment location on map for foreigners (map type 3)
   const handleMap=()=>{
     navigation.navigate('locals-map',{data:[{latitude:item.latitude, longitude:item.longitude}], type:3})
   }
@@ -47,7 +57,7 @@ console.log(type)
       }
       {
         type==2 && <View  style={ScheduleCardStyle.locationContainer}>
-          <Text style={ScheduleCardStyle.dateTime}>Place:</Text> 
+          <Text style={ScheduleCardStyle.dateTime}>Location:</Text> 
           <Map small={true} handleMap={handleMap} />
         </View>
       }
@@ -68,6 +78,7 @@ console.log(type)
   
       {type==2 && <Pressable onPress={hanldeUnbook} style={ScheduleCardStyle.trash} ><Icon name='trash' size={20} color='grey' /></Pressable> }
       {type==1 && <ScheduleModal setModalVisible={setModalVisible} modalVisible={modalVisible} item={item} />}
+      <Toast/>
     </TouchableOpacity>
     
   )
