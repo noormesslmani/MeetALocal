@@ -39,7 +39,7 @@ const Reviews=({navigation})=>{
 
     useEffect(() => {
         navigation.setOptions({
-            headerLeft: () => (<BackArrow type={2} />),
+            headerLeft: () => (<BackArrow type={1} />),
             headerBackVisible:false, headerTitle:"Reviews", headerTitleAlign:"center",
             headerShadowVisible:false,
         });
