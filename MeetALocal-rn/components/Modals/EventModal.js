@@ -8,9 +8,9 @@ import { categoryIcons } from '../../constants/categories';
 import { toggleSaveEvent, isEventSaved } from '../../network/App';
 import { UserContext } from '../../App'
 import { deleteEvents } from '../../network/App';
+import { getToken } from '../../network/Notifications';
 import { colors } from '../../constants/colors';
 import { Button} from 'react-native-paper';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import EventModalStyle from './Styles/EventModalStyle';
 import { isEventBooked, toggleBookedEvent } from '../../network/App';
 import { sendNotification, Notify } from '../../notifications/Notifications';
@@ -79,8 +79,10 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
       if (result.success){
         setModalVisible(false)
         setBooked(true)
-        const token = await AsyncStorage.getItem('@expoToken')
-        isBooked? sendNotification(token,'Meet A Local','Event successfully unbooked'):sendNotification(token,'Meet A Local','Event successfully booked')
+        if(! isBooked){
+          const result= await getToken(item.organizer_id)
+          sendNotification(result.data.token,'Meet A Local',`Your event ${item.title} was booked by ${user.name} `)
+        }
       }
       setIsLoading(false)
     }
