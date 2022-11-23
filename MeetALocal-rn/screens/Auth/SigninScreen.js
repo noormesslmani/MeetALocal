@@ -45,7 +45,7 @@ const SigninScreen= ({ navigation })=> {
       }
     }
   }
-  console.log(user)
+ 
   return (
     <View style={styles.background}>
       <KeyboardAwareScrollView style={styles.scrollView} scrollEnabled={false}  showsVerticalScrollIndicator={false}>

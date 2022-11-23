@@ -2,15 +2,17 @@ import axios from 'axios';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { address } from '../constants/address';
 const baseURL= `${address}/api/v1.0.0/`
-export async function signin(data){
+
+export async function saveToken(data){
+    const token = await AsyncStorage.getItem('@token')
     const config = {
-      method: "post",
+      method: "put",
       data,
-      url:`${baseURL}auth/login`,
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}users/token`,
     }
     try{
       const res = await axios(config)
-      await AsyncStorage.setItem("@token", res.data['access_token']);
       return {success:true, data: res.data}
     }
     catch (error) {
@@ -18,15 +20,16 @@ export async function signin(data){
       return {'success': false, error}
     }
   }
-  export async function registerAccount(data){
+  export async function getToken(id){
+    const token = await AsyncStorage.getItem('@token')
     const config = {
-      method: "post",
-      data,
-      url:`${baseURL}auth/register`,
+      method: "get",
+      params:{id},
+      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}users/token`,
     }
     try{
       const res = await axios(config)
-      await AsyncStorage.setItem("@token", res.data['token']);
       return {success:true, data: res.data}
     }
     catch (error) {
@@ -34,4 +37,3 @@ export async function signin(data){
       return {'success': false, error}
     }
   }
-  

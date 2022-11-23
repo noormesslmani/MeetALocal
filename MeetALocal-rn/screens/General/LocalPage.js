@@ -24,6 +24,7 @@ import ProfileCard from '../../components/Cards/ProfileCard';
 import WideButton from '../../components/Buttons/wideButtons';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import EventCard from '../../components/Cards/EventCard';
+import Toast from 'react-native-toast-message';
 const LocalPage=({navigation})=> {
   const route = useRoute();
   const item =route.params.item
@@ -45,6 +46,7 @@ const LocalPage=({navigation})=> {
 
 
   const [appointmentModal, setAppointmentModal]=useState(false)
+  const [appointmentBooked, setAppointmentBooked]=useState(false)
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => <><BackArrow navigation={navigation} type={2}/>
@@ -147,15 +149,27 @@ const LocalPage=({navigation})=> {
   }
   //booking appointments
   const handleBooking=()=>{
-    console.log('hi')
     setAppointmentModal(true)
   }
+
+  //show success toast
+  useEffect(()=>{
+    if(appointmentBooked){
+      Toast.show({
+        type: 'success',
+        text1: 'Appointment successfully booked'
+      });
+      setAppointmentBooked(false)
+    }
+  },[appointmentBooked])
+
  //navigate to reviews( access for foreigners only)
   const handleReviews=()=>{
     user.type_id==2 && navigation.navigate('reviews',{average, reviews, id:item.id})
   }
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
+        <Toast />
         <View style={LocalProfileStyles.mainContainer}>
 
           <View style={LocalProfileStyles.imageContainer}>
@@ -192,7 +206,7 @@ const LocalPage=({navigation})=> {
           </View>
           
           {user.type_id==2? <WideButton handlePress={handleBooking} icon='calendar' color={colors.violet} text='Book' />:null}
-          {appointmentModal && <AppointmentsModal modalVisible={appointmentModal} setModalVisible={setAppointmentModal} id={item.id} /> }
+          <AppointmentsModal modalVisible={appointmentModal} setModalVisible={setAppointmentModal} id={item.id} setAppointmentBooked={setAppointmentBooked} /> 
 
           <View style={LocalProfileStyles.separator} />
 
@@ -267,7 +281,7 @@ const LocalPage=({navigation})=> {
           </ScrollView>
         </View>
 
-        {reviewModalVisible && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} setReviewAdded={setReviewAdded} id={item.id} />}
+        <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} setReviewAdded={setReviewAdded} id={item.id} />
         
     </ScrollView>
     
