@@ -165,7 +165,7 @@ class ForeignerController extends Controller
 
     //deleting a review
     public function deleteReview(Request $request){
-        $review=Review::find($request->review_id)->delete();
+        $review=Review::where('local_id', $request->local_id)->where('reviewer_id', Auth::id())->delete();
         return response()->json([
             'message' => 'ok',
         ], 201);
