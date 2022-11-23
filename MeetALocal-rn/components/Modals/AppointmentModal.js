@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, Modal, Pressable, ScrollView, ActivityIndicator } from 'react-native'
+import { View, Text, Modal, Pressable, ScrollView, ActivityIndicator } from 'react-native'
 import React from 'react'
 import { useState, useEffect, useContext, useRef } from "react";
 import { colors } from '../../constants/colors';
@@ -7,11 +7,13 @@ import { getAppointments, toggleBookAppointment } from '../../network/App';
 import AppButton from '../Buttons/AppButtons';
 import { sendNotification, Notify } from '../../notifications/Notifications';
 import AppointmentsModalStyle from './Styles/AppointmentModalStyle';
+import { getToken } from '../../network/Notifications';
+import { UserContext } from '../../App';
 const AppointmentsModal=({navigation, setModalVisible, modalVisible, id})=> {
   const [appointments, setAppointments]=useState(null)
   const [selected, setSelected]=useState(null)
   const [isloading, setIsLoading]=useState(false)
-
+  const { user, setUser} = useContext(UserContext);
 
   useEffect(()=>{
     if(modalVisible){
@@ -19,6 +21,7 @@ const AppointmentsModal=({navigation, setModalVisible, modalVisible, id})=> {
 
     }
   },[modalVisible])
+
   const getAvailalbeAppointments=async()=>{
     const result= await getAppointments(id)
     if (result.success){
@@ -26,6 +29,7 @@ const AppointmentsModal=({navigation, setModalVisible, modalVisible, id})=> {
       console.log(result.data.data)
     }
   }
+  
   const handleBook=async()=>{
     if(selected){
       setIsLoading(true)
@@ -35,7 +39,9 @@ const AppointmentsModal=({navigation, setModalVisible, modalVisible, id})=> {
       const result= await toggleBookAppointment(data)
       if (result.success){
         setModalVisible(false)
-        sendNotification('Meet A Local','Appointment successfully Booked')
+        const result= await getToken(id)
+        sendNotification(result.data.token,'Meet A Local',`The appointment on ${selected.date} form ${selected.start_time} till ${selected.end_time} was booked by ${user.name} `)
+        // sendNotification('Meet A Local','Appointment successfully Booked')
       }
       setIsLoading(false)
     }
