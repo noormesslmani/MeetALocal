@@ -6,10 +6,11 @@ import { address } from '../../constants/address';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors } from '../../constants/colors';
 import EventCardStyle from './Styles/EventCardStyle';
-const EventCard=({navigation, item, choice, setEventDeleted, setEventBooked})=> {
+const EventCard=({navigation, item, choice, setEventDeleted, setEventBooked, setEventSaved})=> {
   const [modalVisible, setModalVisible]=useState(false)
   const [deleted, setDeleted]=useState(false)
   const [booked, setBooked]=useState(false)
+  const [saved, setSaved]=useState(false)
   //show event modal
   const handleEvent=()=>{
     setModalVisible(true)
@@ -23,8 +24,12 @@ const EventCard=({navigation, item, choice, setEventDeleted, setEventBooked})=> 
     setEventBooked(true)
     setBooked(false)
   }
-  },[deleted, booked])
-  
+  if(saved){
+    setEventSaved(true)
+    setSaved(false)
+  }
+  },[deleted, booked, saved])
+  console.log('saved', saved)
   return (
     <>
     <TouchableOpacity style={EventCardStyle.cardContainer} onPress={handleEvent}>
@@ -41,7 +46,7 @@ const EventCard=({navigation, item, choice, setEventDeleted, setEventBooked})=> 
             
         </View>
     </TouchableOpacity>
-    <EventModal modalVisible={modalVisible} setModalVisible={setModalVisible} item={item} choice={choice} setDeleted={setDeleted} setBooked={setBooked}/>
+    <EventModal modalVisible={modalVisible} setModalVisible={setModalVisible} item={item} choice={choice} setDeleted={setDeleted} setBooked={setBooked} setSaved={setSaved} />
     </>
   )
 }
