@@ -42,13 +42,26 @@
 > This design was planned before on paper, then moved to Figma app for the fine details.
 Note that i didn't use any styling library or theme, all from scratch and using pure css modules
 
+- Mobile App
+
 | Sign In  | Sign Up  | User Type  |
 | -----------------| ----------------| ----------------|
 | ![Sign In](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/signin.svg) | ![Sign Up](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/signup.svg) | ![User Type](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/user-type.svg) |
 
-| Home  | Locals  |
-| -----------------| ------------|
-| ![Home](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/home.svg) | ![Locals](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/locals.svg) |
+| Home  | Locals  | Posts  |
+| --------------| ------------| ------------|
+| ![Home](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/home.svg) | ![Locals](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/locals.svg) | ![Posts](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/posts.svg)  |
+
+| Events  | Chats  | Maps  |
+| --------------| ------------| ------------|
+| ![Events](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/events.svg) | ![Chats](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/chats.svg) | ![Maps](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/maps.svg)  |
+
+
+- Admin Panel
+
+| Log In  | App Statistics  | Users' Table  |
+| --------------| ------------| ------------|
+| ![Log In](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/admin-login.svg) | ![General Stat](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/admin-general.svg) | ![Users table](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mockups/admin-table.svg)  |
 
 
 <br><br>
@@ -66,6 +79,8 @@ Here's a brief high-level overview of the tech stacks the app uses:
 - For storing messages, the app uses the [Firebase](https://firebase.google.com/) package which is a Google-backed application development software that enables developers to develop iOS, Android and Web apps. Firebase Realtime Database is a cloud-hosted NoSQL database that enables data to be stored and synced between users in real time.
 <br><br>
 - [React-native-maps](https://docs.expo.dev/versions/latest/sdk/map-view/) is used to display locations, and [Google Maps API](https://developers.google.com/maps/documentation/places/web-service/overview) is used for places search service.
+
+
 
 
 
