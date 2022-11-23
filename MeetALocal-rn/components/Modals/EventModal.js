@@ -14,7 +14,8 @@ import { Button} from 'react-native-paper';
 import EventModalStyle from './Styles/EventModalStyle';
 import { isEventBooked, toggleBookedEvent } from '../../network/App';
 import { sendNotification, Notify } from '../../notifications/Notifications';
-const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setDeleted, setBooked})=> {
+import Toast from 'react-native-toast-message';
+const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setDeleted, setBooked, setSaved})=> {
     const { user, setUser} = useContext(UserContext);
     const [categories, setCategories]=useState([])
     const [isSaved, setIsSaved]=useState(false)
@@ -43,6 +44,7 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
       };
       const result = await toggleSaveEvent(data)
       if (result.success){
+        setSaved(true)
         setIsSaved(! isSaved)
       }
     }
@@ -82,6 +84,16 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
         if(! isBooked){
           const result= await getToken(item.organizer_id)
           sendNotification(result.data.token,'Meet A Local',`Your event ${item.title} was booked by ${user.name} `)
+          Toast.show({
+            type: 'success',
+            text1: 'Event successfully booked'
+          });
+        }
+        else{
+          Toast.show({
+            type: 'success',
+            text1: 'Event successfully unbooked'
+          });
         }
       }
       setIsLoading(false)
@@ -143,6 +155,7 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
           </ScrollView> 
         </View>
       </View>
+      <Toast />
     </Modal>
   )
 }
