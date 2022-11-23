@@ -264,4 +264,20 @@ class UserController extends Controller
             'data'=>$user
         ], 201); 
     }
+
+    public function saveToken(Request $request){
+        Auth::user()->update(['token'=>$request->token]);
+        return response()->json([
+            'message' => 'ok',
+            'data'=>Auth::user()
+        ], 201); 
+    }
+
+    public function getToken(Request $request){
+        $token=User::find($request->query('id'))->token;
+        return response()->json([
+            'message' => 'ok',
+            'token'=>$token
+        ], 201); 
+    }
 }
