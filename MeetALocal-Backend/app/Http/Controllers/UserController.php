@@ -190,27 +190,6 @@ class UserController extends Controller
         ], 201);
     }
 
-    //changeing profile picture
-    public function changePhoto( Request $request){
-        $validator = Validator::make($request->all(), [
-            'base64' => 'required|string',
-            'ext'=>'required|string'
-        ]);
-        if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
-        } 
-        $img = base64_decode($request->base64);
-        $path = uniqid() . "." . $request->ext;
-        file_put_contents($path, $img);
-        Auth::user()->update(['profile_picture'=>$path]);
-        $user=Auth::user();
-        $user['nationality']=Country::find($user->nationality_id)->country;
-        $user['residence']=Country::find($user->residence_id)->country;
-        return response()->json([
-            'user'=>$user,
-            'message' => 'ok',
-        ], 201);  
-    }
 
     //edit profile info
     public function editProfile(Request $request) {
@@ -262,6 +241,22 @@ class UserController extends Controller
         return response()->json([
             'message' => 'ok',
             'data'=>$user
+        ], 201); 
+    }
+
+    public function saveToken(Request $request){
+        Auth::user()->update(['token'=>$request->token]);
+        return response()->json([
+            'message' => 'ok',
+            'data'=>Auth::user()
+        ], 201); 
+    }
+
+    public function getToken(Request $request){
+        $token=User::find($request->query('id'))->token;
+        return response()->json([
+            'message' => 'ok',
+            'token'=>$token
         ], 201); 
     }
 }
