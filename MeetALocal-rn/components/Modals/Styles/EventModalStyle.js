@@ -7,23 +7,16 @@ const EventModalStyle = StyleSheet.create({
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
-        marginTop: 22
+        backgroundColor: 'rgb(0,0,0)',
+        backgroundColor: 'rgba(0,0,0,0.5)',
       },
       modalView: {
         marginTop: 0.1*windowHeight,
         backgroundColor: "white",
         width:widths.width9,
-        flex:0.9,
+        height:'auto' ,
         borderRadius: 20,
         alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 4,
-        elevation: 5
       },
       button: {
         borderRadius: 20,
@@ -42,7 +35,7 @@ const EventModalStyle = StyleSheet.create({
       },
       image:{
         width:widths.width9,
-        height:0.25*windowHeight,
+        height:0.3*windowHeight,
         borderTopLeftRadius:20,
         borderTopRightRadius:20,
         marginBottom:10
@@ -60,14 +53,14 @@ const EventModalStyle = StyleSheet.create({
       detailsContianer:{
         marginTop:30,
         width:widths.width8,
-        height:0.15*windowHeight
+        height:"auto"
       },
       title:{fontSize:20, fontWeight:"600"},
       info:{fontSize:14},
       fees:{fontSize:14, fontWeight:"700"},
-      detailsTitle:{fontSize:20, fontWeight:"400"},
+      detailsTitle:{fontSize:20, fontWeight:"500"},
       details:{fontSize:12, marginTop:5},
-      categoriesTitle:{fontWeight:"400"},
+      categoriesTitle:{fontWeight:"500"},
       icons: {width:35, height:35, margin:15},
       bookBtn:{
         marginVertical:10,

@@ -9,11 +9,11 @@ export default function App() {
   const [user,setUser]=useState({})
   const [locals,setLocals]=useState([])
   const [expoPushToken, setExpoPushToken] = useState('');
-  const [notification, setNotification] = useState(false);
+  const [notifications, setNotifications] = useState(false);
   const notificationListener = useRef();
   const responseListener = useRef();
   useEffect(()=>{
-      Notify(setExpoPushToken, setNotification, notificationListener, responseListener)
+      Notify(setExpoPushToken, setNotifications, notificationListener, responseListener)
   },[])
   return(
     <UserContext.Provider value={{user, setUser, locals, setLocals}}>
