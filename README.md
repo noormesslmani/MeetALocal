@@ -78,7 +78,10 @@ Here's a brief high-level overview of the tech stacks the app uses:
 <br><br>
 - For storing messages, the app uses the [Firebase](https://firebase.google.com/) package which is a Google-backed application development software that enables developers to develop iOS, Android and Web apps. Firebase Realtime Database is a cloud-hosted NoSQL database that enables data to be stored and synced between users in real time.
 <br><br>
-- [React-native-maps](https://docs.expo.dev/versions/latest/sdk/map-view/) is used to display locations, and [Google Maps API](https://developers.google.com/maps/documentation/places/web-service/overview) is used for places search service.
+- Admin's panel was built using [React](https://reactjs.org/). React is a free and open-source front-end JavaScript library for building user interfaces based on UI components.
+<br><br>
+- To display Locations [React-native-maps](https://docs.expo.dev/versions/latest/sdk/map-view/) is used in the mobile app, and [Leaflet's](https://leafletjs.com/) open source map is used in admin's website. Moreover, [Google Maps API](https://developers.google.com/maps/documentation/places/web-service/overview) is used for places search service.
+
 
 
 
