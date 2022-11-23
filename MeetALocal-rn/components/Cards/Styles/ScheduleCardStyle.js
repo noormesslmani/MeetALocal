@@ -62,7 +62,11 @@ const ScheduleCardStyle = StyleSheet.create({
         fontSize:14,
         marginRight:5
     },
-    trash:{position:"absolute", top:20, right:10},
+    trash:{
+        position:"absolute", 
+        top:3, 
+        right:7
+    },
     locationContainer:{
         flexDirection:"row",
         alignItems:"center"

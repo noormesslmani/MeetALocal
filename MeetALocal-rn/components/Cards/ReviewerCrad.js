@@ -8,7 +8,6 @@ import { UserContext } from '../../App';
 import Icon from 'react-native-vector-icons/FontAwesome'
 const ReviewCard=({review, hanldeDelete})=> {
   const { user, setUser} = useContext(UserContext);
-  console.log(review)
   return (<View style={ReviewerCardStyle.cotainer}>
             {user.id==review.reviewer_id && <Pressable onPress={hanldeDelete} style={ReviewerCardStyle.trash} ><Icon name='trash' size={20} color='grey' /></Pressable>}
             <View style={ReviewerCardStyle.imageContianer}>
