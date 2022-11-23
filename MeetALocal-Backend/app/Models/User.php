@@ -27,7 +27,8 @@ class User extends Authenticatable implements JWTSubject
         'latitude',
         'longitude',
         'profile_picture',
-        'fees'
+        'fees',
+        'token'
     ];
 
     protected $hidden = [
