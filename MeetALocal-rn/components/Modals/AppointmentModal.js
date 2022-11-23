@@ -9,7 +9,7 @@ import { sendNotification, Notify } from '../../notifications/Notifications';
 import AppointmentsModalStyle from './Styles/AppointmentModalStyle';
 import { getToken } from '../../network/Notifications';
 import { UserContext } from '../../App';
-const AppointmentsModal=({navigation, setModalVisible, modalVisible, id})=> {
+const AppointmentsModal=({navigation, setModalVisible, modalVisible, id, setAppointmentBooked})=> {
   const [appointments, setAppointments]=useState(null)
   const [selected, setSelected]=useState(null)
   const [isloading, setIsLoading]=useState(false)
@@ -41,7 +41,7 @@ const AppointmentsModal=({navigation, setModalVisible, modalVisible, id})=> {
         setModalVisible(false)
         const result= await getToken(id)
         sendNotification(result.data.token,'Meet A Local',`The appointment on ${selected.date} form ${selected.start_time} till ${selected.end_time} was booked by ${user.name} `)
-        // sendNotification('Meet A Local','Appointment successfully Booked')
+        setAppointmentBooked(true)
       }
       setIsLoading(false)
     }

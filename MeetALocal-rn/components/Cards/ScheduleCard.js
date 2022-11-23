@@ -9,7 +9,7 @@ import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import ScheduleCardStyle from './Styles/ScheduleCardStyle';
 import ScheduleModal from '../Modals/ScheduleModal';
 import Map from '../../components/Header/Map';
-import Toast from 'react-native-toast-message'
+import { EvilIcons } from '@expo/vector-icons';
 const ScheduleCard=({item, type, setDeleted, navigation, setAppointments})=> {
   const [modalVisible, setModalVisible]=useState(false)
   const [booked, setBooked]=useState(false)
@@ -35,13 +35,8 @@ const ScheduleCard=({item, type, setDeleted, navigation, setAppointments})=> {
     if (result.success){
       setDeleted(true)
     }
-    else{
-      Toast.show({
-        type: 'error',
-        text1: 'Something went wrong'
-      });
-    }
   }
+  console.log(item.appointment_id)
   //display appointment location on map for foreigners (map type 3)
   const handleMap=()=>{
     navigation.navigate('locals-map',{data:[{latitude:item.latitude, longitude:item.longitude}], type:3})
@@ -76,9 +71,8 @@ const ScheduleCard=({item, type, setDeleted, navigation, setAppointments})=> {
       </View>
 
   
-      {type==2 && <Pressable onPress={hanldeUnbook} style={ScheduleCardStyle.trash} ><Icon name='trash' size={20} color='grey' /></Pressable> }
+      {type==2 && <Pressable onPress={hanldeUnbook} style={ScheduleCardStyle.trash} ><EvilIcons name='close' size={25} color='grey' /></Pressable> }
       {type==1 && <ScheduleModal setModalVisible={setModalVisible} modalVisible={modalVisible} item={item} />}
-      <Toast/>
     </TouchableOpacity>
     
   )
