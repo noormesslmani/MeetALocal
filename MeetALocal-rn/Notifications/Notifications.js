@@ -2,6 +2,8 @@ import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { Text, View, Button, Platform } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+// import {saveToken} from '../network/App'
+import {saveToken} from '../network/Notifications'
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
     shouldShowAlert: true,
@@ -10,13 +12,14 @@ Notifications.setNotificationHandler({
   }),
 });
 
-export  function Notify(setExpoPushToken, setNotification, notificationListener, responseListener ) {
+export  function Notify(setExpoPushToken, setNotifications, notificationListener, responseListener ) {
 
 
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      setNotification(notification);
+      console.log(notification.request)
+      setNotifications(notification);
     });
 
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
@@ -38,7 +41,7 @@ export async function sendNotification(expoPushToken, title, body) {
     body: body,
     data: { someData: 'goes here' },
   };
-
+  console.log(message)
   await fetch('https://exp.host/--/api/v2/push/send', {
     method: 'POST',
     headers: {
@@ -50,16 +53,6 @@ export async function sendNotification(expoPushToken, title, body) {
   });
 }
 
-// export async function sendNotification(title, body) {
-//   await Notifications.scheduleNotificationAsync({
-//     content: {
-//       title: title,
-//       body: body,
-//       data: { data: 'goes here' },
-//     },
-//     trigger: { seconds: 1 },
-//   });
-// }
 
 export async function registerForPushNotificationsAsync() {
   let token;
@@ -85,10 +78,14 @@ export async function registerForPushNotificationsAsync() {
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
   } else {
     alert('Must use physical device for Push Notifications');
   }
   await AsyncStorage.setItem("@expoToken", token);
+  const result= await saveToken({token})
+  console.log(token)
+  if (result.success){
+    console.log(result.data)
+  }
   return token;
 }
