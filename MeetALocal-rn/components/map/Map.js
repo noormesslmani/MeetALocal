@@ -31,13 +31,6 @@ const Map=({lat, lng, data, type, handleDrag, navigation})=> {
               >
               </Marker>))} 
 
-              {type==3  &&
-              <Marker
-              coordinate={{latitude: lat, longitude: lng}}
-              pinColor={colors.violet}
-              />
-              } 
-
               {type==2 && 
               <Marker coordinate={{latitude: lat,
               longitude:lng}}
