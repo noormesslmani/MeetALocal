@@ -1,5 +1,5 @@
 import { View, Text, ActivityIndicator } from 'react-native'
-import { TextInput, HelperText } from 'react-native-paper';
+import { TextInput } from 'react-native-paper';
 import React from 'react'
 import styles from './Styles/AuthScreensStyle';
 import { useState, useEffect, useContext } from "react";
@@ -13,12 +13,18 @@ const SigninScreen= ({ navigation })=> {
   const { user, setUser} = useContext(UserContext);
   const [email, setEmail]=useState('');
   const [password, setPassword]=useState('');
+  const [invalidEmail, setInvalidEmail]= useState(false)
   const [isLoading, setIsLoading]=useState(false)
   const [loginFail, setLoginFail]=useState(false)
   const handleSubmit= async ()=>{
-    if(email.match(emailFormat)){
+    setInvalidEmail(false)
+    if(! email.match(emailFormat))
+    {
+      setInvalidEmail(true)
+    }
+    else{
       setIsLoading(true)
-      const result =await signin({email,password})
+      const result =await signin({email, password,})
       if (result.success){
         setUser(result.data.user)
         navigation.reset({
@@ -37,9 +43,6 @@ const SigninScreen= ({ navigation })=> {
     }
   }
  
-  const emailHasErrors=()=>{
-    return !email.match(emailFormat) && !email==''
-  }
   return (
     <View style={styles.background}>
       <KeyboardAwareScrollView style={styles.scrollView} scrollEnabled={false}  showsVerticalScrollIndicator={false}>
@@ -48,11 +51,8 @@ const SigninScreen= ({ navigation })=> {
           <Text style={styles.signIn}>Sign In</Text>
           <View style={styles.inputContainer}>
             <TextInput label='Email' style={styles.input} onChangeText={setEmail} value={email}
-            left={<TextInput.Icon icon="email" />} underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet} />
-            <HelperText type="error" visible={emailHasErrors()} >
-              Email address is invalid!
-            </HelperText>
-        
+            left={<TextInput.Icon icon="email" />} underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet} ></TextInput>
+            {invalidEmail?<Text style={styles.error}>Please enter a valid email</Text>:null}
           </View>
           <View style={styles.inputContainer}>
             <TextInput label='Password' left={<TextInput.Icon icon="lock" />}
