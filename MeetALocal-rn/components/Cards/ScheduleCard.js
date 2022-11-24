@@ -4,7 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import { address } from '../../constants/address';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors } from '../../constants/colors';
-import { isAppointmentBooked, isEventBooked, toggleBookAppointment } from '../../network/App';
+import { isAppointmentBooked, isEventBooked, toggleBookAppointment, userProfile } from '../../network/App';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import ScheduleCardStyle from './Styles/ScheduleCardStyle';
 import ScheduleModal from '../Modals/ScheduleModal';
@@ -36,19 +36,25 @@ const ScheduleCard=({item, type, setDeleted, navigation, setAppointments})=> {
       setDeleted(true)
     }
   }
-  console.log(item.appointment_id)
+ 
   //display appointment location on map for foreigners (map type 3)
   const handleMap=()=>{
     navigation.navigate('locals-map',{data:[{latitude:item.latitude, longitude:item.longitude}], type:3})
   }
 
+  //navigate to User profile
+  const handleUser=async ()=>{
+    const result= await userProfile(item.local_id) 
+    navigation.navigate('local-page', {item: result.data.data});
+  }
+
   return (
-    <TouchableOpacity style={[ScheduleCardStyle.container, booked? ScheduleCardStyle.booked:null, type==2 && ScheduleCardStyle.longerContainer ]} onPress={()=>{type==1 && setModalVisible(true)}} >
+    <Pressable style={[ScheduleCardStyle.container, booked? ScheduleCardStyle.booked:null, type==2 && ScheduleCardStyle.longerContainer ]} onPress={()=>{type==1 && setModalVisible(true)}} >
       {type==2 && 
-      <View style={ScheduleCardStyle.localContainer}>
-      <Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={{width:30, height:30, borderRadius:15, marginHorizontal:3}} /> 
-      <Text style={ScheduleCardStyle.name}>{item.name}</Text>
-      </View>
+      <TouchableOpacity style={ScheduleCardStyle.localContainer} onPress={handleUser} >
+        <Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={{width:30, height:30, borderRadius:15, marginHorizontal:3}} /> 
+        <Text style={ScheduleCardStyle.name}>{item.name.split(' ')[0]}</Text>
+      </TouchableOpacity>
       }
       {
         type==2 && <View  style={ScheduleCardStyle.locationContainer}>
@@ -73,7 +79,7 @@ const ScheduleCard=({item, type, setDeleted, navigation, setAppointments})=> {
   
       {type==2 && <Pressable onPress={hanldeUnbook} style={ScheduleCardStyle.trash} ><EvilIcons name='close' size={25} color='grey' /></Pressable> }
       {type==1 && <ScheduleModal setModalVisible={setModalVisible} modalVisible={modalVisible} item={item} />}
-    </TouchableOpacity>
+    </Pressable>
     
   )
 }
