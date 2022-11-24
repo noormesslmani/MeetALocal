@@ -26,6 +26,26 @@ const CommentStyle = StyleSheet.create({
     details:{
         width:widths.width8,
         paddingLeft:10,
+    },
+    comment:{
+        fontSize:12, 
+        marginTop:5, 
+        fontWeight:"300"
+    },
+    name:{
+        fontSize:12, 
+        fontWeight:"600"
+    },
+    type:{
+        fontSize:8, 
+        marginLeft:5, 
+        color:"#8C57BA"
+    },
+    countryContainer:{
+        flexDirection:"row",
+    },
+    country:{
+        fontSize:11, 
     }
    
 });

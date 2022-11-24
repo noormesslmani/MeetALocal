@@ -1,17 +1,19 @@
-import { View, Text, Image, Pressable, TextInput, KeyboardAvoidingView} from 'react-native'
+import { View, Text, Image, Pressable, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useState, useEffect, useContext } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Comment from '../../components/General/Comment';
-import { getComments, addComment } from '../../network/App';
+import { getComments, addComment, userProfile } from '../../network/App';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import CommentsStyles from './Styles/CommentsStyles';
 import { useRoute } from '@react-navigation/native';
 import { address } from '../../constants/address';
 import { colors } from '../../constants/colors';
-import Toast from 'react-native-toast-message'
-const PostComments=()=> {
+import Toast from 'react-native-toast-message';
+import { UserContext } from '../../App';
+const PostComments=({navigation})=> {
     const route = useRoute();
+    const { user, setUser} = useContext(UserContext);
     const item= route.params.item
     const [data, setData]= useState([])
     const [totalComments, setTotalComments]=useState(item.comments)
@@ -57,11 +59,17 @@ const PostComments=()=> {
         });
       }
     }
+    const handleUser=async ()=>{
+      if(user.id != item.user_id){
+      const result= await userProfile(item.user_id)
+      item.type_id==1? navigation.navigate('local-page', {item: result.data.data}):navigation.navigate('foreigner-page', {item: result.data.data})
+    }
+  }
   return (
         <KeyboardAvoidingView style={CommentsStyles.centeredView}>
             <View style={CommentsStyles.headerContainer}>
                 <View style={{flexDirection:"row"}}>
-                    <Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={CommentsStyles.image} />
+                <TouchableOpacity onPress={handleUser}><Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={CommentsStyles.image} /></TouchableOpacity>
                     <View>
                         <Text style={CommentsStyles.userName}>{item.name}</Text>
                         <Text style={CommentsStyles.userCountry}>{item.country}</Text>
@@ -69,12 +77,12 @@ const PostComments=()=> {
                     </View>
                 </View>
             </View>
-                <View style={CommentsStyles.center}>
-                    <Text style={CommentsStyles.totalComments}>{totalComments} comments</Text>
-                <View style={CommentsStyles.separator}/>
+            <View style={CommentsStyles.center}>
+              <Text style={CommentsStyles.totalComments}>{totalComments} comments</Text>
+              <View style={CommentsStyles.separator}/>
             </View>
             <KeyboardAwareScrollView style={CommentsStyles.scrollView}>
-                {data.map((comment, index)=><Comment comment={comment} key={index}/>)}
+                {data.map((comment, index)=><Comment comment={comment} key={index} navigation={navigation} />)}
             </KeyboardAwareScrollView>
             <View style={CommentsStyles.addComment}>
             <TextInput placeholder='Add a comment' onChangeText={setNewComment} value={newComment} />
