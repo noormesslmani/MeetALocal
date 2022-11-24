@@ -1,20 +1,20 @@
-import { StyleSheet, Text, View, SafeAreaView, Image, TouchableWithoutFeedback, TouchableOpacity, Pressable } from 'react-native';
+import { View,  Image, } from 'react-native';
 import * as React from 'react';
-import { createContext, useState, useContext } from "react";
-import { NavigationContainer, useNavigation, DefaultTheme } from '@react-navigation/native';
+import { useContext } from "react";
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import { UserContext } from '../App';
-import Chats from '../screens/General/Chats';
+import Chats from '../screens/General/ChatsScreen';
 import { colors } from '../constants/colors';
 import { address } from '../constants/address';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import SearchScreen from '../screens/General/Search';
-import Home from '../screens/General/Home';
+import SearchScreen from '../screens/General/SearchScreen';
+import Home from '../screens/General/HomeScreen';
 import LocalProfile from '../screens/Profile/LocalProfile'
-import Bookings from '../screens/General/Bookings';
+import Bookings from '../screens/General/ForeignerBookings';
 import ForeignerProfile from '../screens/Profile/ForeignersProfile';
-import Schedules from '../screens/General/Schedules';
+import Schedules from "../screens/General/Local'sSchedules";
 const TabNavigation=()=>{
     const Tab = createBottomTabNavigator();
     const { user, setUser} = useContext(UserContext);

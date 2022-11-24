@@ -1,7 +1,7 @@
 import { View, FlatList,  ActivityIndicator} from 'react-native'
 import React from 'react'
 import { colors } from '../../constants/colors';
-import { bookAppointment, getBookedAppointments } from '../../network/App';
+import { getBookedAppointments } from '../../network/App';
 import { useState, useEffect, useContext } from "react";
 import ScheduleCard from '../../components/Cards/ScheduleCard';
 import ScheduleStyles from './Styles/ScheduleScreenStyles';
