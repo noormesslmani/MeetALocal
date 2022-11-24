@@ -104,11 +104,65 @@ Here's a brief high-level overview of the tech stacks the app uses:
 > This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
+
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+- Download and Install [Node.js](https://nodejs.org/en/)
+- Download and Install [Composer](https://getcomposer.org/download/)
+- Download and Install [XAMPP](https://www.apachefriends.org/download.html)
+
+- npm
+  ```sh
+  npm install npm@latest -g
+  ```
+- Expo CLI
+  ```sh
+  npm install --global expo-cli
 
 
 ### Installation
+
+1. Clone the repo
+
+   ```sh
+   git clone https://github.com/noormesslmani/MeetALocal.git
+   ```
+#### To Run The Mobile App
+
+1. Navigate to MeetALocal-rn folder and install dependencies
+   ```sh
+   cd MeetALocal/MeetALocal-rn
+   npm install
+   ```
+2. Run the start up command
+   ```sh
+   npm start
+   ```
+3. Scan the generated QR code with your camera (ios) or through the Expo Go application (android)
+
+
+#### To Run Laravel Server on your machine
+
+1. Create a database locally named meetalocaldb
+
+2. Navigate to the backend folder
+   ```sh
+   cd MeetALocal/MeetALocal-Backend
+   ```
+3. Inside the .env file in your backend folder
+   - Insert the db name as follow -> DB_DATABASE= -> DB_DATABASE=meetalocal
+   
+4. Run migration
+   ```sh
+   php artisan migrate
+   ```
+5. Run the seeder
+   ```sh
+   php artisan db:seed
+   ```
+6. Start the Server
+   ```sh
+   php artisan serve
+   ```
 
 
