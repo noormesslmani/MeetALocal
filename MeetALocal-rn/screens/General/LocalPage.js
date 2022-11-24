@@ -61,7 +61,7 @@ const LocalPage=({navigation})=> {
     if(user.type_id==2){
       checkFavorite()
     }
-    setLocals([item])
+
     getEvents()
   },[])
 

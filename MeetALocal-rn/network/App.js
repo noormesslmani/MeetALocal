@@ -1,583 +1,309 @@
-import axios from 'axios';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { address } from '../constants/address';
+import response from './Response';
 const baseURL= `${address}/api/v1.0.0/`
 
-export async function getLocals(params){
-    const token = await AsyncStorage.getItem('@token')
+  export async function getLocals(params){
     const config = {
       method: "get",
       params,
-      headers: {'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
       url:`${baseURL}users/locals`,
     }
-    console.log(token)
-    console.log(config)
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
 
   export async function getFavorites(){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}foreigners/favorites`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function getAllEvents(params){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
       params,
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}users/events`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
 
   export async function getSavedEvents(){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}foreigners/events/saved`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function getBookedEvents(){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}foreigners/events/booked`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function getOwnEvents(){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}locals/events`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function getAllPosts(params){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
       params,
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}users/posts`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function getOwnPosts(){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}users/own-posts`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
 
   export async function getComments(id){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}users/comments/${id}`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {success: false, error}
-    }
+    return response(config)
   }
+
   export async function addComment(data){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "post",
       data,
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}users/comment`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
 
   export async function toggleSaveEvent(data){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "post",
       data,
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}foreigners/event/toggle-save`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
 
   export async function isEventSaved(id){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}foreigners/event/is-saved/${id}`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function createNewEvent(data){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "post",
       data,
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}locals/event`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function deleteEvents(data){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "delete",
       data,
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}locals/event`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function createNewPost(data){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "post",
       data,
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}users/post`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function toggleFavoriteLocals(data){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "post",
       data,
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}foreigners/toggle-favorite`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function CheckFavoriteLocals(id){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}foreigners/is-favorite/${id}`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function getUserDetails(id){
-    const token = await AsyncStorage.getItem('@token')
-    const config = {
-      method: "get",
-      headers: { Authorization: `Bearer ${token}`},
-      url:`${baseURL}users/user/${id}`,
-    }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
-  }
-  export async function getReviews(id){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
       params:{id},
-      headers: { Authorization: `Bearer ${token}`},
+      url:`${baseURL}users/user`,
+    }
+    return response(config)
+  }
+
+  export async function getReviews(id){
+    const config = {
+      method: "get",
+      params:{id},
       url:`${baseURL}users/reviews`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function checkReviewed(id){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
       params:{id},
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}foreigners/is-reviewed`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
 
   export async function addReview(data){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "post",
       data,
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}foreigners/review`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
 
   export async function searchLocals(name){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
       params:{name},
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}foreigners/search`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function editProfile(data){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "put",
       data,
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}users/edit-profile`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function isEventBooked(id){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
       params:{id},
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}foreigners/is-booked-event`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function toggleBookedEvent(data){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "post",
       data,
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}foreigners/toggle-event-booking`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function getSchedule(data){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}locals/appointments`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function isAppointmentBooked(id){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
       params:{id},
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}locals/is-booked-appointment`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function addSchedule(data){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "post",
       data,
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}locals/appointment`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function getAppointments(id){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
       params:{id},
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}foreigners/appointments`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function toggleBookAppointment(data){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "post",
       data,
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}foreigners/toggle-appointment-booking`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function getBookedAppointments(){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}foreigners/booked-appointments`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function addHighlight(data){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "post",
       data,
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}locals/highlights`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function getLocalsEvents(id){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
       params:{id},
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}users/locals-events`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
 
   export async function deleteReview(data){
-    const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "delete",
       data,
-      headers: { Authorization: `Bearer ${token}`},
       url:`${baseURL}foreigners/review`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
+    return response(config)
+  }
+
+  export async function userProfile(id){
+    const config = {
+      method: "get",
+      params:{id},
+      url:`${baseURL}users/user-profile`,
     }
-    catch (error) {
-      console.warn(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
 

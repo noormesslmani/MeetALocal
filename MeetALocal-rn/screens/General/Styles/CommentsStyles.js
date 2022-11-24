@@ -12,9 +12,8 @@ const CommentsStyles = StyleSheet.create({
   headerContainer:{
     flexDirection:"row",
     justifyContent:"space-between",
-    width:widths.width9,
+    width:widths.width,
     padding:10,
-    paddingBottom:0,
     height:"auto"
   },
   image:{
