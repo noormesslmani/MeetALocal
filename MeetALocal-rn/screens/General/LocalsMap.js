@@ -11,7 +11,7 @@ const LocalsMap=({navigation})=> {
     const [lat, setLat]=useState(33.888630)
     const [lng, setLng]=useState(35.495480)
     const data= route.params.data
-    const type= route.params.type //3 types of maps
+    const type= route.params.type //2 types of maps
 
     //change region upon map search
     const handlePress=(data,details)=>{
@@ -36,7 +36,7 @@ const LocalsMap=({navigation})=> {
             <View style={LocalsMapStyles.mapContainer}>
                 <Map data={data} lat={lat} lng={lng} type={type} navigation={navigation}/>
                 <View style={styles.container}>
-                {type!=3 && <MapSearch handlePress={handlePress} navigation={navigation}/>}
+                {type==1 && <MapSearch handlePress={handlePress} navigation={navigation}/>}
                 </View>
             </View>
   )
