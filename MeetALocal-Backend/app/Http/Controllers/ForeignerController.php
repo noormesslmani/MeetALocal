@@ -247,7 +247,7 @@ class ForeignerController extends Controller
     public function getBookedAppointments(){
         $date = today()->format('Y-m-d');
         $appointments=Auth::user()->bookedAppointments()->join('appointments','appointments.id','appointment_id')->join('users','appointments.local_id','users.id')->
-        where('date', '>=', $date)->latest()->get(['appointments.*','name','profile_picture', 'users.id']);
+        where('date', '>=', $date)->latest()->get(['appointments.*','appointment_id','name','profile_picture', 'users.id']);
         return response()->json([
             'message' => 'ok',
             'data' => $appointments,
