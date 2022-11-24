@@ -2,7 +2,7 @@ import { address } from '../constants/address';
 import response from './Response';
 const baseURL= `${address}/api/v1.0.0/`
 
-export async function getLocals(params){
+  export async function getLocals(params){
     const config = {
       method: "get",
       params,
@@ -294,6 +294,15 @@ export async function getLocals(params){
       method: "delete",
       data,
       url:`${baseURL}foreigners/review`,
+    }
+    return response(config)
+  }
+
+  export async function userProfile(id){
+    const config = {
+      method: "get",
+      params:{id},
+      url:`${baseURL}users/user-profile`,
     }
     return response(config)
   }
