@@ -19,7 +19,8 @@ Route::group(['prefix' => 'v1.0.0'], function () {
         Route::group(['prefix' => 'users'], function () {
             
                 Route::get('/locals', [UserController::class, 'getLocals']);
-                Route::get('/user/{id}', [UserController::class, 'getUser']);
+                Route::get('/user', [UserController::class, 'getUser']);
+                Route::get('/user-profile', [UserController::class, 'getUserProfile']);
                 Route::get('/events', [UserController::class, 'getEvents']);
                 Route::get('/locals-events', [UserController::class, 'getLocalEvent']);
                 Route::get('/posts', [UserController::class, 'getPosts']);

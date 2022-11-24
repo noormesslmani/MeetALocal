@@ -19,6 +19,7 @@ use App\Models\Post;
 use App\Models\Language;
 use App\Models\SavedEvent;
 use App\Models\UserType;
+use App\Models\UserLanguage;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,8 +45,25 @@ class UserController extends Controller
             'data' => $locals
         ], 201);
     }
-    public function getUser($id){
-        $user= User::find($id);
+    public function getUser(Request $request){
+        $user= User::find($request->query('id'));
+        return response()->json([
+            'message' => 'ok',
+            'data' => $user
+        ], 201);
+    }
+
+    public function getUserProfile(Request $request){
+        $user= User::find($request->query('id'));
+        $user['languages']=UserLanguage::join('languages','languages.id','language_id')->where('user_id',$user->id)->pluck('language');
+        $user['nationality']=Country::find($user->nationality_id)->country;
+        $user['residence']=Country::find($user->residence_id)->country;
+        if($user->type_id==1){
+            $user['highlights']= $user->highlights()->pluck('photo');
+            $user['categories']= LocalCategory::join('categories','categories.id','category_id')->where('local_id',$user->id)->pluck('category');
+            $user['likes']=$user->favoritedBy()->count();
+            $user['country']=$user['residence'];
+        }
         return response()->json([
             'message' => 'ok',
             'data' => $user
@@ -96,7 +114,7 @@ class UserController extends Controller
         $offset=$request->query('offset');
         $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
-        $posts= Post::join('post_categories','posts.id','=','post_id')->join('categories','post_categories.category_id','=','categories.id')->join('countries','posts.country_id','=','countries.id')->join('users','posts.user_id','=','users.id')->whereIn('posts.country_id',$country_id)->whereIn('post_categories.category_id',$category_id)->orderBy('posts.id', 'desc')->distinct()->orderBy('created_at', 'desc')->offset($offset)->limit(20)->get(['posts.*','countries.country','users.name', 'users.profile_picture']);
+        $posts= Post::join('post_categories','posts.id','=','post_id')->join('categories','post_categories.category_id','=','categories.id')->join('countries','posts.country_id','=','countries.id')->join('users','posts.user_id','=','users.id')->whereIn('posts.country_id',$country_id)->whereIn('post_categories.category_id',$category_id)->orderBy('posts.id', 'desc')->distinct()->orderBy('created_at', 'desc')->offset($offset)->limit(20)->get(['posts.*','countries.country','users.name', 'users.profile_picture', 'users.type_id' ]);
         foreach($posts as $post){
             $post['comments']= Comment::where('post_id',$post->id)->count();
             $post['categories']=$post->categories()->pluck('category');
@@ -152,10 +170,7 @@ class UserController extends Controller
 
     //getting comments for a post
     public function getComments($id){
-        $comments = Comment::where('post_id',$id)->get();
-        foreach($comments as $comment){
-            $comment['user']=User::where('id', $comment->user_id)->get()[0];
-        }
+        $comments = Comment::where('post_id',$id)->join('users','users.id','user_id')->join('countries','countries.id','users.residence_id')->get(['comments.*','users.type_id','users.name', 'users.profile_picture','countries.country']);
         return response()->json([
             'message' => 'ok',
             'data' => $comments,
