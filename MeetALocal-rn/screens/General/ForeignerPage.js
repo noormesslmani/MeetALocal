@@ -33,16 +33,10 @@ return (
             <Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={LocalProfileStyles.image}/>
             <View style={{margin:15}}>
               <Text style={LocalProfileStyles.name}>{item.name}</Text>
-            </View>
-          </View>
-
-          <View style={LocalProfileStyles.infoContainer}>
-            <View style={LocalProfileStyles.likesContainer}>
               <Pressable style={LocalProfileStyles.message} onPress={handleMessage}><Text style={{color:"white"}}>Message</Text></Pressable>
             </View>
           </View>
- 
-
+          
           <View style={LocalProfileStyles.separator} />
 
           <View style={LocalProfileStyles.sectionContainer}>
