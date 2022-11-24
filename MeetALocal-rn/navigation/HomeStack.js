@@ -16,6 +16,7 @@ import EditLocalProfile from '../screens/Profile/EditProfileLocals';
 import { colors } from '../constants/colors';
 import EditLocation from '../screens/Profile/EditLocation';
 import Reviews from '../screens/General/LocalReviews';
+import ForeignerPage from '../screens/General/ForeignerPage';
 const HomeStack=()=>{
   
   const Stack = createNativeStackNavigator();
@@ -61,6 +62,13 @@ const HomeStack=()=>{
         }}
         />
         <Stack.Screen  name="local-page" component={LocalPage}
+        options={{
+          headerLeft: () => (<BackArrow type={2} />),
+            headerBackVisible:false, headerTitle:"",
+            headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
+        }}
+        />
+        <Stack.Screen  name="foreigner-page" component={ForeignerPage}
         options={{
           headerLeft: () => (<BackArrow type={2} />),
             headerBackVisible:false, headerTitle:"",
