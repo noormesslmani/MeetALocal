@@ -1,16 +1,13 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, Modal, Image, Pressable } from 'react-native'
-import { useState, useEffect, useContext } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors } from '../../constants/colors';
 import { address } from '../../constants/address';
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import ScheduleModalStyle from './Styles/ScheduleModalStyle';
-import { UserContext } from '../../App'
 const ScheduleModal=({setModalVisible, modalVisible, item})=> {
-    const { user, setUser} = useContext(UserContext);
-    console.log(item.booker)
+
 
   return (
     <Modal

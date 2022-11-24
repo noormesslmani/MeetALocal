@@ -27,7 +27,7 @@ const Locals=({navigation})=> {
   const [isLoading, setIsLoading]= useState(false)
   const [filterChange, setFilterChange]=useState(false)
   const [viewFavChange, setViewFavChange]=useState(false)
-  const { user, setUser, locals, setLocals} = useContext(UserContext);
+  const { user, setUser} = useContext(UserContext);
   const [page, setPage]=useState(0)
 
 
@@ -59,7 +59,7 @@ const Locals=({navigation})=> {
   useEffect(() => {
     if(isFocused)  {
       getLocalsList()
-      console.log('hi')
+    
     }
     else{
       setdata([])
@@ -81,7 +81,6 @@ const Locals=({navigation})=> {
         }  
         else{
           setdata( data =>[...data, ...result.data.data])
-          setLocals( locals =>[...locals, ...result.data.data])
         }
       }
     }

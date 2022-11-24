@@ -7,7 +7,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export const UserContext = createContext();
 export default function App() {
   const [user,setUser]=useState({})
-  const [locals,setLocals]=useState([])
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notifications, setNotifications] = useState(false);
   const notificationListener = useRef();
@@ -24,7 +23,7 @@ export default function App() {
   }
 
   return(
-    <UserContext.Provider value={{user, setUser, locals, setLocals}}>
+    <UserContext.Provider value={{user, setUser}}>
       <RootNavigation/>
     </UserContext.Provider>
   )

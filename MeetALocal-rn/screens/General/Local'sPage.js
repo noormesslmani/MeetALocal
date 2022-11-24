@@ -29,7 +29,7 @@ import ImageViewer from '../../components/General/ImageView';
 const LocalPage=({navigation})=> {
   const route = useRoute();
   const item =route.params.item
-  const { user, setUser, locals, setLocals} = useContext(UserContext);
+  const { user, setUser} = useContext(UserContext);
   const [isFavorite, SetIsFavorite]=useState(false)
   const [likes, setLikes]= useState(item.likes)
   const [events, setEvents]=useState([])
