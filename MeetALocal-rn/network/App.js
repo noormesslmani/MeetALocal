@@ -295,8 +295,9 @@ export async function getLocals(params){
     const token = await AsyncStorage.getItem('@token')
     const config = {
       method: "get",
+      params:{id},
       headers: { Authorization: `Bearer ${token}`},
-      url:`${baseURL}users/user/${id}`,
+      url:`${baseURL}users/user`,
     }
     try{
       const res = await axios(config)
