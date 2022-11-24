@@ -8,7 +8,6 @@ import { isAppointmentBooked, isEventBooked, toggleBookAppointment, userProfile 
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import ScheduleCardStyle from './Styles/ScheduleCardStyle';
 import ScheduleModal from '../Modals/ScheduleModal';
-import Map from '../../components/Header/Map';
 import { EvilIcons } from '@expo/vector-icons';
 const ScheduleCard=({item, type, setDeleted, navigation, setAppointments})=> {
   const [modalVisible, setModalVisible]=useState(false)

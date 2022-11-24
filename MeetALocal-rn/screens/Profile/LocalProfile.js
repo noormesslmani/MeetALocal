@@ -20,9 +20,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import HighlightsModal from '../../components/Modals/HighlightsModal';
 import ProfileCard from '../../components/Cards/ProfileCard';
 // import { SliderBox } from "react-native-image-slider-box";
-
-import { widths } from '../../constants/dimensions';
-const ForeignerProfile=({navigation})=> {
+const LocalProfile=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const [image, setImage]= useState(null)
   const [imageView, setImageView]=useState(false)
@@ -158,4 +156,4 @@ const ForeignerProfile=({navigation})=> {
     
   )
 }
-export default ForeignerProfile
+export default LocalProfile

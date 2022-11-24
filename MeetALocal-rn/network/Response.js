@@ -7,8 +7,8 @@ export default async function response(config){
         const res = await axios(payLoad)
         return {success:true, data: res.data}
       }
-      catch (error) {
-        console.warn(error)
-        return {'success': false, error}
-      }
+    catch (error) {
+    console.warn(error)
+    return {'success': false, error}
+    }
 }
