@@ -37,10 +37,6 @@ const ScheduleCard=({item, type, setDeleted, navigation, setAppointments})=> {
     }
   }
  
-  //display appointment location on map for foreigners (map type 3)
-  const handleMap=()=>{
-    navigation.navigate('locals-map',{data:[{latitude:item.latitude, longitude:item.longitude}], type:3})
-  }
 
   //navigate to User profile
   const handleUser=async ()=>{
@@ -56,12 +52,7 @@ const ScheduleCard=({item, type, setDeleted, navigation, setAppointments})=> {
         <Text style={ScheduleCardStyle.name}>{item.name.split(' ')[0]}</Text>
       </TouchableOpacity>
       }
-      {
-        type==2 && <View  style={ScheduleCardStyle.locationContainer}>
-          <Text style={ScheduleCardStyle.dateTime}>Location:</Text> 
-          <Map small={true} handleMap={handleMap} />
-        </View>
-      }
+      
       <View  style={ScheduleCardStyle.dateTimeContainer}>
         <Text style={ScheduleCardStyle.dateTime}>Date:</Text>
         <Text style={[ScheduleCardStyle.date, booked? ScheduleCardStyle.bookedDate: null]}>{item.date}</Text>
