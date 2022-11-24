@@ -12,94 +12,91 @@ import { getLocals, getFavorites } from '../../network/App';
 import Map from '../../components/Header/Map';
 import { colors } from '../../constants/colors';
 import ListFooter from '../../components/General/ListFooter';
-import { useDidMountEffect } from '../../hooks/Hooks';
 import {  useIsFocused } from '@react-navigation/native';
 import AppButton from '../../components/Buttons/AppButtons';
 import EmptyPage from '../../components/General/EmptyPage';
 import ListHeader from '../../components/General/ListHeaders';
 const Locals=({navigation})=> {
-    const [country, setCountry]=useState('all');
-    const [category, setCategory]=useState('all');
-    const [viewFav, setViewFav]=useState(false)
-    const [data, setdata]=useState([])
-    const [modalVisible, setModalVisible] = useState(false)
-    const [isListEnd, setIsListEnd]=useState(false)
-    const [isLoadingMore, setIsLoadingMore]=useState(false)
-    const [isLoading, setIsLoading]= useState(false)
-    const { user, setUser, locals, setLocals} = useContext(UserContext);
-    const [page, setPage]=useState(0)
+  const [country, setCountry]=useState('all');
+  const [category, setCategory]=useState('all');
+  const [viewFav, setViewFav]=useState(false)
+  const [data, setdata]=useState([])
+  const [modalVisible, setModalVisible] = useState(false)
+  const [isListEnd, setIsListEnd]=useState(false)
+  const [isLoadingMore, setIsLoadingMore]=useState(false)
+  const [isLoading, setIsLoading]= useState(false)
+  const [filterChange, setFilterChange]=useState(false)
+  const [viewFavChange, setViewFavChange]=useState(false)
+  const { user, setUser, locals, setLocals} = useContext(UserContext);
+  const [page, setPage]=useState(0)
 
 
    
-    useEffect(() => {
-      navigation.setOptions({
-        headerLeft: () => <BackArrow navigation={navigation} type={1}/>,
-        headerRight:()=>(<View style={{flexDirection:"row"}}>
-        {!viewFav && <Filters handleFilter={handleFilter}/>}
-        {user.type_id==2 && <Map handleMap={handleMap} />}
-        </View>)
-      });
-    }, [navigation, data, viewFav]);
-
-    //handle filtering data
-    useDidMountEffect(() => {
-      page==0? getLocalsList(): setPage(0)
-      setdata([])
-      setIsListEnd(false)
-      
-    }, [viewFav, country, category]); 
-
-    const isFocused = useIsFocused();
-
-    //get locals( 15 per page)
-    useEffect(() => {
-      if(isFocused)  {
-        getLocalsList()
-      }
-      else{
-        setdata([])
-        setPage(0)
-      }
-    },[isFocused, page])
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => <BackArrow navigation={navigation} type={1}/>,
+      headerRight:()=>(<View style={{flexDirection:"row"}}>
+      {!viewFav && <Filters handleFilter={handleFilter}/>}
+      {user.type_id==2 && <Map handleMap={handleMap} />}
+      </View>)
+    });
+  }, [navigation, data, viewFav]);
 
 
+  //get posts when options change
+  useEffect(() => {
+    if(filterChange || viewFavChange){
+      page==0? getLocalsList(): setPage(0);
+      setdata([]);
+      setIsListEnd(false);
+      setFilterChange(false)
+      setViewFavChange(false)
+    }
+  }, [filterChange, viewFavChange]); 
 
-  const getLocalsList= async()=>{
-    page==0? setIsLoading(true): setIsLoadingMore(true)
-    if(!viewFav){
-        const params={
-          country,
-          category,
-          offset:15*page
-        }
-      
-        const result = await getLocals(params)
-        if (result.success){
-          setIsLoading(false)
-          setIsLoadingMore(false)
-          if(result.data.data.length==0){
-            setIsListEnd(true)
-          }  
-          else{
-            setdata( data =>[...data, ...result.data.data])
-            setLocals( locals =>[...locals, ...result.data.data])
-          }
-        }
-      }
+  //get locals when page changes (15 per page)
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    if(isFocused)  {
+      getLocalsList()
+      console.log('hi')
+    }
     else{
+      setdata([])
+      setPage(0)
+    }
+  },[isFocused, page])
+
+  
+  //getting locals
+  const getLocalsList= async()=>{
+    if(!viewFav){
+      page==0? setIsLoading(true): setIsLoadingMore(true)
+      const result = await getLocals({country, category, offset:15*page})
+      if (result.success){
+        setIsLoading(false)
+        setIsLoadingMore(false)
+        if(result.data.data.length==0){
+          setIsListEnd(true)
+        }  
+        else{
+          setdata( data =>[...data, ...result.data.data])
+          setLocals( locals =>[...locals, ...result.data.data])
+        }
+      }
+    }
+    else{
+      setIsLoading(true)
       const result = await getFavorites()
       if (result.success){
         setIsLoading(false)
         setdata(result.data.data)
+        setIsListEnd(true)
       }
     }
   } 
- 
 
-  const renderItem = ({ item, index }) => (
-    <LocalCard item={item}  navigation={navigation}/>
-  );
-
+  //filter modal
   const handleFilter=()=>{
     setModalVisible(true)
   }
@@ -110,6 +107,7 @@ const Locals=({navigation})=> {
       navigation.navigate('locals-map',{data: data, type:1})
     }
   }
+
   //update page after each query
   const fetchMore=()=>{
     if(!isListEnd && !isLoadingMore){
@@ -117,14 +115,26 @@ const Locals=({navigation})=> {
     }
   }
  
+  //get all locals
+  const handleViewAll=()=>{
+    setViewFav(false)
+    setViewFavChange(true)
+  }
+
+  //get favorite locals
+  const handleViewFav=()=>{
+    setViewFav(true)
+    setViewFavChange(true)
+  }
+  console.log(page)
   return (
       <View style={HomeStyles.container}>
          
         {user.type_id==2 && <View style={LocalsStyles.view}>
-            <AppButton text='View All' handlePress={()=>setViewFav(false)} type={viewFav?2:1} />
-            <AppButton text='Favorites' handlePress={()=>setViewFav(true)} type={viewFav?1:2} />
+            <AppButton text='View All' handlePress={handleViewAll} type={viewFav?2:1} />
+            <AppButton text='Favorites' handlePress={handleViewFav} type={viewFav?1:2} />
         </View>}
-        <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
+        <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory} setFilterChange={setFilterChange}/>
        
         <SafeAreaView style={LocalsStyles.listContainer}>
         {!isLoading && data.length==0? <EmptyPage />:null}
@@ -133,12 +143,12 @@ const Locals=({navigation})=> {
             showsHorizontalScrollIndicator={false}
             data={data}
             keyExtractor={item => item.id}
-            renderItem={renderItem}
+            renderItem={({ item}) => (<LocalCard item={item}  navigation={navigation}/>)}
             style={LocalsStyles.list}
             contentContainerStyle={{ paddingBottom: 300}}
             ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />: !viewFav? <ListHeader country={country} category={category}/>:null}
             onEndReachedThreshold={0.1}
-            onEndReached={fetchMore}
+            onEndReached={!viewFav && fetchMore}
             ListFooterComponent={<ListFooter isLoadingMore={isLoadingMore} isListEnd={isListEnd} />}
           />
         </SafeAreaView>

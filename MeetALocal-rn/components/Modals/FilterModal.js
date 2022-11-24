@@ -5,7 +5,7 @@ import AppButton from '../Buttons/AppButtons';
 import FilterModalStyle from './Styles/FilterModalStyle';
 import CategoryPicker from '../General/CategoryPicker';
 import CountryPicker from '../General/CountryPicker';
-const FilterModal=({navigation, modalVisible, setModalVisible, setCountry, setCategory})=> {
+const FilterModal=({navigation, modalVisible, setModalVisible, setCountry, setCategory, setFilterChange})=> {
     const [selectedCountry, setSelectedCountry]=useState('all')
     const [selectedCategory, setSelectedCategory]=useState('all')
     const [openCountry, setOpenCountry] = useState(false);
@@ -14,6 +14,7 @@ const FilterModal=({navigation, modalVisible, setModalVisible, setCountry, setCa
         setModalVisible(!modalVisible)
         setCountry(selectedCountry)
         setCategory(selectedCategory)
+        setFilterChange(true)
     }
   return (
     <Modal
