@@ -9,7 +9,7 @@ import Logo from '../../components/Header/Logo'
 import { useRoute } from '@react-navigation/native';
 import { colors } from '../../constants/colors';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
+import { emailFormat, passFormat } from '../../constants/expressions';
 const SignupScreen3 = ({navigation}) => {
   const route = useRoute();
   const fullName= route.params.fullName
@@ -21,8 +21,7 @@ const SignupScreen3 = ({navigation}) => {
   const [email, setEmail]=useState('');
   const [password, setPassword]=useState('');
   const [confirmPassword, setConfirmPassword]=useState('');
-  const emailFormat=/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  const passFormat= /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
+  
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => <BackArrow navigation={navigation}/>,
