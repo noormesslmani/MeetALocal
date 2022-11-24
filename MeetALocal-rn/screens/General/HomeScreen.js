@@ -6,7 +6,7 @@ import { UserContext } from '../../App'
 import { address } from '../../constants/address';
 import HomeCard from '../../components/Cards/HomeCard';
 import WavyBack from '../../components/General/WavyBackground';
-import ImageView from "react-native-image-viewing";
+import ImageViewer from '../../components/General/ImageView';
 const Home=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const handleLocals=()=>{
@@ -33,11 +33,11 @@ const Home=({navigation})=> {
         <HomeCard label={'Events'} handlePress={handleEvents}/>
         <HomeCard label={'Posts'} handlePress={handlePosts} />
     </View>
-    {user.profile_picture && <ImageView 
-    images={[{uri:`${address}/${user.profile_picture}`}]}
-    imageIndex={0}
-    visible={imageView}
-    onRequestClose={() => setImageView(false)}/>}
+    {user.profile_picture && 
+    <ImageViewer images={[{uri:`${address}/${user.profile_picture}`}]}
+    imageView={imageView}
+    setImageView={setImageView}/>
+    }
    
     </>
   )
