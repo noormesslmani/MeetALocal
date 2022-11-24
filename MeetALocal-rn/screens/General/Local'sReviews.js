@@ -23,7 +23,7 @@ const Reviews=({navigation})=>{
     const [isReviewed, setIsReviewed]=useState(false)
     const [reviewDeleted, setReviewDeleted]=useState(false)
     const [isLoading, setIsLoading]=useState(false)
-    const { user, setUser, locals, setLocals} = useContext(UserContext);
+    const { user, setUser} = useContext(UserContext);
     //Screen accessible to foreingers only
     
     //check if local is reviewed
@@ -76,11 +76,8 @@ const Reviews=({navigation})=>{
     }
 
     const hanldeDelete=async ()=>{
-        const data={
-            local_id: id
-        }
         setIsLoading(true)
-        const result = await deleteReview(data)
+        const result = await deleteReview({local_id: id})
         if (result.success){
             getAllReviews()
             setReviewDeleted(true)

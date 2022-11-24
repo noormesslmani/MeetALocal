@@ -1,6 +1,5 @@
-import { View, Text, TouchableOpacity, Image, SafeAreaView, FlatList, ActivityIndicator } from 'react-native'
+import { View, SafeAreaView, FlatList, ActivityIndicator } from 'react-native'
 import React from 'react'
-import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'
 import EventsStyles from './Styles/EventsPageStyles';
@@ -40,7 +39,6 @@ const Events=({navigation})=> {
       setEventBooked(false)
       setEventDeleted(false)
       setEventSaved(false)
-      console.log('event saved',eventSaved)
     }
   },[eventDeleted, eventBooked, eventSaved])
 
@@ -49,11 +47,7 @@ const Events=({navigation})=> {
     let result
     setIsLoading(true)
     if(choice==1){
-      const params={
-        country,
-        category
-      }
-      result = await getAllEvents(params)
+      result = await getAllEvents({country, category})
     }
     else if(choice==2){
       result = await getSavedEvents()
