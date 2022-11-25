@@ -7,7 +7,6 @@ import { address } from '../../constants/address';
 import { colors } from '../../constants/colors';
 import BackArrow from '../../components/Header/BackArrow';
 import ProfileCard from '../../components/Cards/ProfileCard';
-import Toast from 'react-native-toast-message';
 const ForeignerPage=({navigation})=> {
   const route = useRoute();
   const item =route.params.item
@@ -26,7 +25,7 @@ const ForeignerPage=({navigation})=> {
   }
 return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
-        <Toast/>
+    
         <View style={LocalProfileStyles.mainContainer}>
 
           <View style={LocalProfileStyles.imageContainer}>
