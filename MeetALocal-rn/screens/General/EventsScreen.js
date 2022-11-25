@@ -41,10 +41,11 @@ const Events=({navigation})=> {
     }
   },[eventDeleted, eventToggled])
 
-  
+  console.log(data)
   const getEvents= async()=>{
     let result
     setIsLoading(true)
+    setdata([])
     if(choice==1){
       result = await getAllEvents({country, category})
     }

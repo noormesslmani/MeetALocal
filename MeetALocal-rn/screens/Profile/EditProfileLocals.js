@@ -93,7 +93,6 @@ const EditLocalProfile=({navigation})=> {
           longitude: parseFloat(longitude),
           highlights: user.highlights
         };
-        console.log(data)
         const result= await editProfile(data)
         if (result.success){
           setUser(result.data.data)

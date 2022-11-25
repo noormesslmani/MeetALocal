@@ -18,12 +18,11 @@ export  function Notify(setExpoPushToken, setNotifications, notificationListener
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      console.log(notification.request)
       setNotifications(notification);
     });
 
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log(response);
+      console.log('success');
     });
 
     return () => {
@@ -41,7 +40,6 @@ export async function sendNotification(expoPushToken, title, body) {
     body: body,
     data: { someData: 'goes here' },
   };
-  console.log(message)
   await fetch('https://exp.host/--/api/v2/push/send', {
     method: 'POST',
     headers: {
@@ -83,9 +81,5 @@ export async function registerForPushNotificationsAsync() {
   }
   await AsyncStorage.setItem("@expoToken", token);
   const result= await saveToken({token})
-  console.log(token)
-  if (result.success){
-    console.log(result.data)
-  }
   return token;
 }

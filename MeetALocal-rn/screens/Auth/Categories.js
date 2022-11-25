@@ -99,7 +99,6 @@ const Categories=({navigation})=> {
             latitude,
             longitude,
           };
-          console.log(data)
         const result = await registerAccount(data)
         if (result.success){
             await AsyncStorage.setItem("@user", JSON.stringify(result.data['user']));
