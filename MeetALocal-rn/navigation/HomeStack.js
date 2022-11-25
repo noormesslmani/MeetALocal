@@ -3,20 +3,20 @@ import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import BackArrow from '../components/Header/BackArrow';
-import Posts from '../screens/General/Posts';
-import Events from '../screens/General/Events';
-import Locals from '../screens/General/Locals';
+import Posts from '../screens/General/PostsScreen';
+import Events from '../screens/General/EventsScreen';
+import Locals from "../screens/General/Locals'ListScreen";
 import ChatScreen from '../screens/General/ChatRoom';
-import LocalsMap from '../screens/General/LocalsMap';
+import LocalsMap from "../screens/General/Locals'LocationsMap";
 import EditForeignerProfile from '../screens/Profile/EditProfileForeigners';
-import LocalPage from '../screens/General/LocalPage';
-import PostComments from '../screens/General/Comments';
+import LocalPage from "../screens/General/Local'sPage";
+import PostComments from '../screens/General/PostComments';
 import TabNavigation from './TabStack';
 import EditLocalProfile from '../screens/Profile/EditProfileLocals';
 import { colors } from '../constants/colors';
 import EditLocation from '../screens/Profile/EditLocation';
-import Reviews from '../screens/General/LocalReviews';
-import ForeignerPage from '../screens/General/ForeignerPage';
+import Reviews from "../screens/General/Local'sReviews";
+import ForeignerPage from "../screens/General/Foreigner'sPage";
 const HomeStack=()=>{
   
   const Stack = createNativeStackNavigator();

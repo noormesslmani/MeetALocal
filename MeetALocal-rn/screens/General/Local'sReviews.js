@@ -23,7 +23,7 @@ const Reviews=({navigation})=>{
     const [isReviewed, setIsReviewed]=useState(false)
     const [reviewDeleted, setReviewDeleted]=useState(false)
     const [isLoading, setIsLoading]=useState(false)
-    const { user, setUser, locals, setLocals} = useContext(UserContext);
+    const { user, setUser} = useContext(UserContext);
     //Screen accessible to foreingers only
     
     //check if local is reviewed
@@ -70,24 +70,20 @@ const Reviews=({navigation})=>{
         const result = await getReviews(id)
         if (result.success){
           setReviews(result.data.data)
-          console.log(result.data.data)
         }
         setIsLoading(false)
     }
 
     const hanldeDelete=async ()=>{
-        const data={
-            local_id: id
-        }
         setIsLoading(true)
-        const result = await deleteReview(data)
+        const result = await deleteReview({local_id: id})
         if (result.success){
             getAllReviews()
             setReviewDeleted(true)
         }
         setIsLoading(false)
     }
-    console.log(reviews)
+  
     return (
         <View style={ReviewStyles.container}>
             <View style={ReviewStyles.averageContainer}>
@@ -96,7 +92,7 @@ const Reviews=({navigation})=>{
                 <Text style={ReviewStyles.reviewsNb}>Based on {reviews.length} reviews</Text>
             </View>
             
-            {isReviewed && user.type_id==2?<WideButton text='Reviewed' icon='star-o' color={colors.gold} handlePress={null} />:user.type_id==2?<WideButton text='Add Review' icon='star' color={colors.gold} handlePress={()=>setReviewModalVisible(true)} />: null}
+            {isReviewed && user.type_id==2 && !isLoading?<WideButton text='Reviewed' icon='star-o' color={colors.gold} handlePress={null} />:user.type_id==2 && !isLoading?<WideButton text='Add Review' icon='star' color={colors.gold} handlePress={()=>setReviewModalVisible(true)} />: null}
             <Text>Reviews</Text>
             <View style={ReviewStyles.separator} />
             {isLoading && <ActivityIndicator  color={colors.violet} /> }

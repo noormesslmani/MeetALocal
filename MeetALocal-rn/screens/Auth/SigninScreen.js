@@ -1,4 +1,4 @@
-import { View, Text, KeyboardAvoidingView, ActivityIndicator } from 'react-native'
+import { View, Text, ActivityIndicator } from 'react-native'
 import { TextInput } from 'react-native-paper';
 import React from 'react'
 import styles from './Styles/AuthScreensStyle';
@@ -8,6 +8,7 @@ import AuthButton from '../../components/Buttons/AuthButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { colors } from '../../constants/colors';
 import { signin } from '../../network/Auth';
+import { emailFormat } from '../../constants/expressions';
 const SigninScreen= ({ navigation })=> {
   const { user, setUser} = useContext(UserContext);
   const [email, setEmail]=useState('');
@@ -17,17 +18,13 @@ const SigninScreen= ({ navigation })=> {
   const [loginFail, setLoginFail]=useState(false)
   const handleSubmit= async ()=>{
     setInvalidEmail(false)
-    if(! email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/))
+    if(! email.match(emailFormat))
     {
       setInvalidEmail(true)
     }
     else{
-      const data = {
-        email,
-        password,};
-        console.log(data)
       setIsLoading(true)
-      const result =await signin(data)
+      const result =await signin({email, password,})
       if (result.success){
         setUser(result.data.user)
         navigation.reset({

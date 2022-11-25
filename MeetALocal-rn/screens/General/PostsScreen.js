@@ -10,10 +10,8 @@ import Filters from '../../components/Header/Filters';
 import BackArrow from '../../components/Header/BackArrow';
 import { colors } from '../../constants/colors';
 import ListFooter from '../../components/General/ListFooter';
-import { useDidMountEffect } from '../../hooks/Hooks';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import AppButton from '../../components/Buttons/AppButtons';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import ListHeader from '../../components/General/ListHeaders';
 import EmptyPage from '../../components/General/EmptyPage';
 import AddIcon from '../../components/General/AddIcon';
@@ -28,6 +26,8 @@ const Posts=({navigation})=> {
   const [isLoadingMore, setIsLoadingMore]=useState(false)
   const [isLoading, setIsLoading]= useState(false)
   const [page, setPage]=useState(0)
+  const [filterChange, setFilterChange]=useState(false)
+  const [viewOwnChange, setViewOwnChange]=useState(false)
 
   useEffect(() => {
     if(!viewOwn){
@@ -42,16 +42,21 @@ const Posts=({navigation})=> {
     }
   }, [navigation, viewOwn])
 
-  //hanlde filtering
-  useDidMountEffect(() => {
-    page==0? getPosts(): setPage(0)
-    setdata([])
-    setIsListEnd(false)
-  }, [viewOwn, country, category]); 
 
-  //query posts (20 per page)
+  //get posts when options change
+  useEffect(() => {
+    if(filterChange || viewOwnChange){
+      page==0? getPosts(): setPage(0);
+      setdata([]);
+      setIsListEnd(false);
+      setFilterChange(false)
+      setViewOwnChange(false)
+    }
+  }, [filterChange, viewOwnChange]); 
+
+  
+  //get posts when the page changes (20 per page)
   const isFocused = useIsFocused();
-
     useEffect(() => {
       if(isFocused)  {
         getPosts()
@@ -59,27 +64,25 @@ const Posts=({navigation})=> {
       else{
         setdata([])
         setPage(0)
+        setIsLoading(true)
       }
     },[isFocused, page])
 
 
   const getPosts= async()=>{
     let result
-    page==0? setIsLoading(true): setIsLoadingMore(true)
     if(viewOwn){
+      setIsLoading(true)
       result = await getOwnPosts()
       if (result.success){
         setIsLoading(false)
         setdata(result.data.data)
+        setIsListEnd(true)
       }
     }
     else {
-      const params={
-        country,
-        category,
-        offset:20*page
-      }
-      result = await getAllPosts(params)
+      page==0? setIsLoading(true): setIsLoadingMore(true)
+      result = await getAllPosts({country, category, offset:20*page})
       if (result.success){
         setIsLoading(false)
         setIsLoadingMore(false)
@@ -93,40 +96,51 @@ const Posts=({navigation})=> {
       }
     }
   }
+
+  //show filter modal
   const handleFilter=()=>{
     setModalVisible(true)
   }
-  
-  const renderItem = ({ item }) => (
-    <PostCard item={item} navigation={navigation} key={item.id}/>);
-  
+   
   //update page when possible
   const fetchMore=()=>{
     if(!isListEnd){
       setPage(page+1)
     }
   }
+
+  //view all posts
+  const handleViewAll=()=>{
+    setViewOwn(false)
+    setViewOwnChange(true)
+  }
+
+  //view user's own posts
+  const handleViewOwn=()=>{
+    setViewOwn(true)
+    setViewOwnChange(true)
+  }
   return (
       <View style={PostsStyles.container}>
         {viewOwn && <AddIcon handlePress={()=>setNewPostModalVisible(true)} />}
         <View style={PostsStyles.view}>
-            <AppButton text='All Posts' handlePress={()=>setViewOwn(false)} type={viewOwn?2:1} />
-            <AppButton text='My Posts' handlePress={()=>setViewOwn(true)} type={viewOwn?1:2} />
+            <AppButton text='All Posts' handlePress={handleViewAll} type={viewOwn?2:1} />
+            <AppButton text='My Posts' handlePress={handleViewOwn} type={viewOwn?1:2} />
         </View>
 
-        <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
+        <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory} setFilterChange={setFilterChange} />
         <NewPostModal modalVisible={newPostModalVisible} setModalVisible={setNewPostModalVisible}/>
         <SafeAreaView style={PostsStyles.listContainer}>
         {!isLoading && data.length==0? <EmptyPage />:null}
           <FlatList
             data={data}
-            renderItem={renderItem}
+            renderItem={({ item }) => (<PostCard item={item} navigation={navigation} key={item.id}/>)}
             keyExtractor={item => item.id}
             style={PostsStyles.list}
             contentContainerStyle={{ paddingBottom: 300}}
             ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />: data.length>0 ?<ListHeader country={country} category={category} />: null }
             onEndReachedThreshold={1}
-            onEndReached={fetchMore}
+            onEndReached={!viewOwn && fetchMore}
             ListFooterComponent={<ListFooter isLoadingMore={isLoadingMore} isListEnd={isListEnd} />}
           />
         </SafeAreaView>

@@ -6,7 +6,6 @@ import ProfileStyles from './ProfileStyles/ProfileStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { address } from '../../constants/address';
 import { colors } from '../../constants/colors';
-import ImageView from "react-native-image-viewing";
 import AppButton from '../../components/Buttons/AppButtons';
 import { categoryIcons } from '../../constants/categories';
 import ImagesSlider from '../../components/General/Carousel';
@@ -19,7 +18,7 @@ import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import HighlightsModal from '../../components/Modals/HighlightsModal';
 import ProfileCard from '../../components/Cards/ProfileCard';
-// import { SliderBox } from "react-native-image-slider-box";
+import ImageViewer from '../../components/General/ImageView';
 const LocalProfile=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const [image, setImage]= useState(null)
@@ -103,12 +102,11 @@ const LocalProfile=({navigation})=> {
           <Text>{user.about}</Text>
         </View>}
 
-        {ImageView && image &&  
-          <ImageView
-          images={[{uri:`${address}/${image}`}]}
-          imageIndex={0}
-          visible={imageView}
-          onRequestClose={() => setImageView(false)}/>}
+        {image && 
+          <ImageViewer images={[{uri:`${address}/${image}`}]}
+          imageView={imageView}
+          setImageView={setImageView}/> 
+        }
 
         {viewInfo && <View style={{marginTop:40}}>
           <Text style={{fontWeight:"500", fontSize:16}}>Categories</Text>

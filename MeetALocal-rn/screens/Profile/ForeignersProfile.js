@@ -5,10 +5,10 @@ import { useState, useEffect, useContext } from "react";
 import ProfileStyles from './ProfileStyles/ProfileStyles';
 import { address } from '../../constants/address';
 import AppButton from '../../components/Buttons/AppButtons';
-import ImageView from "react-native-image-viewing";
 import WavyBack from '../../components/General/WavyBackground';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ProfileCard from '../../components/Cards/ProfileCard';
+import ImageViewer from '../../components/General/ImageView';
 const ForeignerProfile=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const [image, setImage]= useState(null)
@@ -49,12 +49,10 @@ const ForeignerProfile=({navigation})=> {
           <View style={ProfileStyles.separator}/>
           <Text>{user.about}</Text>
         </View>}
-        {ImageView && image &&  
-          <ImageView
-          images={[{uri:`${address}/${image}`}]}
-          imageIndex={0}
-          visible={imageView}
-          onRequestClose={() => setImageView(false)}/>}
+        {image &&  
+        <ImageViewer images={[{uri:`${address}/${image}`}]}
+        imageView={imageView}
+        setImageView={setImageView}/>}
           <Pressable onPress={handleLogout} style={ProfileStyles.logOutContainer}><Text style={ProfileStyles.logOut} >Log Out</Text></Pressable>
         </ScrollView>
     </View>

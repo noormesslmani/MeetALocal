@@ -75,30 +75,29 @@ const SignupScreen = ({navigation}) => {
             {invalidName && <Text style={styles.error}>Please enter your name</Text>}
           </View>
     
-          <PhoneInput
-
-            value={phone}
-            defaultCode="LB"
-            layout="second"
-            autoFocus
-            containerStyle={styles.phoneContainer}
-            textContainerStyle={styles.phoneText}
-            textInputStyle={styles.phoneInput}
-            countryPickerButtonStyle={{ height:55, width:70}}
-            codeTextStyle={styles.phoneInput}
-            placeholder= 'phone'
-            onChangeFormattedText={(text) => {
-              setPhone(text);
-            }}
-          />
+          <View style={styles.inputContainer}>
+            <PhoneInput
+              value={phone}
+              defaultCode="LB"
+              layout="second"
+              autoFocus
+              containerStyle={styles.phoneContainer}
+              textContainerStyle={styles.phoneText}
+              textInputStyle={styles.phoneInput}
+              countryPickerButtonStyle={{ height:55, width:70}}
+              codeTextStyle={styles.phoneInput}
+              placeholder= 'phone'
+              onChangeFormattedText={(text) => {
+                setPhone(text);
+              }}
+            />
+          </View>
     
           <View style={styles.inputContainer}>
             <Text>Date of birth</Text>
-            <TouchableOpacity onPress={()=>setDatePicker(true)} style={{alignSelf:'center', marginTop:10}}><FontAwesome name="birthday-cake" size={30}/></TouchableOpacity>
+            <TouchableOpacity onPress={()=>setDatePicker(true)} style={{alignSelf:'center', marginTop:10}}><FontAwesome name="birthday-cake" size={25}/></TouchableOpacity>
             {invalidDate && <Text style={styles.error}>Please select the date of birth</Text>}
           </View>
-
-          
 
           <AuthButton title={'Next'} handleSubmit={handleSubmit} ></AuthButton>
           <Text style={styles.text}>Already have an account? 

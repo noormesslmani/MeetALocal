@@ -50,10 +50,10 @@ const styles = StyleSheet.create({
     },
     signIn:{
         fontSize:30,
-        paddingBottom: 50,
+        paddingBottom: 40,
     },
     inputContainer:{
-        paddingBottom: 30,
+        paddingBottom: 25,
     },
     input:{
         width: widths.width6,

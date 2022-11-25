@@ -68,7 +68,7 @@ const ScheduleCard=({item, type, setDeleted, navigation, setAppointments})=> {
 
   
       {type==2 && <Pressable onPress={hanldeUnbook} style={ScheduleCardStyle.trash} ><EvilIcons name='close' size={25} color='grey' /></Pressable> }
-      {type==1 && <ScheduleModal setModalVisible={setModalVisible} modalVisible={modalVisible} item={item} />}
+      {type==1 && <ScheduleModal setModalVisible={setModalVisible} modalVisible={modalVisible} item={item} navigation={navigation} />}
     </Pressable>
     
   )
