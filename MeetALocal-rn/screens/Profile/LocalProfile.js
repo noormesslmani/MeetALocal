@@ -148,7 +148,7 @@ const LocalProfile=({navigation})=> {
           {!viewInfo &&  reviews.length==0 && <Text style={ProfileStyles.noReviews}>No reviews yet</Text> }     
 
           {viewInfo && <Pressable onPress={handleLogout} style={ProfileStyles.logOutContainer}><Text style={ProfileStyles.logOut} >Log Out</Text></Pressable>}
-          {modalVisible && <HighlightsModal setModalVisible={setModalVisible} modalVisible={modalVisible} highlights={user.highlights} /> }
+          <HighlightsModal setModalVisible={setModalVisible} modalVisible={modalVisible}/> 
         </ScrollView>
     </View>
     
