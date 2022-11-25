@@ -24,10 +24,12 @@ const AppointmentsModal=({navigation, setModalVisible, modalVisible, id, setAppo
   },[modalVisible])
 
   const getAvailalbeAppointments=async()=>{
+    setIsLoading(true)
     const result= await getAppointments(id)
     if (result.success){
       setAppointments(result.data.data)
     }
+    setIsLoading(false)
   }
   
   const handleBook=async()=>{
@@ -62,7 +64,7 @@ const AppointmentsModal=({navigation, setModalVisible, modalVisible, id, setAppo
             <ScrollView  showsVerticalScrollIndicator={false} >
             {appointments && appointments.map((appointment, index)=> <AppointmentButton key={index} appointment={appointment} setSelected={setSelected} selected={selected} /> ) }
             {appointments && appointments.length==0 && <Text>No available appointments</Text>}
-            {! appointments && <Text>Nothing to display</Text>}
+            {! appointments && !isloading && <Text>Nothing to display</Text>}
             </ScrollView>
             {isloading && <ActivityIndicator color={colors.violet} />}
             <View style={AppointmentsModalStyle.btnContainer}>
