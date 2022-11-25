@@ -2,11 +2,11 @@ import { View, FlatList,  ActivityIndicator} from 'react-native'
 import React from 'react'
 import { colors } from '../../constants/colors';
 import { getBookedAppointments } from '../../network/App';
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 import ScheduleCard from '../../components/Cards/ScheduleCard';
 import ScheduleStyles from './Styles/ScheduleScreenStyles';
 import WavyBack from '../../components/General/WavyBackground';
-import Toast from 'react-native-toast-message'
+import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 const Bookings=({navigation})=> {
 
   const [appointments, setAppointments]=useState(null)
@@ -14,9 +14,12 @@ const Bookings=({navigation})=> {
   const [deleted, setDeleted]=useState(false)
 
   //Booking screen for foreigner user
-  useEffect(()=>{
-    getBookings()
-  },[])
+  
+  useFocusEffect(
+    useCallback(() => {
+      getBookings()
+    }, []), )
+
   useEffect(()=>{
     if(deleted){
       getBookings()
@@ -31,12 +34,6 @@ const Bookings=({navigation})=> {
     if (result.success){
       setAppointments(result.data.data)
       console.log(result.data.data)
-    }
-    else{
-      Toast.show({
-        type: 'error',
-        text1: 'Something went wrong'
-      });
     }
     setIsLoading(false)
 
@@ -60,7 +57,6 @@ const Bookings=({navigation})=> {
           contentContainerStyle={{ paddingBottom: 300, paddingTop:20, paddingHorizontal:10}}
           ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:null}
           />
-          <Toast/>
         </View>
      
   )

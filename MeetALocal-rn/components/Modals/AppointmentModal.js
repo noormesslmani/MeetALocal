@@ -9,6 +9,7 @@ import { sendNotification, Notify } from '../../notifications/Notifications';
 import AppointmentsModalStyle from './Styles/AppointmentModalStyle';
 import { getToken } from '../../network/Notifications';
 import { UserContext } from '../../App';
+
 const AppointmentsModal=({navigation, setModalVisible, modalVisible, id, setAppointmentBooked})=> {
   const [appointments, setAppointments]=useState(null)
   const [selected, setSelected]=useState(null)
@@ -26,17 +27,13 @@ const AppointmentsModal=({navigation, setModalVisible, modalVisible, id, setAppo
     const result= await getAppointments(id)
     if (result.success){
       setAppointments(result.data.data)
-      console.log(result.data.data)
     }
   }
   
   const handleBook=async()=>{
     if(selected){
       setIsLoading(true)
-      const data={
-        appointment_id:selected.id
-      }
-      const result= await toggleBookAppointment(data)
+      const result= await toggleBookAppointment({appointment_id:selected.id})
       if (result.success){
         setModalVisible(false)
         const result= await getToken(id)
@@ -52,9 +49,11 @@ const AppointmentsModal=({navigation, setModalVisible, modalVisible, id, setAppo
         animationType="fade"
         transparent={true}
         visible={modalVisible}
+        style={{zIndex:100}}
         onRequestClose={() => {
         setModalVisible(!modalVisible);
         }}>
+        
         <View style={AppointmentsModalStyle.centeredView}>
         <View style={AppointmentsModalStyle.modalView}>
             <Text style={AppointmentsModalStyle.title}>Pick an appointment</Text>

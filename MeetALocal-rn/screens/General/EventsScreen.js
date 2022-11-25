@@ -10,7 +10,6 @@ import {getAllEvents, getSavedEvents, getOwnEvents, getBookedEvents} from '../..
 import BackArrow from '../../components/Header/BackArrow';
 import Filters from '../../components/Header/Filters';
 import { colors } from '../../constants/colors';
-import Toast from 'react-native-toast-message'
 import AppButton from '../../components/Buttons/AppButtons';
 import ListHeader from '../../components/General/ListHeaders';
 import EmptyPage from '../../components/General/EmptyPage';
@@ -60,12 +59,6 @@ const Events=({navigation})=> {
     }
     if (result.success){
       setdata(result.data.data)
-    }
-    else{
-      Toast.show({
-        type: 'error',
-        text1: 'Something went wrong'
-      });
     }
     setIsLoading(false)
   }
@@ -122,7 +115,6 @@ const Events=({navigation})=> {
             contentContainerStyle={{paddingTop:20, paddingBottom: 300}}
           />
         </SafeAreaView>
-        <Toast/>
       </View>
   )
 }

@@ -9,7 +9,6 @@ import CommentsStyles from './Styles/CommentsStyles';
 import { useRoute } from '@react-navigation/native';
 import { address } from '../../constants/address';
 import { colors } from '../../constants/colors';
-import Toast from 'react-native-toast-message';
 import { UserContext } from '../../App';
 const PostComments=({navigation})=> {
     const route = useRoute();
@@ -52,12 +51,6 @@ const PostComments=({navigation})=> {
         setTotalComments(totalComments+1)
         setCommentAdded(false)
       }
-      else{
-        Toast.show({
-          type: 'error',
-          text1: 'Something went wrong'
-        });
-      }
     }
     const handleUser=async ()=>{
       if(user.id != item.user_id){
@@ -90,7 +83,6 @@ const PostComments=({navigation})=> {
                 <Icon name="send" color={colors.violet} size={20}/>
             </Pressable>
             </View>
-            <Toast/>
         </KeyboardAvoidingView>
      
   )

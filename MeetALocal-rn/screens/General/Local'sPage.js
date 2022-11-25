@@ -24,7 +24,6 @@ import ProfileCard from '../../components/Cards/ProfileCard';
 import WideButton from '../../components/Buttons/wideButtons';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import EventCard from '../../components/Cards/EventCard';
-import Toast from 'react-native-toast-message';
 import ImageViewer from '../../components/General/ImageView';
 const LocalPage=({navigation})=> {
   const route = useRoute();
@@ -154,16 +153,6 @@ const LocalPage=({navigation})=> {
     setAppointmentModal(true)
   }
 
-  //show success toast
-  useEffect(()=>{
-    if(appointmentBooked){
-      Toast.show({
-        type: 'success',
-        text1: 'Appointment successfully booked'
-      });
-      setAppointmentBooked(false)
-    }
-  },[appointmentBooked])
 
  //navigate to reviews( access for foreigners only)
   const handleReviews=()=>{
@@ -171,7 +160,6 @@ const LocalPage=({navigation})=> {
   }
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
-        <Toast />
         <View style={LocalProfileStyles.mainContainer}>
 
           <View style={LocalProfileStyles.imageContainer}>
