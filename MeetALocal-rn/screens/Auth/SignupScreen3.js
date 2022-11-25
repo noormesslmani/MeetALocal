@@ -1,8 +1,8 @@
-import { View, Text, ActivityIndicator } from 'react-native'
+import { View, Text, } from 'react-native'
 import React from 'react'
 import styles from './Styles/AuthScreensStyle';
 import { useState, useEffect } from "react";
-import { TextInput, HelperText } from 'react-native-paper';
+import { TextInput,} from 'react-native-paper';
 import AuthButton from '../../components/Buttons/AuthButton';
 import BackArrow from '../../components/Header/BackArrow';
 import Logo from '../../components/Header/Logo'
@@ -18,10 +18,15 @@ const SignupScreen3 = ({navigation}) => {
   const country= route.params.country
   const nationality =route.params.nationality
   const language = route.params.language
+  
   const [email, setEmail]=useState('');
   const [password, setPassword]=useState('');
   const [confirmPassword, setConfirmPassword]=useState('');
-  
+
+  const [invalidEmail, setInvalidEmail]= useState(false)
+  const [invalidPassword, setInvalidPassword]= useState(false)
+  const [unmatching, setUnmatching]= useState(false)
+
   useEffect(() => {
     navigation.setOptions({
       headerLeft: () => <BackArrow navigation={navigation}/>,
@@ -29,22 +34,30 @@ const SignupScreen3 = ({navigation}) => {
       });
   }, [navigation]);
   const handleNext=()=>{
-    if(email.match(emailFormat) && password.match(passFormat) && confirmPassword==password ){
+    if(! email.match(emailFormat) ){
+      setInvalidEmail(true)
+      setTimeout(() => {
+        setInvalidEmail(false);
+      }, 1500);
+    }
+    else if(! password.match(passFormat)){
+      setInvalidPassword(true)
+      setTimeout(() => {
+        setInvalidPassword(false);
+      }, 1500);
+    }
+    else if( confirmPassword!=password){
+      setUnmatching(true)
+      setTimeout(() => {
+        setUnmatching(false);
+      }, 1500);
+    }
+    else
+    {
       navigation.navigate('user-type',{fullName,email,password,nationality,country,phone,dob,language})
     }
   }
- 
-  const emailHasErrors = () => {
-    return !email.match(emailFormat) && !email==''
-  };
 
-  const passwordHasErrors = () => {
-    return !password.match(passFormat) && !password==''
-  };
-
-  const confirmationHasErrors=()=>{
-    return confirmPassword!=password && !confirmPassword=='' 
-  }
 
   return (
     <View style={styles.background}>
@@ -55,26 +68,20 @@ const SignupScreen3 = ({navigation}) => {
             <View style={styles.inputContainer}>
               <TextInput label="Email" style={styles.input} onChangeText={setEmail} value={email}
               left={<TextInput.Icon icon="email" />} underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}/>
-                <HelperText type="error" visible={emailHasErrors()}>
-                  Email address is invalid!
-                </HelperText>
+              {invalidEmail?<Text style={styles.error}>Please enter a valid email</Text>:null}
             </View>
             <View style={styles.inputContainer}>
               <TextInput left={<TextInput.Icon icon="lock" />}
               secureTextEntry={true} label="Password" style={styles.input} onChangeText={setPassword} value={password}
               underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}/>
-              <HelperText type="error" visible={passwordHasErrors()}>
-                Invalid Password
-              </HelperText>
+              {invalidPassword?<Text style={styles.error}>Password must be have atleast 8 characters, 1 uppercase letter, 1 lowercase letter, and 1 number</Text>:null}
     
             </View>
             <View style={styles.inputContainer}>
               <TextInput left={<TextInput.Icon icon="lock" />}
               secureTextEntry={true} label="Confirm password" style={styles.input} onChangeText={setConfirmPassword} value={confirmPassword}
               underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}/>
-              <HelperText type="error" visible={confirmationHasErrors()}>
-                Passwords do not match!
-              </HelperText>
+              {unmatching?<Text style={styles.error}>Passwords do not match!</Text>:null}
             </View>
             <AuthButton title={'Next'} handleSubmit={handleNext} ></AuthButton>
             <Text style={styles.text}>Already have an account?
