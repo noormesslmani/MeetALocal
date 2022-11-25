@@ -20,9 +20,10 @@ const Events=({navigation})=> {
   const [country, setCountry]=useState('all');
   const [category, setCategory]=useState('all');
   const [data, setdata]=useState([])
+
   const [eventDeleted, setEventDeleted]=useState(false)
-  const [eventBooked, setEventBooked]=useState(false)
-  const [eventSaved, setEventSaved]=useState(false)
+  const [eventToggled, setEventToggled]=useState(false)
+
   const [eventModalVisible, setEventModalVisible]=useState(false)
   const { user, setUser} = useContext(UserContext);
   const [eventCreated,setEventCreated]=useState(false)
@@ -33,13 +34,12 @@ const Events=({navigation})=> {
   },[choice, country, category, eventCreated])
 
   useEffect(()=>{
-    if(eventDeleted || eventBooked || eventSaved){
+    if(eventDeleted || eventToggled){
       getEvents()
-      setEventBooked(false)
       setEventDeleted(false)
-      setEventSaved(false)
+      setEventToggled(false)
     }
-  },[eventDeleted, eventBooked, eventSaved])
+  },[eventDeleted, eventToggled])
 
   
   const getEvents= async()=>{
@@ -69,7 +69,7 @@ const Events=({navigation})=> {
   //Event card
   const renderItem = ({ item }) => (
     <View>
-      <EventCard item={item} choice={choice} setEventDeleted={setEventDeleted} setEventBooked={setEventBooked} setEventSaved={setEventSaved}/>
+      <EventCard item={item} choice={choice} setEventDeleted={setEventDeleted} setEventToggled={setEventToggled} />
     </View>
   )
 
