@@ -90,11 +90,15 @@ Here's a brief high-level overview of the tech stacks the app uses:
 <br><br>
 <img src="./readme/title5.svg" id="implementation"/>
 
-> Uing the above mentioned tecch stacks and the wireframes build with figma from the user sotries we have, the implementation of the app is shown as below, these are screenshots from the real app
+> Uing the above mentioned tech stacks and the wireframes build with figma from the user sotries we have, the implementation of the app is shown as below, these are screenshots from the real app
 
-| Landing  | Home/Search  |
-| -----------------| -----|
-| ![Landing] | ![Home/Search] |
+
+### Local:
+---------------
+
+| Registration  | Event creation  | Appointment creation/deletion |
+| ------------| ----------| ----------|
+| ![Registration](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/registration.gif) | ![Event creation](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/event-creation.gif) | ![Appointments](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/appointment-addition-deletion.gif) |
 
 
 <br><br>
