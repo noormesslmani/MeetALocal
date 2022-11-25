@@ -9,7 +9,7 @@ import { sendNotification, Notify } from '../../notifications/Notifications';
 import AppointmentsModalStyle from './Styles/AppointmentModalStyle';
 import { getToken } from '../../network/Notifications';
 import { UserContext } from '../../App';
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const AppointmentsModal=({navigation, setModalVisible, modalVisible, id, setAppointmentBooked})=> {
   const [appointments, setAppointments]=useState(null)
   const [selected, setSelected]=useState(null)
@@ -35,6 +35,8 @@ const AppointmentsModal=({navigation, setModalVisible, modalVisible, id, setAppo
       setIsLoading(true)
       const result= await toggleBookAppointment({appointment_id:selected.id})
       if (result.success){
+        const token= await AsyncStorage.getItem("@expoToken")
+        sendNotification(token,'Meet A Local',`Appointment on ${selected.date} form ${selected.start_time} till ${selected.end_time} has been successfully booked. `)
         setModalVisible(false)
         const result= await getToken(id)
         sendNotification(result.data.token,'Meet A Local',`The appointment on ${selected.date} form ${selected.start_time} till ${selected.end_time} was booked by ${user.name} `)
