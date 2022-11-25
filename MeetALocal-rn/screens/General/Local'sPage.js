@@ -24,11 +24,11 @@ import ProfileCard from '../../components/Cards/ProfileCard';
 import WideButton from '../../components/Buttons/wideButtons';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
 import EventCard from '../../components/Cards/EventCard';
-import Toast from 'react-native-toast-message';
+import ImageViewer from '../../components/General/ImageView';
 const LocalPage=({navigation})=> {
   const route = useRoute();
   const item =route.params.item
-  const { user, setUser, locals, setLocals} = useContext(UserContext);
+  const { user, setUser} = useContext(UserContext);
   const [isFavorite, SetIsFavorite]=useState(false)
   const [likes, setLikes]= useState(item.likes)
   const [events, setEvents]=useState([])
@@ -44,6 +44,7 @@ const LocalPage=({navigation})=> {
   const [imageIndex, setImageIndex]= useState(0)
   const images = item.highlights?.map((image)=>({ img: `${address}/${image}`}))
 
+  const [imageView,setImageView]=useState(false)
 
   const [appointmentModal, setAppointmentModal]=useState(false)
   const [appointmentBooked, setAppointmentBooked]=useState(false)
@@ -152,16 +153,6 @@ const LocalPage=({navigation})=> {
     setAppointmentModal(true)
   }
 
-  //show success toast
-  useEffect(()=>{
-    if(appointmentBooked){
-      Toast.show({
-        type: 'success',
-        text1: 'Appointment successfully booked'
-      });
-      setAppointmentBooked(false)
-    }
-  },[appointmentBooked])
 
  //navigate to reviews( access for foreigners only)
   const handleReviews=()=>{
@@ -169,11 +160,10 @@ const LocalPage=({navigation})=> {
   }
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
-        <Toast />
         <View style={LocalProfileStyles.mainContainer}>
 
           <View style={LocalProfileStyles.imageContainer}>
-            <Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={LocalProfileStyles.image}/>
+            <TouchableOpacity onPress={()=>setImageView(true)} ><Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={LocalProfileStyles.image}/></TouchableOpacity>
             <View style={{margin:15}}>
               <Text style={LocalProfileStyles.name}>{item.name}</Text>
               <View style={{flexDirection:"row"}}><Text style={LocalProfileStyles.country}>{item.country} </Text>{user.type_id==2 && <Map handleMap={handleMap} small={true} />}</View>
@@ -279,10 +269,16 @@ const LocalPage=({navigation})=> {
           >
             {events.map((event, index)=><EventCard key={index} item={event} choice={1} setEventBooked={null} />)}
           </ScrollView>
+          {events.length==0 && <Text>No upcoming events at the moment</Text>}
         </View>
 
         <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} setReviewAdded={setReviewAdded} id={item.id} />
         
+        {item.profile_picture &&  
+        <ImageViewer images={[{uri:`${address}/${item.profile_picture}`}]}
+        imageView={imageView}
+        setImageView={setImageView}/>}
+
     </ScrollView>
     
   )

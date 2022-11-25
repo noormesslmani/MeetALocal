@@ -40,7 +40,7 @@ const Schedules=({navigation})=> {
     setIsLoading(false)
   }
   const renderItem = ({ item, index }) => (
-    <ScheduleCard item={item} key={index} type={1}/>
+    <ScheduleCard item={item} key={index} type={1} navigation={navigation} />
   );
   
   return (
@@ -69,7 +69,7 @@ const Schedules=({navigation})=> {
           ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:null}
           />
           <TouchableOpacity onPress={()=>setScheduleModal(true)} style={ScheduleStyles.add} ><Icon name= 'plus' size={50} color={colors.lightViolet} /></TouchableOpacity>
-          <ScheduleModal setModalVisible={setScheduleModal} modalVisible={scheduleModal} setScheduleAdded={setScheduleAdded}  />
+          <ScheduleModal setModalVisible={setScheduleModal} modalVisible={scheduleModal} setScheduleAdded={setScheduleAdded} />
         </View>
      
   )

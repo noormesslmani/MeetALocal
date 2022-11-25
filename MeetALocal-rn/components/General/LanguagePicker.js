@@ -3,7 +3,6 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { useState, useEffect, useContext } from "react";
 import { languagesOptions } from '../../constants/languages';
 import { colors } from '../../constants/colors';
-import { widths } from '../../constants/dimensions';
 import PickerStyle from './Styles/PickerStyle';
 const LanguagePicker=({open, value, setOpen, setValue})=>{
     const [languages, setLanguages] = useState(languagesOptions)

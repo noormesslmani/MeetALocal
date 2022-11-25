@@ -11,7 +11,6 @@ import { searchLocals } from '../../network/App';
 import { useFocusEffect } from '@react-navigation/native';
 import SearchPageStyles from './Styles/SearchPageStyles';
 import EmptyPage from '../../components/General/EmptyPage';
-import Toast from 'react-native-toast-message'
 const SearchScreen=({navigation})=> {
   const [data, setdata]=useState(null)
   const [isLoading, setIsLoading]= useState(false)
@@ -46,12 +45,7 @@ const SearchScreen=({navigation})=> {
       setSearched(true)
       setdata(result.data.data)
     }
-    else{
-      Toast.show({
-        type: 'error',
-        text1: 'Something went wrong'
-      });
-    }
+    
     setIsLoading(false)
   }
 const renderItem = ({ item, index }) => (
@@ -70,13 +64,12 @@ const renderItem = ({ item, index }) => (
             keyExtractor={item => item.id}
             renderItem={renderItem}
             style={SearchPageStyles.list}
-            contentContainerStyle={{ paddingBottom: 100}}
+            contentContainerStyle={{ paddingBottom: 200}}
             ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:data && data.length>0?<Text>Search results</Text>:null}
             ListHeaderComponentStyle={{alignItems:"center", justifyContent:"center"}}
           />
            
         </SafeAreaView>
-        <Toast/>
       </View>
     )
 }

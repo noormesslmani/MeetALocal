@@ -67,7 +67,7 @@ const HighlightsModal=({navigation, setModalVisible, modalVisible, highlights})=
             <FlatList
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
-            data={highlights.length<4?[...highlights,'icon', image]: highlights}
+            data={highlights.length<4?[...highlights, image,'icon']: highlights}
             renderItem={({ item, index })=>
             <View>
                 {item == 'icon' && !image? <Pressable onPress={addImage} style={HighlightsModalStyle.addImage}><Icon name='plus' color={colors.lightGrey} size={60} /></Pressable> : <Image source={image && item==image?{uri: `${image}`}: {uri: `${address}/${item}`}} style={HighlightsModalStyle.highlightImage} /> }

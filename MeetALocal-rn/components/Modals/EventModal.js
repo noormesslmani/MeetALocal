@@ -14,8 +14,8 @@ import { Button} from 'react-native-paper';
 import EventModalStyle from './Styles/EventModalStyle';
 import { isEventBooked, toggleBookedEvent } from '../../network/App';
 import { sendNotification, Notify } from '../../notifications/Notifications';
-import Toast from 'react-native-toast-message';
-const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setDeleted, setBooked, setSaved})=> {
+import AsyncStorage from "@react-native-async-storage/async-storage";
+const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setDeleted, setToggled})=> {
     const { user, setUser} = useContext(UserContext);
     const [categories, setCategories]=useState([])
     const [isSaved, setIsSaved]=useState(false)
@@ -44,7 +44,7 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
       };
       const result = await toggleSaveEvent(data)
       if (result.success){
-        setSaved(true)
+        setToggled(true)
         setIsSaved(! isSaved)
       }
     }
@@ -56,9 +56,11 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
       }
     }
     const isBookedEvent= async()=>{
+      setIsLoading(true)
       const result = await isEventBooked(item.id)
       if (result.success){
         result.data.data? setIsBooked(true): setIsBooked(false)
+        setIsLoading(false)
       }
     }
 
@@ -80,20 +82,12 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
       const result = await toggleBookedEvent(data)
       if (result.success){
         setModalVisible(false)
-        setBooked(true)
+        setToggled(true)
         if(! isBooked){
+          const token= await AsyncStorage.getItem("@expoToken")
+          sendNotification(token,'Meet A Local',`Event ${item.title} has been successfully booked. `)
           const result= await getToken(item.organizer_id)
           sendNotification(result.data.token,'Meet A Local',`Your event ${item.title} was booked by ${user.name} `)
-          Toast.show({
-            type: 'success',
-            text1: 'Event successfully booked'
-          });
-        }
-        else{
-          Toast.show({
-            type: 'success',
-            text1: 'Event successfully unbooked'
-          });
         }
       }
       setIsLoading(false)
@@ -129,12 +123,12 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
               </View>
               <Text>Seats: {item.seats - item.bookings}</Text>
               {isLoading && <ActivityIndicator color={colors.violet} /> }
-              {user.type_id==2 && ((item.seats - item.bookings) >0) && !isBooked &&
+              {user.type_id==2 && ((item.seats - item.bookings) >0) && !isBooked && !isLoading &&
                 <Button onPress={handleBooking} compact uppercase={false} labelStyle={{ color: colors.violet, fontSize: 16 }} style={EventModalStyle.bookBtn} icon={()=><Icon name='calendar' color={colors.violet} size={18} />}  mode="outlined" > 
                 Book
                </Button>
               }
-              {user.type_id==2 && isBooked &&
+              {user.type_id==2 && isBooked && !isLoading &&
                 <Button onPress={handleBooking} compact uppercase={false} labelStyle={{ color: colors.violet, fontSize: 16 }} style={EventModalStyle.bookBtn} icon={()=><Icon name='calendar' color={colors.violet} size={18} />}  mode="outlined" > 
                 Cancel Booking
                </Button>
@@ -155,7 +149,6 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
           </ScrollView> 
         </View>
       </View>
-      <Toast />
     </Modal>
   )
 }

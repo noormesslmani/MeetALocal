@@ -1,6 +1,5 @@
-import { View, Text, TouchableOpacity, Image, SafeAreaView, FlatList, ActivityIndicator } from 'react-native'
+import { View, SafeAreaView, FlatList, ActivityIndicator } from 'react-native'
 import React from 'react'
-import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'
 import EventsStyles from './Styles/EventsPageStyles';
@@ -11,7 +10,6 @@ import {getAllEvents, getSavedEvents, getOwnEvents, getBookedEvents} from '../..
 import BackArrow from '../../components/Header/BackArrow';
 import Filters from '../../components/Header/Filters';
 import { colors } from '../../constants/colors';
-import Toast from 'react-native-toast-message'
 import AppButton from '../../components/Buttons/AppButtons';
 import ListHeader from '../../components/General/ListHeaders';
 import EmptyPage from '../../components/General/EmptyPage';
@@ -22,9 +20,10 @@ const Events=({navigation})=> {
   const [country, setCountry]=useState('all');
   const [category, setCategory]=useState('all');
   const [data, setdata]=useState([])
+
   const [eventDeleted, setEventDeleted]=useState(false)
-  const [eventBooked, setEventBooked]=useState(false)
-  const [eventSaved, setEventSaved]=useState(false)
+  const [eventToggled, setEventToggled]=useState(false)
+
   const [eventModalVisible, setEventModalVisible]=useState(false)
   const { user, setUser} = useContext(UserContext);
   const [eventCreated,setEventCreated]=useState(false)
@@ -35,25 +34,19 @@ const Events=({navigation})=> {
   },[choice, country, category, eventCreated])
 
   useEffect(()=>{
-    if(eventDeleted || eventBooked || eventSaved){
+    if(eventDeleted || eventToggled){
       getEvents()
-      setEventBooked(false)
       setEventDeleted(false)
-      setEventSaved(false)
-      console.log('event saved',eventSaved)
+      setEventToggled(false)
     }
-  },[eventDeleted, eventBooked, eventSaved])
+  },[eventDeleted, eventToggled])
 
   
   const getEvents= async()=>{
     let result
     setIsLoading(true)
     if(choice==1){
-      const params={
-        country,
-        category
-      }
-      result = await getAllEvents(params)
+      result = await getAllEvents({country, category})
     }
     else if(choice==2){
       result = await getSavedEvents()
@@ -67,12 +60,6 @@ const Events=({navigation})=> {
     if (result.success){
       setdata(result.data.data)
     }
-    else{
-      Toast.show({
-        type: 'error',
-        text1: 'Something went wrong'
-      });
-    }
     setIsLoading(false)
   }
   //show filter modal
@@ -82,7 +69,7 @@ const Events=({navigation})=> {
   //Event card
   const renderItem = ({ item }) => (
     <View>
-      <EventCard item={item} choice={choice} setEventDeleted={setEventDeleted} setEventBooked={setEventBooked} setEventSaved={setEventSaved}/>
+      <EventCard item={item} choice={choice} setEventDeleted={setEventDeleted} setEventToggled={setEventToggled} />
     </View>
   )
 
@@ -128,7 +115,6 @@ const Events=({navigation})=> {
             contentContainerStyle={{paddingTop:20, paddingBottom: 300}}
           />
         </SafeAreaView>
-        <Toast/>
       </View>
   )
 }
