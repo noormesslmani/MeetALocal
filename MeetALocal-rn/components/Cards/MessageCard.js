@@ -12,7 +12,6 @@ const MessageCard=({navigation, chat})=> {
     const [type_id, setType_id]=useState(null)
     useEffect(()=>{
         getUser()
-        console.log(chat.user_id)
     },[])
     const getUser=async()=>{
         const result = await getUserDetails(chat.user_id)
@@ -26,7 +25,7 @@ const MessageCard=({navigation, chat})=> {
         const chatId=chat.chat_id
         navigation.navigate('chat-screen', {chatId, userId:null, image, name})
     }
-    console.log(chat)
+
   return (
     <View style={MessageCardStyle.container}>
         <TouchableOpacity style={MessageCardStyle.messageContainer} onPress={handleChat}>

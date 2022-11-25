@@ -40,7 +40,6 @@ const HighlightsModal=({navigation, setModalVisible, modalVisible, highlights})=
                 photo: base64,
                 ext,
             }
-            console.log(data)
             const result= await addHighlight(data)
             if(result.success){
                 setUser({...user,highlights:[...highlights, result.data.data]})
@@ -51,7 +50,6 @@ const HighlightsModal=({navigation, setModalVisible, modalVisible, highlights})=
 
         }
     }
-    console.log(user)
   return (
     <Modal
         animationType="fade"

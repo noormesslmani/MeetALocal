@@ -8,7 +8,7 @@ import PickerStyle from './Styles/PickerStyle';
 const CountryPicker=({open, value, setOpen, setValue, type=1})=>{
     
     const [countries, setCountries] = useState(type==1? countriesOptionsOneCountry: countriesOptions)
-    console.log(type)
+   
     return(
         <DropDownPicker
             searchable={true}

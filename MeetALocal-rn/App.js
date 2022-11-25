@@ -17,7 +17,7 @@ export default function App() {
   const saveExpoToken=async()=>{
     const token = await AsyncStorage.getItem('@token')
     if(token){
-      console.log('hi')
+      console.log(token)
       Notify(setExpoPushToken, setNotifications, notificationListener, responseListener)
     }
   }

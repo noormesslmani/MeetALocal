@@ -36,7 +36,6 @@ const ScheduleModal=({setModalVisible, modalVisible, setScheduleAdded, navigatio
     const handleEndTime=(event, value)=>{
         setEndTimePicker(false)
         if(event.type == "set") {
-            console.log(value)
             setEndTime(value)
         }   
     }
@@ -50,10 +49,8 @@ const ScheduleModal=({setModalVisible, modalVisible, setScheduleAdded, navigatio
             latitude,
             longitude
         }
-        console.log(data)
         const result = await addSchedule(data)
         if (result.success){
-            console.log(result.data.data)
             setModalVisible(false)
             setScheduleAdded(true)
         }
