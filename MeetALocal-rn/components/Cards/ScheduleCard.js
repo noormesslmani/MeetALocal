@@ -4,7 +4,7 @@ import { useState, useEffect, useContext } from "react";
 import { address } from '../../constants/address';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors } from '../../constants/colors';
-import { isAppointmentBooked, isEventBooked, toggleBookAppointment, userProfile } from '../../network/App';
+import { isAppointmentBooked, isEventBooked, toggleBookAppointment, userProfile, deleteAppointment } from '../../network/App';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import ScheduleCardStyle from './Styles/ScheduleCardStyle';
 import ScheduleModal from '../Modals/ScheduleModal';
@@ -43,6 +43,12 @@ const ScheduleCard=({item, type, setDeleted, navigation, setAppointments})=> {
     navigation.navigate('local-page', {item: result.data.data});
   }
 
+  const hanldeTrash=async()=>{
+    const result= await deleteAppointment(item.id)
+    if(result.success){
+      setDeleted(true)
+    }
+  }
   return (
     <Pressable style={[ScheduleCardStyle.container, booked? ScheduleCardStyle.booked:null, type==2 && ScheduleCardStyle.longerContainer ]} onPress={()=>{type==1 && setModalVisible(true)}} >
       {type==2 && 
@@ -66,7 +72,7 @@ const ScheduleCard=({item, type, setDeleted, navigation, setAppointments})=> {
         </View>
       </View>
 
-  
+      {type==1 && !booked && <Pressable onPress={hanldeTrash} style={ScheduleCardStyle.trash} ><EvilIcons name='close' size={25} color='grey' /></Pressable> }
       {type==2 && <Pressable onPress={hanldeUnbook} style={ScheduleCardStyle.trash} ><EvilIcons name='close' size={25} color='grey' /></Pressable> }
       {type==1 && <ScheduleModal setModalVisible={setModalVisible} modalVisible={modalVisible} item={item} navigation={navigation} />}
     </Pressable>
