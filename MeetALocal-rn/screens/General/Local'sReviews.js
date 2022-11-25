@@ -70,7 +70,6 @@ const Reviews=({navigation})=>{
         const result = await getReviews(id)
         if (result.success){
           setReviews(result.data.data)
-          console.log(result.data.data)
         }
         setIsLoading(false)
     }
@@ -84,7 +83,7 @@ const Reviews=({navigation})=>{
         }
         setIsLoading(false)
     }
-    console.log(reviews)
+  
     return (
         <View style={ReviewStyles.container}>
             <View style={ReviewStyles.averageContainer}>
@@ -93,7 +92,7 @@ const Reviews=({navigation})=>{
                 <Text style={ReviewStyles.reviewsNb}>Based on {reviews.length} reviews</Text>
             </View>
             
-            {isReviewed && user.type_id==2?<WideButton text='Reviewed' icon='star-o' color={colors.gold} handlePress={null} />:user.type_id==2?<WideButton text='Add Review' icon='star' color={colors.gold} handlePress={()=>setReviewModalVisible(true)} />: null}
+            {isReviewed && user.type_id==2 && !isLoading?<WideButton text='Reviewed' icon='star-o' color={colors.gold} handlePress={null} />:user.type_id==2 && !isLoading?<WideButton text='Add Review' icon='star' color={colors.gold} handlePress={()=>setReviewModalVisible(true)} />: null}
             <Text>Reviews</Text>
             <View style={ReviewStyles.separator} />
             {isLoading && <ActivityIndicator  color={colors.violet} /> }

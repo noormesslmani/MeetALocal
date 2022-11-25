@@ -64,6 +64,7 @@ const Locals=({navigation})=> {
     else{
       setdata([])
       setPage(0)
+      setIsLoading(true)
     }
   },[isFocused, page])
 
@@ -125,7 +126,7 @@ const Locals=({navigation})=> {
     setViewFav(true)
     setViewFavChange(true)
   }
-  console.log(page)
+  
   return (
       <View style={HomeStyles.container}>
          

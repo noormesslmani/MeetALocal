@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
         paddingBottom: 40,
     },
     inputContainer:{
-        paddingBottom: 20,
+        paddingBottom: 25,
     },
     input:{
         width: widths.width6,
