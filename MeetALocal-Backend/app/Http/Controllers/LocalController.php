@@ -160,6 +160,13 @@ class LocalController extends Controller
         ], 201);
     }
 
+
+    public function deleteAppointment(Request $request){
+        Appointment::find($request->query('id'))->delete();
+        return response()->json([
+            'message' => 'ok',
+        ], 201);
+    }
     //checking whether an appointment is booked
     public function isBookedAppointment(Request $request){
         BookedAppointment::where('appointment_id',$request->query('id'))->exists()? $booked=true : $booked=false;
