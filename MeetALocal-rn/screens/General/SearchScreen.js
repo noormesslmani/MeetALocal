@@ -64,7 +64,7 @@ const renderItem = ({ item, index }) => (
             keyExtractor={item => item.id}
             renderItem={renderItem}
             style={SearchPageStyles.list}
-            contentContainerStyle={{ paddingBottom: 100}}
+            contentContainerStyle={{ paddingBottom: 200}}
             ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />:data && data.length>0?<Text>Search results</Text>:null}
             ListHeaderComponentStyle={{alignItems:"center", justifyContent:"center"}}
           />

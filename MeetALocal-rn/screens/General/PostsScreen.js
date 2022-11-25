@@ -64,6 +64,7 @@ const Posts=({navigation})=> {
       else{
         setdata([])
         setPage(0)
+        setIsLoading(true)
       }
     },[isFocused, page])
 
