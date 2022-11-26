@@ -1,7 +1,7 @@
 import { View, Text, } from 'react-native'
 import React from 'react'
 import styles from './Styles/AuthScreensStyle';
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { TextInput,} from 'react-native-paper';
 import AuthButton from '../../components/Buttons/AuthButton';
 import { useRoute } from '@react-navigation/native';
@@ -9,22 +9,22 @@ import { colors } from '../../constants/colors';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { emailFormat, passFormat } from '../../constants/expressions';
 const SignupScreen3 = ({navigation}) => {
+  //route parameters
   const route = useRoute();
-  const fullName= route.params.fullName
-  const phone= route.params.phone
-  const dob =route.params.dob
-  const country= route.params.country
-  const nationality =route.params.nationality
-  const language = route.params.language
+  const fullName= route.params.fullName;
+  const phone= route.params.phone;
+  const dob =route.params.dob;
+  const country= route.params.country;
+  const nationality =route.params.nationality;
+  const language = route.params.language;
   
   const [email, setEmail]=useState('');
   const [password, setPassword]=useState('');
   const [confirmPassword, setConfirmPassword]=useState('');
 
-  const [invalidEmail, setInvalidEmail]= useState(false)
-  const [invalidPassword, setInvalidPassword]= useState(false)
-  const [unmatching, setUnmatching]= useState(false)
-
+  const [invalidEmail, setInvalidEmail]= useState(false);
+  const [invalidPassword, setInvalidPassword]= useState(false);
+  const [unmatching, setUnmatching]= useState(false);
  
   const handleNext=()=>{
     if(! email.match(emailFormat) ){
@@ -34,13 +34,13 @@ const SignupScreen3 = ({navigation}) => {
       }, 1500);
     }
     else if(! password.match(passFormat)){
-      setInvalidPassword(true)
+      setInvalidPassword(true);
       setTimeout(() => {
         setInvalidPassword(false);
       }, 1500);
     }
     else if( confirmPassword!=password){
-      setUnmatching(true)
+      setUnmatching(true);
       setTimeout(() => {
         setUnmatching(false);
       }, 1500);

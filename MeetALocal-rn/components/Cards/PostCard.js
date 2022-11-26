@@ -3,7 +3,6 @@ import React from 'react'
 import { useState, useEffect, useContext } from "react";
 import PostCardStyle from './Styles/PostCardStyle';
 import Icon from 'react-native-vector-icons/FontAwesome'
-import image from '../../assets/profile.jpg'
 import { address } from '../../constants/address';
 import { colors } from '../../constants/colors';
 const PostCard=({navigation, item})=> {
@@ -20,10 +19,10 @@ const PostCard=({navigation, item})=> {
                 <View>
                     <View style={PostCardStyle.userInfo}>
                         <View>
-                        <Text style={{fontSize:14, marginLeft:10, fontWeight:"600"}}>{item.name}</Text>
-                        <Text style={{fontSize:11, marginLeft:10}}>{item.country}</Text>
+                        <Text style={PostCardStyle.name}>{item.name}</Text>
+                        <Text style={PostCardStyle.country}>{item.country}</Text>
                         </View>
-                        <Text style={{fontSize:9}}>{item.created_at.substring(0,10)}</Text>
+                        <Text style={PostCardStyle.date}>{item.created_at.substring(0,10)}</Text>
                     </View>
                     <Text style={PostCardStyle.postDetails}>{item.details}</Text>
                 </View>

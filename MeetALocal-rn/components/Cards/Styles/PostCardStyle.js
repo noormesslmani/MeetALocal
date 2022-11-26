@@ -78,6 +78,18 @@ const PostCardStyle = StyleSheet.create({
         alignSelf:"flex-start",
         width:widths.width7,
         overflow:"hidden"
+    },
+    name:{
+        fontSize:14, 
+        marginLeft:10, 
+        fontWeight:"600"
+    },
+    country:{
+        fontSize:11, 
+        marginLeft:10
+    },
+    date:{
+        fontSize:9
     }
    
 });

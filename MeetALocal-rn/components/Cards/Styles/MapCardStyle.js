@@ -35,6 +35,10 @@ const MapCardStyle = StyleSheet.create({
         card_inner_view: {
             borderRadius:15
         },
+        infoContainer:{
+            flex:2,
+            padding:10
+        }
    
 });
 export default MapCardStyle;

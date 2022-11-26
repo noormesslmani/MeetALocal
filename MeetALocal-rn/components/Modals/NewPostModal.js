@@ -1,4 +1,4 @@
-import { View, Text, Modal} from 'react-native'
+import { View, Text, Modal, ActivityIndicator} from 'react-native'
 import React from 'react'
 import { useState, useEffect, useContext } from "react";
 import CountryPicker from '../General/CountryPicker';
@@ -9,7 +9,7 @@ import { TextInput } from 'react-native-paper';
 import NewPostModalStyle from './Styles/NewPostModalStyle';
 import CategoryPicker from '../General/CategoryPicker';
 import { colors } from '../../constants/colors';
-const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
+const NewPostModal=({navigation, modalVisible, setModalVisible, setPostAdded })=> {
     const [selectedCountry, setSelectedCountry]=useState(null)
     const [selectedCategory, setSelectedCategory]=useState([])
     const [openCountry, setOpenCountry] = useState(false);
@@ -18,6 +18,8 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
     const [invalidDetails, setInvalidDetails]= useState(false)
     const [invalidCountry, setInvalidCountry]= useState(false)
     const [invalidCategory, setInvalidCategory]= useState(false)
+
+    const [isLoading, setIsLoading]=useState(false)
     const handleSubmit=()=>{
         setInvalidCategory(false)
         setInvalidCountry(false)
@@ -45,15 +47,13 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
         } 
     }
     const createPost= async()=>{
-      const data = {
-        details,
-        country: selectedCountry,
-        category: selectedCategory
-      }
-      const result = await createNewPost(data)
+      setIsLoading(true)
+      const result = await createNewPost({ details,country: selectedCountry,category: selectedCategory})
       if (result.success){
         setModalVisible(false)
+        setPostAdded(true)
       }
+      setIsLoading(false)
     }
   return (
     <Modal
@@ -95,6 +95,7 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                     />
                     {invalidCategory && <Text style={NewPostModalStyle.error}>Please select a least 1 categroy</Text>}
                 </View>
+                {isLoading && <ActivityIndicator color={colors.violet} />}
                 <View style={NewPostModalStyle.buttonContainer}>
                   <AppButton text={'Submit'} handlePress={handleSubmit} />
                   <AppButton text={'Cancel'} handlePress={()=>setModalVisible(false)} />

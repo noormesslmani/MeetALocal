@@ -8,6 +8,8 @@ import { colors } from '../../constants/colors';
 import EventCardStyle from './Styles/EventCardStyle';
 const EventCard=({navigation, item, choice, setEventDeleted, setEventToggled})=> {
   const [modalVisible, setModalVisible]=useState(false)
+
+  //keep track if an event is deleted/saved/booked/unbooked/unsaved
   const [deleted, setDeleted]=useState(false)
   const [toggled, setToggled]=useState(false)
   
@@ -15,6 +17,8 @@ const EventCard=({navigation, item, choice, setEventDeleted, setEventToggled})=>
   const handleEvent=()=>{
     setModalVisible(true)
    }
+
+   //update states
   useEffect(()=>{
   if(deleted){
     setEventDeleted(true)
@@ -24,7 +28,6 @@ const EventCard=({navigation, item, choice, setEventDeleted, setEventToggled})=>
     setEventToggled(true)
     setToggled(false)
   }
-
   },[deleted, toggled])
 
   return (
