@@ -63,6 +63,12 @@ const NewEventModalStyles = StyleSheet.create({
     backgroundColor:"white",
     marginBottom:20
   },
+  detailInput:{
+    marginTop:10,
+    width:"100%",
+    backgroundColor:"white",
+    marginBottom:20
+  },
   dateContainer:{
     marginTop:20,
     width:"55%",

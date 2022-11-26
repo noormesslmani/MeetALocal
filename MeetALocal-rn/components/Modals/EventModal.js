@@ -115,13 +115,13 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
               </Pressable>}
             </View>
             <View style={EventModalStyle.infoContainer}>
-              <Text style={EventModalStyle.info}>By: {item.name}</Text>
-              <Text style={EventModalStyle.info}>Where: {item.place}, {item.country}</Text>
+              <Text style={EventModalStyle.info}><Text style={{fontWeight:'500'}}>By</Text>: {item.name}</Text>
+              <Text style={EventModalStyle.info}><Text style={{fontWeight:'500'}}>Where</Text>: {item.place}, {item.country}</Text>
               <View style={{flexDirection:"row", justifyContent:"space-between"}}>
-                <Text style={EventModalStyle.info}>When: {item.date}</Text>
-                <Text style={EventModalStyle.fees}>Fees: {item.fees}$</Text>
+                <Text style={EventModalStyle.info}><Text style={{fontWeight:'500'}}>When</Text>: {item.date}</Text>
+                <Text style={EventModalStyle.fees}><Text style={{fontWeight:'500'}}>Fees</Text>: {item.fees}$</Text>
               </View>
-              <Text>Seats: {item.seats - item.bookings}</Text>
+              <Text><Text style={{fontWeight:'500'}}>Seats</Text>: {item.seats - item.bookings}</Text>
               {isLoading && <ActivityIndicator color={colors.violet} /> }
               {user.type_id==2 && ((item.seats - item.bookings) >0) && !isBooked && !isLoading &&
                 <Button onPress={handleBooking} compact uppercase={false} labelStyle={{ color: colors.violet, fontSize: 16 }} style={EventModalStyle.bookBtn} icon={()=><Icon name='calendar' color={colors.violet} size={18} />}  mode="outlined" > 
