@@ -40,8 +40,10 @@ Route::group(['prefix' => 'v1.0.0'], function () {
                 Route::delete('/event', [LocalController::class, 'deleteEvent']);
                 Route::get('/events', [LocalController::class, 'getMyEvents']);
                 Route::post('/highlights', [LocalController::class, 'addHighlights']);
+                
                 Route::post('/appointment', [LocalController::class, 'addAppointment']);
                 Route::get('/appointments', [LocalController::class, 'getAppointments']);
+                Route::delete('/appointment', [LocalController::class, 'deleteAppointment']);
                 Route::get('/is-booked-appointment', [LocalController::class, 'isBookedAppointment']);
                 Route::post('/highlight', [LocalController::class, 'addHighlight']);
             });
