@@ -78,7 +78,7 @@ const PostComments=({navigation})=> {
                 {data.map((comment, index)=><Comment comment={comment} key={index} navigation={navigation} />)}
             </KeyboardAwareScrollView>
             <View style={CommentsStyles.addComment}>
-            <TextInput placeholder='Add a comment' onChangeText={setNewComment} value={newComment} />
+            <TextInput placeholder='Add a comment' onChangeText={setNewComment} value={newComment} multiline={true} style={{paddingRight:40}} />
             <Pressable style={CommentsStyles.pressable} onPress={handleComment}>
                 <Icon name="send" color={colors.violet} size={20}/>
             </Pressable>
