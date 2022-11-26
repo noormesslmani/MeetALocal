@@ -2,13 +2,13 @@ import React, {useState} from 'react';
 import '../../Constants/Flex.css'
 import './Search.css'
 import {FcSearch} from "react-icons/fc"
-const Search=({searchInput,setSearchInput})=> {
+const Search=({searchInput,setSearchInput, handleKeypress})=> {
     console.log(searchInput)
     const handleSearch=(e)=>{
         setSearchInput(e.target.value)
     }
     return (
-        <div className='search-subcontainer' >
+        <div className='search-subcontainer' onKeyPress={handleKeypress} >
         <FcSearch className='search-icon' />
         <input
         className='search'
