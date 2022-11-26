@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, TextInput, ScrollView, Pressable} from 'react-native'
+import { View, Text, TouchableOpacity, Image, TextInput, ActivityIndicator} from 'react-native'
 import React from 'react'
 import { UserContext } from '../../App'
 import { useState, useEffect, useContext } from "react";
@@ -13,6 +13,9 @@ import { editProfile } from '../../network/App';
 import CountryPicker from '../../components/General/CountryPicker';
 import LanguagePicker from '../../components/General/LanguagePicker';
 import GenderPicker from '../../components/General/GenderPicker';
+import FlashMessage from "react-native-flash-message";
+import { showMessage, hideMessage } from "react-native-flash-message";
+import { colors } from '../../constants/colors';
 const EditForeignerProfile=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const [uri, setUri]= useState(null)
@@ -32,7 +35,7 @@ const EditForeignerProfile=({navigation})=> {
     const [dob, setdob]= useState(user.date_of_birth)
     const [gender, setGender]= useState(user.gender)
     const [about, setAbout]= useState(user.about) 
-  
+    const [isLoading, setIsLoading]= useState(false)
     //handle date of birth
     const handleDate= (event, value)=>{
       setDatePicker(false)
@@ -48,6 +51,7 @@ const EditForeignerProfile=({navigation})=> {
 
     //update profile and user with new data
     const handleSave=async ()=>{
+        setIsLoading(true)
       const data = {
           name,
           phone,
@@ -63,10 +67,16 @@ const EditForeignerProfile=({navigation})=> {
         const result= await editProfile(data)
         if (result.success){
           setUser(result.data.data)
+          showMessage({
+            message: "Profile successfully updated",
+            type: "success",
+          });
         }
+        setIsLoading(false)
     }
   return (
     <View style={ProfileStyles.container}>
+         <FlashMessage position="top" />
         <UploadImage setBase64={setBase64} setext={setext} uri={uri} />
         <KeyboardAwareScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
             <View style={ProfileStyles.inputContainer}>
@@ -123,6 +133,7 @@ const EditForeignerProfile=({navigation})=> {
                     />
                    
                 </View>
+                {isLoading && <ActivityIndicator colors={colors.violet} />}
                 <View style={ProfileStyles.btnContainer}>
                     <AppButton text={'Save'} handlePress={handleSave} />
                     <AppButton text={'Cancel'} handlePress={() => navigation.goBack()} />
