@@ -1,7 +1,6 @@
 import { View,  Image, } from 'react-native';
 import * as React from 'react';
 import { useContext } from "react";
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import { UserContext } from '../App';
 import Chats from '../screens/General/ChatsScreen';
@@ -18,7 +17,6 @@ import Schedules from "../screens/General/Local'sSchedules";
 const TabNavigation=()=>{
     const Tab = createBottomTabNavigator();
     const { user, setUser} = useContext(UserContext);
-    const navigation= useNavigation()
   
   return (
     < Tab.Navigator

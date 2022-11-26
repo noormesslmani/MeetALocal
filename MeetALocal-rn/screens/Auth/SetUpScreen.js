@@ -9,7 +9,6 @@ import { useRoute } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import UploadImage from '../../components/General/UploadImage';
-import BackArrow from '../../components/Header/BackArrow';
 import { colors } from '../../constants/colors';
 import { widths } from '../../constants/dimensions';
 import WavyBack from '../../components/General/WavyBackground';
@@ -33,11 +32,7 @@ const [genderunset, setGenderUnset]=useState(false)
 const [base64, setBase64]=useState(null)
 const [ext, setext]=useState(null)
 const [about, setAbout]= useState(null)
-useEffect(() => {
-  navigation.setOptions({
-    headerLeft: () => <BackArrow navigation={navigation} type={2}/>,
-  });
-}, [navigation]);
+
 const handleSubmit=()=>{
   if(gender==''){
     setGenderUnset(true)

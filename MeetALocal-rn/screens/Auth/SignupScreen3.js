@@ -4,8 +4,6 @@ import styles from './Styles/AuthScreensStyle';
 import { useState, useEffect } from "react";
 import { TextInput,} from 'react-native-paper';
 import AuthButton from '../../components/Buttons/AuthButton';
-import BackArrow from '../../components/Header/BackArrow';
-import Logo from '../../components/Header/Logo'
 import { useRoute } from '@react-navigation/native';
 import { colors } from '../../constants/colors';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -27,12 +25,7 @@ const SignupScreen3 = ({navigation}) => {
   const [invalidPassword, setInvalidPassword]= useState(false)
   const [unmatching, setUnmatching]= useState(false)
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => <BackArrow navigation={navigation}/>,
-      headerTitle: () => <Logo/>,
-      });
-  }, [navigation]);
+ 
   const handleNext=()=>{
     if(! email.match(emailFormat) ){
       setInvalidEmail(true)

@@ -3,8 +3,6 @@ import React from 'react'
 import styles from './Styles/AuthScreensStyle';
 import { useState, useEffect } from "react";
 import AuthButton from '../../components/Buttons/AuthButton';
-import BackArrow from '../../components/Header/BackArrow';
-import Logo from '../../components/Header/Logo'
 import { useRoute } from '@react-navigation/native';
 import LanguagePicker from '../../components/General/LanguagePicker';
 import CountryPicker from '../../components/General/CountryPicker';
@@ -23,12 +21,7 @@ const SignupScreen2 = ({navigation}) => {
   const [openNationality, setOpenNationality] = useState(false);
   const [openCountry, setOpenCountry] = useState(false);
   const [openLanguages, setOpenLanguages] = useState(false);
-  useEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => <BackArrow navigation={navigation}/>,
-      headerTitle: () => <Logo/>,
-      });
-  }, [navigation]);
+  
   const handleSubmit=()=>{
     setInvalidCountry(false)
     setInvalidNationality(false)
