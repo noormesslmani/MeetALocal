@@ -112,6 +112,12 @@ Here's a brief high-level overview of the tech stacks the app uses:
 | ----------| ----------|
 | ![Local's Profile](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/visiting-local's-profile.gif) |  ![Locations](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/locations.gif) | 
 
+### Common:
+---------------
+
+
+### Admin:
+---------------
 <br><br>
 <img src="./readme/title6.svg" id="how-to-run"/>
 
