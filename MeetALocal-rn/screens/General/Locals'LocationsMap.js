@@ -1,12 +1,14 @@
 import { View, StyleSheet} from 'react-native'
 import React from 'react'
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import LocalsMapStyles from './Styles/LocalMapsStyles';
 import { useRoute } from '@react-navigation/native';
 import Map from '../../components/map/Map';
 import MapSearch from '../../components/map/MapSearch';
 const LocalsMap=({navigation})=> {
     const route = useRoute();
+
+    //defualt lat and lng
     const [lat, setLat]=useState(33.888630)
     const [lng, setLng]=useState(35.495480)
     const data= route.params.data
@@ -29,18 +31,10 @@ const LocalsMap=({navigation})=> {
   return (
             <View style={LocalsMapStyles.mapContainer}>
                 <Map data={data} lat={lat} lng={lng} type={type} navigation={navigation}/>
-                <View style={styles.container}>
+                <View style={LocalsMapStyles.searchContainer}>
                 {type==1 && <MapSearch handlePress={handlePress} navigation={navigation}/>}
                 </View>
             </View>
   )
 }
 export default LocalsMap
-const styles = StyleSheet.create({
-    container: {
-      width:"90%",
-      padding: 10,
-      backgroundColor: 'rgba(0, 0, 0, 0)',
-      position:"absolute"
-    },
-  });

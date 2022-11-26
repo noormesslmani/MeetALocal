@@ -1,12 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import { useNavigate } from "react-router-dom";
 import '../../Constants/Flex.css'
 import Header from '../../Components/Header/Header';
 import NavBar from '../../Components/NavBar/NavBar';
 import './Home.css'
 import { getAppStat } from '../../Network/Api';
 import CountsCard from '../../Components/Cards/CountsCard';
-import { render } from "react-dom";
 import { Bounce } from "react-activity";
 
 const Home=()=> {

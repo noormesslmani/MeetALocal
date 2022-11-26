@@ -1,6 +1,6 @@
 import React from 'react'
 import DropDownPicker from 'react-native-dropdown-picker';
-import { useState, useEffect, useContext } from "react";
+import { useState} from "react";
 import { categoriesOptions } from '../../constants/categories';
 import { categoriesSpecificOptions } from '../../constants/categories';
 import PickerStyle from './Styles/PickerStyle';

@@ -1,14 +1,14 @@
 import axios from 'axios';
+import response from './Response';
 const baseURL= "http://192.168.1.7:8000/api/v1.0.0/"
-const headers= { Authorization: `Bearer ${localStorage.getItem('token')}`}
 export async function signin(data){
 
     const config = {
       method: "post",
       data,
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}`},
       url:`${baseURL}auth/login`,
     }
-    console.log(data)
     try{
       const res = await axios(config)
       localStorage.setItem("token", res.data['access_token']);
@@ -21,128 +21,77 @@ export async function signin(data){
   }
 
   export async function getAppStat(){
-   
     const config = {
       method: "get",
-      headers,
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}`},
       url:`${baseURL}admins/app-stat`,
     }
-    console.log(config)
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.log(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function getUsers(params){
     const config = {
       method: "get",
       params,
-      headers,
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}`},
       url:`${baseURL}admins/users`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.log(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function toggleBans(data){
     const config = {
       method: "post",
-      headers,
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}`},
       data,
       url:`${baseURL}admins/toggle-ban`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.log(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function getLocalsStat(){
     const config = {
       method: "get",
-      headers,
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}`},
       url:`${baseURL}admins/locals-stat`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.log(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function getForeignersStat(){
     const config = {
       method: "get",
-      headers,
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}`},
       url:`${baseURL}admins/foreigners-stat`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.log(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function getBannedUsers(){
     const config = {
       method: "get",
-      headers,
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}`},
       url:`${baseURL}admins/bans`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.log(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function getLocations(){
     const config = {
       method: "get",
-      headers,
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}`},
       url:`${baseURL}admins/locations`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.log(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
+
   export async function getSearches(params){
    
     const config = {
       method: "get",
       params,
-      headers,
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}`},
       url:`${baseURL}admins/search-users`,
     }
-    try{
-      const res = await axios(config)
-      return {success:true, data: res.data}
-    }
-    catch (error) {
-      console.log(error)
-      return {'success': false, error}
-    }
+    return response(config)
   }
