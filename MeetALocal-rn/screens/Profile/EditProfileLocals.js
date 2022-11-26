@@ -17,6 +17,8 @@ import CategoryPicker from '../../components/General/CategoryPicker';
 import CountryPicker from '../../components/General/CountryPicker';
 import LanguagePicker from '../../components/General/LanguagePicker';
 import GenderPicker from '../../components/General/GenderPicker';
+import FlashMessage from "react-native-flash-message";
+import { showMessage, hideMessage } from "react-native-flash-message";
 const EditLocalProfile=({navigation})=> {
 
     const { user, setUser} = useContext(UserContext);
@@ -89,6 +91,10 @@ const EditLocalProfile=({navigation})=> {
         const result= await editProfile(data)
         if (result.success){
           setUser(result.data.data)
+          showMessage({
+            message: "Profile successfully updated",
+            type: "success",
+          });
         }
         setIsLoading(false)
   }
@@ -99,6 +105,7 @@ const EditLocalProfile=({navigation})=> {
   }
   return (
     <View style={ProfileStyles.container}>
+      <FlashMessage position="top" />
         <UploadImage setBase64={setBase64} setext={setext} uri={uri} />
         <KeyboardAwareScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
             <View style={ProfileStyles.inputContainer}>
