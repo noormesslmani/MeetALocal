@@ -125,7 +125,7 @@ class AdminController extends Controller
         }
         return response()->json([
             'message' => 'ok',
-            'data' => $results,
+            'data' => $users,
         ], 201);
     }
 
