@@ -27,6 +27,10 @@ const ForeignerProfile=({navigation})=> {
 
   const handleLogout=async()=>{
     await AsyncStorage.clear();
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "auth" }],
+    });
     navigation.navigate("auth")
   }
   return (
