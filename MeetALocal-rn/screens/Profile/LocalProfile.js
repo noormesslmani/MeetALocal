@@ -1,6 +1,6 @@
-import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native'
-import React from 'react'
-import { UserContext } from '../../App'
+import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
+import React from 'react';
+import { UserContext } from '../../App';
 import { useState, useEffect, useContext } from "react";
 import ProfileStyles from './ProfileStyles/ProfileStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
@@ -11,7 +11,7 @@ import { categoryIcons } from '../../constants/categories';
 import ImagesSlider from '../../components/General/Carousel';
 import WavyBack from '../../components/General/WavyBackground';
 import { getReviews } from '../../network/App';
-import { Rating, AirbnbRating } from 'react-native-ratings';
+import { Rating} from 'react-native-ratings';
 import ReviewCard from '../../components/Cards/ReviewerCrad';
 import { Button} from 'react-native-paper';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
@@ -21,58 +21,67 @@ import ProfileCard from '../../components/Cards/ProfileCard';
 import ImageViewer from '../../components/General/ImageView';
 const LocalProfile=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
-  const [image, setImage]= useState(null)
-  const [imageView, setImageView]=useState(false)
-  const [average, setAverage]= useState(null)
-  const [reviews, setReviews]=useState([])
-  const [stars, setStars]=useState([])
-  const [modalVisible, setModalVisible]= useState(false)
-  const [viewInfo, setViewInfo]=useState(true)
-  const images = user.highlights.map((image)=>({img: `${address}/${image}`}))
+  const [image, setImage]= useState(null);
+  const [imageView, setImageView]=useState(false);
+
+  //reviews
+  const [average, setAverage]= useState(null);
+  const [reviews, setReviews]=useState([]);
+  const [stars, setStars]=useState([]);
+
+  const [modalVisible, setModalVisible]= useState(false);
+
+  //choose between displaying info or reviews
+  const [viewInfo, setViewInfo]=useState(true);
+
+  const images = user.highlights.map((image)=>({img: `${address}/${image}`}));
+
   useEffect(()=>{
     if(user.profile_picture){
-      setImage(user.profile_picture)
+      setImage(user.profile_picture);
     }
   },[user.profile_picture])
 
   //get all reviews to be displayed when viewInfo is set to false
   useEffect(()=>{
-    getAllReviews()
+    getAllReviews();
   },[])
 
   //finding the average
   useEffect(()=>{
-    let starsArr=[0,0,0,0,0]
+    let starsArr=[0,0,0,0,0];
     for(let review of reviews){
-      starsArr[review.stars -1] +=1
+      starsArr[review.stars -1] +=1;
     }
-    setStars(starsArr)
+    setStars(starsArr);
   },[reviews])
 
   useEffect(()=>{
     if(stars.length>0){
-    reviews.length>0?setAverage((stars[0]+2*stars[1]+3*stars[2]+4*stars[3]+5*stars[4])/(stars[0]+stars[1]+stars[2]+stars[3]+stars[4])):setAverage(0)
+    reviews.length>0?setAverage((stars[0]+2*stars[1]+3*stars[2]+4*stars[3]+5*stars[4])/(stars[0]+stars[1]+stars[2]+stars[3]+stars[4])):setAverage(0);
     }
   },[stars])
 
   const getAllReviews=async()=>{
     const result = await getReviews(user.id)
     if (result.success){
-      setReviews(result.data.data)
+      setReviews(result.data.data);
     }
   }
 
+  //navigate to edit screen
   const handleEdit=()=>{
-    navigation.navigate('edit-local-profile')
+    navigation.navigate('edit-local-profile');
   }
 
+  //clear async storage and reset navigation
   const handleLogout=async()=>{
     await AsyncStorage.clear();
     navigation.reset({
       index: 0,
       routes: [{ name: "auth" }],
     });
-    navigation.navigate("auth")
+    navigation.navigate("auth");
   }
   return (
     <View style={ProfileStyles.container}>

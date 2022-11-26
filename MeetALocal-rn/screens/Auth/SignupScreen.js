@@ -9,9 +9,6 @@ import PhoneInput from "react-native-phone-number-input";
 import { colors } from '../../constants/colors';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-
-
-
 const SignupScreen = ({navigation}) => {
   const [fullName, setFullName]=useState('');
   const [invalidName, setInvalidName]=useState(false);
@@ -22,22 +19,21 @@ const SignupScreen = ({navigation}) => {
   const [dob, setdob]=useState('')
   const [invalidDate, setinvalidDate] = useState(false);
   const [dateSelected, setDateSelected] = useState(false);
-  const phoneRef = useRef(undefined);
-  const [focus, setFocus] = useState(false);
+
+
   const handleDate= (event, value)=>{
     setDatePicker(false)
     setDate(value)
     setinvalidDate(false)
   }
+  //set date of birth
   useEffect(()=>{
     setDateSelected(true)
     setdob(`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`)
   },[date])
  
+  //check if fields are filled first
   const handleSubmit=()=>{
-    setinvalidDate(false)
-    setInvalidName(false)
-    setInvalidPhone(false)
     if(fullName==''){
       setInvalidName(true)
       setTimeout(() => {
@@ -90,6 +86,7 @@ const SignupScreen = ({navigation}) => {
                 setPhone(text);
               }}
             />
+             {invalidPhone && <Text style={styles.error}>Please enter your phone number</Text>}
           </View>
     
           <View style={styles.inputContainer}>

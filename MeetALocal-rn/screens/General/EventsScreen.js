@@ -7,7 +7,6 @@ import FilterModal from '../../components/Modals/FilterModal';
 import NewEventModal from '../../components/Modals/NewEventModal';
 import EventCard from '../../components/Cards/EventCard';
 import {getAllEvents, getSavedEvents, getOwnEvents, getBookedEvents} from '../../network/App'
-import BackArrow from '../../components/Header/BackArrow';
 import Filters from '../../components/Header/Filters';
 import { colors } from '../../constants/colors';
 import AppButton from '../../components/Buttons/AppButtons';
@@ -35,6 +34,7 @@ const Events=({navigation})=> {
     getEvents()
   },[choice, country, category, eventCreated])
 
+  //triggered when an events is deleted, booked, etc...
   useEffect(()=>{
     if(eventDeleted || eventToggled){
       getEvents()
@@ -43,7 +43,10 @@ const Events=({navigation})=> {
     }
   },[eventDeleted, eventToggled])
 
-  console.log(data)
+  //choice 1->get all events (for all)
+  //choice 2->get saved events(for foreigners)
+  //choice 3->get own events(for locals)
+  //choice 4->get booked events(for foreigners)
   const getEvents= async()=>{
     let result
     setIsLoading(true)
@@ -76,7 +79,7 @@ const Events=({navigation})=> {
     </View>
   )
 
-  //navigation options
+  //header
   useEffect(() => {
     if(choice==1){
     navigation.setOptions({

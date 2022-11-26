@@ -16,6 +16,7 @@ import { registerAccount } from '../../network/Auth';
 
 const SetUpScreen=({navigation})=> {
 const { user, setUser} = useContext(UserContext);
+//route parameters
 const route = useRoute();
 const type= route.params.type
 const fullName= route.params.fullName
@@ -26,13 +27,17 @@ const nationality =route.params.nationality
 const language = route.params.language
 const email= route.params.email
 const password= route.params.password
+
 const [isLoading, setIsLoading]=useState(false)
+
 const [gender, setGender]=useState('')
-const [genderunset, setGenderUnset]=useState(false)
+const [genderUnset, setGenderUnset]=useState(false)
 const [base64, setBase64]=useState(null)
 const [ext, setext]=useState(null)
 const [about, setAbout]= useState(null)
 
+//check if gender is selected
+//register for foreigner users, and continue for local users
 const handleSubmit=()=>{
   if(gender==''){
     setGenderUnset(true)
@@ -41,7 +46,6 @@ const handleSubmit=()=>{
     }, 1500);
   }
   else{
-    setGenderUnset(false)
     if(type=='Foreigner'){
       register()
     }
@@ -57,6 +61,8 @@ const handleMale=()=>{
 const handleFemale=()=>{
   setGender('Female')
 }
+
+//registering foreigner users
 const register= async()=>{
   setIsLoading(true)
   const data = {
@@ -83,9 +89,7 @@ const register= async()=>{
     })
     navigation.navigate('app')
   }
-  else{
-    setIsLoading(false)
-  }
+  setIsLoading(false)
 }
 
 return (
@@ -103,12 +107,12 @@ return (
           mode='outlined' multiline={true} numberOfLines={5} />
         </View>
         <Text>Gender *</Text>
-        {genderunset?<Text style={styles.error}>Please select your gender</Text>:null}
+        {genderUnset?<Text style={styles.error}>Please select your gender</Text>:null}
         <View style={styles.genderContainer}>
           <TouchableOpacity onPress={handleMale}><Avatar.Icon size={0.25*widths.width} style={[styles.genderAvatar, gender=='Male'?styles.selectedGender: null]} icon={()=><Image source={require('../../assets/male.png')} style={styles.genderIcon} />} /></TouchableOpacity>
           <TouchableOpacity onPress={handleFemale}><Avatar.Icon size={0.25*widths.width} style={[styles.genderAvatar, gender=='Female'?styles.selectedGender: null]} icon={()=><Image source={require('../../assets/female.png')} style={styles.genderIcon} />} /></TouchableOpacity>
         </View>
-        {isLoading && <ActivityIndicator color="#8C57BA" />}
+        {isLoading && <ActivityIndicator color={colors.violet} />}
         <View style={{position:"absolute", bottom:20}}>
         <AuthButton title={'Next'} handleSubmit={handleSubmit} type={3} ></AuthButton>
         </View>
