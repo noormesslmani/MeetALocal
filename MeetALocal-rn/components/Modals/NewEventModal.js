@@ -128,8 +128,8 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
                         
                         <View style={NewEventModalStyles.contentContainer}>
                             <Text>Details *</Text>
-                            <TextInput placeholder='Event details' style={NewEventModalStyles.input} value={details} onChangeText={setDetails}
-                             underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet}/>
+                            <TextInput placeholder='Event details' style={NewEventModalStyles.detailInput} value={details} onChangeText={setDetails}
+                             underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet} multiline={true} numberOfLines={3} textAlign="center"  />
                         </View>
                         <View style={NewEventModalStyles.contentContainer}>
                             <Text>Fees *</Text>

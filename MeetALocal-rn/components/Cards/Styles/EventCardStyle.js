@@ -6,7 +6,7 @@ const EventCardStyle = StyleSheet.create({
         marginTop:15,
         borderRadius:20,
         width:0.43*widths.width,
-        height:0.43*widths.width,
+        height:0.45*widths.width,
         backgroundColor:'white',
         shadowColor: "#000",
         shadowOffset: {
@@ -24,9 +24,9 @@ const EventCardStyle = StyleSheet.create({
         height: 0.3*widths.width,
     },
     title:{
-        fontSize:15,
+        fontSize:12,
         marginLeft:7,
-        fontWeight:"400",
+        fontWeight:"600",
         marginBottom:1
     },
     info:{

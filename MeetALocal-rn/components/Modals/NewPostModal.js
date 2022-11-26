@@ -1,13 +1,14 @@
-import { View, Text, Modal, TextInput} from 'react-native'
+import { View, Text, Modal} from 'react-native'
 import React from 'react'
 import { useState, useEffect, useContext } from "react";
 import CountryPicker from '../General/CountryPicker';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import AppButton from '../Buttons/AppButtons';
 import { createNewPost } from '../../network/App';
-
+import { TextInput } from 'react-native-paper';
 import NewPostModalStyle from './Styles/NewPostModalStyle';
 import CategoryPicker from '../General/CategoryPicker';
+import { colors } from '../../constants/colors';
 const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
     const [selectedCountry, setSelectedCountry]=useState(null)
     const [selectedCategory, setSelectedCategory]=useState([])
@@ -68,8 +69,9 @@ const NewPostModal=({navigation, modalVisible, setModalVisible})=> {
                 <Text style={NewPostModalStyle.title}>Create New Post</Text>
                 <View style={NewPostModalStyle.contentContainer}>
                     <Text>Post *</Text>
-                    <TextInput placeholder='new post' style={NewPostModalStyle.input} multiline={true} value={details} onChangeText={setDetails}></TextInput>
-                    {invalidDetails && <Text style={NewPostModalStyle.error}>Please enter a valid text</Text>}
+                    <TextInput placeholder='new post' style={NewPostModalStyle.input} value={details} onChangeText={setDetails}
+                      underlineColor={colors.lightViolet} activeUnderlineColor={colors.mediumViolet} multiline={true} numberOfLines={2} textAlign="center"  />
+                      {invalidDetails && <Text style={NewPostModalStyle.error}>Please enter a valid text</Text>}
                 </View>
                 <View style={{width:"90%",marginBottom:40}}>
                     <Text >Select a country *</Text>
