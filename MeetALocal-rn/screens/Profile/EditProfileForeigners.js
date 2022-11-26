@@ -31,11 +31,7 @@ const EditForeignerProfile=({navigation})=> {
     const [date, setDate]= useState(new Date())
     const [dob, setdob]= useState(user.date_of_birth)
     const [gender, setGender]= useState(user.gender)
-    const [about, setAbout]= useState(user.about)
-    const [genders, setGenders] = useState([
-        {label: 'Male', value: 'Male'},
-        {label: 'Female', value: 'Female'}])
-    
+    const [about, setAbout]= useState(user.about) 
   
     //handle date of birth
     const handleDate= (event, value)=>{
@@ -66,7 +62,7 @@ const EditForeignerProfile=({navigation})=> {
         };
         const result= await editProfile(data)
         if (result.success){
-          setUser(response.data.data)
+          setUser(result.data.data)
         }
     }
   return (
