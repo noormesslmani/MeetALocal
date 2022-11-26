@@ -96,9 +96,9 @@ Here's a brief high-level overview of the tech stacks the app uses:
 ### Local:
 ---------------
 
-| Registration  | Event creation  | Appointment creation/deletion |
-| ------------| ----------| ----------|
-| ![Registration](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/registration.gif) | ![Event creation](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/event-creation.gif) | ![Appointments](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/appointment-addition-deletion.gif) |
+| Registration  | Event creation  | Appointment creation/deletion | Notifications
+| ----------| ----------| ----------| ----------|
+| ![Registration](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/registration.gif) | ![Event creation](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/event-creation.gif) | ![Appointments](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/appointment-addition-deletion.gif) | ![Notifications](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/notifications.gif) |
 
 
 <br><br>
