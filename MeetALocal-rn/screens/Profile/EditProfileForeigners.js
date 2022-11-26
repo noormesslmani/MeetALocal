@@ -10,7 +10,6 @@ import DatePicker from '../../components/General/datePicker';
 import AppButton from '../../components/Buttons/AppButtons';
 import { address } from '../../constants/address';
 import { editProfile } from '../../network/App';
-import BackArrow from '../../components/Header/BackArrow';
 import CountryPicker from '../../components/General/CountryPicker';
 import LanguagePicker from '../../components/General/LanguagePicker';
 import GenderPicker from '../../components/General/GenderPicker';
@@ -37,11 +36,7 @@ const EditForeignerProfile=({navigation})=> {
         {label: 'Male', value: 'Male'},
         {label: 'Female', value: 'Female'}])
     
-    useEffect(() => {
-      navigation.setOptions({
-        headerLeft: () => <BackArrow navigation={navigation} type={1}/>
-      });
-    }, [navigation]);
+  
     //handle date of birth
     const handleDate= (event, value)=>{
       setDatePicker(false)

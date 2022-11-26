@@ -1,10 +1,8 @@
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, KeyboardAvoidingView} from 'react-native'
+import { View, Text} from 'react-native'
 import React from 'react'
-import { useState, useEffect, useContext } from "react";
-import BackArrow from '../../components/Header/BackArrow';
+import { useState } from "react";
 import Map from '../../components/map/Map';
 import { useRoute } from '@react-navigation/native';
-import { UserContext } from '../../App'
 import ProfileStyles from './ProfileStyles/ProfileStyles';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AppButton from '../../components/Buttons/AppButtons';
@@ -16,11 +14,6 @@ const EditLocation=({navigation})=> {
     const [newlng, setNewlng]= useState(route.params.lng)
     //This page is only for locals
 
-    useEffect(() => {
-      navigation.setOptions({
-        headerLeft: () => <BackArrow navigation={navigation} type={1}/>,
-      });
-    }, [navigation]);
 
     //update location 
     const handleDrag=(e)=>{

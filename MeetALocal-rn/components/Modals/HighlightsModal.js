@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { address } from '../../constants/address';
 import HighlightsModalStyle from './Styles/HighlightsModalStyle';
 import { UserContext } from '../../App';
-import { addHighlight } from '../../network/App';
+import { addHighlight, deleteHighlight } from '../../network/App';
 import * as ImagePicker from 'expo-image-picker';
 const HighlightsModal=({navigation, setModalVisible, modalVisible})=> {
     const { user, setUser} = useContext(UserContext);
