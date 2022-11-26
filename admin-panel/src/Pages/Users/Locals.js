@@ -4,7 +4,6 @@ import '../../Constants/Flex.css'
 import Header from '../../Components/Header/Header';
 import NavBar from '../../Components/NavBar/NavBar';
 import '../Home/Home.css'
-import { render } from "react-dom";
 import { Bounce } from "react-activity";
 import "react-activity/dist/library.css";
 import UsersTable from '../../Components/UsersTable/UserTable';
@@ -15,27 +14,17 @@ import { faArrowLeft} from '@fortawesome/free-solid-svg-icons'
 import Search from '../../Components/Search/Search';
 const Locals=()=> {
     const [isLoading, setIsLoading]= useState(true)
-    const [data, setData]=useState(null)
+    const [data, setData]=useState([])
     const [page, setPage]=useState(1)
     const [currentPage, setCurrentPage]=useState(1)
     const [banLoading, setBanLoading]= useState(false)
     const [searchInput, setSearchInput]=useState('')
-    useEffect(()=>{
-        setPage(1)
-        setCurrentPage(1)
-    },[searchInput])
+    const [pressed, setPressed]=useState(false)
 
     useEffect(()=>{
-        if(searchInput==''){
-            getLocals()
-        }
-        else{
-            getSearchedLocals() 
-        }
-    },[page, banLoading, searchInput])
+        !pressed && getLocals()
+    },[page, banLoading, pressed])
 
-    
-    
     const getSearchedLocals=async()=>{
         setIsLoading(true)
         const params={
@@ -73,6 +62,7 @@ const Locals=()=> {
         }
         setIsLoading(false)
     }
+
     const hanldeNext=()=>{
         setPage(page+1)
     }
@@ -81,6 +71,20 @@ const Locals=()=> {
             setPage(page-1)
         }
     }
+
+    useEffect(()=>{
+        pressed && getSearchedLocals() 
+    },[pressed, page])
+
+    const handleKeypress = e => {
+      if (e.key === 'Enter') {
+        setPage(1)
+        setCurrentPage(1)
+        setData([])
+        setPressed(true)
+      }
+    }
+
   return (
     <div className='home-container'>
         <Header type={2}/>
@@ -89,11 +93,11 @@ const Locals=()=> {
             <div className='dashboard-container flex-col align-center'>
                 <div className='search-container flex space-between align-center'>
                     <h1 className='home-title'>Locals</h1>
-                    <Search searchInput={searchInput} setSearchInput={setSearchInput} />
+                    <Search searchInput={searchInput} setSearchInput={setSearchInput} handleKeypress={handleKeypress} />
                 </div>
                 <div className='flex space-between stat-links-container'>
-                <NavLink to='/locals' className='banned-link'>All</NavLink>
-                <NavLink to='/banned-locals' className='banned-link'>Banned</NavLink>
+                <NavLink to='/locals' className='banned-link' onClick={()=>setPressed(false)} >All</NavLink>
+                <NavLink to='/banned-locals' className='banned-link' onClick={()=>setPressed(false)}>Banned</NavLink>
                 </div>
                 {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
                 {!isLoading && <UsersTable data={data} setBanLoading={setBanLoading}/>}
