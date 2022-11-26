@@ -245,6 +245,15 @@ const baseURL= `${address}/api/v1.0.0/`
     return response(config)
   }
 
+  export async function deleteAppointment(id){
+    const config = {
+      method: "delete",
+      params:{id},
+      url:`${baseURL}locals/appointment`,
+    }
+    return response(config)
+  }
+
   export async function getAppointments(id){
     const config = {
       method: "get",

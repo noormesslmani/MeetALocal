@@ -8,7 +8,6 @@ import UploadImage from '../../components/General/UploadImage';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DatePicker from '../../components/General/datePicker';
-import BackArrow from '../../components/Header/BackArrow';
 import AppButton from '../../components/Buttons/AppButtons';
 import { address } from '../../constants/address';
 import { colors } from '../../constants/colors';
@@ -43,12 +42,6 @@ const EditLocalProfile=({navigation})=> {
     const [fees, setFees]= useState(user.fees)
 
     const [isLoading, setIsLoading]=useState(false)
-
-    useEffect(() => {
-      navigation.setOptions({
-        headerLeft: () => <BackArrow navigation={navigation} type={1}/>
-      });
-    }, [navigation]);
 
     const handleDate= (event, value)=>{
       setDatePicker(false)
@@ -93,7 +86,6 @@ const EditLocalProfile=({navigation})=> {
           longitude: parseFloat(longitude),
           highlights: user.highlights
         };
-        console.log(data)
         const result= await editProfile(data)
         if (result.success){
           setUser(result.data.data)

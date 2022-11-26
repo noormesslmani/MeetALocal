@@ -28,6 +28,8 @@ const Events=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const [eventCreated,setEventCreated]=useState(false)
   const [isLoading, setIsLoading]=useState(false)
+
+  const [filterChange, setFilterChange]=useState(false)
   //get events 
   useEffect(()=>{
     getEvents()
@@ -41,10 +43,11 @@ const Events=({navigation})=> {
     }
   },[eventDeleted, eventToggled])
 
-  
+  console.log(data)
   const getEvents= async()=>{
     let result
     setIsLoading(true)
+    setdata([])
     if(choice==1){
       result = await getAllEvents({country, category})
     }
@@ -77,12 +80,10 @@ const Events=({navigation})=> {
   useEffect(() => {
     if(choice==1){
     navigation.setOptions({
-      headerLeft: () => <BackArrow navigation={navigation} type={1}/>,
       headerRight:()=><Filters handleFilter={handleFilter}/>})
     }
     else{
       navigation.setOptions({
-        headerLeft: () => <BackArrow navigation={navigation} type={1} />,
         headerRight:()=><></>})
       }
     }, [navigation, choice])
@@ -98,7 +99,7 @@ const Events=({navigation})=> {
         </View>
         <View style={EventsStyles.separator}/>
 
-        <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory}/>
+        <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory} setFilterChange={setFilterChange}/>
         <NewEventModal modalVisible={eventModalVisible} setModalVisible={setEventModalVisible} setEventCreated={setEventCreated}/>
         <SafeAreaView style={EventsStyles.listContainer}>
           {!isLoading && data.length==0? <EmptyPage />:null}

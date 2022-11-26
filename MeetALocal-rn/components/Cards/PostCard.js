@@ -11,7 +11,7 @@ const PostCard=({navigation, item})=> {
     const handlePost=()=>{
      navigation.navigate('comments',{item})
 }
-console.log()
+
   return (<>
     <TouchableOpacity style={PostCardStyle.card} onPress={handlePost}>
         <View style={PostCardStyle.headerContainer}>

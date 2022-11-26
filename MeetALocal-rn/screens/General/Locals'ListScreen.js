@@ -7,7 +7,6 @@ import LocalsStyles from './Styles/LocalsPageStyles';
 import FilterModal from '../../components/Modals/FilterModal';
 import LocalCard from '../../components/Cards/LocalCard';
 import Filters from '../../components/Header/Filters';
-import BackArrow from '../../components/Header/BackArrow';
 import { getLocals, getFavorites } from '../../network/App';
 import Map from '../../components/Header/Map';
 import { colors } from '../../constants/colors';
@@ -34,7 +33,6 @@ const Locals=({navigation})=> {
    
   useEffect(() => {
     navigation.setOptions({
-      headerLeft: () => <BackArrow navigation={navigation} type={1}/>,
       headerRight:()=>(<View style={{flexDirection:"row"}}>
       {!viewFav && <Filters handleFilter={handleFilter}/>}
       {user.type_id==2 && <Map handleMap={handleMap} />}
@@ -77,12 +75,10 @@ const Locals=({navigation})=> {
       if (result.success){
         setIsLoading(false)
         setIsLoadingMore(false)
-        if(result.data.data.length==0){
+        setdata( data =>[...data, ...result.data.data])
+        if(result.data.data.length<15){
           setIsListEnd(true)
         }  
-        else{
-          setdata( data =>[...data, ...result.data.data])
-        }
       }
     }
     else{

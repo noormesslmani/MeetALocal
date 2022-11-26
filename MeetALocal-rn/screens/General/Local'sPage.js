@@ -6,7 +6,6 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { useRoute } from '@react-navigation/native';
 import LocalProfileStyles from './Styles/LocalProfileStyles';
 import { categoryIcons } from '../../constants/categories';
-import ImageView from "react-native-image-viewing";
 import Map from '../../components/Header/Map';
 import { CheckFavoriteLocals, toggleFavoriteLocals, getLocalsEvents } from '../../network/App';
 import { address } from '../../constants/address';
@@ -15,7 +14,6 @@ import { Rating, AirbnbRating } from 'react-native-ratings';
 import { getReviews } from '../../network/App';
 import ReviewModal from '../../components/Modals/ReviewModal';
 import { colors } from '../../constants/colors';
-import BackArrow from '../../components/Header/BackArrow';
 import AppointmentsModal from '../../components/Modals/AppointmentModal';
 import ImagesSlider from '../../components/General/Carousel';
 import { Avatar } from 'react-native-paper';
@@ -48,14 +46,7 @@ const LocalPage=({navigation})=> {
 
   const [appointmentModal, setAppointmentModal]=useState(false)
   const [appointmentBooked, setAppointmentBooked]=useState(false)
-  useEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => <><BackArrow navigation={navigation} type={2}/>
-      <Text style={LocalProfileStyles.headerText}>{item.name}</Text>
-      </>,
-      headerStyle:{backgroundColor: colors.lighterViolet}, headerShadowVisible:false,
-    });
-  }, [navigation]);
+
     
   //get reviews and check if favorited or reviewed already
   useEffect(()=>{
@@ -233,11 +224,6 @@ const LocalPage=({navigation})=> {
           <Text style={LocalProfileStyles.sectionTitle}>Highlights</Text>
           <ImagesSlider images={images}  />
           </View>}
-          <ImageView
-          images={images}
-          imageIndex={imageIndex}
-          visible={visible}
-          onRequestClose={() => setIsVisible(false)}/>
 
           <View style={LocalProfileStyles.sectionContainer}>
             <Text style={LocalProfileStyles.sectionTitle}>Reviews</Text>

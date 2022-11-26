@@ -8,7 +8,6 @@ import { useRoute } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import FeesSlider from '../../components/General/Slider';
 import { colors } from '../../constants/colors';
-import BackArrow from '../../components/Header/BackArrow';
 import { categoryIcons } from '../../constants/categories';
 import { Avatar } from 'react-native-paper';
 import { widths } from '../../constants/dimensions';
@@ -36,11 +35,7 @@ const Categories=({navigation})=> {
     const [fees, setFees]=useState(0)
     const [isLoading, setIsLoading]= useState(false)
     const [limitExceeded, setLimitExceeded]=useState(false)
-    useEffect(() => {
-        navigation.setOptions({
-          headerLeft: () => <BackArrow navigation={navigation}/>,
-        });
-      }, [navigation]);
+   
     useEffect(()=>{
         if(limitExceeded){
             setTimeout(() => {
@@ -99,7 +94,6 @@ const Categories=({navigation})=> {
             latitude,
             longitude,
           };
-          console.log(data)
         const result = await registerAccount(data)
         if (result.success){
             await AsyncStorage.setItem("@user", JSON.stringify(result.data['user']));

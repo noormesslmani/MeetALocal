@@ -7,9 +7,9 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import { address } from '../../constants/address';
 import HighlightsModalStyle from './Styles/HighlightsModalStyle';
 import { UserContext } from '../../App';
-import { addHighlight } from '../../network/App';
+import { addHighlight, deleteHighlight } from '../../network/App';
 import * as ImagePicker from 'expo-image-picker';
-const HighlightsModal=({navigation, setModalVisible, modalVisible, highlights})=> {
+const HighlightsModal=({navigation, setModalVisible, modalVisible})=> {
     const { user, setUser} = useContext(UserContext);
     const [base64, setBase64]= useState(null)
     const [ext, setext]= useState(null)
@@ -40,18 +40,15 @@ const HighlightsModal=({navigation, setModalVisible, modalVisible, highlights})=
                 photo: base64,
                 ext,
             }
-            console.log(data)
             const result= await addHighlight(data)
             if(result.success){
-                setUser({...user,highlights:[...highlights, result.data.data]})
+                setUser({...user,highlights:[...user.highlights, result.data.data]})
                 setImage(null)
-                setModalVisible(false)
                 setIsLoading(false)
             }
 
         }
     }
-    console.log(user)
   return (
     <Modal
         animationType="fade"
@@ -67,7 +64,7 @@ const HighlightsModal=({navigation, setModalVisible, modalVisible, highlights})=
             <FlatList
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
-            data={highlights.length<4?[...highlights, image,'icon']: highlights}
+            data={user.highlights.length<4 && image?[...user.highlights, image,'icon']: user.highlights.length<4?[...user.highlights,'icon']: user.highlights}
             renderItem={({ item, index })=>
             <View>
                 {item == 'icon' && !image? <Pressable onPress={addImage} style={HighlightsModalStyle.addImage}><Icon name='plus' color={colors.lightGrey} size={60} /></Pressable> : <Image source={image && item==image?{uri: `${image}`}: {uri: `${address}/${item}`}} style={HighlightsModalStyle.highlightImage} /> }

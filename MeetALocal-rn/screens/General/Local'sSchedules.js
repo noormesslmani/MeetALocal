@@ -14,7 +14,7 @@ const Schedules=({navigation})=> {
   const [isLoading, setIsLoading]=useState(false)
   const [scheduleModal, setScheduleModal]=useState(false)
   const [scheduleAdded, setScheduleAdded]=useState(false)
- 
+  const [deleted, setDeleted]=useState(false)
   //This screen is for locals
 
   //get schedule
@@ -25,11 +25,12 @@ const Schedules=({navigation})=> {
     
  
    useEffect(()=>{
-    if(scheduleAdded){
+    if(scheduleAdded || deleted){
       getMySchedule()
       setScheduleAdded(false)
+      setDeleted(false)
     }
-   },[scheduleAdded])
+   },[scheduleAdded, deleted])
    
    const getMySchedule=async()=>{
     setIsLoading(true)
@@ -40,7 +41,7 @@ const Schedules=({navigation})=> {
     setIsLoading(false)
   }
   const renderItem = ({ item, index }) => (
-    <ScheduleCard item={item} key={index} type={1} navigation={navigation} />
+    <ScheduleCard item={item} key={index} type={1} navigation={navigation} setDeleted={setDeleted} />
   );
   
   return (

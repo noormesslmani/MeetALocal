@@ -1,10 +1,9 @@
-import { View, Text, TouchableOpacity, Image, FlatList, SafeAreaView, Modal, Pressable, StyleSheet, ScrollView, TextInput, KeyboardAvoidingView} from 'react-native'
+import { View, Text, TouchableOpacity} from 'react-native'
 import React from 'react'
 import { useState, useEffect, useContext } from "react";
 
 import { useRoute } from '@react-navigation/native';
 import styles from './Styles/AuthScreensStyle';
-import BackArrow from '../../components/Header/BackArrow';
 import * as Location from 'expo-location';
 import Map from '../../components/map/Map';
 const SetUpMap=({navigation})=> {
@@ -28,16 +27,10 @@ const SetUpMap=({navigation})=> {
     const [lngDelta, setlngDelta]=useState(1)
     const [latDelta, setLatDelta]=useState(1)
     const [errorMsg, setErrorMsg] = useState(null);
-    console.log(about)
+
     useEffect(() => {
         getLocation()
       }, []);
-
-    useEffect(() => {
-      navigation.setOptions({
-        headerLeft: () => <BackArrow navigation={navigation}/>,
-      });
-    }, [navigation]);
 
     async function getLocation(){
     let { status } = await Location.requestForegroundPermissionsAsync();
