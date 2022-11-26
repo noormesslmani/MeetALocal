@@ -9,7 +9,7 @@ import { getAllPosts, getOwnPosts } from '../../network/App';
 import Filters from '../../components/Header/Filters';
 import { colors } from '../../constants/colors';
 import ListFooter from '../../components/General/ListFooter';
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import AppButton from '../../components/Buttons/AppButtons';
 import ListHeader from '../../components/General/ListHeaders';
 import EmptyPage from '../../components/General/EmptyPage';
@@ -27,6 +27,8 @@ const Posts=({navigation})=> {
   const [page, setPage]=useState(0)
   const [filterChange, setFilterChange]=useState(false)
   const [viewOwnChange, setViewOwnChange]=useState(false)
+
+  const [postAdded, setPostAdded]=useState(false)
 
   useEffect(() => {
     if(!viewOwn){
@@ -51,7 +53,14 @@ const Posts=({navigation})=> {
     }
   }, [filterChange, viewOwnChange]); 
 
-  
+  useEffect(()=>{
+    if(postAdded){
+      getPosts()
+      console.log('hi')
+      setPostAdded(false)
+    }
+  },[postAdded])
+
   //get posts when the page changes (20 per page)
   const isFocused = useIsFocused();
     useEffect(() => {
@@ -124,12 +133,12 @@ const Posts=({navigation})=> {
         </View>
 
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory} setFilterChange={setFilterChange} />
-        <NewPostModal modalVisible={newPostModalVisible} setModalVisible={setNewPostModalVisible}/>
+        <NewPostModal modalVisible={newPostModalVisible} setModalVisible={setNewPostModalVisible} setPostAdded={setPostAdded} />
         <SafeAreaView style={PostsStyles.listContainer}>
         {!isLoading && data.length==0? <EmptyPage />:null}
           <FlatList
             data={data}
-            renderItem={({ item }) => (<PostCard item={item} navigation={navigation} key={item.id}/>)}
+            renderItem={({ item }) => (<PostCard item={item} navigation={navigation} key={item.id} />)}
             keyExtractor={item => item.id}
             style={PostsStyles.list}
             contentContainerStyle={{ paddingBottom: 300}}
