@@ -114,7 +114,7 @@ class UserController extends Controller
         $offset=$request->query('offset');
         $country!='all'? $country_id= Country::where('country',$country)->pluck('id'):$country_id=Country::pluck('id');
         $category!='all'? $category_id=Category::where('category',$category)->pluck('id'):$category_id=Category::pluck('id');
-        $posts= Post::join('post_categories','posts.id','=','post_id')->join('categories','post_categories.category_id','=','categories.id')->join('countries','posts.country_id','=','countries.id')->join('users','posts.user_id','=','users.id')->whereIn('posts.country_id',$country_id)->whereIn('post_categories.category_id',$category_id)->orderBy('posts.id', 'desc')->distinct()->orderBy('created_at', 'desc')->offset($offset)->limit(20)->get(['posts.*','countries.country','users.name', 'users.profile_picture', 'users.type_id' ]);
+        $posts= Post::join('post_categories','posts.id','=','post_id')->join('categories','post_categories.category_id','=','categories.id')->join('countries','posts.country_id','=','countries.id')->join('users','posts.user_id','=','users.id')->whereIn('posts.country_id',$country_id)->whereIn('post_categories.category_id',$category_id)->distinct()->latest()->offset($offset)->limit(20)->get(['posts.*','countries.country','users.name', 'users.profile_picture', 'users.type_id' ]);
         foreach($posts as $post){
             $post['comments']= Comment::where('post_id',$post->id)->count();
             $post['categories']=$post->categories()->pluck('category');
@@ -128,7 +128,7 @@ class UserController extends Controller
 
     //getting user's own posts
     public function getOwnPosts(){
-        $posts= Auth::user()->posts()->get();
+        $posts= Auth::user()->posts()->latest()->get();
         foreach($posts as $post){
             $post['comments']= Comment::where('post_id',$post->id)->count();
             $post['categories']=$post->categories()->pluck('category');
