@@ -1,6 +1,6 @@
 import React from 'react'
 import DropDownPicker from 'react-native-dropdown-picker';
-import { useState, useEffect, useContext } from "react";
+import { useState} from "react";
 import PickerStyle from './Styles/PickerStyle';
 const GenderPicker=({open, value, setOpen, setValue, zIndex, zInverse, direction})=>{
     const [genders, setGenders] = useState([

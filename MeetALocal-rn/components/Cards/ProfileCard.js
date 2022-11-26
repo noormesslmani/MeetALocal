@@ -3,10 +3,8 @@ import React from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors } from '../../constants/colors';
 import ProfileCardStyle from './Styles/ProfileCardStyle';
-const ProfileCard=({icon, data, type=1})=> {
-
-
-
+const ProfileCard=({icon, data})=> {
+  //carrying info displayed on user's profile pages
   return (<>
             <View style={ProfileCardStyle.card}>
                 <Icon name={icon} size={20} color={colors.mediumViolet} />

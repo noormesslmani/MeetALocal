@@ -27,7 +27,12 @@ const LocalsMapStyles = StyleSheet.create({
         flex: 1,
         padding: 10,
         backgroundColor: '#ecf0f1',
-      }
+      },
+      searchContainer: {
+        width:"90%",
+        padding: 10,
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+        position:"absolute"}
      
 });
 export default LocalsMapStyles;

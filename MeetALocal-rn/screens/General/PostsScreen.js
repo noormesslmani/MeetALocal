@@ -1,5 +1,5 @@
 import { View, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
-import React from 'react'
+import React from 'react';
 import { useState, useEffect } from "react";
 import FilterModal from '../../components/Modals/FilterModal';
 import PostsStyles from './Styles/PostsStyles';
@@ -15,20 +15,31 @@ import ListHeader from '../../components/General/ListHeaders';
 import EmptyPage from '../../components/General/EmptyPage';
 import AddIcon from '../../components/General/AddIcon';
 const Posts=({navigation})=> {
-  const [viewOwn, setViewOwn]=useState(false)
+
+  //Either view all posts or own posts
+  const [viewOwn, setViewOwn]=useState(false);
+  const [viewOwnChange, setViewOwnChange]=useState(false);
+
+  //filtering data
   const [country, setCountry]=useState('all');
   const [category, setCategory]=useState('all');
-  const [data, setdata]=useState([])
-  const [modalVisible, setModalVisible] = useState(false)
-  const [newPostModalVisible, setNewPostModalVisible] = useState(false)
-  const [isListEnd, setIsListEnd]=useState(false)
-  const [isLoadingMore, setIsLoadingMore]=useState(false)
-  const [isLoading, setIsLoading]= useState(false)
-  const [page, setPage]=useState(0)
-  const [filterChange, setFilterChange]=useState(false)
-  const [viewOwnChange, setViewOwnChange]=useState(false)
-
-  const [postAdded, setPostAdded]=useState(false)
+  //saving data
+  const [data, setdata]=useState([]);
+  
+  //filter modal
+  const [modalVisible, setModalVisible] = useState(false);
+  const [filterChange, setFilterChange]=useState(false);
+  
+  //new post modal
+  const [newPostModalVisible, setNewPostModalVisible] = useState(false);
+  
+  const [isListEnd, setIsListEnd]=useState(false);
+  const [isLoadingMore, setIsLoadingMore]=useState(false);
+  const [isLoading, setIsLoading]= useState(false);
+  const [page, setPage]=useState(0);
+  
+  //hanlde addition of new post
+  const [postAdded, setPostAdded]=useState(false);
 
   useEffect(() => {
     if(!viewOwn){
@@ -48,16 +59,16 @@ const Posts=({navigation})=> {
       page==0? getPosts(): setPage(0);
       setdata([]);
       setIsListEnd(false);
-      setFilterChange(false)
-      setViewOwnChange(false)
+      setFilterChange(false);
+      setViewOwnChange(false);
     }
   }, [filterChange, viewOwnChange]); 
 
+  //hanlde the addition of new post
   useEffect(()=>{
     if(postAdded){
-      getPosts()
-      console.log('hi')
-      setPostAdded(false)
+      getPosts();
+      setPostAdded(false);
     }
   },[postAdded])
 
@@ -65,12 +76,12 @@ const Posts=({navigation})=> {
   const isFocused = useIsFocused();
     useEffect(() => {
       if(isFocused)  {
-        getPosts()
+        getPosts();
       }
       else{
-        setdata([])
-        setPage(0)
-        setIsLoading(true)
+        setdata([]);
+        setPage(0);
+        setIsLoading(true);
       }
     },[isFocused, page])
 
@@ -78,23 +89,23 @@ const Posts=({navigation})=> {
   const getPosts= async()=>{
     let result
     if(viewOwn){
-      setIsLoading(true)
-      result = await getOwnPosts()
+      setIsLoading(true);
+      result = await getOwnPosts();
       if (result.success){
-        setIsLoading(false)
-        setdata(result.data.data)
-        setIsListEnd(true)
+        setIsLoading(false);
+        setdata(result.data.data);
+        setIsListEnd(true);
       }
     }
     else {
       page==0? setIsLoading(true): setIsLoadingMore(true)
-      result = await getAllPosts({country, category, offset:20*page})
+      result = await getAllPosts({country, category, offset:20*page});
       if (result.success){
-        setIsLoading(false)
-        setIsLoadingMore(false)
-        setdata( data =>[...data, ...result.data.data])
+        setIsLoading(false);
+        setIsLoadingMore(false);
+        setdata( data =>[...data, ...result.data.data]);
         if(result.data.data.length<20){
-          setIsListEnd(true)
+          setIsListEnd(true);
   
         }
       }
@@ -103,26 +114,26 @@ const Posts=({navigation})=> {
 
   //show filter modal
   const handleFilter=()=>{
-    setModalVisible(true)
+    setModalVisible(true);
   }
    
   //update page when possible
   const fetchMore=()=>{
     if(!isListEnd){
-      setPage(page+1)
+      setPage(page+1);
     }
   }
 
   //view all posts
   const handleViewAll=()=>{
-    setViewOwn(false)
-    setViewOwnChange(true)
+    setViewOwn(false);
+    setViewOwnChange(true);
   }
 
   //view user's own posts
   const handleViewOwn=()=>{
-    setViewOwn(true)
-    setViewOwnChange(true)
+    setViewOwn(true);
+    setViewOwnChange(true);
   }
   return (
       <View style={PostsStyles.container}>

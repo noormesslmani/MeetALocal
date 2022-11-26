@@ -8,7 +8,7 @@ const WideButton=({text, handlePress, icon, color})=>{
     return (
         <TouchableOpacity onPress={handlePress} style={WideButtonStyle.button} > 
             <Icon name={icon} size={25} style={{marginHorizontal:5}} color={color} />
-            <Text style={{color:color, fontSize:18, fontWeight:'500'}} >{text}</Text>
+            <Text style={{color:color}} >{text}</Text>
         </TouchableOpacity>
     )
 }

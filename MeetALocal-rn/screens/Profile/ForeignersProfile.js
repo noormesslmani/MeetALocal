@@ -1,6 +1,6 @@
-import { View, Text, TouchableOpacity, Image, Pressable, ScrollView } from 'react-native'
-import React from 'react'
-import { UserContext } from '../../App'
+import { View, Text, TouchableOpacity, Image, Pressable, ScrollView } from 'react-native';
+import React from 'react';
+import { UserContext } from '../../App';
 import { useState, useEffect, useContext } from "react";
 import ProfileStyles from './ProfileStyles/ProfileStyles';
 import { address } from '../../constants/address';
@@ -11,12 +11,12 @@ import ProfileCard from '../../components/Cards/ProfileCard';
 import ImageViewer from '../../components/General/ImageView';
 const ForeignerProfile=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
-  const [image, setImage]= useState(null)
-  const [imageView, setImageView]=useState(false)
+  const [image, setImage]= useState(null);
+  const [imageView, setImageView]=useState(false);
  
   useEffect(()=>{
     if(user.profile_picture){
-      setImage(user.profile_picture)
+      setImage(user.profile_picture);
     }
   },[user.profile_picture])
   
@@ -25,6 +25,8 @@ const ForeignerProfile=({navigation})=> {
     navigation.navigate('edit-foreigner-profile')
   }
 
+
+  //clear async storage and reset navigation
   const handleLogout=async()=>{
     await AsyncStorage.clear();
     navigation.reset({

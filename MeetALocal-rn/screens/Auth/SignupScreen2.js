@@ -1,45 +1,44 @@
-import { View, Text, TextInput, KeyboardAvoidingView } from 'react-native'
-import React from 'react'
+import { View, Text, TextInput, KeyboardAvoidingView } from 'react-native';
+import React from 'react';
 import styles from './Styles/AuthScreensStyle';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import AuthButton from '../../components/Buttons/AuthButton';
 import { useRoute } from '@react-navigation/native';
 import LanguagePicker from '../../components/General/LanguagePicker';
 import CountryPicker from '../../components/General/CountryPicker';
 const SignupScreen2 = ({navigation}) => {
   const route = useRoute();
-  const fullName= route.params.fullName
-  const phone= route.params.phone
-  const dob =route.params.dob
+  const fullName= route.params.fullName;
+  const phone= route.params.phone;
+  const dob =route.params.dob;
   
   const [nationality, setNationality]=useState(null);
   const [country, setCountry]=useState(null);
   const [language, setLanguage]=useState([]);
-  const [invalidCountry, setInvalidCountry]=useState(false)
-  const [invalidNationality, setInvalidNationality]=useState(false)
-  const [invalidlanguage, setInvalidLanguage]=useState(false)
+
+  const [invalidCountry, setInvalidCountry]=useState(false);
+  const [invalidNationality, setInvalidNationality]=useState(false);
+  const [invalidlanguage, setInvalidLanguage]=useState(false);
+
   const [openNationality, setOpenNationality] = useState(false);
   const [openCountry, setOpenCountry] = useState(false);
   const [openLanguages, setOpenLanguages] = useState(false);
   
   const handleSubmit=()=>{
-    setInvalidCountry(false)
-    setInvalidNationality(false)
-    setInvalidLanguage(false)
     if(! nationality){
-      setInvalidNationality(true)
+      setInvalidNationality(true);
       setTimeout(() => {
         setInvalidNationality(false);
       }, 1500);
     }
     else if(! country){
-      setInvalidCountry(true)
+      setInvalidCountry(true);
       setTimeout(() => {
         setInvalidCountry(false);
       }, 1500);
     }
     else if(language.length==0){
-      setInvalidLanguage(true)
+      setInvalidLanguage(true);
       setTimeout(() => {
         setInvalidLanguage(false);
       }, 1500);

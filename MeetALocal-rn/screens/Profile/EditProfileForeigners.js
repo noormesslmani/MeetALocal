@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, Image, TextInput, ActivityIndicator} from 'react-native'
-import React from 'react'
-import { UserContext } from '../../App'
+import React from 'react';
+import { UserContext } from '../../App';
 import { useState, useEffect, useContext } from "react";
 import ProfileStyles from './ProfileStyles/ProfileStyles';
 import { FontAwesome } from '@expo/vector-icons';
@@ -14,28 +14,32 @@ import CountryPicker from '../../components/General/CountryPicker';
 import LanguagePicker from '../../components/General/LanguagePicker';
 import GenderPicker from '../../components/General/GenderPicker';
 import FlashMessage from "react-native-flash-message";
-import { showMessage, hideMessage } from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 import { colors } from '../../constants/colors';
 const EditForeignerProfile=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
-    const [uri, setUri]= useState(null)
-    const [base64, setBase64]= useState(null)
-    const [ext, setext]= useState(null)
-    const [name, setName]= useState(user.name)
-    const [phone, setPhone]= useState(user.phone)
+    const [uri, setUri]= useState(null);
+    const [base64, setBase64]= useState(null);
+    const [ext, setext]= useState(null);
+    const [name, setName]= useState(user.name);
+    const [phone, setPhone]= useState(user.phone);
     const [nationality, setNationality]=useState(user.nationality);
     const [residence, setResidence]=useState(user.residence);
     const [spokenLanguages, setSpokenLanguages]=useState(user.languages);
+    const [dob, setdob]= useState(user.date_of_birth);
+    const [gender, setGender]= useState(user.gender);
+    const [about, setAbout]= useState(user.about);
+
+    //pickers' states
     const [openNationality, setOpenNationality] = useState(false);
     const [openResidece, setOpenResidence] = useState(false);
     const [openLanguages, setOpenLanguages] = useState(false);
     const [openGenders, setOpenGenders] = useState(false);
-    const [datePicker, setDatePicker]= useState(false)
-    const [date, setDate]= useState(new Date())
-    const [dob, setdob]= useState(user.date_of_birth)
-    const [gender, setGender]= useState(user.gender)
-    const [about, setAbout]= useState(user.about) 
-    const [isLoading, setIsLoading]= useState(false)
+    const [datePicker, setDatePicker]= useState(false);
+    const [date, setDate]= useState(new Date());
+    
+    const [isLoading, setIsLoading]= useState(false);
+
     //handle date of birth
     const handleDate= (event, value)=>{
       setDatePicker(false)

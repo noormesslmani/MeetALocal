@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, ScrollView, Pressable, Linking, ActivityIndicator } from 'react-native'
+import { View, Text, ScrollView,  ActivityIndicator } from 'react-native'
 import React from 'react'
 import { UserContext } from '../../App'
 import { useState, useEffect, useContext } from "react";
@@ -13,24 +13,35 @@ import ReviewStyles from './Styles/ReviewsStyles';
 import WideButton from '../../components/Buttons/wideButtons';
 
 const Reviews=({navigation})=>{
+    //Screen accessible to foreingers only
+
+    //route parameters
     const route = useRoute();
     const id=route.params.id
     const[reviews, setReviews]=useState(route.params.reviews)
     const[average, setAverage]=useState(route.params.average)
+
     const [reviewModalVisible, setReviewModalVisible]=useState(false)
+
     const [reviewAdded, setReviewAdded]=useState(false)
     const [isReviewed, setIsReviewed]=useState(false)
     const [reviewDeleted, setReviewDeleted]=useState(false)
+
     const [isLoading, setIsLoading]=useState(false)
+
     const { user, setUser} = useContext(UserContext);
-    //Screen accessible to foreingers only
 
-    
-
-    //check if local is reviewed
+    //check if local is reviewed or not
     useEffect(()=>{
         reviewed()
     },[])
+    const reviewed=async()=>{
+        const result = await checkReviewed(id)
+        if (result.success){ 
+          setIsReviewed(result.data.data)
+        }
+    } 
+
     useEffect(()=>{
         if(reviewAdded){
             getAllReviews()
@@ -38,7 +49,7 @@ const Reviews=({navigation})=>{
         }
     },[reviewAdded])
         
-    //getting new average after review submission
+    //getting new average after addition or deletion of review
     useEffect(()=>{
         let newAvg=0
         if(reviewAdded || reviewDeleted ){
@@ -51,13 +62,7 @@ const Reviews=({navigation})=>{
         }
     },[reviews])
    
-    const reviewed=async()=>{
-        const result = await checkReviewed(id)
-        if (result.success){
-            
-          setIsReviewed(result.data.data)
-        }
-    } 
+  
     const getAllReviews=async()=>{
         setIsLoading(true)
         const result = await getReviews(id)
@@ -67,6 +72,7 @@ const Reviews=({navigation})=>{
         setIsLoading(false)
     }
 
+    //handle the deletion of a review
     const hanldeDelete=async ()=>{
         setIsLoading(true)
         const result = await deleteReview({local_id: id})

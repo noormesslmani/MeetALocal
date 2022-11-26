@@ -1,21 +1,24 @@
 import { View, Text, TouchableOpacity, Image, FlatList,  ActivityIndicator} from 'react-native'
 import React from 'react'
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { getSchedule } from '../../network/App';
 import { colors } from '../../constants/colors';
 import ScheduleCard from '../../components/Cards/ScheduleCard';
 import ScheduleStyles from './Styles/ScheduleScreenStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import WavyBack from '../../components/General/WavyBackground';
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { useFocusEffect} from '@react-navigation/native';
 import ScheduleModal from '../../components/Modals/NewScheduleModal';
 const Schedules=({navigation})=> {
+
+  //This screen is for locals
+
   const [schedule, setSchedule]=useState(null)
   const [isLoading, setIsLoading]=useState(false)
   const [scheduleModal, setScheduleModal]=useState(false)
   const [scheduleAdded, setScheduleAdded]=useState(false)
   const [deleted, setDeleted]=useState(false)
-  //This screen is for locals
+  
 
   //get schedule
   useFocusEffect(
@@ -23,7 +26,7 @@ const Schedules=({navigation})=> {
     getMySchedule()
     }, []), )
     
- 
+    //handle the modifications of the schedule
    useEffect(()=>{
     if(scheduleAdded || deleted){
       getMySchedule()
@@ -32,6 +35,7 @@ const Schedules=({navigation})=> {
     }
    },[scheduleAdded, deleted])
    
+   //get the schedule
    const getMySchedule=async()=>{
     setIsLoading(true)
     const result=await getSchedule()

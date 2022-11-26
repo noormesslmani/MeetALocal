@@ -1,6 +1,6 @@
 import { View, Image, TouchableOpacity } from 'react-native'
-import React, { useEffect } from 'react'
-import { useContext, useRef, useState } from "react";
+import React from 'react'
+import { useContext, useState } from "react";
 import HomeStyles from './Styles/HomeStyles';
 import { UserContext } from '../../App'
 import { address } from '../../constants/address';

@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, ScrollView, Pressable, Linking } from 'react-native'
+import { View, Text, Image, ScrollView, Pressable } from 'react-native'
 import React from 'react'
 import { useEffect} from "react";
 import { useRoute } from '@react-navigation/native';
@@ -8,8 +8,9 @@ import { colors } from '../../constants/colors';
 import BackArrow from '../../components/Header/BackArrow';
 import ProfileCard from '../../components/Cards/ProfileCard';
 const ForeignerPage=({navigation})=> {
+  //user's info
   const route = useRoute();
-  const item =route.params.item
+  const item =route.params.item;
 
   useEffect(() => {
     navigation.setOptions({
@@ -20,6 +21,7 @@ const ForeignerPage=({navigation})=> {
     });
   }, [navigation]);
  
+  //navigate to chat screen 
   const handleMessage=()=>{
     navigation.navigate('chat-screen', { chatId: null, userId: item.id, image:item.profile_picture, name:item.name})
   }

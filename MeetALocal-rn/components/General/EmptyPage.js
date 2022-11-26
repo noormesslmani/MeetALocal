@@ -3,6 +3,8 @@ import React from 'react'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { colors } from '../../constants/colors'
 import EmptyPageStyle from './Styles/EmptyPageStyle'
+
+//empty state
 const EmptyPage=()=>{
     return(
     <View style={EmptyPageStyle.container}>
