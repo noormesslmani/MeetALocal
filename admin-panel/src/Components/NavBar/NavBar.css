@@ -1,0 +1,43 @@
+.NavBar{
+    height:auto;
+    width: 250px;
+    background-color: rgb(186, 154, 215);
+    padding-top: 100px;
+    box-sizing: border-box;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+.link{
+    font-size: 26px;
+    color:white;
+    font-weight: 600;
+    margin: 20px 0px;
+    text-decoration: none;
+}
+.link:hover{
+    background-color: rgb(255, 255, 255);
+    border-radius: 10;
+    width: 150px;
+    text-align: center;
+    color:rgb(186, 154, 215)
+}
+.link.active{
+    background-color: rgb(255, 255, 255);
+    border-radius: 10;
+    width: 150px;
+    text-align: center;
+    color:rgb(186, 154, 215)
+}
+@media only screen and (max-width: 800px){
+    .NavBar{
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100vw;
+        height: 100px;
+        padding: 20px;
+    }
+    .link{
+        font-size: 16px;
+    }
+    
+}
