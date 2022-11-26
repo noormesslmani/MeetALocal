@@ -5,7 +5,6 @@ import LocalsMapStyles from './Styles/LocalMapsStyles';
 import { useRoute } from '@react-navigation/native';
 import Map from '../../components/map/Map';
 import MapSearch from '../../components/map/MapSearch';
-import BackArrow from '../../components/Header/BackArrow';
 const LocalsMap=({navigation})=> {
     const route = useRoute();
     const [lat, setLat]=useState(33.888630)
@@ -19,11 +18,6 @@ const LocalsMap=({navigation})=> {
         setLng(details.geometry.location.lng)
     }
 
-  useEffect(() => {
-    navigation.setOptions({
-      headerLeft: () => <BackArrow navigation={navigation} type={1}/>,
-    });
-  }, [navigation]);
 
   //for a single item set region according to given data, else keep initial values
   useEffect(()=>{

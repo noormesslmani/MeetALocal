@@ -33,7 +33,6 @@ const Bookings=({navigation})=> {
     const result= await getBookedAppointments()
     if (result.success){
       setAppointments(result.data.data)
-      console.log(result.data.data)
     }
     setIsLoading(false)
 

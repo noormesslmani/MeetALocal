@@ -7,7 +7,6 @@ import NewPostModal from '../../components/Modals/NewPostModal';
 import PostCard from '../../components/Cards/PostCard';
 import { getAllPosts, getOwnPosts } from '../../network/App';
 import Filters from '../../components/Header/Filters';
-import BackArrow from '../../components/Header/BackArrow';
 import { colors } from '../../constants/colors';
 import ListFooter from '../../components/General/ListFooter';
 import { useFocusEffect, useIsFocused } from '@react-navigation/native';
@@ -32,12 +31,10 @@ const Posts=({navigation})=> {
   useEffect(() => {
     if(!viewOwn){
     navigation.setOptions({
-      headerLeft: () => <BackArrow navigation={navigation} type={1}/>,
       headerRight:()=><Filters handleFilter={handleFilter}/>})
     }
     else{
       navigation.setOptions({
-        headerLeft: () => <BackArrow navigation={navigation} type={1}/>,
         headerRight:()=><></>})
     }
   }, [navigation, viewOwn])
@@ -86,12 +83,10 @@ const Posts=({navigation})=> {
       if (result.success){
         setIsLoading(false)
         setIsLoadingMore(false)
-        if(result.data.data.length==0){
+        setdata( data =>[...data, ...result.data.data])
+        if(result.data.data.length<20){
           setIsListEnd(true)
   
-        }
-        else{
-          setdata( data =>[...data, ...result.data.data])
         }
       }
     }

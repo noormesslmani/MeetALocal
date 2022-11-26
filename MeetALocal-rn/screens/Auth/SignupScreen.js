@@ -80,7 +80,6 @@ const SignupScreen = ({navigation}) => {
               value={phone}
               defaultCode="LB"
               layout="second"
-              autoFocus
               containerStyle={styles.phoneContainer}
               textContainerStyle={styles.phoneText}
               textInputStyle={styles.phoneInput}

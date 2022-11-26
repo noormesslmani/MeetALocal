@@ -40,10 +40,8 @@ const NewPostModalStyle = StyleSheet.create({
       },
       input:{
         marginTop:20,
-        height:50,
         width:"100%",
-        borderBottomWidth:0.5,
-        borderColor:colors.violet,
+        backgroundColor:"white"
       },
       optionsContainer:{
         marginTop:10,
