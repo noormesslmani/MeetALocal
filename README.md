@@ -101,6 +101,14 @@ Here's a brief high-level overview of the tech stacks the app uses:
 | ![Registration](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/registration.gif) | ![Event creation](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/event-creation.gif) | ![Appointments](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/appointment-addition-deletion.gif) | ![Notifications](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/notifications.gif) |
 
 
+### Foreigner:
+---------------
+
+| Browse Locals  | Browse Events  | Local's profile | Locations on Map
+| ----------| ----------| ----------| ----------|
+| ![Locals](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/locals-list.gif) |  ![Events](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/events.gif) | ![Local's Profile](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/visiting-local's-profile.gif) |  ![Locations](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/locations.gif) | 
+
+
 <br><br>
 <img src="./readme/title6.svg" id="how-to-run"/>
 
