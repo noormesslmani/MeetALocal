@@ -16,45 +16,50 @@ const PostComments=({navigation})=> {
     const item= route.params.item
     const [data, setData]= useState([])
     const [totalComments, setTotalComments]=useState(item.comments)
-    const [newComment, setNewComment]=useState(null)
-    const [commentAdded, setCommentAdded]=useState(false)
+    
+    //for tracking new comments
+    const [newComment, setNewComment]=useState(null);
+    const [commentAdded, setCommentAdded]=useState(false);
+   
     //get comments on a post
     useEffect(()=>{
-        getPostComments()
+      if(commentAdded){
+        getPostComments();
+        setCommentAdded(false);
+      }
     },[commentAdded])
+
     //set total nb of comments
     useEffect(()=>{
-        setTotalComments(data.length)
+        setTotalComments(data.length);
     },[data])
+
     //add new comment
     const handleComment=()=>{
       if(newComment){
-        addNewComment()
-        setNewComment(null)
+        addNewComment();
+        setNewComment(null);
       }
     }
     const getPostComments= async()=>{
-      const result = await getComments(item.id)
+      const result = await getComments(item.id);
       if (result.success){
-        setData(result.data.data)
+        setData(result.data.data);
       }
     }
     
     const addNewComment= async()=>{
-      const data = {
-        post_id: item.id,
-        content: newComment
-      }
-      const result = await addComment(data)
+      const result = await addComment({post_id: item.id,content: newComment});
       if (result.success){
-        setCommentAdded(true)
-        setTotalComments(totalComments+1)
-        setCommentAdded(false)
+        setCommentAdded(true);
+        setTotalComments(totalComments+1);
       }
     }
+
+    //navigate to user's profile page
     const handleUser=async ()=>{
       if(user.id != item.user_id){
-      const result= await userProfile(item.user_id)
+      const result= await userProfile(item.user_id);
       item.type_id==1? navigation.navigate('local-page', {item: result.data.data}):navigation.navigate('foreigner-page', {item: result.data.data})
     }
   }
@@ -78,7 +83,7 @@ const PostComments=({navigation})=> {
                 {data.map((comment, index)=><Comment comment={comment} key={index} navigation={navigation} />)}
             </KeyboardAwareScrollView>
             <View style={CommentsStyles.addComment}>
-            <TextInput placeholder='Add a comment' onChangeText={setNewComment} value={newComment} />
+            <TextInput placeholder='Add a comment' onChangeText={setNewComment} value={newComment} multiline={true} style={{paddingRight:40}} />
             <Pressable style={CommentsStyles.pressable} onPress={handleComment}>
                 <Icon name="send" color={colors.violet} size={20}/>
             </Pressable>

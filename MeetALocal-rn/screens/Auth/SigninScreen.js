@@ -2,7 +2,7 @@ import { View, Text, ActivityIndicator } from 'react-native'
 import { TextInput } from 'react-native-paper';
 import React from 'react'
 import styles from './Styles/AuthScreensStyle';
-import { useState, useEffect, useContext } from "react";
+import { useState,  useContext } from "react";
 import { UserContext } from '../../App'
 import AuthButton from '../../components/Buttons/AuthButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -14,14 +14,15 @@ const SigninScreen= ({ navigation })=> {
   const [email, setEmail]=useState('');
   const [password, setPassword]=useState('');
   const [invalidEmail, setInvalidEmail]= useState(false)
+  
   const [isLoading, setIsLoading]=useState(false)
   const [loginFail, setLoginFail]=useState(false)
+
+  //Validate email first
   const handleSubmit= async ()=>{
     setInvalidEmail(false)
     if(! email.match(emailFormat))
-    {
       setInvalidEmail(true)
-    }
     else{
       setIsLoading(true)
       const result =await signin({email, password,})

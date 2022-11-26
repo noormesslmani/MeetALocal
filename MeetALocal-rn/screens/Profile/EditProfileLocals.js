@@ -1,7 +1,7 @@
-import { View, Text, TouchableOpacity, Image, TextInput, ScrollView, Pressable, ActivityIndicator} from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, Pressable, ActivityIndicator} from 'react-native'
 import React from 'react'
 import { UserContext } from '../../App'
-import { useState, useEffect, useContext, createContext } from "react";
+import { useState, useEffect, useContext} from "react";
 import ProfileStyles from './ProfileStyles/ProfileStyles';
 import Icon from 'react-native-vector-icons/AntDesign'
 import UploadImage from '../../components/General/UploadImage';
@@ -17,40 +17,45 @@ import CategoryPicker from '../../components/General/CategoryPicker';
 import CountryPicker from '../../components/General/CountryPicker';
 import LanguagePicker from '../../components/General/LanguagePicker';
 import GenderPicker from '../../components/General/GenderPicker';
+import FlashMessage from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 const EditLocalProfile=({navigation})=> {
 
     const { user, setUser} = useContext(UserContext);
-    const [uri, setUri]= useState(null)
-    const [base64, setBase64]= useState(null)
-    const [ext, setext]= useState(null)
-    const [name, setName]= useState(user.name)
-    const [phone, setPhone]= useState(user.phone)
+    const [uri, setUri]= useState(null);
+    const [base64, setBase64]= useState(null);
+    const [ext, setext]= useState(null);
+    const [name, setName]= useState(user.name);
+    const [phone, setPhone]= useState(user.phone);
     const [nationality, setNationality]=useState(user.nationality);
     const [residence, setResidence]=useState(user.residence);
     const [categories, setCategories]=useState(user.categories);
     const [spokenLanguages, setSpokenLanguages]=useState(user.languages);
+    const [dob, setdob]= useState(user.date_of_birth);
+    const [gender, setGender]= useState(user.gender);
+    const [about, setAbout]= useState(user.about);
+    const [fees, setFees]= useState(user.fees);
+
+    //picker's states
     const [openNationality, setOpenNationality] = useState(false);
     const [openResidece, setOpenResidence] = useState(false);
     const [openLanguages, setOpenLanguages] = useState(false);
     const [openCategories, setOpenCategories] = useState(false);
     const [openGenders, setOpenGenders] = useState(false);
-    const [datePicker, setDatePicker]= useState(false)
-    const [date, setDate]= useState(new Date())
-    const [dob, setdob]= useState(user.date_of_birth)
-    const [gender, setGender]= useState(user.gender)
-    const [about, setAbout]= useState(user.about)
-    const [fees, setFees]= useState(user.fees)
+    const [datePicker, setDatePicker]= useState(false);
+    const [date, setDate]= useState(new Date());
 
-    const [isLoading, setIsLoading]=useState(false)
+    const [isLoading, setIsLoading]=useState(false);
 
     const handleDate= (event, value)=>{
-      setDatePicker(false)
-      setDate(value)
-      setdob(`${value.getFullYear()}-${value.getMonth()+1}-${value.getDate()}`)
+      setDatePicker(false);
+      setDate(value);
+      setdob(`${value.getFullYear()}-${value.getMonth()+1}-${value.getDate()}`);
     }
+
     useEffect(()=>{
       if(user.profile_picture){
-        setUri(`${address}/${user.profile_picture}`)
+        setUri(`${address}/${user.profile_picture}`);
       }
     },[user.profile_picture])
 
@@ -67,8 +72,8 @@ const EditLocalProfile=({navigation})=> {
     //update profile
     const handleSave=async ()=>{
       setIsLoading(true)
-      const latitude = await AsyncStorage.getItem('lat')
-      const longitude = await AsyncStorage.getItem('lng')
+      const latitude = await AsyncStorage.getItem('lat');
+      const longitude = await AsyncStorage.getItem('lng');
       const data = {
           name,
           phone,
@@ -89,8 +94,12 @@ const EditLocalProfile=({navigation})=> {
         const result= await editProfile(data)
         if (result.success){
           setUser(result.data.data)
+          showMessage({
+            message: "Profile successfully updated",
+            type: "success",
+          });
         }
-        setIsLoading(false)
+        setIsLoading(false);
   }
   //navigate to edit location screen
   const handleMap=()=>{
@@ -99,6 +108,7 @@ const EditLocalProfile=({navigation})=> {
   }
   return (
     <View style={ProfileStyles.container}>
+      <FlashMessage position="top" />
         <UploadImage setBase64={setBase64} setext={setext} uri={uri} />
         <KeyboardAwareScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
             <View style={ProfileStyles.inputContainer}>

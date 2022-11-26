@@ -1,10 +1,10 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { address } from '../../constants/address';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { colors } from '../../constants/colors';
-import { isAppointmentBooked, isEventBooked, toggleBookAppointment, userProfile, deleteAppointment } from '../../network/App';
+import { isAppointmentBooked, toggleBookAppointment, userProfile, deleteAppointment } from '../../network/App';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import ScheduleCardStyle from './Styles/ScheduleCardStyle';
 import ScheduleModal from '../Modals/ScheduleModal';
@@ -13,11 +13,12 @@ const ScheduleCard=({item, type, setDeleted, navigation, setAppointments})=> {
   const [modalVisible, setModalVisible]=useState(false)
   const [booked, setBooked]=useState(false)
 
+  //2 variations (one for locals and one for foreigners)
+
   //check if appointment is booked for locals(type=1)
   useEffect(()=>{
     type==1 && isBooked()
   },[])
-
   const isBooked=async()=>{
     const result = await isAppointmentBooked(item.id)
     if (result.success){
@@ -43,6 +44,7 @@ const ScheduleCard=({item, type, setDeleted, navigation, setAppointments})=> {
     navigation.navigate('local-page', {item: result.data.data});
   }
 
+  //delete unbooked appointment (for locals)
   const hanldeTrash=async()=>{
     const result= await deleteAppointment(item.id)
     if(result.success){

@@ -20,20 +20,15 @@ const Foreigners=()=> {
     const [page, setPage]=useState(1)
     const [currentPage, setCurrentPage]=useState(1)
     const [searchInput, setSearchInput]=useState('')
+    const [pressed, setPressed]=useState(false)
 
     useEffect(()=>{
-        setPage(1)
-        setCurrentPage(1)
-    },[searchInput])
+        !pressed && getForeigners()
+    },[page, banLoading, pressed])
 
     useEffect(()=>{
-        if(searchInput==''){
-            getForeigners()
-        }
-        else{
-            getSearchedForeigners() 
-        }
-    },[page, banLoading, searchInput])
+        pressed && getSearchedForeigners() 
+    },[pressed, page])
 
     const getSearchedForeigners=async()=>{
         setIsLoading(true)
@@ -79,6 +74,16 @@ const Foreigners=()=> {
             setPage(page-1)
         }
     }
+
+    const handleKeypress = e => {
+        if (e.key === 'Enter') {
+          setPage(1)
+          setCurrentPage(1)
+          setData([])
+          setPressed(true)
+        }
+    }
+
   return (
     <div className='home-container'>
         <Header type={2}/>
@@ -87,11 +92,11 @@ const Foreigners=()=> {
             <div className='dashboard-container flex-col align-center'>
                 <div className='search-container flex space-between align-center'>
                     <h1 className='home-title'>Foreigners</h1>
-                    <Search searchInput={searchInput} setSearchInput={setSearchInput} />
+                    <Search searchInput={searchInput} setSearchInput={setSearchInput} handleKeypress={handleKeypress} />
                 </div>
                 <div className='flex space-between stat-links-container'>
-                <NavLink to='/Foreigners' className='banned-link'>All</NavLink>
-                <NavLink to='/banned-foreigners' className='banned-link'>Banned</NavLink>
+                <NavLink to='/Foreigners' className='banned-link' onClick={()=>setPressed(false)}>All</NavLink>
+                <NavLink to='/banned-foreigners' className='banned-link' onClick={()=>setPressed(false)}>Banned</NavLink>
                 </div>
                 {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
                 {!isLoading && <UsersTable data={data} setBanLoading={setBanLoading} />}

@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, Pressable } from 'react-native'
+import { View, Text, Image, Pressable } from 'react-native'
 import React from 'react'
 import { address } from '../../constants/address';
 import { useContext } from "react";
@@ -7,7 +7,9 @@ import ReviewerCardStyle from './Styles/ReviewerCardStyle';
 import { UserContext } from '../../App';
 import Icon from 'react-native-vector-icons/FontAwesome'
 const ReviewCard=({review, hanldeDelete})=> {
+  //card displaying review
   const { user, setUser} = useContext(UserContext);
+
   return (<View style={ReviewerCardStyle.cotainer}>
             {user.id==review.reviewer_id && <Pressable onPress={hanldeDelete} style={ReviewerCardStyle.trash} ><Icon name='trash' size={20} color='grey' /></Pressable>}
             <View style={ReviewerCardStyle.imageContianer}>

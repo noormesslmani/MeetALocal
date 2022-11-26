@@ -10,7 +10,7 @@ import Map from '../../components/Header/Map';
 import { CheckFavoriteLocals, toggleFavoriteLocals, getLocalsEvents } from '../../network/App';
 import { address } from '../../constants/address';
 import call from 'react-native-phone-call'
-import { Rating, AirbnbRating } from 'react-native-ratings';
+import { Rating} from 'react-native-ratings';
 import { getReviews } from '../../network/App';
 import ReviewModal from '../../components/Modals/ReviewModal';
 import { colors } from '../../constants/colors';
@@ -20,17 +20,21 @@ import { Avatar } from 'react-native-paper';
 import { Button} from 'react-native-paper';
 import ProfileCard from '../../components/Cards/ProfileCard';
 import WideButton from '../../components/Buttons/wideButtons';
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { useIsFocused } from '@react-navigation/native';
 import EventCard from '../../components/Cards/EventCard';
 import ImageViewer from '../../components/General/ImageView';
 const LocalPage=({navigation})=> {
+  //user's info
   const route = useRoute();
   const item =route.params.item
+
   const { user, setUser} = useContext(UserContext);
+
   const [isFavorite, SetIsFavorite]=useState(false)
   const [likes, setLikes]= useState(item.likes)
   const [events, setEvents]=useState([])
 
+  //reviews
   const [average, setAverage]= useState(null)
   const [reviews, setReviews]=useState([])
   const [stars, setStars]=useState([])
@@ -38,29 +42,26 @@ const LocalPage=({navigation})=> {
   const [reviewModalVisible, setReviewModalVisible]=useState(false)
   const [reviewAdded, setReviewAdded]=useState(false)
 
-  const [visible, setIsVisible] = useState(false);
-  const [imageIndex, setImageIndex]= useState(0)
+  //highlights
   const images = item.highlights?.map((image)=>({ img: `${address}/${image}`}))
 
+  //imageview for profile picture
   const [imageView,setImageView]=useState(false)
 
+  //appointment booking
   const [appointmentModal, setAppointmentModal]=useState(false)
   const [appointmentBooked, setAppointmentBooked]=useState(false)
 
     
-  //get reviews and check if favorited or reviewed already
-  useEffect(()=>{
-    if(user.type_id==2){
-      checkFavorite()
-    }
-
-    getEvents()
-  },[])
-
+  //get user's events and check if user is favorited or not (for foreigners only)
   const isFocused = useIsFocused();
   useEffect(() => {
     if(isFocused)  
+      getEvents()
       getAllReviews()
+      if(user.type_id==2){
+        checkFavorite()
+      }
   },[isFocused])
 
   //getting stars to find the average
@@ -119,7 +120,7 @@ const LocalPage=({navigation})=> {
       setLikes(result.data.data)
     }
   }
-  //navigating to map
+  //navigating to location on map
   const handleMap=()=>{
     user.type_id==2 && navigation.navigate('locals-map',{data:[item], type:1})
   }

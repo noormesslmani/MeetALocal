@@ -1,7 +1,7 @@
-import { View, Image, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
+import { View, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
 import React from 'react'
 import HomeStyles from './Styles/HomeStyles';
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useEffect, useContext } from "react";
 import { UserContext } from '../../App'
 import LocalsStyles from './Styles/LocalsPageStyles';
 import FilterModal from '../../components/Modals/FilterModal';
@@ -16,21 +16,28 @@ import AppButton from '../../components/Buttons/AppButtons';
 import EmptyPage from '../../components/General/EmptyPage';
 import ListHeader from '../../components/General/ListHeaders';
 const Locals=({navigation})=> {
+  //data fitltering
   const [country, setCountry]=useState('all');
   const [category, setCategory]=useState('all');
+
+  //view all or only favorites
   const [viewFav, setViewFav]=useState(false)
+  const [viewFavChange, setViewFavChange]=useState(false)
+
+  //queried data
   const [data, setdata]=useState([])
+
+  //for filter modal
   const [modalVisible, setModalVisible] = useState(false)
+  const [filterChange, setFilterChange]=useState(false)
+
   const [isListEnd, setIsListEnd]=useState(false)
   const [isLoadingMore, setIsLoadingMore]=useState(false)
   const [isLoading, setIsLoading]= useState(false)
-  const [filterChange, setFilterChange]=useState(false)
-  const [viewFavChange, setViewFavChange]=useState(false)
-  const { user, setUser} = useContext(UserContext);
   const [page, setPage]=useState(0)
 
-
-   
+  const { user, setUser} = useContext(UserContext);
+  
   useEffect(() => {
     navigation.setOptions({
       headerRight:()=>(<View style={{flexDirection:"row"}}>

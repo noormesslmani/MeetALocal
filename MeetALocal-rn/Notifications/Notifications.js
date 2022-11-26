@@ -1,8 +1,7 @@
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
-import { Text, View, Button, Platform } from 'react-native';
+import {  Platform } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// import {saveToken} from '../network/App'
 import {saveToken} from '../network/Notifications'
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -13,8 +12,6 @@ Notifications.setNotificationHandler({
 });
 
 export  function Notify(setExpoPushToken, setNotifications, notificationListener, responseListener ) {
-
-
     registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
 
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
@@ -32,6 +29,7 @@ export  function Notify(setExpoPushToken, setNotifications, notificationListener
 
 }
 
+//seding notifications
 export async function sendNotification(expoPushToken, title, body) {
   const message = {
     to: expoPushToken,
@@ -51,7 +49,7 @@ export async function sendNotification(expoPushToken, title, body) {
   });
 }
 
-
+//registering for push notifications and getting the token 
 export async function registerForPushNotificationsAsync() {
   let token;
 
@@ -79,6 +77,7 @@ export async function registerForPushNotificationsAsync() {
   } else {
     alert('Must use physical device for Push Notifications');
   }
+  //saving the token
   await AsyncStorage.setItem("@expoToken", token);
   const result= await saveToken({token})
   return token;

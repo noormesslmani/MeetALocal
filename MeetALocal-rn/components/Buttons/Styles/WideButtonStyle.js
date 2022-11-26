@@ -23,8 +23,8 @@ const WideButtonStyle = StyleSheet.create({
         elevation: 2,
     },
     text:{
-        fontWeight:"700",
-        color:"white"
+        fontSize:18, 
+        fontWeight:'500'
     }, 
    
 });

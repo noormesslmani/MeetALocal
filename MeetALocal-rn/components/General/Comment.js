@@ -7,6 +7,8 @@ import { useContext } from "react";
 import { UserContext } from '../../App';
 const Comment=({navigation, comment})=> {
   const { user, setUser} = useContext(UserContext);
+
+  //navigating to user's profile
   const handleUser=async()=>{
     if (user.id != comment.user_id){
     const result= await userProfile(comment.user_id)

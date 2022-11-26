@@ -1,6 +1,6 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity} from 'react-native'
 import React from 'react'
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome5'
 import HomeCardStyle from './Styles/HomeCardStyle';
 const HomeCard=({label, handlePress})=> {

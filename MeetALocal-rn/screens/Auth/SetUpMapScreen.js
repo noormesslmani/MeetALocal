@@ -1,13 +1,13 @@
 import { View, Text, TouchableOpacity} from 'react-native'
 import React from 'react'
 import { useState, useEffect, useContext } from "react";
-
 import { useRoute } from '@react-navigation/native';
 import styles from './Styles/AuthScreensStyle';
 import * as Location from 'expo-location';
 import Map from '../../components/map/Map';
 const SetUpMap=({navigation})=> {
     const route = useRoute();
+    //route parameters
     const base64= route.params.base64
     const gender= route.params.gender
     const ext= route.params.ext
@@ -21,17 +21,17 @@ const SetUpMap=({navigation})=> {
     const language = route.params.language
     const email= route.params.email
     const password= route.params.password
-    const [location, setLocation] = useState(null);
+
+
     const [lat, setLat]=useState(33.888630)
     const [lng, setLng]=useState(35.495480)
-    const [lngDelta, setlngDelta]=useState(1)
-    const [latDelta, setLatDelta]=useState(1)
     const [errorMsg, setErrorMsg] = useState(null);
 
     useEffect(() => {
         getLocation()
       }, []);
 
+    //get user's location
     async function getLocation(){
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
@@ -39,10 +39,11 @@ const SetUpMap=({navigation})=> {
         return;
     }
     let location = await Location.getCurrentPositionAsync({});
-        setLocation(location);
         setLat(location.coords.latitude)
         setLng(location.coords.longitude)
     }
+
+    //dragging the pin on the map
     const handleDrag=(e)=>{
       setLat( e.nativeEvent.coordinate.latitude)
       setLng( e.nativeEvent.coordinate.longitude)

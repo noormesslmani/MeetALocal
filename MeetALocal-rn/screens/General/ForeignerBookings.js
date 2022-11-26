@@ -2,11 +2,11 @@ import { View, FlatList,  ActivityIndicator} from 'react-native'
 import React from 'react'
 import { colors } from '../../constants/colors';
 import { getBookedAppointments } from '../../network/App';
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import ScheduleCard from '../../components/Cards/ScheduleCard';
 import ScheduleStyles from './Styles/ScheduleScreenStyles';
 import WavyBack from '../../components/General/WavyBackground';
-import { useFocusEffect, useIsFocused } from '@react-navigation/native';
+import { useFocusEffect} from '@react-navigation/native';
 const Bookings=({navigation})=> {
 
   const [appointments, setAppointments]=useState(null)
@@ -15,11 +15,13 @@ const Bookings=({navigation})=> {
 
   //Booking screen for foreigner user
   
+  //get all upcomming booked appointments
   useFocusEffect(
     useCallback(() => {
       getBookings()
     }, []), )
 
+  //handle deletion
   useEffect(()=>{
     if(deleted){
       getBookings()

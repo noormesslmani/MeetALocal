@@ -16,13 +16,13 @@ import { registerAccount } from '../../network/Auth';
 const Categories=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const route = useRoute();
+    //route parameters
     const base64= route.params.base64
     const gender= route.params.gender
     const ext= route.params.ext
     const latitude=route.params.lat
     const longitude= route.params.lng
     const about= route.params.about
-    const type= route.params.type
     const fullName= route.params.fullName
     const phone= route.params.phone
     const dob =route.params.dob
@@ -31,6 +31,7 @@ const Categories=({navigation})=> {
     const language = route.params.language
     const email= route.params.email
     const password= route.params.password
+
     const [categories, setCategories]=useState([])
     const [fees, setFees]=useState(0)
     const [isLoading, setIsLoading]= useState(false)
@@ -43,6 +44,8 @@ const Categories=({navigation})=> {
               }, 2000);
         }
     },[limitExceeded])
+
+    //selecting categories (maximum 3)
     const handleTourism=()=>{
         categories.includes("Tourism")?setCategories(arr => [...arr].filter(item => item !== "Tourism")):categories.length<3? setCategories(arr => [...arr, "Tourism"]):setLimitExceeded(true)
     }
@@ -70,10 +73,12 @@ const Categories=({navigation})=> {
     const handleOther=()=>{
         categories.includes("Other")?setCategories(arr => [...arr].filter(item => item !== "Other")):categories.length<3?setCategories(arr => [...arr, "Other"]): setLimitExceeded(true)
     }
+
     const handleSubmit=()=>{
-        setUp()
+        register()
     }
-    const setUp= async()=>{
+    //creating an account
+    const register= async()=>{
         setIsLoading(true)
         const data = {
             name:fullName,
@@ -104,9 +109,7 @@ const Categories=({navigation})=> {
           })
           navigation.navigate('app')
         }
-        else{
-          setIsLoading(false)
-        }
+        setIsLoading(false)
       }
     return (
     <View style={[styles.background, {backgroundColor:'white'}]} >
