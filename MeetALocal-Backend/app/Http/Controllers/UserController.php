@@ -133,6 +133,7 @@ class UserController extends Controller
             $post['comments']= Comment::where('post_id',$post->id)->count();
             $post['categories']=$post->categories()->pluck('category');
             $post['name']=Auth::user()->name;
+            $post['profile_picture']=Auth::user()->profile_picture;
             $post['country']=Auth::user()->residence['country'];
         }
         return response()->json([
@@ -217,7 +218,7 @@ class UserController extends Controller
             'date_of_birth' => 'date',
             'gender' =>'required|in:Male,Female',
             'categories' =>'array',
-            'about' => 'string|between:0,200',
+            'about' => 'string|between:0,200|nullable',
             'latitude' =>"numeric",
             'longitude' =>"numeric",
             'fees' => 'integer',
