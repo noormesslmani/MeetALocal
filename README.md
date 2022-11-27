@@ -176,6 +176,17 @@ To get a local copy up and running follow these simple example steps.
    ```
 3. Scan the generated QR code with your camera (ios) or through the Expo Go application (android)
 
+#### To Run The Desktop App
+
+1. Navigate to admin-panel folder and install dependencies
+   ```sh
+   cd MeetALocal/admin-panel
+   npm install
+   ```
+2. Run the start up command
+   ```sh
+   npm start
+   ```
 
 #### To Run Laravel Server on your machine
 
