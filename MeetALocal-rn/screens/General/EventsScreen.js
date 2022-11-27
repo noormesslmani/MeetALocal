@@ -13,20 +13,17 @@ import AppButton from '../../components/Buttons/AppButtons';
 import ListHeader from '../../components/General/ListHeaders';
 import EmptyPage from '../../components/General/EmptyPage';
 import AddIcon from '../../components/General/AddIcon';
+import {EventsContext} from '../../context/EventsContext';
 const Events=({navigation})=> {
   //user's choice
   const [choice, setChoice]=useState(1);
 
-  //data
-  const [data, setdata]=useState([]);
-
   //tracking actions
-  const [eventDeleted, setEventDeleted]=useState(false);
-  const [eventToggled, setEventToggled]=useState(false);
   const [eventCreated,setEventCreated]=useState(false);
   const [eventModalVisible, setEventModalVisible]=useState(false);
 
   const { user, setUser} = useContext(UserContext);
+  const { events, setEvents} = useContext(EventsContext);
   const [isLoading, setIsLoading]=useState(false);
 
   //filtering
@@ -40,14 +37,6 @@ const Events=({navigation})=> {
     getEvents()
   },[choice, country, category, eventCreated])
 
-  //triggered when an events is deleted, booked, etc...
-  useEffect(()=>{
-    if(eventDeleted || eventToggled){
-      getEvents();
-      setEventDeleted(false);
-      setEventToggled(false);
-    }
-  },[eventDeleted, eventToggled])
 
   //choice 1->get all events (for all)
   //choice 2->get saved events(for foreigners)
@@ -56,9 +45,10 @@ const Events=({navigation})=> {
   const getEvents= async()=>{
     let result
     setIsLoading(true);
-    setdata([]);
+    setEvents([]);
     if(choice==1){
       result = await getAllEvents({country, category});
+
     }
     else if(choice==2){
       result = await getSavedEvents();
@@ -70,7 +60,7 @@ const Events=({navigation})=> {
       result = await getBookedEvents();
     }
     if (result.success){
-      setdata(result.data.data);
+      setEvents(result.data.data);
     }
     setIsLoading(false);
   }
@@ -81,7 +71,7 @@ const Events=({navigation})=> {
   //Event card
   const renderItem = ({ item }) => (
     <View>
-      <EventCard item={item} choice={choice} setEventDeleted={setEventDeleted} setEventToggled={setEventToggled} />
+      <EventCard item={item} choice={choice}/>
     </View>
   )
 
@@ -111,11 +101,11 @@ const Events=({navigation})=> {
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory} setFilterChange={setFilterChange}/>
         <NewEventModal modalVisible={eventModalVisible} setModalVisible={setEventModalVisible} setEventCreated={setEventCreated}/>
         <SafeAreaView style={EventsStyles.listContainer}>
-          {!isLoading && data.length==0? <EmptyPage />:null}
+          {!isLoading && events.length==0? <EmptyPage />:null}
           <FlatList
             showsVerticalScrollIndicator={false}
             showsHorizontalScrollIndicator={false}
-            data={data}
+            data={events}
             renderItem={renderItem}
             numColumns={2}
             Key={2}
