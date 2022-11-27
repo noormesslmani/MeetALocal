@@ -14,8 +14,8 @@
 <img src="./readme/title2.svg" id="project-philosophy"/>
 
 > Meet A Local app is a social media app which aims to connect foreigners to locals in any place in the world. Foreigners can browse locals and filter them, moreover they can find them on map using google maps feature. 
-> Locals are able to create events which users can browse and filter
->Foreigners are able to visit locals profile page and chat with them
+> Locals are able to create events which users can browse and book.
+>Users are able to visit each others profile pages and chat with each others
 
 ### Foreigners Stories
 - As a foreigner, I want to browse locals and filter them by country and categories
