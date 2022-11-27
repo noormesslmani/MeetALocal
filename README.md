@@ -13,7 +13,7 @@
 
 <img src="./readme/title2.svg" id="project-philosophy"/>
 
-> Since there is no better way to learn about a country other than meeting with people who actually live in that country, Meet A Local aims to provide foreigners with a unique authentic experience and to let them feel home. 
+> Since there is no better way to learn about a country other than meeting with people who actually live in that country, Meet A Local aims to provide foreigners with a unique authentic experience and let them feel home. 
 > Meet A Local app is all about connecting locals with foreigners in any place in the world!  
 > Foreigners can browse locals and book them, moreover they can find them on map using google maps feature. 
 > Locals are able to create events which users can browse and book.
