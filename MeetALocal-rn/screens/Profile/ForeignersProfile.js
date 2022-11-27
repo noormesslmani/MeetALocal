@@ -18,11 +18,11 @@ const ForeignerProfile=({navigation})=> {
     if(user.profile_picture){
       setImage(user.profile_picture);
     }
-  },[user.profile_picture])
+  },[user.profile_picture]);
   
   
   const handleEdit=()=>{
-    navigation.navigate('edit-foreigner-profile')
+    navigation.navigate('edit-foreigner-profile');
   }
 
 
@@ -33,7 +33,7 @@ const ForeignerProfile=({navigation})=> {
       index: 0,
       routes: [{ name: "auth" }],
     });
-    navigation.navigate("auth")
+    navigation.navigate("auth");
   }
   return (
     <View style={ProfileStyles.container}>

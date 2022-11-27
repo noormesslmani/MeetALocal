@@ -1,8 +1,8 @@
-import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
+import React from 'react';
 import styles from './Styles/AuthScreensStyle';
 import { useState, useEffect, useContext } from "react";
-import { UserContext } from '../../App'
+import { UserContext } from '../../App';
 import AuthButton from '../../components/Buttons/AuthButton';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -17,25 +17,25 @@ const Categories=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const route = useRoute();
     //route parameters
-    const base64= route.params.base64
-    const gender= route.params.gender
-    const ext= route.params.ext
-    const latitude=route.params.lat
-    const longitude= route.params.lng
-    const about= route.params.about
-    const fullName= route.params.fullName
-    const phone= route.params.phone
-    const dob =route.params.dob
-    const country= route.params.country
-    const nationality =route.params.nationality
-    const language = route.params.language
-    const email= route.params.email
-    const password= route.params.password
+    const base64= route.params.base64;
+    const gender= route.params.gender;
+    const ext= route.params.ext;
+    const latitude=route.params.lat;
+    const longitude= route.params.lng;
+    const about= route.params.about;
+    const fullName= route.params.fullName;
+    const phone= route.params.phone;
+    const dob =route.params.dob;
+    const country= route.params.country;
+    const nationality =route.params.nationality;
+    const language = route.params.language;
+    const email= route.params.email;
+    const password= route.params.password;
 
-    const [categories, setCategories]=useState([])
-    const [fees, setFees]=useState(0)
-    const [isLoading, setIsLoading]= useState(false)
-    const [limitExceeded, setLimitExceeded]=useState(false)
+    const [categories, setCategories]=useState([]);
+    const [fees, setFees]=useState(0);
+    const [isLoading, setIsLoading]= useState(false);
+    const [limitExceeded, setLimitExceeded]=useState(false);
    
     useEffect(()=>{
         if(limitExceeded){
@@ -47,35 +47,35 @@ const Categories=({navigation})=> {
 
     //selecting categories (maximum 3)
     const handleTourism=()=>{
-        categories.includes("Tourism")?setCategories(arr => [...arr].filter(item => item !== "Tourism")):categories.length<3? setCategories(arr => [...arr, "Tourism"]):setLimitExceeded(true)
+        categories.includes("Tourism")?setCategories(arr => [...arr].filter(item => item !== "Tourism")):categories.length<3? setCategories(arr => [...arr, "Tourism"]):setLimitExceeded(true);
     }
     const handleCulture=()=>{
-        categories.includes("Culture")?setCategories(arr => [...arr].filter(item => item !== "Culture")):categories.length<3?setCategories(arr => [...arr, "Culture"]):setLimitExceeded(true)
+        categories.includes("Culture")?setCategories(arr => [...arr].filter(item => item !== "Culture")):categories.length<3?setCategories(arr => [...arr, "Culture"]):setLimitExceeded(true);
     }
     const handleGuidance=()=>{
-        categories.includes("Guidance")?setCategories(arr => [...arr].filter(item => item !== "Guidance")):categories.length<3? setCategories(arr => [...arr, "Guidance"]):setLimitExceeded(true)
+        categories.includes("Guidance")?setCategories(arr => [...arr].filter(item => item !== "Guidance")):categories.length<3? setCategories(arr => [...arr, "Guidance"]):setLimitExceeded(true);
     }
     const handleLanguage=()=>{
-        categories.includes("Language")?setCategories(arr => [...arr].filter(item => item !== "Language")):categories.length<3?setCategories(arr => [...arr, "Language"]):setLimitExceeded(true)
+        categories.includes("Language")?setCategories(arr => [...arr].filter(item => item !== "Language")):categories.length<3?setCategories(arr => [...arr, "Language"]):setLimitExceeded(true);
     }
     const handleEducation=()=>{
-        categories.includes("Education")?setCategories(arr => [...arr].filter(item => item !== "Education")):categories.length<3?setCategories(arr => [...arr, "Education"]):setLimitExceeded(true)
+        categories.includes("Education")?setCategories(arr => [...arr].filter(item => item !== "Education")):categories.length<3?setCategories(arr => [...arr, "Education"]):setLimitExceeded(true);
     }
     const handleHistory=()=>{
-        categories.includes("History")?setCategories(arr => [...arr].filter(item => item !== "History")):categories.length<3?setCategories(arr => [...arr, "History"]):setLimitExceeded(true)
+        categories.includes("History")?setCategories(arr => [...arr].filter(item => item !== "History")):categories.length<3?setCategories(arr => [...arr, "History"]):setLimitExceeded(true);
     }
     const handleHousing=()=>{
-        categories.includes("Housing")?setCategories(arr => [...arr].filter(item => item !== "Housing")):categories.length<3? setCategories(arr => [...arr, "Housing"]): setLimitExceeded(true)
+        categories.includes("Housing")?setCategories(arr => [...arr].filter(item => item !== "Housing")):categories.length<3? setCategories(arr => [...arr, "Housing"]): setLimitExceeded(true);
     }
     const handleJobs=()=>{
-        categories.includes("Jobs")?setCategories(arr => [...arr].filter(item => item !== "Jobs")):categories.length<3?setCategories(arr => [...arr, "Jobs"]): setLimitExceeded(true)
+        categories.includes("Jobs")?setCategories(arr => [...arr].filter(item => item !== "Jobs")):categories.length<3?setCategories(arr => [...arr, "Jobs"]): setLimitExceeded(true);
     }
     const handleOther=()=>{
-        categories.includes("Other")?setCategories(arr => [...arr].filter(item => item !== "Other")):categories.length<3?setCategories(arr => [...arr, "Other"]): setLimitExceeded(true)
+        categories.includes("Other")?setCategories(arr => [...arr].filter(item => item !== "Other")):categories.length<3?setCategories(arr => [...arr, "Other"]): setLimitExceeded(true);
     }
 
     const handleSubmit=()=>{
-        register()
+        register();
     }
     //creating an account
     const register= async()=>{
@@ -99,17 +99,17 @@ const Categories=({navigation})=> {
             latitude,
             longitude,
           };
-        const result = await registerAccount(data)
+        const result = await registerAccount(data);
         if (result.success){
             await AsyncStorage.setItem("@user", JSON.stringify(result.data['user']));
-            setUser(result.data.user)
+            setUser(result.data.user);
             navigation.reset({
                 index: 0,
                 routes: [{ name: 'app' }],
           })
-          navigation.navigate('app')
+          navigation.navigate('app');
         }
-        setIsLoading(false)
+        setIsLoading(false);
       }
     return (
     <View style={[styles.background, {backgroundColor:'white'}]} >

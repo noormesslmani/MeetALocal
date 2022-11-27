@@ -1,6 +1,6 @@
 import WavyBackground from "react-native-wavy-background";
-import { View } from 'react-native'
-import React from 'react'
+import { View } from 'react-native';
+import React from 'react';
 import { colors } from "../../constants/colors";
 const WavyBack=()=>{
     return(

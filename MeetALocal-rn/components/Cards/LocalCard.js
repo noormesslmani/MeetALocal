@@ -1,7 +1,7 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, Image } from 'react-native';
+import React from 'react';
 import { useState, useEffect } from "react";
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { categoryIcons } from '../../constants/categories';
 import { address } from '../../constants/address';
 import { Button} from 'react-native-paper';
@@ -10,10 +10,10 @@ import LocalCardStyle from './Styles/LocalCardStyle';
 const LocalCard=({navigation, item})=> {
     //cards that display locals (name, country, categories...)
 
-    const [categories, setCategories]=useState([])
+    const [categories, setCategories]=useState([]);
     //local's categories
     useEffect(()=>{
-        setCategories(item.categories)
+        setCategories(item.categories);
     },[item])
 
     //navigate to local's profile page

@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity, Image, FlatList, Animated } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, Image, Animated } from 'react-native';
+import React from 'react';
 import { address } from '../../constants/address';
 import MapCardStyle from './Styles/MapCardStyle';
 import { widths } from '../../constants/dimensions';

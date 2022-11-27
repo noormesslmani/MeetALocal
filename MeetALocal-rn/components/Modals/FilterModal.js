@@ -1,20 +1,25 @@
-import { View, Text, TouchableOpacity, Image, Modal, Pressable } from 'react-native'
-import React from 'react'
-import { useState, useEffect, useContext } from "react";
+import { View, Text, Modal} from 'react-native';
+import React from 'react';
+import { useState} from "react";
 import AppButton from '../Buttons/AppButtons';
 import FilterModalStyle from './Styles/FilterModalStyle';
 import CategoryPicker from '../General/CategoryPicker';
 import CountryPicker from '../General/CountryPicker';
 const FilterModal=({navigation, modalVisible, setModalVisible, setCountry, setCategory, setFilterChange})=> {
-    const [selectedCountry, setSelectedCountry]=useState('all')
-    const [selectedCategory, setSelectedCategory]=useState('all')
+    //selected country and category(by default all)
+    const [selectedCountry, setSelectedCountry]=useState('all');
+    const [selectedCategory, setSelectedCategory]=useState('all');
+
+    //country and category pickers
     const [openCountry, setOpenCountry] = useState(false);
     const [openCategory, setOpenCategory] = useState(false);
+
+    //saving selections
     const handleSave=()=>{
-        setModalVisible(!modalVisible)
-        setCountry(selectedCountry)
-        setCategory(selectedCategory)
-        setFilterChange(true)
+        setModalVisible(!modalVisible);
+        setCountry(selectedCountry);
+        setCategory(selectedCategory);
+        setFilterChange(true);
     }
   return (
     <Modal

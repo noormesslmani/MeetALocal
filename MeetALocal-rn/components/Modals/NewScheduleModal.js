@@ -1,44 +1,49 @@
-import { View, Text, TouchableOpacity, Modal, ActivityIndicator } from 'react-native'
-import React from 'react'
-import { useState, useEffect, useContext } from "react";
-import Icon from 'react-native-vector-icons/FontAwesome'
+import { View, Text, TouchableOpacity, Modal, ActivityIndicator } from 'react-native';
+import React from 'react';
+import { useState, useContext } from "react";
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors } from '../../constants/colors';
 import DatePicker from '../General/datePicker';
 import TimePicker from '../General/TimePicker';
-import AntDesign from 'react-native-vector-icons/AntDesign'
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import AppButton from '../Buttons/AppButtons';
 import { addSchedule } from '../../network/App';
 import ScheduleModalStyle from './Styles/NewScheduleModalStyle';
-import { UserContext } from '../../App'
+import { UserContext } from '../../App';
 const ScheduleModal=({setModalVisible, modalVisible, setScheduleAdded, navigation })=> {
     const { user, setUser} = useContext(UserContext);
-    const [date, setDate]=useState(new Date())
-    const [startTime, setStartTime]= useState(new Date() )
-    const [endTime, setEndTime]= useState(new Date() )
-    const [startTimePicker, setStartTimePicker]= useState(false)
-    const [endTimePicker, setEndTimePicker]= useState(false)
-    const [datePicker, setDatePicker]= useState(false)
-    const [isLoading, setIsloading]=useState(false)
-    const[latitude, setLatitude]=useState(user.latitude)
-    const[longitude, setLongitude]=useState(user.longitude)
+    //shcedule data
+    const [date, setDate]=useState(new Date());
+    const [startTime, setStartTime]= useState(new Date() );
+    const [endTime, setEndTime]= useState(new Date() );
+
+    //pickers
+    const [startTimePicker, setStartTimePicker]= useState(false);
+    const [endTimePicker, setEndTimePicker]= useState(false);
+    const [datePicker, setDatePicker]= useState(false);
+
+    const [isLoading, setIsloading]=useState(false);
+    //setting date
     const handleDate=(event, value)=>{
-        setDatePicker(false)
+        setDatePicker(false);
         if(event.type == "set") {
-            setDate(value)
+            setDate(value);
         }   
     }
+    //setting times
     const handleStartTime=(event, value)=>{
-        setStartTimePicker(false)
+        setStartTimePicker(false);
         if(event.type == "set") {
-            setStartTime(value)
+            setStartTime(value);
         }   
     }
     const handleEndTime=(event, value)=>{
-        setEndTimePicker(false)
+        setEndTimePicker(false);
         if(event.type == "set") {
-            setEndTime(value)
+            setEndTime(value);
         }   
     }
+    //submitting
     const handleSubmit=async ()=>{
         if(endTime>startTime){
         setIsloading(true)
@@ -46,16 +51,16 @@ const ScheduleModal=({setModalVisible, modalVisible, setScheduleAdded, navigatio
             date:`${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`,
             start_time:`${startTime.getHours()}:${startTime.getMinutes()}`,
             end_time:`${endTime.getHours()}:${endTime.getMinutes()}`,
-            latitude,
-            longitude
+            latitude: user.latitude,
+            longitude: user.longitude
         }
-        const result = await addSchedule(data)
+        const result = await addSchedule(data);
         if (result.success){
-            setModalVisible(false)
-            setScheduleAdded(true)
+            setModalVisible(false);
+            setScheduleAdded(true);
         }
         }
-        setIsloading(false)
+        setIsloading(false);
     }
 
   return (

@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity, Image, Modal, Pressable, ActivityIndicator } from 'react-native'
-import React from 'react'
+import { View, Text, Modal, ActivityIndicator } from 'react-native';
+import React from 'react';
 import { useState } from "react";
 import { Rating} from 'react-native-ratings';
 import AppButton from '../Buttons/AppButtons';
@@ -8,31 +8,32 @@ import { colors } from '../../constants/colors';
 import ReviewModalStyle from './Styles/ReviewModalStyle';
 import { TextInput } from 'react-native-paper';
 const ReviewModal=({setModalVisible, modalVisible, id,setReviewAdded })=> {
-    const [review, setReview]=useState(null)
-    const [rating,setRating]=useState(3)
-    const [isLoading, setIsLoading]=useState(false)
+    const [review, setReview]=useState(null);
+    const [rating,setRating]=useState(3);
+    const [isLoading, setIsLoading]=useState(false);
 
-   
-
+    //adding review
     const handleSubmit=()=>{
-      addNewReview()
+      addNewReview();
     }
+    //cancelling
     const handleDiscard=()=>{
       setModalVisible(false)
       setReview(null)
-  }
+    }
+    //adding a review
     const addNewReview=async()=>{
       const data={
         local_id:id,
         review,
         stars: parseInt(rating)
       }
-      setIsLoading(true)
-      const result = await addReview(data)
+      setIsLoading(true);
+      const result = await addReview(data);
       if (result.success){
-        setIsLoading(false)
-        setReviewAdded(true)
-        setModalVisible(false)
+        setIsLoading(false);
+        setReviewAdded(true);
+        setModalVisible(false);
       }
     }
   return (

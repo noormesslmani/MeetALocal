@@ -1,6 +1,6 @@
-import React from 'react'
-import { View, Text, TouchableOpacity, Modal, Image, Pressable } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import React from 'react';
+import { View, Text, TouchableOpacity, Modal, Image, Pressable } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors } from '../../constants/colors';
 import { address } from '../../constants/address';
 import { Ionicons } from '@expo/vector-icons';
@@ -8,11 +8,12 @@ import { AntDesign } from '@expo/vector-icons';
 import ScheduleModalStyle from './Styles/ScheduleModalStyle';
 import { userProfile } from '../../network/App';
 const ScheduleModal=({setModalVisible, modalVisible, item, navigation})=> {
-  
+
+  //navigating to booker's profile
   const handleBooker=async ()=>{
-    const result= await userProfile(item.booker[0].booker_id)
-    setModalVisible(false)
-    navigation.navigate('foreigner-page', {item: result.data.data})
+    const result= await userProfile(item.booker[0].booker_id);
+    setModalVisible(false);
+    navigation.navigate('foreigner-page', {item: result.data.data});
   }
 
   return (

@@ -17,24 +17,24 @@ import {
 const Chats=({navigation})=> {
   const [chats, setChats]= useState([]);
   const { user, setUser} = useContext(UserContext);
-  const [isLoading, setIsLoading]=useState(true)
+  const [isLoading, setIsLoading]=useState(true);
   
   
    //query chats
   async function getChats(){
-  setChats([])
-  setIsLoading(true)
+  setChats([]);
+  setIsLoading(true);
   const q = query(collection(database, "chats"), where("users", "array-contains", user.id), orderBy("last_message.createdAt", "desc"));
   const querySnapshot = await getDocs(q);
   querySnapshot.forEach(async (doc) => {
-    setChats((chats)=>[...chats,{ chat_id: doc.id, user_id:doc.data().users.filter(id=>id!=user.id)[0], date:doc.data().last_message.createdAt.toDate(), text: doc.data().last_message.text }])
+    setChats((chats)=>[...chats,{ chat_id: doc.id, user_id:doc.data().users.filter(id=>id!=user.id)[0], date:doc.data().last_message.createdAt.toDate(), text: doc.data().last_message.text }]);
     })
     setIsLoading(false);
   }
   
   useFocusEffect(
     useCallback(() => {
-      getChats()
+      getChats();
     }, []), );
   return (
           <View style={ChatScreenStyles.chatsList}>
