@@ -8,6 +8,7 @@ import ScheduleStyles from './Styles/ScheduleScreenStyles';
 import WavyBack from '../../components/General/WavyBackground';
 import { useFocusEffect} from '@react-navigation/native';
 import { BookingsContext } from '../../context/BookingsContext';
+import EmptyPage from '../../components/General/EmptyPage';
 const Bookings=({navigation})=> {
   const { bookings, setBookings} = useContext(BookingsContext);
 
@@ -39,6 +40,7 @@ const Bookings=({navigation})=> {
   return (
         <View style={{alignItems:"center", padding:40}}>
           <WavyBack/>
+        {!isLoading && bookings.length==0 && <EmptyPage/>}
         <FlatList
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
