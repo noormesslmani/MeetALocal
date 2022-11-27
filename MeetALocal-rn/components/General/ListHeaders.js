@@ -1,9 +1,9 @@
-import { View, Text, ActivityIndicator } from 'react-native'
-import React from 'react'
-import { colors } from '../../constants/colors'
-import { Ionicons } from '@expo/vector-icons'
-import { MaterialIcons } from '@expo/vector-icons'
-import ListHeaderStyle from './Styles/ListHeaderStyle'
+import { View, Text } from 'react-native';
+import React from 'react';
+import { colors } from '../../constants/colors';
+import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import ListHeaderStyle from './Styles/ListHeaderStyle';
 const ListHeader=({country, category})=>{
     return (
         <View style={ListHeaderStyle.iconsContainer}>

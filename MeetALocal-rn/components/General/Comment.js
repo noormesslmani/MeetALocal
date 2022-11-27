@@ -1,5 +1,5 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import React from 'react';
 import CommentStyle from './Styles/CommentStyle';
 import { address } from '../../constants/address';
 import { userProfile } from '../../network/App';
@@ -11,8 +11,8 @@ const Comment=({navigation, comment})=> {
   //navigating to user's profile
   const handleUser=async()=>{
     if (user.id != comment.user_id){
-    const result= await userProfile(comment.user_id)
-      comment.type_id==1? navigation.navigate('local-page', {item: result.data.data}):navigation.navigate('foreigner-page', {item: result.data.data})
+    const result= await userProfile(comment.user_id);
+      comment.type_id==1? navigation.navigate('local-page', {item: result.data.data}):navigation.navigate('foreigner-page', {item: result.data.data});
     }
   }
   return (

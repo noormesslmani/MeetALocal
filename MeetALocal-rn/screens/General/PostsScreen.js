@@ -1,4 +1,4 @@
-import { View, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
+import { View, FlatList, SafeAreaView, ActivityIndicator } from 'react-native';
 import React from 'react';
 import { useState, useEffect } from "react";
 import FilterModal from '../../components/Modals/FilterModal';
@@ -44,13 +44,13 @@ const Posts=({navigation})=> {
   useEffect(() => {
     if(!viewOwn){
     navigation.setOptions({
-      headerRight:()=><Filters handleFilter={handleFilter}/>})
+      headerRight:()=><Filters handleFilter={handleFilter}/>});
     }
     else{
       navigation.setOptions({
-        headerRight:()=><></>})
+        headerRight:()=><></>});
     }
-  }, [navigation, viewOwn])
+  }, [navigation, viewOwn]);
 
 
   //get posts when options change
@@ -87,7 +87,7 @@ const Posts=({navigation})=> {
 
 
   const getPosts= async()=>{
-    let result
+    let result;
     if(viewOwn){
       setIsLoading(true);
       result = await getOwnPosts();
@@ -98,7 +98,7 @@ const Posts=({navigation})=> {
       }
     }
     else {
-      page==0? setIsLoading(true): setIsLoadingMore(true)
+      page==0? setIsLoading(true): setIsLoadingMore(true);
       result = await getAllPosts({country, category, offset:20*page});
       if (result.success){
         setIsLoading(false);

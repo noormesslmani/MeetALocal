@@ -1,8 +1,8 @@
-import { View, FlatList, SafeAreaView, ActivityIndicator } from 'react-native'
-import React from 'react'
+import { View, FlatList, SafeAreaView, ActivityIndicator } from 'react-native';
+import React from 'react';
 import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext } from "react";
-import { UserContext } from '../../App'
+import { UserContext } from '../../App';
 import LocalsStyles from './Styles/LocalsPageStyles';
 import FilterModal from '../../components/Modals/FilterModal';
 import LocalCard from '../../components/Cards/LocalCard';
@@ -21,20 +21,20 @@ const Locals=({navigation})=> {
   const [category, setCategory]=useState('all');
 
   //view all or only favorites
-  const [viewFav, setViewFav]=useState(false)
-  const [viewFavChange, setViewFavChange]=useState(false)
+  const [viewFav, setViewFav]=useState(false);
+  const [viewFavChange, setViewFavChange]=useState(false);
 
   //queried data
-  const [data, setdata]=useState([])
+  const [data, setdata]=useState([]);
 
   //for filter modal
-  const [modalVisible, setModalVisible] = useState(false)
-  const [filterChange, setFilterChange]=useState(false)
+  const [modalVisible, setModalVisible] = useState(false);
+  const [filterChange, setFilterChange]=useState(false);
 
-  const [isListEnd, setIsListEnd]=useState(false)
-  const [isLoadingMore, setIsLoadingMore]=useState(false)
-  const [isLoading, setIsLoading]= useState(false)
-  const [page, setPage]=useState(0)
+  const [isListEnd, setIsListEnd]=useState(false);
+  const [isLoadingMore, setIsLoadingMore]=useState(false);
+  const [isLoading, setIsLoading]= useState(false);
+  const [page, setPage]=useState(0);
 
   const { user, setUser} = useContext(UserContext);
   
@@ -54,8 +54,8 @@ const Locals=({navigation})=> {
       page==0? getLocalsList(): setPage(0);
       setdata([]);
       setIsListEnd(false);
-      setFilterChange(false)
-      setViewFavChange(false)
+      setFilterChange(false);
+      setViewFavChange(false);
     }
   }, [filterChange, viewFavChange]); 
 
@@ -63,71 +63,70 @@ const Locals=({navigation})=> {
   const isFocused = useIsFocused();
   useEffect(() => {
     if(isFocused)  {
-      getLocalsList()
-    
+      getLocalsList();
     }
     else{
-      setdata([])
-      setPage(0)
-      setIsLoading(true)
+      setdata([]);
+      setPage(0);
+      setIsLoading(true);
     }
-  },[isFocused, page])
+  },[isFocused, page]);
 
   
   //getting locals
   const getLocalsList= async()=>{
     if(!viewFav){
-      page==0? setIsLoading(true): setIsLoadingMore(true)
-      const result = await getLocals({country, category, offset:15*page})
+      page==0? setIsLoading(true): setIsLoadingMore(true);
+      const result = await getLocals({country, category, offset:15*page});
       if (result.success){
-        setIsLoading(false)
-        setIsLoadingMore(false)
-        setdata( data =>[...data, ...result.data.data])
+        setIsLoading(false);
+        setIsLoadingMore(false);
+        setdata( data =>[...data, ...result.data.data]);
         if(result.data.data.length<15){
-          setIsListEnd(true)
+          setIsListEnd(true);
         }  
       }
     }
     else{
-      setIsLoading(true)
-      const result = await getFavorites()
+      setIsLoading(true);
+      const result = await getFavorites();
       if (result.success){
-        setIsLoading(false)
-        setdata(result.data.data)
-        setIsListEnd(true)
+        setIsLoading(false);
+        setdata(result.data.data);
+        setIsListEnd(true);
       }
     }
   } 
 
   //filter modal
   const handleFilter=()=>{
-    setModalVisible(true)
+    setModalVisible(true);
   }
 
   //navigate to map after loading data
   const handleMap=()=>{
     if(!isLoading){
-      navigation.navigate('locals-map',{data: data, type:1})
+      navigation.navigate('locals-map',{data: data, type:1});
     }
   }
 
   //update page after each query
   const fetchMore=()=>{
     if(!isListEnd && !isLoadingMore){
-      setPage(page+1)
+      setPage(page+1);
     }
   }
  
   //get all locals
   const handleViewAll=()=>{
-    setViewFav(false)
-    setViewFavChange(true)
+    setViewFav(false);
+    setViewFavChange(true);
   }
 
   //get favorite locals
   const handleViewFav=()=>{
-    setViewFav(true)
-    setViewFavChange(true)
+    setViewFav(true);
+    setViewFavChange(true);
   }
   
   return (

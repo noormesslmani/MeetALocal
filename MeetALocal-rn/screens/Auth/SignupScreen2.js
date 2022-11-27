@@ -1,4 +1,4 @@
-import { View, Text, TextInput, KeyboardAvoidingView } from 'react-native';
+import { View, Text, KeyboardAvoidingView } from 'react-native';
 import React from 'react';
 import styles from './Styles/AuthScreensStyle';
 import { useState } from "react";
@@ -7,6 +7,7 @@ import { useRoute } from '@react-navigation/native';
 import LanguagePicker from '../../components/General/LanguagePicker';
 import CountryPicker from '../../components/General/CountryPicker';
 const SignupScreen2 = ({navigation}) => {
+  //route parameters
   const route = useRoute();
   const fullName= route.params.fullName;
   const phone= route.params.phone;
@@ -16,10 +17,11 @@ const SignupScreen2 = ({navigation}) => {
   const [country, setCountry]=useState(null);
   const [language, setLanguage]=useState([]);
 
+  //validation
   const [invalidCountry, setInvalidCountry]=useState(false);
   const [invalidNationality, setInvalidNationality]=useState(false);
   const [invalidlanguage, setInvalidLanguage]=useState(false);
-
+  //pickers
   const [openNationality, setOpenNationality] = useState(false);
   const [openCountry, setOpenCountry] = useState(false);
   const [openLanguages, setOpenLanguages] = useState(false);
@@ -44,9 +46,7 @@ const SignupScreen2 = ({navigation}) => {
       }, 1500);
     }
     else{
-      navigation.navigate('signup-third', {
-        fullName, phone, dob, nationality, country, language,
-      });
+      navigation.navigate('signup-third', {fullName, phone, dob, nationality, country, language});
     }
   }
 

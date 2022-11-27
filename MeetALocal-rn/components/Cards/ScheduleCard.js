@@ -1,8 +1,8 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, Image } from 'react-native';
+import React from 'react';
 import { useState, useEffect } from "react";
 import { address } from '../../constants/address';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors } from '../../constants/colors';
 import { isAppointmentBooked, toggleBookAppointment, userProfile, deleteAppointment } from '../../network/App';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
@@ -10,19 +10,19 @@ import ScheduleCardStyle from './Styles/ScheduleCardStyle';
 import ScheduleModal from '../Modals/ScheduleModal';
 import { EvilIcons } from '@expo/vector-icons';
 const ScheduleCard=({item, type, setDeleted, navigation, setAppointments})=> {
-  const [modalVisible, setModalVisible]=useState(false)
-  const [booked, setBooked]=useState(false)
+  const [modalVisible, setModalVisible]=useState(false);
+  const [booked, setBooked]=useState(false);
 
   //2 variations (one for locals and one for foreigners)
 
   //check if appointment is booked for locals(type=1)
   useEffect(()=>{
-    type==1 && isBooked()
+    type==1 && isBooked();
   },[])
   const isBooked=async()=>{
-    const result = await isAppointmentBooked(item.id)
+    const result = await isAppointmentBooked(item.id);
     if (result.success){
-      setBooked(result.data.data)
+      setBooked(result.data.data);
     }
   }
   
@@ -31,24 +31,24 @@ const ScheduleCard=({item, type, setDeleted, navigation, setAppointments})=> {
     const data={
       appointment_id:item.appointment_id
     }
-    const result=await toggleBookAppointment(data)
+    const result=await toggleBookAppointment(data);
     if (result.success){
-      setDeleted(true)
+      setDeleted(true);
     }
   }
  
 
   //navigate to User profile
   const handleUser=async ()=>{
-    const result= await userProfile(item.local_id) 
+    const result= await userProfile(item.local_id);
     navigation.navigate('local-page', {item: result.data.data});
   }
 
   //delete unbooked appointment (for locals)
   const hanldeTrash=async()=>{
-    const result= await deleteAppointment(item.id)
+    const result= await deleteAppointment(item.id);
     if(result.success){
-      setDeleted(true)
+      setDeleted(true);
     }
   }
   return (

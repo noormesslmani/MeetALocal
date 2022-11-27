@@ -1,14 +1,14 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
-import { useState, useEffect, useContext } from "react";
+import { View, Text, TouchableOpacity, Image } from 'react-native';
+import React from 'react';
+import { useState } from "react";
 import PostCardStyle from './Styles/PostCardStyle';
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { address } from '../../constants/address';
 import { colors } from '../../constants/colors';
 const PostCard=({navigation, item})=> {
-    const [totalComments, setTotalComments]=useState(item.comments)
+    const [totalComments, setTotalComments]=useState(item.comments);
     const handlePost=()=>{
-     navigation.navigate('comments',{item})
+     navigation.navigate('comments',{item});
 }
 
   return (<>

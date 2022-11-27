@@ -1,7 +1,7 @@
-import {  Text, TouchableOpacity, } from 'react-native'
-import React from 'react'
-import WideButtonStyle from './Styles/WideButtonStyle'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import {  Text, TouchableOpacity, } from 'react-native';
+import React from 'react';
+import WideButtonStyle from './Styles/WideButtonStyle';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const WideButton=({text, handlePress, icon, color})=>{
     //button with icon

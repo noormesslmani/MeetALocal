@@ -1,4 +1,4 @@
-import { View, Text} from 'react-native'
+import { View, Text} from 'react-native';
 import React from 'react';
 import { useState } from "react";
 import Map from '../../components/map/Map';

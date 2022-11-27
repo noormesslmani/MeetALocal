@@ -6,8 +6,8 @@ import UploadImageStlye from './Styles/UploadImageStyle';
 export default function UploadImage({setBase64, setext, uri=null}) {
   const [image, setImage] = useState(null);
   useEffect(()=>{
-    setImage(uri)
-  },[uri])
+    setImage(uri);
+  },[uri]);
   const addImage = async () => {
     let _image = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -25,7 +25,7 @@ export default function UploadImage({setBase64, setext, uri=null}) {
   useEffect(()=>
   { 
     image? setext(image.split('.').pop()):null
-  },[image])
+  },[image]);
   
   return (
             <View style={UploadImageStlye.container}>

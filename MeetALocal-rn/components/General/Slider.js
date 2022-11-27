@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import Slider from '@react-native-community/slider';
 import { colors } from '../../constants/colors';
 import SliderStyle from './Styles/SliderStyle';

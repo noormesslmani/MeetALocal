@@ -1,19 +1,19 @@
-import { View, Text, TouchableOpacity} from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity} from 'react-native';
+import React from 'react';
 import { useState, useEffect } from "react";
-import Icon from 'react-native-vector-icons/FontAwesome5'
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import HomeCardStyle from './Styles/HomeCardStyle';
 const HomeCard=({label, handlePress})=> {
-    const [icon, setIcon]=useState('')
+    const [icon, setIcon]=useState('');
     useEffect(()=>{
         if(label=='Locals'){
-            setIcon('user')
+            setIcon('user');
         }
         else if(label=='Events'){
-            setIcon('calendar')
+            setIcon('calendar');
         }
         else{
-            setIcon('comment-alt')
+            setIcon('comment-alt');
         }
     },[])
   return (

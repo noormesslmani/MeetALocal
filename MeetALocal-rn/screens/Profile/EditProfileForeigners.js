@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, Image, TextInput, ActivityIndicator} from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, ActivityIndicator} from 'react-native';
 import React from 'react';
 import { UserContext } from '../../App';
 import { useState, useEffect, useContext } from "react";
@@ -42,20 +42,20 @@ const EditForeignerProfile=({navigation})=> {
 
     //handle date of birth
     const handleDate= (event, value)=>{
-      setDatePicker(false)
-      setDate(value)
-      setdob(`${value.getFullYear()}-${value.getMonth()+1}-${value.getDate()}`)
+      setDatePicker(false);
+      setDate(value);
+      setdob(`${value.getFullYear()}-${value.getMonth()+1}-${value.getDate()}`);
     }
     //update profile picture
     useEffect(()=>{
       if(user.profile_picture){
-        setUri(`${address}/${user.profile_picture}`)
+        setUri(`${address}/${user.profile_picture}`);
       }
-    },[user.profile_picture])
+    },[user.profile_picture]);
 
     //update profile and user with new data
     const handleSave=async ()=>{
-        setIsLoading(true)
+      setIsLoading(true);
       const data = {
           name,
           phone,
@@ -68,15 +68,15 @@ const EditForeignerProfile=({navigation})=> {
           languages:spokenLanguages,
           date_of_birth: dob
         };
-        const result= await editProfile(data)
+        const result= await editProfile(data);
         if (result.success){
-          setUser(result.data.data)
+          setUser(result.data.data);
           showMessage({
             message: "Profile successfully updated",
             type: "success",
           });
         }
-        setIsLoading(false)
+        setIsLoading(false);
     }
   return (
     <View style={ProfileStyles.container}>

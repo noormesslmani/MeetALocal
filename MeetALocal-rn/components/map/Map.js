@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect } from 'react';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import {Marker, Callout} from 'react-native-maps';
 import { colors } from '../../constants/colors';
 import MapCard from '../Cards/MapCard';
 import MapStyle from './Styles/MapStyle';
 const Map=({lat, lng, data, type, handleDrag, navigation})=> { 
-  const myList = useRef()
+  const myList = useRef();
   
   return (
           <>

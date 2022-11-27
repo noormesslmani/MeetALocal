@@ -40,7 +40,7 @@ const LocalProfile=({navigation})=> {
     if(user.profile_picture){
       setImage(user.profile_picture);
     }
-  },[user.profile_picture])
+  },[user.profile_picture]);
 
   //get all reviews to be displayed when viewInfo is set to false
   useEffect(()=>{
@@ -54,16 +54,16 @@ const LocalProfile=({navigation})=> {
       starsArr[review.stars -1] +=1;
     }
     setStars(starsArr);
-  },[reviews])
+  },[reviews]);
 
   useEffect(()=>{
     if(stars.length>0){
     reviews.length>0?setAverage((stars[0]+2*stars[1]+3*stars[2]+4*stars[3]+5*stars[4])/(stars[0]+stars[1]+stars[2]+stars[3]+stars[4])):setAverage(0);
     }
-  },[stars])
+  },[stars]);
 
   const getAllReviews=async()=>{
-    const result = await getReviews(user.id)
+    const result = await getReviews(user.id);
     if (result.success){
       setReviews(result.data.data);
     }
