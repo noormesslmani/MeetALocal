@@ -1,6 +1,6 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import { View, Text } from 'react-native';
+import React from 'react';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors } from '../../constants/colors';
 import ProfileCardStyle from './Styles/ProfileCardStyle';
 const ProfileCard=({icon, data})=> {

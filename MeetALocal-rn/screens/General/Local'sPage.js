@@ -1,15 +1,15 @@
-import { View, Text, TouchableOpacity, Image, ScrollView, Pressable, Linking } from 'react-native'
-import React from 'react'
-import { UserContext } from '../../App'
+import { View, Text, TouchableOpacity, Image, ScrollView, Pressable, Linking } from 'react-native';
+import React from 'react';
+import { UserContext } from '../../App';
 import { useState, useEffect, useContext } from "react";
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { useRoute } from '@react-navigation/native';
 import LocalProfileStyles from './Styles/LocalProfileStyles';
 import { categoryIcons } from '../../constants/categories';
 import Map from '../../components/Header/Map';
 import { CheckFavoriteLocals, toggleFavoriteLocals, getLocalsEvents } from '../../network/App';
 import { address } from '../../constants/address';
-import call from 'react-native-phone-call'
+import call from 'react-native-phone-call';
 import { Rating} from 'react-native-ratings';
 import { getReviews } from '../../network/App';
 import ReviewModal from '../../components/Modals/ReviewModal';
@@ -26,103 +26,103 @@ import ImageViewer from '../../components/General/ImageView';
 const LocalPage=({navigation})=> {
   //user's info
   const route = useRoute();
-  const item =route.params.item
+  const item =route.params.item;
 
   const { user, setUser} = useContext(UserContext);
 
-  const [isFavorite, SetIsFavorite]=useState(false)
-  const [likes, setLikes]= useState(item.likes)
-  const [events, setEvents]=useState([])
+  //likes
+  const [isFavorite, SetIsFavorite]=useState(false);
+  const [likes, setLikes]= useState(item.likes);
+
+  //user's events
+  const [events, setEvents]=useState([]);
 
   //reviews
-  const [average, setAverage]= useState(null)
-  const [reviews, setReviews]=useState([])
-  const [stars, setStars]=useState([])
+  const [average, setAverage]= useState(null);
+  const [reviews, setReviews]=useState([]);
+  const [stars, setStars]=useState([]);
   
-  const [reviewModalVisible, setReviewModalVisible]=useState(false)
-  const [reviewAdded, setReviewAdded]=useState(false)
+  const [reviewModalVisible, setReviewModalVisible]=useState(false);
+  const [reviewAdded, setReviewAdded]=useState(false);
 
   //highlights
-  const images = item.highlights?.map((image)=>({ img: `${address}/${image}`}))
+  const images = item.highlights?.map((image)=>({ img: `${address}/${image}`}));
 
   //imageview for profile picture
-  const [imageView,setImageView]=useState(false)
+  const [imageView,setImageView]=useState(false);
 
   //appointment booking
-  const [appointmentModal, setAppointmentModal]=useState(false)
-  const [appointmentBooked, setAppointmentBooked]=useState(false)
+  const [appointmentModal, setAppointmentModal]=useState(false);
+  const [appointmentBooked, setAppointmentBooked]=useState(false);
 
     
   //get user's events and check if user is favorited or not (for foreigners only)
   const isFocused = useIsFocused();
   useEffect(() => {
     if(isFocused)  
-      getEvents()
-      getAllReviews()
+      getEvents();
+      getAllReviews();
       if(user.type_id==2){
-        checkFavorite()
+        checkFavorite();
       }
-  },[isFocused])
+  },[isFocused]);
 
   //getting stars to find the average
   useEffect(()=>{
-    let starsArr=[0,0,0,0,0]
+    let starsArr=[0,0,0,0,0];
     for(let review of reviews){
-      starsArr[review.stars -1] +=1
+      starsArr[review.stars -1] +=1;
     }
-    setStars(starsArr)
-  },[reviews])
+    setStars(starsArr);
+  },[reviews]);
 
   //finding the average
   useEffect(()=>{
     if(stars.length>0){
-    reviews.length>0?setAverage((stars[0]+2*stars[1]+3*stars[2]+4*stars[3]+5*stars[4])/(stars[0]+stars[1]+stars[2]+stars[3]+stars[4])):setAverage(0)
+    reviews.length>0?setAverage((stars[0]+2*stars[1]+3*stars[2]+4*stars[3]+5*stars[4])/(stars[0]+stars[1]+stars[2]+stars[3]+stars[4])):setAverage(0);
     }
-  },[stars])
+  },[stars]);
  
   //getting all reviews
   const getAllReviews=async()=>{
-    const result = await getReviews(item.id)
+    const result = await getReviews(item.id);
     if (result.success){
-      setReviews(result.data.data)
+      setReviews(result.data.data);
     }
   } 
 
   //get events organized by this local
   const getEvents=async()=>{
-    const result = await getLocalsEvents(item.id)
+    const result = await getLocalsEvents(item.id);
     if (result.success){
-      setEvents(result.data.data)
+      setEvents(result.data.data);
     }
   }
 
   //open chat room
   const handleMessage=()=>{
-    navigation.navigate('chat-screen', { chatId: null, userId: item.id, image:item.profile_picture, name:item.name})
+    navigation.navigate('chat-screen', { chatId: null, userId: item.id, image:item.profile_picture, name:item.name});
   }
 
   //checking if favorited
   const checkFavorite=async()=>{
-    const result = await CheckFavoriteLocals(item.id)
+    const result = await CheckFavoriteLocals(item.id);
     if (result.success){
-      SetIsFavorite(result.data.data)
+      SetIsFavorite(result.data.data);
     }
   }
 
   //toggling like
   const handleLike =async()=>{
-    const data={
-      id:item.id
-    }
-    const result = await toggleFavoriteLocals(data)
+    const result = await toggleFavoriteLocals({id:item.id});
     if (result.success){
-      await checkFavorite()
-      setLikes(result.data.data)
+      await checkFavorite();
+      setLikes(result.data.data);
     }
   }
   //navigating to location on map
   const handleMap=()=>{
-    user.type_id==2 && navigation.navigate('locals-map',{data:[item], type:1})
+    user.type_id==2 && navigation.navigate('locals-map',{data:[item], type:1});
   }
 
   //calling phone number
@@ -132,7 +132,7 @@ const LocalPage=({navigation})=> {
     skipCanOpen: true 
   }
   const handlePhone=()=>{
-    call(args).catch(console.error)
+    call(args).catch(console.error);
   }
   //open whatsapp link
   const handleWhatsapp=()=>{
@@ -142,13 +142,13 @@ const LocalPage=({navigation})=> {
   }
   //booking appointments
   const handleBooking=()=>{
-    setAppointmentModal(true)
+    setAppointmentModal(true);
   }
 
 
  //navigate to reviews( access for foreigners only)
   const handleReviews=()=>{
-    user.type_id==2 && navigation.navigate('reviews',{average, reviews, id:item.id})
+    user.type_id==2 && navigation.navigate('reviews',{average, reviews, id:item.id});
   }
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>

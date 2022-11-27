@@ -1,8 +1,8 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { FontAwesome5 } from '@expo/vector-icons'
-import { colors } from '../../constants/colors'
-import EmptyPageStyle from './Styles/EmptyPageStyle'
+import { View, Text } from 'react-native';
+import React from 'react';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { colors } from '../../constants/colors';
+import EmptyPageStyle from './Styles/EmptyPageStyle';
 
 //empty state
 const EmptyPage=()=>{

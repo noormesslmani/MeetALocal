@@ -1,11 +1,11 @@
-import { View, Text, TouchableOpacity, Image, FlatList,  ActivityIndicator} from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, FlatList,  ActivityIndicator} from 'react-native';
+import React from 'react';
 import { useState, useEffect, useCallback } from "react";
 import { getSchedule } from '../../network/App';
 import { colors } from '../../constants/colors';
 import ScheduleCard from '../../components/Cards/ScheduleCard';
 import ScheduleStyles from './Styles/ScheduleScreenStyles';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/FontAwesome';
 import WavyBack from '../../components/General/WavyBackground';
 import { useFocusEffect} from '@react-navigation/native';
 import ScheduleModal from '../../components/Modals/NewScheduleModal';
@@ -13,36 +13,36 @@ const Schedules=({navigation})=> {
 
   //This screen is for locals
 
-  const [schedule, setSchedule]=useState(null)
-  const [isLoading, setIsLoading]=useState(false)
-  const [scheduleModal, setScheduleModal]=useState(false)
-  const [scheduleAdded, setScheduleAdded]=useState(false)
-  const [deleted, setDeleted]=useState(false)
+  const [schedule, setSchedule]=useState(null);
+  const [isLoading, setIsLoading]=useState(false);
+  const [scheduleModal, setScheduleModal]=useState(false);
+  const [scheduleAdded, setScheduleAdded]=useState(false);
+  const [deleted, setDeleted]=useState(false);
   
 
   //get schedule
   useFocusEffect(
     useCallback(() => {
-    getMySchedule()
+    getMySchedule();
     }, []), )
     
     //handle the modifications of the schedule
    useEffect(()=>{
     if(scheduleAdded || deleted){
-      getMySchedule()
-      setScheduleAdded(false)
-      setDeleted(false)
+      getMySchedule();
+      setScheduleAdded(false);
+      setDeleted(false);
     }
-   },[scheduleAdded, deleted])
+   },[scheduleAdded, deleted]);
    
    //get the schedule
    const getMySchedule=async()=>{
-    setIsLoading(true)
-    const result=await getSchedule()
+    setIsLoading(true);
+    const result=await getSchedule();
     if (result.success){
-      setSchedule(result.data.data)
+      setSchedule(result.data.data);
     }
-    setIsLoading(false)
+    setIsLoading(false);
   }
   const renderItem = ({ item, index }) => (
     <ScheduleCard item={item} key={index} type={1} navigation={navigation} setDeleted={setDeleted} />

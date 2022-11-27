@@ -1,9 +1,9 @@
-import { View, Text, TouchableOpacity, TextInput, Pressable, ActivityIndicator} from 'react-native'
-import React from 'react'
-import { UserContext } from '../../App'
+import { View, Text, TouchableOpacity, TextInput, Pressable, ActivityIndicator} from 'react-native';
+import React from 'react';
+import { UserContext } from '../../App';
 import { useState, useEffect, useContext} from "react";
 import ProfileStyles from './ProfileStyles/ProfileStyles';
-import Icon from 'react-native-vector-icons/AntDesign'
+import Icon from 'react-native-vector-icons/AntDesign';
 import UploadImage from '../../components/General/UploadImage';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -57,21 +57,21 @@ const EditLocalProfile=({navigation})=> {
       if(user.profile_picture){
         setUri(`${address}/${user.profile_picture}`);
       }
-    },[user.profile_picture])
+    },[user.profile_picture]);
 
     
     //save location in AsyncStorage (could possibly be updated in edit location screen)
     useEffect(()=>{
-      setLocation()
+      setLocation();
     },[])
     const setLocation=async()=>{
-      await AsyncStorage.setItem('lat', user.latitude.toString())
-      await AsyncStorage.setItem('lng', user.longitude.toString())
+      await AsyncStorage.setItem('lat', user.latitude.toString());
+      await AsyncStorage.setItem('lng', user.longitude.toString());
     }
 
     //update profile
     const handleSave=async ()=>{
-      setIsLoading(true)
+      setIsLoading(true);
       const latitude = await AsyncStorage.getItem('lat');
       const longitude = await AsyncStorage.getItem('lng');
       const data = {
@@ -91,9 +91,9 @@ const EditLocalProfile=({navigation})=> {
           longitude: parseFloat(longitude),
           highlights: user.highlights
         };
-        const result= await editProfile(data)
+        const result= await editProfile(data);
         if (result.success){
-          setUser(result.data.data)
+          setUser(result.data.data);
           showMessage({
             message: "Profile successfully updated",
             type: "success",
@@ -103,8 +103,7 @@ const EditLocalProfile=({navigation})=> {
   }
   //navigate to edit location screen
   const handleMap=()=>{
-
-    navigation.navigate('edit-location',{lat:user.latitude, lng:user.longitude})
+    navigation.navigate('edit-location',{lat:user.latitude, lng:user.longitude});
   }
   return (
     <View style={ProfileStyles.container}>

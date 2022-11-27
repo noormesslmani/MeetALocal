@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect, useContext } from 'react';
 import { Image, View, Text } from 'react-native';
-import { GiftedChat } from 'react-native-gifted-chat'
+import { GiftedChat } from 'react-native-gifted-chat';
 import { UserContext } from '../../App';
 import { database } from "../../firebase";
 import { address } from '../../constants/address';
@@ -30,7 +30,7 @@ const ChatScreen=({navigation})=> {
     const uri=`${address}/${user.profile_picture}`
    
     useEffect(() => {
-        getMessages()
+        getMessages();
     }, []);
    
      //if chatId is null check whether a chat room exists between users, if not create a new one, else get old messages

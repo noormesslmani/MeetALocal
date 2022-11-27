@@ -1,12 +1,12 @@
-import { View, SafeAreaView, FlatList, ActivityIndicator } from 'react-native'
-import React from 'react'
+import { View, SafeAreaView, FlatList, ActivityIndicator } from 'react-native';
+import React from 'react';
 import { useState, useEffect, useContext } from "react";
-import { UserContext } from '../../App'
+import { UserContext } from '../../App';
 import EventsStyles from './Styles/EventsPageStyles';
 import FilterModal from '../../components/Modals/FilterModal';
 import NewEventModal from '../../components/Modals/NewEventModal';
 import EventCard from '../../components/Cards/EventCard';
-import {getAllEvents, getSavedEvents, getOwnEvents, getBookedEvents} from '../../network/App'
+import {getAllEvents, getSavedEvents, getOwnEvents, getBookedEvents} from '../../network/App';
 import Filters from '../../components/Header/Filters';
 import { colors } from '../../constants/colors';
 import AppButton from '../../components/Buttons/AppButtons';
@@ -14,21 +14,27 @@ import ListHeader from '../../components/General/ListHeaders';
 import EmptyPage from '../../components/General/EmptyPage';
 import AddIcon from '../../components/General/AddIcon';
 const Events=({navigation})=> {
-  const [choice, setChoice]=useState(1)
-  const [modalVisible, setModalVisible] = useState(false)
+  //user's choice
+  const [choice, setChoice]=useState(1);
+
+  //data
+  const [data, setdata]=useState([]);
+
+  //tracking actions
+  const [eventDeleted, setEventDeleted]=useState(false);
+  const [eventToggled, setEventToggled]=useState(false);
+  const [eventCreated,setEventCreated]=useState(false);
+  const [eventModalVisible, setEventModalVisible]=useState(false);
+
+  const { user, setUser} = useContext(UserContext);
+  const [isLoading, setIsLoading]=useState(false);
+
+  //filtering
+  const [filterChange, setFilterChange]=useState(false);
   const [country, setCountry]=useState('all');
   const [category, setCategory]=useState('all');
-  const [data, setdata]=useState([])
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const [eventDeleted, setEventDeleted]=useState(false)
-  const [eventToggled, setEventToggled]=useState(false)
-
-  const [eventModalVisible, setEventModalVisible]=useState(false)
-  const { user, setUser} = useContext(UserContext);
-  const [eventCreated,setEventCreated]=useState(false)
-  const [isLoading, setIsLoading]=useState(false)
-
-  const [filterChange, setFilterChange]=useState(false)
   //get events 
   useEffect(()=>{
     getEvents()
@@ -37,9 +43,9 @@ const Events=({navigation})=> {
   //triggered when an events is deleted, booked, etc...
   useEffect(()=>{
     if(eventDeleted || eventToggled){
-      getEvents()
-      setEventDeleted(false)
-      setEventToggled(false)
+      getEvents();
+      setEventDeleted(false);
+      setEventToggled(false);
     }
   },[eventDeleted, eventToggled])
 
@@ -49,28 +55,28 @@ const Events=({navigation})=> {
   //choice 4->get booked events(for foreigners)
   const getEvents= async()=>{
     let result
-    setIsLoading(true)
-    setdata([])
+    setIsLoading(true);
+    setdata([]);
     if(choice==1){
-      result = await getAllEvents({country, category})
+      result = await getAllEvents({country, category});
     }
     else if(choice==2){
-      result = await getSavedEvents()
+      result = await getSavedEvents();
     }
     else if(choice==3){
-      result = await getOwnEvents()
+      result = await getOwnEvents();
     }
     else if(choice==4){
-      result = await getBookedEvents()
+      result = await getBookedEvents();
     }
     if (result.success){
-      setdata(result.data.data)
+      setdata(result.data.data);
     }
-    setIsLoading(false)
+    setIsLoading(false);
   }
   //show filter modal
   const handleFilter=()=>{
-    setModalVisible(true)
+    setModalVisible(true);
   }
   //Event card
   const renderItem = ({ item }) => (
@@ -83,13 +89,13 @@ const Events=({navigation})=> {
   useEffect(() => {
     if(choice==1){
     navigation.setOptions({
-      headerRight:()=><Filters handleFilter={handleFilter}/>})
+      headerRight:()=><Filters handleFilter={handleFilter}/>});
     }
     else{
       navigation.setOptions({
-        headerRight:()=><></>})
+        headerRight:()=><></>});
       }
-    }, [navigation, choice])
+    }, [navigation, choice]);
 
   return (
     <View style={EventsStyles.container}>

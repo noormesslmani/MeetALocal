@@ -1,6 +1,6 @@
-import { Image } from 'react-native'
-import React from 'react'
-import LogoStyle from './Styles.js/LogoStyle'
+import { Image } from 'react-native';
+import React from 'react';
+import LogoStyle from './Styles.js/LogoStyle';
 
 const Logo= ()=> {
     return (

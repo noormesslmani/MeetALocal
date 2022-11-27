@@ -1,32 +1,32 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
-import { useState, useEffect, useContext } from "react";
+import { View, Text, TouchableOpacity, Image } from 'react-native';
+import React from 'react';
+import { useState, useEffect} from "react";
 import EventModal from '../Modals/EventModal';
 import { address } from '../../constants/address';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors } from '../../constants/colors';
 import EventCardStyle from './Styles/EventCardStyle';
 const EventCard=({navigation, item, choice, setEventDeleted, setEventToggled})=> {
-  const [modalVisible, setModalVisible]=useState(false)
+  const [modalVisible, setModalVisible]=useState(false);
 
   //keep track if an event is deleted/saved/booked/unbooked/unsaved
-  const [deleted, setDeleted]=useState(false)
-  const [toggled, setToggled]=useState(false)
+  const [deleted, setDeleted]=useState(false);
+  const [toggled, setToggled]=useState(false);
   
   //show event modal
   const handleEvent=()=>{
-    setModalVisible(true)
+    setModalVisible(true);
    }
 
    //update states
   useEffect(()=>{
   if(deleted){
-    setEventDeleted(true)
-    setDeleted(false)
+    setEventDeleted(true);
+    setDeleted(false);
   }
   if(toggled){
-    setEventToggled(true)
-    setToggled(false)
+    setEventToggled(true);
+    setToggled(false);
   }
   },[deleted, toggled])
 

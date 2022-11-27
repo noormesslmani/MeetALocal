@@ -1,11 +1,11 @@
-import { View, Text, ActivityIndicator } from 'react-native'
+import { View, Text, ActivityIndicator } from 'react-native';
 import { TextInput } from 'react-native-paper';
-import React from 'react'
+import React from 'react';
 import styles from './Styles/AuthScreensStyle';
 import { useState,  useContext } from "react";
-import { UserContext } from '../../App'
+import { UserContext } from '../../App';
 import AuthButton from '../../components/Buttons/AuthButton';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { colors } from '../../constants/colors';
 import { signin } from '../../network/Auth';
 import { emailFormat } from '../../constants/expressions';
@@ -13,30 +13,30 @@ const SigninScreen= ({ navigation })=> {
   const { user, setUser} = useContext(UserContext);
   const [email, setEmail]=useState('');
   const [password, setPassword]=useState('');
-  const [invalidEmail, setInvalidEmail]= useState(false)
+  const [invalidEmail, setInvalidEmail]= useState(false);
   
-  const [isLoading, setIsLoading]=useState(false)
-  const [loginFail, setLoginFail]=useState(false)
+  const [isLoading, setIsLoading]=useState(false);
+  const [loginFail, setLoginFail]=useState(false);
 
   //Validate email first
   const handleSubmit= async ()=>{
-    setInvalidEmail(false)
+    setInvalidEmail(false);
     if(! email.match(emailFormat))
-      setInvalidEmail(true)
+      setInvalidEmail(true);
     else{
-      setIsLoading(true)
-      const result =await signin({email, password,})
+      setIsLoading(true);
+      const result =await signin({email, password,});
       if (result.success){
-        setUser(result.data.user)
+        setUser(result.data.user);
         navigation.reset({
           index: 0,
           routes: [{ name: 'app' }],
         });
-        navigation.navigate('app')
+        navigation.navigate('app');
       }
       else{
-        setIsLoading(false)
-        setLoginFail(true)
+        setIsLoading(false);
+        setLoginFail(true);
         setTimeout(() => {
           setLoginFail(false);
         }, 1500);
