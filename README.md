@@ -18,17 +18,17 @@
 >Foreigners are able to visit locals profile page and chat with them
 
 ### Foreigners Stories
-- As a foreigner, I want to browse locals in the country I'm living in
-- As a foreigner, I want to view locals on a map and check their locations
-- As a foreigner, I want to browse and save events organized by locals
-- As a foreigner, I want to able to chat with locals
-- As a foreigner, I want to able to create posts
+- As a foreigner, I want to browse locals and filter them by country and categories
+- As a foreigner, I want to view locals on the map and check their locations
+- As a foreigner, I want to browse, save, and book events organized by locals
+- As a foreigner, I want to able to chat with locals and book an oppointment with them
+- As a foreigner, I want to able to create posts and add comments
 
 <br><br>
 ### Locals Stories
 - As a local, I want foreigners to reach out for me
 - As a local, I want create new events
-- As a local, I want to able to create posts 
+- As a local, I want to able to create posts and add comments
 
 <br><br>
 ### Admin Stories
