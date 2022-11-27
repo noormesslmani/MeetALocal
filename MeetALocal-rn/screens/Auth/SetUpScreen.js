@@ -1,13 +1,13 @@
-import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
+import React from 'react';
 import styles from './Styles/AuthScreensStyle';
 import { TextInput, Avatar } from 'react-native-paper';
-import { useState, useEffect, useContext } from "react";
-import { UserContext } from '../../App'
+import { useState, useContext } from "react";
+import { UserContext } from '../../App';
 import AuthButton from '../../components/Buttons/AuthButton';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import UploadImage from '../../components/General/UploadImage';
 import { colors } from '../../constants/colors';
 import { widths } from '../../constants/dimensions';
@@ -18,53 +18,53 @@ const SetUpScreen=({navigation})=> {
 const { user, setUser} = useContext(UserContext);
 //route parameters
 const route = useRoute();
-const type= route.params.type
-const fullName= route.params.fullName
-const phone= route.params.phone
-const dob =route.params.dob
-const country= route.params.country
-const nationality =route.params.nationality
-const language = route.params.language
-const email= route.params.email
-const password= route.params.password
+const type= route.params.type;
+const fullName= route.params.fullName;
+const phone= route.params.phone;
+const dob =route.params.dob;
+const country= route.params.country;
+const nationality =route.params.nationality;
+const language = route.params.language;
+const email= route.params.email;
+const password= route.params.password;
 
-const [isLoading, setIsLoading]=useState(false)
+const [isLoading, setIsLoading]=useState(false);
 
-const [gender, setGender]=useState('')
-const [genderUnset, setGenderUnset]=useState(false)
-const [base64, setBase64]=useState(null)
-const [ext, setext]=useState(null)
-const [about, setAbout]= useState(null)
+const [gender, setGender]=useState('');
+const [genderUnset, setGenderUnset]=useState(false);
+const [base64, setBase64]=useState(null);
+const [ext, setext]=useState(null);
+const [about, setAbout]= useState(null);
 
 //check if gender is selected
 //register for foreigner users, and continue for local users
 const handleSubmit=()=>{
   if(gender==''){
-    setGenderUnset(true)
+    setGenderUnset(true);
     setTimeout(() => {
       setGenderUnset(false);
     }, 1500);
   }
   else{
     if(type=='Foreigner'){
-      register()
+      register();
     }
     else if(type=='Local'){
-      navigation.navigate('setup-map',{gender, base64, ext, about, type, fullName,phone,dob,country,nationality,language,email,password})
+      navigation.navigate('setup-map',{gender, base64, ext, about, type, fullName,phone,dob,country,nationality,language,email,password});
     }
   }
 }
 
 const handleMale=()=>{
-  setGender('Male')
+  setGender('Male');
 }
 const handleFemale=()=>{
-  setGender('Female')
+  setGender('Female');
 }
 
 //registering foreigner users
 const register= async()=>{
-  setIsLoading(true)
+  setIsLoading(true);
   const data = {
     name: fullName,
     email,
@@ -79,17 +79,17 @@ const register= async()=>{
     photo: base64,
     ext,
   };
-  const result = await registerAccount(data)
+  const result = await registerAccount(data);
   if (result.success){
     await AsyncStorage.setItem("@user", JSON.stringify(result.data['user']));
-    setUser(result.data.user)
+    setUser(result.data.user);
     navigation.reset({
       index: 0,
       routes: [{ name: 'app' }],
     })
-    navigation.navigate('app')
+    navigation.navigate('app');
   }
-  setIsLoading(false)
+  setIsLoading(false);
 }
 
 return (

@@ -1,5 +1,5 @@
-import { View, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Image, TouchableOpacity } from 'react-native';
+import React from 'react';
 import { useContext, useState } from "react";
 import HomeStyles from './Styles/HomeStyles';
 import { UserContext } from '../../App'
@@ -10,18 +10,16 @@ import ImageViewer from '../../components/General/ImageView';
 const Home=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const handleLocals=()=>{
-        navigation.navigate('locals')
+        navigation.navigate('locals');
     }
     const handlePosts=()=>{
-        navigation.navigate('posts')
+        navigation.navigate('posts');
     }
     const handleEvents=()=>{
-        navigation.navigate('events')
+        navigation.navigate('events');
     }
-    const [imageView, setImageView]=useState(false)
+    const [imageView, setImageView]=useState(false);
   
-    
-
   return (
     <>
     <View style={HomeStyles.container}>

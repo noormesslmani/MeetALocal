@@ -1,12 +1,12 @@
-import { View, Text, } from 'react-native'
-import React from 'react'
+import { View, Text, } from 'react-native';
+import React from 'react';
 import styles from './Styles/AuthScreensStyle';
 import { useState} from "react";
 import { TextInput,} from 'react-native-paper';
 import AuthButton from '../../components/Buttons/AuthButton';
 import { useRoute } from '@react-navigation/native';
 import { colors } from '../../constants/colors';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { emailFormat, passFormat } from '../../constants/expressions';
 const SignupScreen3 = ({navigation}) => {
   //route parameters
@@ -22,6 +22,7 @@ const SignupScreen3 = ({navigation}) => {
   const [password, setPassword]=useState('');
   const [confirmPassword, setConfirmPassword]=useState('');
 
+  //validation
   const [invalidEmail, setInvalidEmail]= useState(false);
   const [invalidPassword, setInvalidPassword]= useState(false);
   const [unmatching, setUnmatching]= useState(false);

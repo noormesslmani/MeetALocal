@@ -1,5 +1,5 @@
-import { View, FlatList,  ActivityIndicator} from 'react-native'
-import React from 'react'
+import { View, FlatList,  ActivityIndicator} from 'react-native';
+import React from 'react';
 import { colors } from '../../constants/colors';
 import { getBookedAppointments } from '../../network/App';
 import { useState, useEffect, useCallback } from "react";
@@ -9,35 +9,34 @@ import WavyBack from '../../components/General/WavyBackground';
 import { useFocusEffect} from '@react-navigation/native';
 const Bookings=({navigation})=> {
 
-  const [appointments, setAppointments]=useState(null)
-  const [isLoading, setIsLoading]=useState(false)
-  const [deleted, setDeleted]=useState(false)
+  const [appointments, setAppointments]=useState(null);
+  const [isLoading, setIsLoading]=useState(false);
+  const [deleted, setDeleted]=useState(false);
 
   //Booking screen for foreigner user
   
   //get all upcomming booked appointments
   useFocusEffect(
     useCallback(() => {
-      getBookings()
+      getBookings();
     }, []), )
 
   //handle deletion
   useEffect(()=>{
     if(deleted){
-      getBookings()
-      setDeleted(false)
+      getBookings();
+      setDeleted(false);
     }
-  },[deleted])
+  },[deleted]);
 
   //get all bookings
   const getBookings=async()=>{
     setIsLoading(true)
-    const result= await getBookedAppointments()
+    const result= await getBookedAppointments();
     if (result.success){
-      setAppointments(result.data.data)
+      setAppointments(result.data.data);
     }
-    setIsLoading(false)
-
+    setIsLoading(false);
   }
   const renderItem = ({ item, index }) => (
     <ScheduleCard item={item} key={index} type={2} setDeleted={setDeleted} navigation={navigation} />

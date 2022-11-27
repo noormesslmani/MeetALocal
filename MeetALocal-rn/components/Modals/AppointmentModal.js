@@ -1,6 +1,6 @@
-import { View, Text, Modal, Pressable, ScrollView, ActivityIndicator } from 'react-native'
-import React from 'react'
-import { useState, useEffect, useContext, useRef } from "react";
+import { View, Text, Modal, ScrollView, ActivityIndicator } from 'react-native';
+import React from 'react';
+import { useState, useEffect, useContext } from "react";
 import { colors } from '../../constants/colors';
 import AppointmentButton from '../Buttons/AppointmentButton';
 import { getAppointments, toggleBookAppointment } from '../../network/App';
@@ -11,40 +11,40 @@ import { getToken } from '../../network/Notifications';
 import { UserContext } from '../../App';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const AppointmentsModal=({navigation, setModalVisible, modalVisible, id, setAppointmentBooked})=> {
-  const [appointments, setAppointments]=useState(null)
-  const [selected, setSelected]=useState(null)
-  const [isloading, setIsLoading]=useState(false)
+  const [appointments, setAppointments]=useState(null);
+  const [selected, setSelected]=useState(null);
+  const [isloading, setIsLoading]=useState(false);
   const { user, setUser} = useContext(UserContext);
 
   useEffect(()=>{
     if(modalVisible){
-    getAvailalbeAppointments()
+    getAvailalbeAppointments();
 
     }
-  },[modalVisible])
+  },[modalVisible]);
 
   const getAvailalbeAppointments=async()=>{
-    setIsLoading(true)
-    const result= await getAppointments(id)
+    setIsLoading(true);
+    const result= await getAppointments(id);
     if (result.success){
-      setAppointments(result.data.data)
+      setAppointments(result.data.data);
     }
-    setIsLoading(false)
+    setIsLoading(false);
   }
   
   const handleBook=async()=>{
     if(selected){
-      setIsLoading(true)
-      const result= await toggleBookAppointment({appointment_id:selected.id})
+      setIsLoading(true);
+      const result= await toggleBookAppointment({appointment_id:selected.id});
       if (result.success){
-        const token= await AsyncStorage.getItem("@expoToken")
-        sendNotification(token,'Meet A Local',`Appointment on ${selected.date} form ${selected.start_time} till ${selected.end_time} has been successfully booked. `)
-        setModalVisible(false)
-        const result= await getToken(id)
-        sendNotification(result.data.token,'Meet A Local',`The appointment on ${selected.date} form ${selected.start_time} till ${selected.end_time} was booked by ${user.name} `)
-        setAppointmentBooked(true)
+        const token= await AsyncStorage.getItem("@expoToken");
+        sendNotification(token,'Meet A Local',`Appointment on ${selected.date} form ${selected.start_time} till ${selected.end_time} has been successfully booked. `);
+        setModalVisible(false);
+        const result= await getToken(id);
+        sendNotification(result.data.token,'Meet A Local',`The appointment on ${selected.date} form ${selected.start_time} till ${selected.end_time} was booked by ${user.name} `);
+        setAppointmentBooked(true);
       }
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
   

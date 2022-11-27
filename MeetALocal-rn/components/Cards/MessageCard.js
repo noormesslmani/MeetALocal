@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
+import { View, Text, TouchableOpacity, Image } from 'react-native';
+import React from 'react';
 import { useState, useEffect} from "react";
 import { getUserDetails } from '../../network/App';
 import { address } from '../../constants/address';
@@ -7,27 +7,27 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { colors } from '../../constants/colors';
 import MessageCardStyle from './Styles/MessageCardStyle';
 const MessageCard=({navigation, chat})=> {
-    const [image, setImage]=useState(null)
-    const [name, setName]=useState(null)
-    const [type_id, setType_id]=useState(null)
+    const [image, setImage]=useState(null);
+    const [name, setName]=useState(null);
+    const [type_id, setType_id]=useState(null);
 
     //get messaged users info
     useEffect(()=>{
-        getUser()
+        getUser();
     },[])
 
     const getUser=async()=>{
-        const result = await getUserDetails(chat.user_id)
+        const result = await getUserDetails(chat.user_id);
         if (result.success){
-            setName(result.data.data.name)
-            setImage(result.data.data.profile_picture)
-            setType_id(result.data.data.type_id)
+            setName(result.data.data.name);
+            setImage(result.data.data.profile_picture);
+            setType_id(result.data.data.type_id);
         }
     } 
     //navigate to chat screen
     const handleChat=()=>{
-        const chatId=chat.chat_id
-        navigation.navigate('chat-screen', {chatId, userId:null, image, name})
+        const chatId=chat.chat_id;
+        navigation.navigate('chat-screen', {chatId, userId:null, image, name});
     }
 
   return (

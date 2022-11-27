@@ -1,7 +1,7 @@
-import {  Text, TouchableOpacity, } from 'react-native'
-import React from 'react'
-import AppButtonStyle from './Styles/AppButtonStyle'
-import { colors } from '../../constants/colors'
+import {  Text, TouchableOpacity, } from 'react-native';
+import React from 'react';
+import AppButtonStyle from './Styles/AppButtonStyle';
+import { colors } from '../../constants/colors';
 const AppButton=({text, handlePress, type=1})=>{
     //button used in the app with several variations
     return (

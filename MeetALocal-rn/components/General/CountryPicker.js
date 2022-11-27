@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { useState} from "react";
 import { countriesOptionsOneCountry } from '../../constants/countries';
@@ -7,7 +7,7 @@ import { colors } from '../../constants/colors';
 import PickerStyle from './Styles/PickerStyle';
 const CountryPicker=({open, value, setOpen, setValue, type=1})=>{
     
-    const [countries, setCountries] = useState(type==1? countriesOptionsOneCountry: countriesOptions)
+    const [countries, setCountries] = useState(type==1? countriesOptionsOneCountry: countriesOptions);
    
     return(
         <DropDownPicker

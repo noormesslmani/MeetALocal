@@ -1,7 +1,7 @@
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import React from 'react'
+import React from 'react';
 import { colors } from '../../constants/colors';
-import {API_KEY} from "@env"
+import {API_KEY} from "@env";
 const MapSearch=({handlePress})=> {
        
   return (

@@ -1,11 +1,11 @@
-import { View, Text, Image, Pressable } from 'react-native'
-import React from 'react'
+import { View, Text, Image, Pressable } from 'react-native';
+import React from 'react';
 import { address } from '../../constants/address';
 import { useContext } from "react";
 import { Rating} from 'react-native-ratings';
 import ReviewerCardStyle from './Styles/ReviewerCardStyle';
 import { UserContext } from '../../App';
-import Icon from 'react-native-vector-icons/FontAwesome'
+import Icon from 'react-native-vector-icons/FontAwesome';
 const ReviewCard=({review, hanldeDelete})=> {
   //card displaying review
   const { user, setUser} = useContext(UserContext);

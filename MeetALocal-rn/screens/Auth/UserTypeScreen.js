@@ -1,5 +1,5 @@
-import { View } from 'react-native'
-import React from 'react'
+import { View } from 'react-native';
+import React from 'react';
 import styles from './Styles/AuthScreensStyle';
 import AuthButton from '../../components/Buttons/AuthButton';
 import { Surface, Text } from 'react-native-paper';
@@ -18,14 +18,12 @@ const UserTypeScreen=({navigation})=> {
 
   //local type
   const handleLocal=()=>{
-      navigation.navigate('setup',{fullName,phone,dob,country,nationality,language,email,password,
-        type:'Local'})
+      navigation.navigate('setup',{fullName,phone,dob,country,nationality,language,email,password,type:'Local'});
   }
 
   //foreigner type
   const handleForeigner=()=>{
-      navigation.navigate('setup',{fullName,phone,dob,country,nationality,language,email,password,
-        type:'Foreigner'})
+      navigation.navigate('setup',{fullName,phone,dob,country,nationality,language,email,password,type:'Foreigner'});
   }
   return (
     <View style={styles.backgroundUserType}>
