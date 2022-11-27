@@ -129,7 +129,9 @@ Here's a brief high-level overview of the tech stacks the app uses:
 
 ### Admin:
 ---------------
-
+| Users Tables  | Statistics  | Map  |
+| ----------| ----------| ----------| 
+| <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/admin-users.gif" width="300"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/admin-stat.gif" width="300"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/admin-maps.gif" width="300"> | 
 
 <br><br>
 <img src="./readme/title6.svg" id="how-to-run"/>
