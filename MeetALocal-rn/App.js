@@ -5,7 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import {Notify} from './notifications/Notifications'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import UserContextProvider from './context/UserContext';
-
+import EventsContextProvider from './context/EventsContext';
 export default function App() {
  
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -25,7 +25,9 @@ export default function App() {
 
   return(
     <UserContextProvider>
-      <RootNavigation/>
+      <EventsContextProvider>
+        <RootNavigation/>
+      </EventsContextProvider>
     </UserContextProvider>
     
   )
