@@ -4,7 +4,7 @@ import CommentStyle from './Styles/CommentStyle';
 import { address } from '../../constants/address';
 import { userProfile } from '../../network/App';
 import { useContext } from "react";
-import { UserContext } from '../../App';
+import { UserContext } from '../../context/UserContext';
 const Comment=({navigation, comment})=> {
   const { user, setUser} = useContext(UserContext);
 

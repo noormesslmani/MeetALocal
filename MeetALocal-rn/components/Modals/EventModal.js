@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { address } from '../../constants/address';
 import { categoryIcons } from '../../constants/categories';
 import { toggleSaveEvent, isEventSaved } from '../../network/App';
-import { UserContext } from '../../App';
+import { UserContext } from '../../context/UserContext';
 import { deleteEvents } from '../../network/App';
 import { getToken } from '../../network/Notifications';
 import { colors } from '../../constants/colors';

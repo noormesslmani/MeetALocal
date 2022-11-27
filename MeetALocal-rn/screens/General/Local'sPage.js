@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, Image, ScrollView, Pressable, Linking } from 'react-native';
 import React from 'react';
-import { UserContext } from '../../App';
+import { UserContext } from '../../context/UserContext';
 import { useState, useEffect, useContext } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useRoute } from '@react-navigation/native';

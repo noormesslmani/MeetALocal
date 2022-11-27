@@ -9,7 +9,7 @@ import CommentsStyles from './Styles/CommentsStyles';
 import { useRoute } from '@react-navigation/native';
 import { address } from '../../constants/address';
 import { colors } from '../../constants/colors';
-import { UserContext } from '../../App';
+import { UserContext } from '../../context/UserContext';
 const PostComments=({navigation})=> {
     const route = useRoute();
     const { user, setUser} = useContext(UserContext);

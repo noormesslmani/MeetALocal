@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useContext } from 'react';
 import {ActivityIndicator, ScrollView, View } from 'react-native';
-import { UserContext } from '../../App';
+import { UserContext } from '../../context/UserContext';
 import { database } from "../../firebase";
 import { colors } from '../../constants/colors';
 import MessageCard from '../../components/Cards/MessageCard'

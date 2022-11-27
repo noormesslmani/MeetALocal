@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect, useContext } from 'react';
 import { Image, View, Text } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
-import { UserContext } from '../../App';
+import { UserContext } from '../../context/UserContext';
 import { database } from "../../firebase";
 import { address } from '../../constants/address';
 import {
