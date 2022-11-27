@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { address } from '../../constants/address';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { colors } from '../../constants/colors';
@@ -9,10 +9,12 @@ import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import ScheduleCardStyle from './Styles/ScheduleCardStyle';
 import ScheduleModal from '../Modals/ScheduleModal';
 import { EvilIcons } from '@expo/vector-icons';
-const ScheduleCard=({item, type, setDeleted, navigation, setAppointments})=> {
+import { BookingsContext } from '../../context/BookingsContext';
+const ScheduleCard=({item, type, setDeleted, navigation})=> {
   const [modalVisible, setModalVisible]=useState(false);
   const [booked, setBooked]=useState(false);
 
+  const { bookings, setBookings} = useContext(BookingsContext);
   //2 variations (one for locals and one for foreigners)
 
   //check if appointment is booked for locals(type=1)
@@ -28,12 +30,9 @@ const ScheduleCard=({item, type, setDeleted, navigation, setAppointments})=> {
   
   //unbook function for foreigners(type=2)
   const hanldeUnbook=async()=>{
-    const data={
-      appointment_id:item.appointment_id
-    }
-    const result=await toggleBookAppointment(data);
+    const result=await toggleBookAppointment({appointment_id:item.appointment_id});
     if (result.success){
-      setDeleted(true);
+      setBookings(bookings.filter(booking=> booking!=item));
     }
   }
  
