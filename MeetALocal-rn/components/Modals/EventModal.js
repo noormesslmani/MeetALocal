@@ -1,12 +1,12 @@
-import { View, Text, TouchableOpacity, Image, Modal, Pressable, ScrollView, ActivityIndicator } from 'react-native'
-import React from 'react'
-import { useState, useEffect, useContext, useRef } from "react";
-import Icon from 'react-native-vector-icons/FontAwesome'
+import { View, Text, Image, Modal, Pressable, ScrollView, ActivityIndicator } from 'react-native';
+import React from 'react';
+import { useState, useEffect, useContext} from "react";
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { Ionicons } from '@expo/vector-icons';
 import { address } from '../../constants/address';
 import { categoryIcons } from '../../constants/categories';
 import { toggleSaveEvent, isEventSaved } from '../../network/App';
-import { UserContext } from '../../App'
+import { UserContext } from '../../App';
 import { deleteEvents } from '../../network/App';
 import { getToken } from '../../network/Notifications';
 import { colors } from '../../constants/colors';
@@ -17,80 +17,78 @@ import { sendNotification, Notify } from '../../notifications/Notifications';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setDeleted, setToggled})=> {
     const { user, setUser} = useContext(UserContext);
-    const [categories, setCategories]=useState([])
-    const [isSaved, setIsSaved]=useState(false)
-    const [isLoading, setIsLoading]=useState(false)
-    const [isBooked, setIsBooked]=useState(false)
+    const [categories, setCategories]=useState([]);
+    const [isSaved, setIsSaved]=useState(false);
+    const [isLoading, setIsLoading]=useState(false);
+    const [isBooked, setIsBooked]=useState(false);
 
-
+    //check if event is booked or saved for type 2 user(foreigners)
     useEffect(()=>{
-        if(modalVisible)
-        {
-          setCategories(item.categories)
-          if(user.type_id==2){
-            isSavedEvent()
-            isBookedEvent()
-          }
+      if(modalVisible)
+      {
+        setCategories(item.categories)
+        if(user.type_id==2){
+          isSavedEvent();
+          isBookedEvent();
         }
-    },[modalVisible])
+      }
+    },[modalVisible]);
    
+    //hanlde toggle save
     const handleSave=()=>{
-      toggleSave()
+      toggleSave();
     }
 
     const toggleSave= async()=>{
-      const data = {
-        event_id: item.id,
-      };
-      const result = await toggleSaveEvent(data)
+      const result = await toggleSaveEvent({event_id: item.id,});
       if (result.success){
-        setToggled(true)
-        setIsSaved(! isSaved)
+        setToggled(true);
+        setIsSaved(! isSaved);
       }
     }
     
+    //check if event is saved
     const isSavedEvent= async()=>{
-      const result = await isEventSaved(item.id)
+      const result = await isEventSaved(item.id);
       if (result.success){
-        result.data.data? setIsSaved(true): setIsSaved(false)
-      }
-    }
-    const isBookedEvent= async()=>{
-      setIsLoading(true)
-      const result = await isEventBooked(item.id)
-      if (result.success){
-        result.data.data? setIsBooked(true): setIsBooked(false)
-        setIsLoading(false)
+        result.data.data? setIsSaved(true): setIsSaved(false);
       }
     }
 
-    const handleDelete=async()=>{
-      const data={
-        event_id: item.id
-      }
-      const result = await deleteEvents(data)
+    //check if event is booked
+    const isBookedEvent= async()=>{
+      setIsLoading(true);
+      const result = await isEventBooked(item.id);
       if (result.success){
-        setModalVisible(false)
-        setDeleted(true)
+        result.data.data? setIsBooked(true): setIsBooked(false);
+        setIsLoading(false);
       }
     }
-    const handleBooking=async()=>{
-      setIsLoading(true)
-      const data={
-        event_id: item.id
-      }
-      const result = await toggleBookedEvent(data)
+
+    //deleting an event for organizers(locals)
+    const handleDelete=async()=>{
+      const result = await deleteEvents({event_id: item.id});
       if (result.success){
-        setModalVisible(false)
-        setToggled(true)
+        setModalVisible(false);
+        setDeleted(true);
+      }
+    }
+
+    //booking an event (for foreigners) and sending notifications upon booking
+    const handleBooking=async()=>{
+      setIsLoading(true);
+      const result = await toggleBookedEvent({event_id: item.id});
+      if (result.success){
+        setModalVisible(false);
+        setToggled(true);
         if(! isBooked){
-          const token= await AsyncStorage.getItem("@expoToken")
-          sendNotification(token,'Meet A Local',`Event ${item.title} has been successfully booked. `)
-          const result= await getToken(item.organizer_id)
-          sendNotification(result.data.token,'Meet A Local',`Your event ${item.title} was booked by ${user.name} `)
+          const token= await AsyncStorage.getItem("@expoToken");
+          sendNotification(token,'Meet A Local',`Event ${item.title} has been successfully booked. `);
+          const result= await getToken(item.organizer_id);
+          sendNotification(result.data.token,'Meet A Local',`Your event ${item.title} was booked by ${user.name} `);
         }
       }
-      setIsLoading(false)
+      setIsLoading(false);
     }
   return (
     <Modal

@@ -1,6 +1,6 @@
-import { View, Text, ScrollView,  ActivityIndicator } from 'react-native'
-import React from 'react'
-import { UserContext } from '../../App'
+import { View, Text, ScrollView,  ActivityIndicator } from 'react-native';
+import React from 'react';
+import { UserContext } from '../../App';
 import { useState, useEffect, useContext } from "react";
 import { useRoute } from '@react-navigation/native';
 import { Rating, } from 'react-native-ratings';
@@ -17,70 +17,70 @@ const Reviews=({navigation})=>{
 
     //route parameters
     const route = useRoute();
-    const id=route.params.id
-    const[reviews, setReviews]=useState(route.params.reviews)
-    const[average, setAverage]=useState(route.params.average)
+    const id=route.params.id;
+    const[reviews, setReviews]=useState(route.params.reviews);
+    const[average, setAverage]=useState(route.params.average);
 
-    const [reviewModalVisible, setReviewModalVisible]=useState(false)
+    const [reviewModalVisible, setReviewModalVisible]=useState(false);
 
-    const [reviewAdded, setReviewAdded]=useState(false)
-    const [isReviewed, setIsReviewed]=useState(false)
-    const [reviewDeleted, setReviewDeleted]=useState(false)
+    const [reviewAdded, setReviewAdded]=useState(false);
+    const [isReviewed, setIsReviewed]=useState(false);
+    const [reviewDeleted, setReviewDeleted]=useState(false);
 
-    const [isLoading, setIsLoading]=useState(false)
+    const [isLoading, setIsLoading]=useState(false);
 
     const { user, setUser} = useContext(UserContext);
 
     //check if local is reviewed or not
     useEffect(()=>{
-        reviewed()
+        reviewed();
     },[])
     const reviewed=async()=>{
-        const result = await checkReviewed(id)
+        const result = await checkReviewed(id);
         if (result.success){ 
-          setIsReviewed(result.data.data)
+          setIsReviewed(result.data.data);
         }
     } 
 
     useEffect(()=>{
         if(reviewAdded){
-            getAllReviews()
-            setIsReviewed(true)
+            getAllReviews();
+            setIsReviewed(true);
         }
-    },[reviewAdded])
+    },[reviewAdded]);
         
     //getting new average after addition or deletion of review
     useEffect(()=>{
-        let newAvg=0
+        let newAvg=0;
         if(reviewAdded || reviewDeleted ){
             for(let review of reviews){
-                newAvg+=review.stars
+                newAvg+=review.stars;
             }
-            reviews.length>0?setAverage(newAvg/(reviews.length)): setAverage(0)
-            setReviewAdded(false)
-           setReviewDeleted(false)
+            reviews.length>0?setAverage(newAvg/(reviews.length)): setAverage(0);
+            setReviewAdded(false);
+            setReviewDeleted(false);
         }
-    },[reviews])
+    },[reviews]);
    
   
     const getAllReviews=async()=>{
-        setIsLoading(true)
-        const result = await getReviews(id)
+        setIsLoading(true);
+        const result = await getReviews(id);
         if (result.success){
-          setReviews(result.data.data)
+          setReviews(result.data.data);
         }
-        setIsLoading(false)
+        setIsLoading(false);
     }
 
     //handle the deletion of a review
     const hanldeDelete=async ()=>{
-        setIsLoading(true)
-        const result = await deleteReview({local_id: id})
+        setIsLoading(true);
+        const result = await deleteReview({local_id: id});
         if (result.success){
-            getAllReviews()
-            setReviewDeleted(true)
+            getAllReviews();
+            setReviewDeleted(true);
         }
-        setIsLoading(false)
+        setIsLoading(false);
     }
   
     return (

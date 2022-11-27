@@ -1,5 +1,5 @@
 import { View, FlatList, SafeAreaView, ActivityIndicator, Text } from 'react-native';
-import React from 'react'
+import React from 'react';
 import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useCallback } from "react";
 import LocalCard from '../../components/Cards/LocalCard';
@@ -20,7 +20,7 @@ const SearchScreen=({navigation})=> {
   navigation.setOptions({
     headerTitle: () => <Searchbar placeholder="Search" onChangeText={setSearchQuery}
     value={searchQuery} style={{width:widths.width8}} 
-    />,  headerTitleAlign: 'center'  })
+    />,  headerTitleAlign: 'center'  });
     
     //reset data
     useFocusEffect(
@@ -45,8 +45,7 @@ const SearchScreen=({navigation})=> {
       setSearched(true);
       setdata(result.data.data);
     }
-    
-    setIsLoading(false)
+    setIsLoading(false);
   }
 const renderItem = ({ item}) => (
   <LocalCard item={item}  navigation={navigation}/>

@@ -1,10 +1,10 @@
 import { View, Text, Image, Pressable, TextInput, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React from 'react';
 import { useState, useEffect, useContext } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Comment from '../../components/General/Comment';
 import { getComments, addComment, userProfile } from '../../network/App';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CommentsStyles from './Styles/CommentsStyles';
 import { useRoute } from '@react-navigation/native';
 import { address } from '../../constants/address';
@@ -13,9 +13,9 @@ import { UserContext } from '../../App';
 const PostComments=({navigation})=> {
     const route = useRoute();
     const { user, setUser} = useContext(UserContext);
-    const item= route.params.item
-    const [data, setData]= useState([])
-    const [totalComments, setTotalComments]=useState(item.comments)
+    const item= route.params.item;
+    const [data, setData]= useState([]);
+    const [totalComments, setTotalComments]=useState(item.comments);
     
     //for tracking new comments
     const [newComment, setNewComment]=useState(null);
@@ -32,7 +32,7 @@ const PostComments=({navigation})=> {
     //set total nb of comments
     useEffect(()=>{
         setTotalComments(data.length);
-    },[data])
+    },[data]);
 
     //add new comment
     const handleComment=()=>{

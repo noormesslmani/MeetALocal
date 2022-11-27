@@ -1,16 +1,16 @@
-import { View, Text, TouchableOpacity, Image, ActivityIndicator, Modal, Linking} from 'react-native'
-import React from 'react'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import { useState, useEffect, useContext, useRef } from "react";
-import Icon from 'react-native-vector-icons/FontAwesome'
+import { View, Text, TouchableOpacity, Image, ActivityIndicator, Modal} from 'react-native';
+import React from 'react';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { useState, useEffect, useContext } from "react";
+import Icon from 'react-native-vector-icons/FontAwesome';
 import NewEventModalStyles from './Styles/NewEventModalStyle';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-import { UserContext } from '../../App'
+import { UserContext } from '../../App';
 import DatePicker from '../General/datePicker';
 import AppButton from '../Buttons/AppButtons';
 import { createNewEvent } from '../../network/App';
-import { sendNotification, Notify } from '../../notifications/Notifications';
+import { sendNotification } from '../../notifications/Notifications';
 import { colors } from '../../constants/colors';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CategoryPicker from '../General/CategoryPicker';
@@ -18,20 +18,27 @@ import { widths } from '../../constants/dimensions';
 import { TextInput } from 'react-native-paper';
 const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated})=> {
     const { user, setUser} = useContext(UserContext);
-    const[title, setTtitle]=useState(null)
-    const[details, setDetails]=useState(null)
-    const[fees, setFees]=useState(null)
-    const [place, setPlace]=useState(null)
+    //event data
+    const [title, setTtitle]=useState(null);
+    const [details, setDetails]=useState(null);
+    const [fees, setFees]=useState(null);
+    const [place, setPlace]=useState(null);
     const [date, setDate]=useState(new Date());
-    const [datePicker, setDatePicker]=useState(false)
-    const [openCategory, setOpenCategory] = useState(false);
-    const [selectedCategory, setSelectedCategory]=useState([])
-    const [image, setImage] = useState(null);
-    const [base64, setBase64]= useState(null)
-    const [ext, setext]= useState(null)
-    const [seats, setSeats]= useState(null)
-    const [isLoading, setIsLoading]=useState(false)
+    const [seats, setSeats]= useState(null);
+    const [selectedCategory, setSelectedCategory]=useState([]);
 
+    //pickers
+    const [datePicker, setDatePicker]=useState(false);
+    const [openCategory, setOpenCategory] = useState(false);
+    
+    //image
+    const [image, setImage] = useState(null);
+    const [base64, setBase64]= useState(null);
+    const [ext, setext]= useState(null);
+    
+    const [isLoading, setIsLoading]=useState(false);
+
+    //adding image
     const addImage = async () => {
         let _image = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -43,25 +50,27 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
         if (!_image.cancelled) {
             setImage(_image.uri);
         }
-        setBase64(_image.base64)
+        setBase64(_image.base64);
     }
+    //saving extension
     useEffect(()=>{
         if(image){
-            setext(image.split('.').pop())
+            setext(image.split('.').pop());
         }
-    },[image])
+    },[image]);
 
-   
+   //choosing a date
     const handleDate= (event, value)=>{
-        setDatePicker(false)
-        setDate(value)
+        setDatePicker(false);
+        setDate(value);
     }
 
+    //creating event
     const hanldePress=()=>{
-        
-        createEvent()
+        createEvent();
     }
 
+    //creating an event and sending a notification
     const createEvent= async()=>{
         const data = {
             title,
@@ -76,21 +85,18 @@ const NewEventModal=({navigation, modalVisible, setModalVisible,setEventCreated}
             seats: parseInt(seats)
         }
         
-       
         setIsLoading(true)
         const result = await createNewEvent(data)
-        
         if (result.success){
             setTimeout(() => {
                 setModalVisible(false);
               }, 2000);
-            const token = await AsyncStorage.getItem('@expoToken')
-            sendNotification(token,'Meet A Local','Event successfully created')
-            setEventCreated(true)
-            setIsLoading(false)
-           
+            const token = await AsyncStorage.getItem('@expoToken');
+            sendNotification(token,'Meet A Local','Event successfully created');
+            setEventCreated(true);
+            setIsLoading(false);   
         }
-        else(setIsLoading(false))
+        else(setIsLoading(false));
       }
    
   return (

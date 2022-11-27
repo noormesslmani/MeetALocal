@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity} from 'react-native'
-import React from 'react'
-import { useState, useEffect, useContext } from "react";
+import React from 'react';
+import { useState, useEffect} from "react";
 import { useRoute } from '@react-navigation/native';
 import styles from './Styles/AuthScreensStyle';
 import * as Location from 'expo-location';
@@ -8,27 +8,27 @@ import Map from '../../components/map/Map';
 const SetUpMap=({navigation})=> {
     const route = useRoute();
     //route parameters
-    const base64= route.params.base64
-    const gender= route.params.gender
-    const ext= route.params.ext
-    const about= route.params.about
-    const type= route.params.type
-    const fullName= route.params.fullName
-    const phone= route.params.phone
-    const dob =route.params.dob
-    const country= route.params.country
-    const nationality =route.params.nationality
-    const language = route.params.language
-    const email= route.params.email
-    const password= route.params.password
+    const base64= route.params.base64;
+    const gender= route.params.gender;
+    const ext= route.params.ext;
+    const about= route.params.about;
+    const type= route.params.type;
+    const fullName= route.params.fullName;
+    const phone= route.params.phone;
+    const dob =route.params.dob;
+    const country= route.params.country;
+    const nationality =route.params.nationality;
+    const language = route.params.language;
+    const email= route.params.email;
+    const password= route.params.password;
 
 
-    const [lat, setLat]=useState(33.888630)
-    const [lng, setLng]=useState(35.495480)
+    const [lat, setLat]=useState(33.888630);
+    const [lng, setLng]=useState(35.495480);
     const [errorMsg, setErrorMsg] = useState(null);
 
     useEffect(() => {
-        getLocation()
+        getLocation();
       }, []);
 
     //get user's location
@@ -39,17 +39,17 @@ const SetUpMap=({navigation})=> {
         return;
     }
     let location = await Location.getCurrentPositionAsync({});
-        setLat(location.coords.latitude)
-        setLng(location.coords.longitude)
+        setLat(location.coords.latitude);
+        setLng(location.coords.longitude);
     }
 
     //dragging the pin on the map
     const handleDrag=(e)=>{
-      setLat( e.nativeEvent.coordinate.latitude)
-      setLng( e.nativeEvent.coordinate.longitude)
+      setLat( e.nativeEvent.coordinate.latitude);
+      setLng( e.nativeEvent.coordinate.longitude);
     }
     const handleNext=()=>{
-        navigation.navigate('categories',{gender, base64, ext, lat, lng, about, type, fullName,phone,dob,country,nationality,language,email,password})
+        navigation.navigate('categories',{gender, base64, ext, lat, lng, about, type, fullName,phone,dob,country,nationality,language,email,password});
     }
 
     

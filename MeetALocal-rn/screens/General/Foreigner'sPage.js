@@ -1,5 +1,5 @@
-import { View, Text, Image, ScrollView, Pressable } from 'react-native'
-import React from 'react'
+import { View, Text, Image, ScrollView, Pressable } from 'react-native';
+import React from 'react';
 import { useEffect} from "react";
 import { useRoute } from '@react-navigation/native';
 import LocalProfileStyles from './Styles/LocalProfileStyles';
@@ -23,7 +23,7 @@ const ForeignerPage=({navigation})=> {
  
   //navigate to chat screen 
   const handleMessage=()=>{
-    navigation.navigate('chat-screen', { chatId: null, userId: item.id, image:item.profile_picture, name:item.name})
+    navigation.navigate('chat-screen', { chatId: null, userId: item.id, image:item.profile_picture, name:item.name});
   }
 return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>

@@ -1,8 +1,8 @@
 import { View, Text, Modal, ActivityIndicator} from 'react-native'
-import React from 'react'
-import { useState, useEffect, useContext } from "react";
+import React from 'react';
+import { useState} from "react";
 import CountryPicker from '../General/CountryPicker';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import AppButton from '../Buttons/AppButtons';
 import { createNewPost } from '../../network/App';
 import { TextInput } from 'react-native-paper';
@@ -10,50 +10,57 @@ import NewPostModalStyle from './Styles/NewPostModalStyle';
 import CategoryPicker from '../General/CategoryPicker';
 import { colors } from '../../constants/colors';
 const NewPostModal=({navigation, modalVisible, setModalVisible, setPostAdded })=> {
-    const [selectedCountry, setSelectedCountry]=useState(null)
-    const [selectedCategory, setSelectedCategory]=useState([])
-    const [openCountry, setOpenCountry] = useState(false);
-    const [openCategory, setOpenCategory] = useState(false);
-    const [details, setDetails]= useState(null)
-    const [invalidDetails, setInvalidDetails]= useState(false)
-    const [invalidCountry, setInvalidCountry]= useState(false)
-    const [invalidCategory, setInvalidCategory]= useState(false)
+  //post data
+  const [details, setDetails]= useState(null);
+  const [selectedCountry, setSelectedCountry]=useState(null);
+  const [selectedCategory, setSelectedCategory]=useState([]);
 
-    const [isLoading, setIsLoading]=useState(false)
-    const handleSubmit=()=>{
-        setInvalidCategory(false)
-        setInvalidCountry(false)
-        setInvalidDetails(false)
-        if(! details){
-          setInvalidDetails(true)
-          setTimeout(() => {
-            setInvalidDetails(false);
-          }, 1500);
-        }
-        else if(! selectedCountry){
-          setInvalidCountry(true)
-          setTimeout(() => {
-            setInvalidCountry(false);
-          }, 1500);
-        }
-        else if(selectedCategory.length==0){
-          setInvalidCategory(true)
-          setTimeout(() => {
-            setInvalidCategory(false);
-          }, 1500);
-        }
-        if(details && selectedCountry && selectedCategory.length>0){
-            createPost() 
-        } 
-    }
-    const createPost= async()=>{
-      setIsLoading(true)
-      const result = await createNewPost({ details,country: selectedCountry,category: selectedCategory})
-      if (result.success){
-        setModalVisible(false)
-        setPostAdded(true)
+  //pickers
+  const [openCountry, setOpenCountry] = useState(false);
+  const [openCategory, setOpenCategory] = useState(false);
+  
+  const [invalidDetails, setInvalidDetails]= useState(false);
+  const [invalidCountry, setInvalidCountry]= useState(false);
+  const [invalidCategory, setInvalidCategory]= useState(false);
+
+  const [isLoading, setIsLoading]=useState(false);
+
+  //submitting post
+  const handleSubmit=()=>{
+      setInvalidCategory(false);
+      setInvalidCountry(false);
+      setInvalidDetails(false);
+      if(! details){
+        setInvalidDetails(true);
+        setTimeout(() => {
+          setInvalidDetails(false);
+        }, 1500);
       }
-      setIsLoading(false)
+      else if(! selectedCountry){
+        setInvalidCountry(true);
+        setTimeout(() => {
+          setInvalidCountry(false);
+        }, 1500);
+      }
+      else if(selectedCategory.length==0){
+        setInvalidCategory(true);
+        setTimeout(() => {
+          setInvalidCategory(false);
+        }, 1500);
+      }
+      if(details && selectedCountry && selectedCategory.length>0){
+          createPost() ;
+      } 
+  }
+
+  const createPost= async()=>{
+    setIsLoading(true);
+    const result = await createNewPost({ details,country: selectedCountry,category: selectedCategory});
+    if (result.success){
+      setModalVisible(false);
+      setPostAdded(true);
+    }
+    setIsLoading(false);
     }
   return (
     <Modal
