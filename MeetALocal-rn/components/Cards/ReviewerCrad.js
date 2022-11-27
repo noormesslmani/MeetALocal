@@ -4,7 +4,7 @@ import { address } from '../../constants/address';
 import { useContext } from "react";
 import { Rating} from 'react-native-ratings';
 import ReviewerCardStyle from './Styles/ReviewerCardStyle';
-import { UserContext } from '../../App';
+import { UserContext } from '../../context/UserContext';
 import Icon from 'react-native-vector-icons/FontAwesome';
 const ReviewCard=({review, hanldeDelete})=> {
   //card displaying review

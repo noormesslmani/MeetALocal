@@ -6,7 +6,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import NewEventModalStyles from './Styles/NewEventModalStyle';
 import { AntDesign } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
-import { UserContext } from '../../App';
+import { UserContext } from '../../context/UserContext';
 import DatePicker from '../General/datePicker';
 import AppButton from '../Buttons/AppButtons';
 import { createNewEvent } from '../../network/App';

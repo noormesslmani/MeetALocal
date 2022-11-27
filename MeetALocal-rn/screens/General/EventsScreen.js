@@ -1,7 +1,7 @@
 import { View, SafeAreaView, FlatList, ActivityIndicator } from 'react-native';
 import React from 'react';
 import { useState, useEffect, useContext } from "react";
-import { UserContext } from '../../App';
+import { UserContext } from '../../context/UserContext';
 import EventsStyles from './Styles/EventsPageStyles';
 import FilterModal from '../../components/Modals/FilterModal';
 import NewEventModal from '../../components/Modals/NewEventModal';

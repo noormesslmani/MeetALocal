@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, TextInput, ActivityIndicator} from 'react-native';
 import React from 'react';
-import { UserContext } from '../../App';
+import { UserContext } from '../../context/UserContext';
 import { useState, useEffect, useContext } from "react";
 import ProfileStyles from './ProfileStyles/ProfileStyles';
 import { FontAwesome } from '@expo/vector-icons';

@@ -1,6 +1,6 @@
 import { View, Text, ScrollView,  ActivityIndicator } from 'react-native';
 import React from 'react';
-import { UserContext } from '../../App';
+import { UserContext } from '../../context/UserContext';
 import { useState, useEffect, useContext } from "react";
 import { useRoute } from '@react-navigation/native';
 import { Rating, } from 'react-native-ratings';

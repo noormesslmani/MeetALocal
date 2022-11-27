@@ -3,7 +3,7 @@ import { TextInput } from 'react-native-paper';
 import React from 'react';
 import styles from './Styles/AuthScreensStyle';
 import { useState,  useContext } from "react";
-import { UserContext } from '../../App';
+import { UserContext } from '../../context/UserContext';
 import AuthButton from '../../components/Buttons/AuthButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { colors } from '../../constants/colors';
