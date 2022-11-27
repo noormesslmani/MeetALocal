@@ -96,28 +96,41 @@ Here's a brief high-level overview of the tech stacks the app uses:
 ### Local:
 ---------------
 
-| Registration  | Event creation  |  Notifications |  Appointment creation/deletion |
-| ----------| ----------| ----------| ----------| 
-| ![Registration](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/registration.gif) |  ![Event creation](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/event-creation.gif) | ![Notifications](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/notifications.gif) |  ![Appointments](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/appointment-addition-deletion.gif) | 
+| Registration  | Event creation  |  Notifications | 
+| ----------| ----------| ----------| 
+| <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/registration.gif" width="300"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/event-creation.gif" width="300"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/notifications.gif" width="300"> | 
+
+|  Appointment creation/deletion | Profile  | 
+| ----------| ----------|
+| <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/appointment-addition-deletion.gif" width="300"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/local's-profile.gif" width="300"> |
 
 
 ### Foreigner:
 ---------------
 
-| Browse Locals  | Browse Events  | 
-| ----------| ----------| 
-| ![Locals](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/locals-list.gif) |  ![Events](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/events.gif) | 
+| Browse Locals  | Browse Events  | Profile  |
+| ----------| ----------| ----------| 
+| <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/locals-list.gif" width="300"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/events.gif" width="300"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/foreigner's-profile.gif" width="300"> | 
 
-| Local's profile | Locations on Map |
-| ----------| ----------|
-| ![Local's Profile](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/visiting-local's-profile.gif) |  ![Locations](https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/locations.gif) | 
+
+| Local's profile | Locations on Map | Search |
+| ----------| ----------| ----------|
+| <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/visiting-local's-profile.gif" width="300"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/locations.gif" width="300"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/search.gif" width="300"> | 
+
+
 
 ### Common:
 ---------------
 
+| Chat Room  | Post  | Comments  |
+| ----------| ----------| ----------| 
+| <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/chat.gif" width="300"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/new-post.gif" width="300"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/comments.gif" width="300"> | 
+ 
 
 ### Admin:
 ---------------
+
+
 <br><br>
 <img src="./readme/title6.svg" id="how-to-run"/>
 
