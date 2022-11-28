@@ -153,7 +153,9 @@ class LocalController extends Controller
         $appointments=Auth::user()->appointments()->where('date', '>=', $date)->orderBy('date', 'desc')->get();
         foreach($appointments as $appointment){
             $appointment['booker']=$appointment->booking()->join('users','booker_id','users.id')->get(['users.name','booker_id','users.profile_picture']);
+            BookedAppointment::where('appointment_id',$appointment->id)->exists()? $appointment['booked']=true : $appointment['booked']=false;
         }
+        
         return response()->json([
             'message' => 'ok',
             'data' => $appointments,
@@ -165,14 +167,6 @@ class LocalController extends Controller
         Appointment::find($request->query('id'))->delete();
         return response()->json([
             'message' => 'ok',
-        ], 201);
-    }
-    //checking whether an appointment is booked
-    public function isBookedAppointment(Request $request){
-        BookedAppointment::where('appointment_id',$request->query('id'))->exists()? $booked=true : $booked=false;
-        return response()->json([
-            'message' => 'ok',
-            'data' => $booked,
         ], 201);
     }
 }
