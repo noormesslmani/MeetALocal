@@ -5,19 +5,19 @@ import { faBan } from '@fortawesome/free-solid-svg-icons'
 import { toggleBans } from '../../Network/Api';
 import "react-activity/dist/library.css";
 import { UsersContext } from '../../Context/UsersContext';
-const UsersTable=({ setBanLoading})=> {
+const UsersTable=({banned})=> {
     const {users, setUsers}=useContext(UsersContext)
-    const handleBan=(id)=>{
-        toggleBan(id)
+    const handleBan=(user)=>{
+        toggleBan(user)
     }
-    const toggleBan= async(id)=>{
-        setBanLoading(true)
+    const toggleBan= async(user)=>{
         const data={
-            user_id:id
+            user_id:user.id
         }
         const result =await toggleBans(data)
         if (result.success){
-            setBanLoading(false)
+            banned?setUsers(users.filter(item=>item!=user)):
+            setUsers(users.map(item=>item==user?({...item,ban:!user.ban}):item))
         }
     }
 
@@ -39,7 +39,7 @@ const UsersTable=({ setBanLoading})=> {
                         <td>{user.gender}</td>
                         <td>{user.country}</td>
                         <td>{user.created_at.slice(0,11)}</td>
-                        <td><FontAwesomeIcon icon={faBan} size='lg' color={user.ban? 'red':'green'} className='ban-icon' onClick={()=>handleBan(user.id)}/></td>
+                        <td><FontAwesomeIcon icon={faBan} size='lg' color={user.ban? 'red':'green'} className='ban-icon' onClick={()=>handleBan(user)}/></td>
                     </tr>)}
                 )}
             </table>

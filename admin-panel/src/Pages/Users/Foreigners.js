@@ -15,7 +15,6 @@ import Search from '../../Components/Search/Search';
 import { UsersContext } from '../../Context/UsersContext';
 const Foreigners=()=> {
     const [isLoading, setIsLoading]= useState(true)
-    const [banLoading, setBanLoading]= useState(false)
 
 
     const [page, setPage]=useState(1)
@@ -27,7 +26,7 @@ const Foreigners=()=> {
 
     useEffect(()=>{
         !pressed && getForeigners()
-    },[page, banLoading, pressed])
+    },[page, pressed])
 
     useEffect(()=>{
         pressed && getSearchedForeigners() 
@@ -102,7 +101,7 @@ const Foreigners=()=> {
                 <NavLink to='/banned-foreigners' className='banned-link' onClick={()=>setPressed(false)}>Banned</NavLink>
                 </div>
                 {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
-                {!isLoading && <UsersTable data={users} setBanLoading={setBanLoading} />}
+                {!isLoading && <UsersTable data={users} banned={false} />}
                 {!isLoading && <div className='flex align-center justify-center arrow-contianer'>
                     <FontAwesomeIcon icon={faArrowLeft} color='rgba(140,87,186,1)' className='arrow' onClick={hanldePrev}/>
                     <p>{currentPage}</p>
