@@ -8,7 +8,7 @@ import { colors } from '../../constants/colors';
 import ReviewModalStyle from './Styles/ReviewModalStyle';
 import { TextInput } from 'react-native-paper';
 import { ReviewsContext } from '../../context/ReviewsContext';
-const ReviewModal=({setModalVisible, modalVisible, id})=> {
+const ReviewModal=({setModalVisible, modalVisible, id, setIsReviewed})=> {
     const [review, setReview]=useState(null);
     const [rating,setRating]=useState(3);
     const [isLoading, setIsLoading]=useState(false);
@@ -35,7 +35,9 @@ const ReviewModal=({setModalVisible, modalVisible, id})=> {
       if (result.success){
         setIsLoading(false);
         setModalVisible(false);
+        setIsReviewed(true)
         setReviews(reviews=>[...reviews,result.data.data ])
+
       }
     }
   return (
@@ -46,6 +48,7 @@ const ReviewModal=({setModalVisible, modalVisible, id})=> {
         onRequestClose={() => {
         setModalVisible(!modalVisible);
         }}>
+        
         <View style={ReviewModalStyle.centeredView}>
         <View style={ReviewModalStyle.modalView}>
           <Text style={ReviewModalStyle.title}>Add a review</Text>  

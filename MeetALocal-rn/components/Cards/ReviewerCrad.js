@@ -8,7 +8,7 @@ import { UserContext } from '../../context/UserContext';
 import { ReviewsContext } from '../../context/ReviewsContext';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { deleteReview } from '../../network/App';
-const ReviewCard=({review, id})=> {
+const ReviewCard=({review, id,setIsReviewed })=> {
   //card displaying review
   const { user, setUser} = useContext(UserContext);
   const {reviews, setReviews}= useContext(ReviewsContext)
@@ -17,6 +17,7 @@ const ReviewCard=({review, id})=> {
     const result = await deleteReview({local_id:id});
     if (result.success){
         setReviews(reviews.filter(item=>item!=review))
+        setIsReviewed(false)
     }
 }
   return (<View style={ReviewerCardStyle.cotainer}>
