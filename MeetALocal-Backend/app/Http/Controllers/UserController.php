@@ -196,6 +196,13 @@ class UserController extends Controller
             'data' => $post,
         ], 201);
     }
+
+    public function deletePost(Request $request){
+        Post::where('id', $request->id)->delete();
+        return response()->json([
+            'message' => 'ok',
+        ], 201);
+    }
     
     //getting reviews for a local
     public function getReviews(Request $request){

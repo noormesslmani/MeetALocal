@@ -28,6 +28,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
                 Route::post('/comment', [UserController::class, 'addComment']);
                 Route::get('/comments/{id}', [UserController::class, 'getComments']);
                 Route::post('/post', [UserController::class, 'createPost']);
+                Route::delete('/post', [UserController::class, 'deletePost']);
                 Route::put('/edit-profile', [UserController::class, 'editProfile']);
                 Route::get('/reviews', [UserController::class, 'getReviews']);
                 Route::put('/token', [UserController::class, 'saveToken']);
