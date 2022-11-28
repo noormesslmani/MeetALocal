@@ -2,7 +2,7 @@ import { View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { useContext, useState } from "react";
 import HomeStyles from './Styles/HomeStyles';
-import { UserContext } from '../../App'
+import { UserContext } from '../../context/UserContext';
 import { address } from '../../constants/address';
 import HomeCard from '../../components/Cards/HomeCard';
 import WavyBack from '../../components/General/WavyBackground';

@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { address } from '../../constants/address';
 import { categoryIcons } from '../../constants/categories';
 import { toggleSaveEvent, isEventSaved } from '../../network/App';
-import { UserContext } from '../../App';
+import { UserContext } from '../../context/UserContext';
 import { deleteEvents } from '../../network/App';
 import { getToken } from '../../network/Notifications';
 import { colors } from '../../constants/colors';
@@ -15,8 +15,10 @@ import EventModalStyle from './Styles/EventModalStyle';
 import { isEventBooked, toggleBookedEvent } from '../../network/App';
 import { sendNotification, Notify } from '../../notifications/Notifications';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setDeleted, setToggled})=> {
+import { EventsContext } from '../../context/EventsContext';
+const EventModal=({navigation, modalVisible, setModalVisible, item, choice})=> {
     const { user, setUser} = useContext(UserContext);
+    const { events, setEvents} = useContext(EventsContext);
     const [categories, setCategories]=useState([]);
     const [isSaved, setIsSaved]=useState(false);
     const [isLoading, setIsLoading]=useState(false);
@@ -42,11 +44,14 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
     const toggleSave= async()=>{
       const result = await toggleSaveEvent({event_id: item.id,});
       if (result.success){
-        setToggled(true);
+        if(choice==2){
+          setEvents(events.filter(event=> event!=item));
+        }
         setIsSaved(! isSaved);
       }
     }
     
+
     //check if event is saved
     const isSavedEvent= async()=>{
       const result = await isEventSaved(item.id);
@@ -70,7 +75,7 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
       const result = await deleteEvents({event_id: item.id});
       if (result.success){
         setModalVisible(false);
-        setDeleted(true);
+        setEvents(events.filter(event=> event!=item));
       }
     }
 
@@ -80,7 +85,9 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice, setD
       const result = await toggleBookedEvent({event_id: item.id});
       if (result.success){
         setModalVisible(false);
-        setToggled(true);
+        if(choice==4){
+          setEvents(events.filter(event=> event!=item));
+        }
         if(! isBooked){
           const token= await AsyncStorage.getItem("@expoToken");
           sendNotification(token,'Meet A Local',`Event ${item.title} has been successfully booked. `);

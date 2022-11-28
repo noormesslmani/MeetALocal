@@ -1,6 +1,6 @@
 import { View, FlatList, SafeAreaView, ActivityIndicator } from 'react-native';
 import React from 'react';
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import FilterModal from '../../components/Modals/FilterModal';
 import PostsStyles from './Styles/PostsStyles';
 import NewPostModal from '../../components/Modals/NewPostModal';
@@ -14,6 +14,7 @@ import AppButton from '../../components/Buttons/AppButtons';
 import ListHeader from '../../components/General/ListHeaders';
 import EmptyPage from '../../components/General/EmptyPage';
 import AddIcon from '../../components/General/AddIcon';
+import { EventsContext } from '../../context/EventsContext';
 const Posts=({navigation})=> {
 
   //Either view all posts or own posts
@@ -24,8 +25,7 @@ const Posts=({navigation})=> {
   const [country, setCountry]=useState('all');
   const [category, setCategory]=useState('all');
   //saving data
-  const [data, setdata]=useState([]);
-  
+  const {posts, setPosts}=useContext(EventsContext);
   //filter modal
   const [modalVisible, setModalVisible] = useState(false);
   const [filterChange, setFilterChange]=useState(false);
@@ -57,7 +57,7 @@ const Posts=({navigation})=> {
   useEffect(() => {
     if(filterChange || viewOwnChange){
       page==0? getPosts(): setPage(0);
-      setdata([]);
+      setPosts([]);
       setIsListEnd(false);
       setFilterChange(false);
       setViewOwnChange(false);
@@ -75,11 +75,13 @@ const Posts=({navigation})=> {
   //get posts when the page changes (20 per page)
   const isFocused = useIsFocused();
     useEffect(() => {
+      if(page==0){
+        setPosts([]);
+      }
       if(isFocused)  {
         getPosts();
       }
       else{
-        setdata([]);
         setPage(0);
         setIsLoading(true);
       }
@@ -93,7 +95,7 @@ const Posts=({navigation})=> {
       result = await getOwnPosts();
       if (result.success){
         setIsLoading(false);
-        setdata(result.data.data);
+        setPosts(result.data.data);
         setIsListEnd(true);
       }
     }
@@ -103,7 +105,7 @@ const Posts=({navigation})=> {
       if (result.success){
         setIsLoading(false);
         setIsLoadingMore(false);
-        setdata( data =>[...data, ...result.data.data]);
+        setPosts( posts =>[...posts, ...result.data.data]);
         if(result.data.data.length<20){
           setIsListEnd(true);
   
@@ -146,14 +148,14 @@ const Posts=({navigation})=> {
         <FilterModal modalVisible={modalVisible} setModalVisible={setModalVisible} setCountry={setCountry} setCategory={setCategory} setFilterChange={setFilterChange} />
         <NewPostModal modalVisible={newPostModalVisible} setModalVisible={setNewPostModalVisible} setPostAdded={setPostAdded} />
         <SafeAreaView style={PostsStyles.listContainer}>
-        {!isLoading && data.length==0? <EmptyPage />:null}
+        {!isLoading && posts.length==0? <EmptyPage />:null}
           <FlatList
-            data={data}
-            renderItem={({ item }) => (<PostCard item={item} navigation={navigation} key={item.id} />)}
+            data={posts}
+            renderItem={({ item }) => (<PostCard item={item} navigation={navigation} key={item.id} viewOwn={viewOwn} />)}
             keyExtractor={item => item.id}
             style={PostsStyles.list}
             contentContainerStyle={{ paddingBottom: 300}}
-            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />: data.length>0 ?<ListHeader country={country} category={category} />: null }
+            ListHeaderComponent={isLoading?<ActivityIndicator color={colors.violet} />: posts.length>0 ?<ListHeader country={country} category={category} />: null }
             onEndReachedThreshold={1}
             onEndReached={!viewOwn && fetchMore}
             ListFooterComponent={<ListFooter isLoadingMore={isLoadingMore} isListEnd={isListEnd} />}

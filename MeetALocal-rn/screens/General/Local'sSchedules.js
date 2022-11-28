@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, FlatList,  ActivityIndicator} from 'react-native';
 import React from 'react';
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 import { getSchedule } from '../../network/App';
 import { colors } from '../../constants/colors';
 import ScheduleCard from '../../components/Cards/ScheduleCard';
@@ -9,16 +9,16 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import WavyBack from '../../components/General/WavyBackground';
 import { useFocusEffect} from '@react-navigation/native';
 import ScheduleModal from '../../components/Modals/NewScheduleModal';
+import { BookingsContext } from '../../context/BookingsContext';
+import EmptyPage from '../../components/General/EmptyPage';
 const Schedules=({navigation})=> {
 
   //This screen is for locals
-
-  const [schedule, setSchedule]=useState(null);
   const [isLoading, setIsLoading]=useState(false);
   const [scheduleModal, setScheduleModal]=useState(false);
   const [scheduleAdded, setScheduleAdded]=useState(false);
-  const [deleted, setDeleted]=useState(false);
   
+  const { schedules,setSchedules} = useContext(BookingsContext);
 
   //get schedule
   useFocusEffect(
@@ -28,28 +28,28 @@ const Schedules=({navigation})=> {
     
     //handle the modifications of the schedule
    useEffect(()=>{
-    if(scheduleAdded || deleted){
+    if(scheduleAdded){
       getMySchedule();
       setScheduleAdded(false);
-      setDeleted(false);
     }
-   },[scheduleAdded, deleted]);
+   },[scheduleAdded]);
    
    //get the schedule
    const getMySchedule=async()=>{
     setIsLoading(true);
     const result=await getSchedule();
     if (result.success){
-      setSchedule(result.data.data);
+      setSchedules(result.data.data);
     }
     setIsLoading(false);
   }
   const renderItem = ({ item, index }) => (
-    <ScheduleCard item={item} key={index} type={1} navigation={navigation} setDeleted={setDeleted} />
+    <ScheduleCard item={item} key={index} type={1} navigation={navigation} />
   );
   
   return (
         <View style={ScheduleStyles.container}>
+          {!isLoading && schedules.length==0 && <EmptyPage/> }
           <WavyBack />
           <View style={ScheduleStyles.labelsContainer}>
             <View style={ScheduleStyles.label}>
@@ -64,7 +64,7 @@ const Schedules=({navigation})=> {
           <FlatList
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
-          data={schedule}
+          data={schedules}
           numColumns={2}
           Key={2}
           keyExtractor={item => item.id}

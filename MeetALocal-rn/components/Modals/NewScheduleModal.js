@@ -9,7 +9,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import AppButton from '../Buttons/AppButtons';
 import { addSchedule } from '../../network/App';
 import ScheduleModalStyle from './Styles/NewScheduleModalStyle';
-import { UserContext } from '../../App';
+import { UserContext } from '../../context/UserContext';
 const ScheduleModal=({setModalVisible, modalVisible, setScheduleAdded, navigation })=> {
     const { user, setUser} = useContext(UserContext);
     //shcedule data
