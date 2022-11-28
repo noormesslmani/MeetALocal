@@ -9,11 +9,11 @@ import ForeignerStatistics from './Pages/Statistics/ForeignerStatistics';
 import BannedLocals from './Pages/Users/BannedLocals';
 import BannedForeigners from './Pages/Users/BannedFreigners';
 import SimpleMap from './Pages/Map/Map';
-
+import UserContextProvider from './Context/UsersContext';
 function App() {
   return (
-    <>
-    <Router>
+    <UserContextProvider>
+      <Router>
         <Routes>
           <Route path='/' exact element={<LogIn/>} />
           <Route path='/home' exact element={<Home/>} />
@@ -26,7 +26,7 @@ function App() {
           <Route path='/maps' exact element={<SimpleMap/>} />
         </Routes>
       </Router>
-    </>
+    </UserContextProvider>
   )
 }
 
