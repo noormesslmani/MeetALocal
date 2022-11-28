@@ -32,6 +32,12 @@ const CommentStyle = StyleSheet.create({
         marginTop:5, 
         fontWeight:"300"
     },
+    nameContainer:{
+        width:'100%',
+        flexDirection:"row",
+        justifyContent:"space-between",
+        alignItems:"center"
+    },
     name:{
         fontSize:12, 
         fontWeight:"600"
