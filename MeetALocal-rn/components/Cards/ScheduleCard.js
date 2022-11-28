@@ -10,11 +10,11 @@ import ScheduleCardStyle from './Styles/ScheduleCardStyle';
 import ScheduleModal from '../Modals/ScheduleModal';
 import { EvilIcons } from '@expo/vector-icons';
 import { BookingsContext } from '../../context/BookingsContext';
-const ScheduleCard=({item, type, setDeleted, navigation})=> {
+const ScheduleCard=({item, type, navigation})=> {
   const [modalVisible, setModalVisible]=useState(false);
   const [booked, setBooked]=useState(false);
 
-  const { bookings, setBookings} = useContext(BookingsContext);
+  const { bookings, setBookings, schedules,setSchedules} = useContext(BookingsContext);
   //2 variations (one for locals and one for foreigners)
 
   //check if appointment is booked for locals(type=1)
@@ -47,7 +47,7 @@ const ScheduleCard=({item, type, setDeleted, navigation})=> {
   const hanldeTrash=async()=>{
     const result= await deleteAppointment(item.id);
     if(result.success){
-      setDeleted(true);
+      setSchedules(schedules.filter(schedule=> schedule!=item));
     }
   }
   return (
