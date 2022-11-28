@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import UserContextProvider from './context/UserContext';
 import EventsContextProvider from './context/EventsContext';
 import BookingsContextProvider from './context/BookingsContext';
+import ReviewsContextProvider from './context/ReviewsContext';
 export default function App() {
  
   const [expoPushToken, setExpoPushToken] = useState('');
@@ -28,7 +29,9 @@ export default function App() {
     <UserContextProvider>
       <EventsContextProvider>
         <BookingsContextProvider>
-          <RootNavigation/>
+          <ReviewsContextProvider>
+            <RootNavigation/>
+          </ReviewsContextProvider>
         </BookingsContextProvider>
       </EventsContextProvider>
     </UserContextProvider>
