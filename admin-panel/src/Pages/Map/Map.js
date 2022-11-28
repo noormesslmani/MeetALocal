@@ -2,7 +2,6 @@
 import Header from "../../Components/Header/Header";
 import NavBar from "../../Components/NavBar/NavBar";
 import { icon } from "leaflet";
-import axios from "axios";
 import "leaflet/dist/leaflet.css";
 import React, { useState, useEffect } from "react";
 import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
@@ -30,7 +29,7 @@ export default function SimpleMap(){
     <Header type={2}/>
     <div className='subcontainer'>
         <NavBar/>
-        <div className='dashboard-container flex-col align-center'>
+        <div className='dashboard-container flex-col align-center map-container'>
         <MapContainer center={position} zoom={3} scrollWheelZoom={false} className='map' >
         <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
