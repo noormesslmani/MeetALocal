@@ -52,9 +52,9 @@ class AdminController extends Controller
     }
     //get banned users
     public function getBans(){
-        $bans=Ban::join('users','users.id','banned_id')->get();
+        $bans=Ban::join('users','users.id','banned_id')->join('countries','residence_id','countries.id')->get(['users.id','name','email','created_at','country', 'gender']);
         foreach($bans as $ban){
-           $ban['ban']=true;   
+           $ban['ban']=true;  
         }
         return response()->json([
             'message' => 'ok',
