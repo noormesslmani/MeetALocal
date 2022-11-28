@@ -19,6 +19,7 @@ const PostCard=({navigation, item, viewOwn})=> {
             setPosts(posts.filter(post=>post!=item));
         }
     }
+
   return (<>
     <TouchableOpacity style={PostCardStyle.card} onPress={handlePost}>
         <View style={PostCardStyle.headerContainer}>
