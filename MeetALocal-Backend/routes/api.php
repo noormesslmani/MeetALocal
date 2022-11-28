@@ -26,6 +26,7 @@ Route::group(['prefix' => 'v1.0.0'], function () {
                 Route::get('/posts', [UserController::class, 'getPosts']);
                 Route::get('/own-posts', [UserController::class, 'getOwnPosts']);
                 Route::post('/comment', [UserController::class, 'addComment']);
+                Route::delete('/comment', [UserController::class, 'deleteComment']);
                 Route::get('/comments/{id}', [UserController::class, 'getComments']);
                 Route::post('/post', [UserController::class, 'createPost']);
                 Route::delete('/post', [UserController::class, 'deletePost']);
@@ -44,7 +45,6 @@ Route::group(['prefix' => 'v1.0.0'], function () {
                 Route::post('/appointment', [LocalController::class, 'addAppointment']);
                 Route::get('/appointments', [LocalController::class, 'getAppointments']);
                 Route::delete('/appointment', [LocalController::class, 'deleteAppointment']);
-                Route::get('/is-booked-appointment', [LocalController::class, 'isBookedAppointment']);
                 Route::post('/highlight', [LocalController::class, 'addHighlight']);
             });
         });

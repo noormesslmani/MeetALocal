@@ -178,6 +178,12 @@ class UserController extends Controller
         ], 201);
     }
 
+    public function deleteComment(Request $request){
+        Comment::where('id', $request->id)->delete();
+        return response()->json([
+            'message' => 'ok',
+        ], 201);
+    }
     //creating a new post
     public function createPost(Request $request){
         $post = Post::create([
