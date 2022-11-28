@@ -24,27 +24,24 @@ import { useIsFocused } from '@react-navigation/native';
 import EventCard from '../../components/Cards/EventCard';
 import ImageViewer from '../../components/General/ImageView';
 import { ReviewsContext } from '../../context/ReviewsContext';
+import { EventsContext } from '../../context/EventsContext';
 const LocalPage=({navigation})=> {
   //user's info
   const route = useRoute();
   const item =route.params.item;
 
   const { user, setUser} = useContext(UserContext);
-  
+  const {events, setEvents}= useContext(EventsContext)
+
   //likes
   const [isFavorite, SetIsFavorite]=useState(false);
   const [likes, setLikes]= useState(item.likes);
 
-  //user's events
-  const [events, setEvents]=useState([]);
 
   //reviews
   const { reviews, setReviews} = useContext(ReviewsContext);
   const [average, setAverage]= useState(null);
   const [stars, setStars]=useState([]);
-  
-  const [reviewModalVisible, setReviewModalVisible]=useState(false);
-  const [reviewAdded, setReviewAdded]=useState(false);
 
   //highlights
   const images = item.highlights?.map((image)=>({ img: `${address}/${image}`}));
@@ -259,8 +256,6 @@ const LocalPage=({navigation})=> {
           </ScrollView>
           {events.length==0 && <Text>No upcoming events at the moment</Text>}
         </View>
-
-        <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} setReviewAdded={setReviewAdded} id={item.id} />
         
         {item.profile_picture &&  
         <ImageViewer images={[{uri:`${address}/${item.profile_picture}`}]}
