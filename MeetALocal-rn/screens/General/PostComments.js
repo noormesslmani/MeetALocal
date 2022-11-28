@@ -10,12 +10,12 @@ import { useRoute } from '@react-navigation/native';
 import { address } from '../../constants/address';
 import { colors } from '../../constants/colors';
 import { UserContext } from '../../context/UserContext';
+import { EventsContext } from '../../context/EventsContext';
 const PostComments=({navigation})=> {
     const route = useRoute();
     const { user, setUser} = useContext(UserContext);
+    const { comments, setComments} = useContext(EventsContext);
     const item= route.params.item;
-    const [data, setData]= useState([]);
-    const [totalComments, setTotalComments]=useState(item.comments);
     
     //for tracking new comments
     const [newComment, setNewComment]=useState(null);
@@ -24,7 +24,7 @@ const PostComments=({navigation})=> {
     useEffect(()=>{
       getPostComments();
     },[])
-    
+
     //get comments on a post
     useEffect(()=>{
       if(commentAdded){
@@ -32,11 +32,6 @@ const PostComments=({navigation})=> {
         setCommentAdded(false);
       }
     },[commentAdded])
-
-    //set total nb of comments
-    useEffect(()=>{
-        setTotalComments(data.length);
-    },[data]);
 
     //add new comment
     const handleComment=()=>{
@@ -48,17 +43,16 @@ const PostComments=({navigation})=> {
     const getPostComments= async()=>{
       const result = await getComments(item.id);
       if (result.success){
-        setData(result.data.data);
+        setComments(result.data.data)
       }
     }
     const addNewComment= async()=>{
       const result = await addComment({post_id: item.id,content: newComment});
       if (result.success){
         setCommentAdded(true);
-        setTotalComments(totalComments+1);
       }
     }
-
+    
     //navigate to user's profile page
     const handleUser=async ()=>{
       if(user.id != item.user_id){
@@ -79,11 +73,11 @@ const PostComments=({navigation})=> {
                 </View>
             </View>
             <View style={CommentsStyles.center}>
-              <Text style={CommentsStyles.totalComments}>{totalComments} comments</Text>
+              <Text style={CommentsStyles.totalComments}>{comments.length} comments</Text>
               <View style={CommentsStyles.separator}/>
             </View>
             <KeyboardAwareScrollView style={CommentsStyles.scrollView}>
-                {data.map((comment, index)=><Comment comment={comment} key={index} navigation={navigation} />)}
+                {comments.map((comment, index)=><Comment comment={comment} key={index} navigation={navigation} />)}
             </KeyboardAwareScrollView>
             <View style={CommentsStyles.addComment}>
             <TextInput placeholder='Add a comment' onChangeText={setNewComment} value={newComment} multiline={true} style={{paddingRight:40}} />
