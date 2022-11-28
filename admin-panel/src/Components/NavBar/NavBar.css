@@ -1,5 +1,5 @@
 .NavBar{
-    height:auto;
+    min-height: 100vh;
     width: 250px;
     background-color: rgb(186, 154, 215);
     padding-top: 100px;
