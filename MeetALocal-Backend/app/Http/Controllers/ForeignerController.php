@@ -107,6 +107,8 @@ class ForeignerController extends Controller
         $events= Auth::user()->savedEvents()->where('events.date', '>=', $date)->get();
         foreach($events as $event){
             $event['categories']=$event->categories()->pluck('category');
+            $event['name']=$event->organizer()->pluck('name');
+            $event['bookings']= EventBooking::where('event_id', $event->id)->count();
         }
         return response()->json([
             'message' => 'ok',
@@ -120,6 +122,8 @@ class ForeignerController extends Controller
         $events= Auth::user()->bookedEvents()->where('events.date', '>=', $date)->get();
         foreach($events as $event){
             $event['categories']=$event->categories()->pluck('category');
+            $event['name']=$event->organizer()->pluck('name');
+            $event['bookings']= EventBooking::where('event_id', $event->id)->count();
         }
         return response()->json([
             'message' => 'ok',
