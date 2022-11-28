@@ -4,5 +4,6 @@ export const EventsContext = createContext();
 export default function EventsContextProvider({children}){
     const [events,setEvents]=useState([])
     const [posts,setPosts]=useState([])
-    return <EventsContext.Provider value={{events,setEvents, posts,setPosts}}>{children}</EventsContext.Provider>;
+    const [comments,setComments]=useState([])
+    return <EventsContext.Provider value={{events,setEvents, posts,setPosts, comments,setComments}}>{children}</EventsContext.Provider>;
 }
