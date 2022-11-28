@@ -25,7 +25,7 @@ const Posts=({navigation})=> {
   const [country, setCountry]=useState('all');
   const [category, setCategory]=useState('all');
   //saving data
-  const {posts, setPosts}=useContext(EventsContext);
+  const {posts, setPosts, comments, setComments}=useContext(EventsContext);
   //filter modal
   const [modalVisible, setModalVisible] = useState(false);
   const [filterChange, setFilterChange]=useState(false);
@@ -80,6 +80,7 @@ const Posts=({navigation})=> {
       }
       if(isFocused)  {
         getPosts();
+        setComments([])
       }
       else{
         setPage(0);
