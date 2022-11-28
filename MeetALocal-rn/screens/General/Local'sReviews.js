@@ -10,7 +10,7 @@ import { colors } from '../../constants/colors';
 import ReviewCard from '../../components/Cards/ReviewerCrad';
 import ReviewStyles from './Styles/ReviewsStyles';
 import WideButton from '../../components/Buttons/wideButtons';
-import { ReviewsContext } from '../../context/ReviewsContext';
+import { EventsContext } from '../../context/EventsContext';
 const Reviews=({navigation})=>{
     //Screen accessible to foreingers only
 
@@ -25,7 +25,7 @@ const Reviews=({navigation})=>{
     const [isLoading, setIsLoading]=useState(false);
 
     const { user, setUser} = useContext(UserContext);
-    const { reviews, setReviews} = useContext(ReviewsContext);
+    const { reviews, setReviews} = useContext(EventsContext);
     //check if local is reviewed or not
     useEffect(()=>{
         reviewed();
