@@ -1,17 +1,19 @@
 import { View, Text, Modal, ActivityIndicator } from 'react-native';
 import React from 'react';
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Rating} from 'react-native-ratings';
 import AppButton from '../Buttons/AppButtons';
 import { addReview } from '../../network/App';
 import { colors } from '../../constants/colors';
 import ReviewModalStyle from './Styles/ReviewModalStyle';
 import { TextInput } from 'react-native-paper';
-const ReviewModal=({setModalVisible, modalVisible, id,setReviewAdded })=> {
+import { ReviewsContext } from '../../context/ReviewsContext';
+const ReviewModal=({setModalVisible, modalVisible, id, setIsReviewed})=> {
     const [review, setReview]=useState(null);
     const [rating,setRating]=useState(3);
     const [isLoading, setIsLoading]=useState(false);
 
+    const { reviews, setReviews} = useContext(ReviewsContext);
     //adding review
     const handleSubmit=()=>{
       addNewReview();
@@ -32,8 +34,10 @@ const ReviewModal=({setModalVisible, modalVisible, id,setReviewAdded })=> {
       const result = await addReview(data);
       if (result.success){
         setIsLoading(false);
-        setReviewAdded(true);
         setModalVisible(false);
+        setIsReviewed(true)
+        setReviews(reviews=>[...reviews,result.data.data ])
+
       }
     }
   return (
@@ -44,6 +48,7 @@ const ReviewModal=({setModalVisible, modalVisible, id,setReviewAdded })=> {
         onRequestClose={() => {
         setModalVisible(!modalVisible);
         }}>
+        
         <View style={ReviewModalStyle.centeredView}>
         <View style={ReviewModalStyle.modalView}>
           <Text style={ReviewModalStyle.title}>Add a review</Text>  

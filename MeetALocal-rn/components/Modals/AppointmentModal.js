@@ -8,7 +8,7 @@ import AppButton from '../Buttons/AppButtons';
 import { sendNotification, Notify } from '../../notifications/Notifications';
 import AppointmentsModalStyle from './Styles/AppointmentModalStyle';
 import { getToken } from '../../network/Notifications';
-import { UserContext } from '../../App';
+import { UserContext } from '../../context/UserContext';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const AppointmentsModal=({navigation, setModalVisible, modalVisible, id, setAppointmentBooked})=> {
   const [appointments, setAppointments]=useState(null);

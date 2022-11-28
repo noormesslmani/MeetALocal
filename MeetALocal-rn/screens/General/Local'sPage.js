@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, Image, ScrollView, Pressable, Linking } from 'react-native';
 import React from 'react';
-import { UserContext } from '../../App';
+import { UserContext } from '../../context/UserContext';
 import { useState, useEffect, useContext } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useRoute } from '@react-navigation/native';
@@ -23,27 +23,25 @@ import WideButton from '../../components/Buttons/wideButtons';
 import { useIsFocused } from '@react-navigation/native';
 import EventCard from '../../components/Cards/EventCard';
 import ImageViewer from '../../components/General/ImageView';
+import { ReviewsContext } from '../../context/ReviewsContext';
+import { EventsContext } from '../../context/EventsContext';
 const LocalPage=({navigation})=> {
   //user's info
   const route = useRoute();
   const item =route.params.item;
 
   const { user, setUser} = useContext(UserContext);
+  const {events, setEvents}= useContext(EventsContext)
 
   //likes
   const [isFavorite, SetIsFavorite]=useState(false);
   const [likes, setLikes]= useState(item.likes);
 
-  //user's events
-  const [events, setEvents]=useState([]);
 
   //reviews
+  const { reviews, setReviews} = useContext(ReviewsContext);
   const [average, setAverage]= useState(null);
-  const [reviews, setReviews]=useState([]);
   const [stars, setStars]=useState([]);
-  
-  const [reviewModalVisible, setReviewModalVisible]=useState(false);
-  const [reviewAdded, setReviewAdded]=useState(false);
 
   //highlights
   const images = item.highlights?.map((image)=>({ img: `${address}/${image}`}));
@@ -148,7 +146,7 @@ const LocalPage=({navigation})=> {
 
  //navigate to reviews( access for foreigners only)
   const handleReviews=()=>{
-    user.type_id==2 && navigation.navigate('reviews',{average, reviews, id:item.id});
+    user.type_id==2 && navigation.navigate('reviews',{average,id:item.id});
   }
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
@@ -258,8 +256,6 @@ const LocalPage=({navigation})=> {
           </ScrollView>
           {events.length==0 && <Text>No upcoming events at the moment</Text>}
         </View>
-
-        <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} setReviewAdded={setReviewAdded} id={item.id} />
         
         {item.profile_picture &&  
         <ImageViewer images={[{uri:`${address}/${item.profile_picture}`}]}

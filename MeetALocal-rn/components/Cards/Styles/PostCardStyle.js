@@ -89,7 +89,8 @@ const PostCardStyle = StyleSheet.create({
         marginLeft:10
     },
     date:{
-        fontSize:9
+        fontSize:9,
+        marginRight:10
     }
    
 });

@@ -2,7 +2,7 @@ import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-na
 import React from 'react';
 import styles from './Styles/AuthScreensStyle';
 import { useState, useEffect, useContext } from "react";
-import { UserContext } from '../../App';
+import { UserContext } from '../../context/UserContext';
 import AuthButton from '../../components/Buttons/AuthButton';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
