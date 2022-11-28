@@ -11,7 +11,6 @@ import ReviewCard from '../../components/Cards/ReviewerCrad';
 import ReviewStyles from './Styles/ReviewsStyles';
 import WideButton from '../../components/Buttons/wideButtons';
 import { ReviewsContext } from '../../context/ReviewsContext';
-
 const Reviews=({navigation})=>{
     //Screen accessible to foreingers only
 
@@ -63,9 +62,9 @@ const Reviews=({navigation})=>{
             <Text>Reviews</Text>
             <View style={ReviewStyles.separator} />
             {isLoading && <ActivityIndicator  color={colors.violet} /> }
-            {reviewModalVisible && user.type_id==2 && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} id={id} />}
+            {user.type_id==2 && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} id={id} setIsReviewed={setIsReviewed} />}
             <ScrollView>
-                {reviews.length>0 && reviews.map((review, index)=><ReviewCard review={review} key={index} id={id} />)}
+                {reviews.length>0 && reviews.map((review, index)=><ReviewCard review={review} key={index} id={id} setIsReviewed={setIsReviewed} />)}
             </ScrollView>
         </View>
     )
