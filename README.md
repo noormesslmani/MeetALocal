@@ -130,7 +130,11 @@ Here's a brief high-level overview of the tech stacks the app uses:
 | Chat Room  | Post  | Comments  |
 | ----------| ----------| ----------| 
 | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/chat.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/new-post.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/comments.gif" width="250"> | 
- 
+
+| Chats |
+| ----------|
+| <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/chats.jpeg" width="250"> |
+
 
 ### Admin:
 ---------------
