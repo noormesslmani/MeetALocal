@@ -10,6 +10,7 @@ import WavyBack from '../../components/General/WavyBackground';
 import { useFocusEffect} from '@react-navigation/native';
 import ScheduleModal from '../../components/Modals/NewScheduleModal';
 import { BookingsContext } from '../../context/BookingsContext';
+import EmptyPage from '../../components/General/EmptyPage';
 const Schedules=({navigation})=> {
 
   //This screen is for locals
@@ -48,6 +49,7 @@ const Schedules=({navigation})=> {
   
   return (
         <View style={ScheduleStyles.container}>
+          {!isLoading && schedules.length==0 && <EmptyPage/> }
           <WavyBack />
           <View style={ScheduleStyles.labelsContainer}>
             <View style={ScheduleStyles.label}>
