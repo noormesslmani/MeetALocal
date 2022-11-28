@@ -95,6 +95,14 @@ const baseURL= `${address}/api/v1.0.0/`
     return response(config)
   }
 
+  export async function deleteComment(data){
+    const config = {
+      method: "delete",
+      data,
+      url:`${baseURL}users/comment`,
+    }
+    return response(config)
+  }
   export async function toggleSaveEvent(data){
     const config = {
       method: "post",
@@ -235,16 +243,7 @@ const baseURL= `${address}/api/v1.0.0/`
     }
     return response(config)
   }
-
-  export async function isAppointmentBooked(id){
-    const config = {
-      method: "get",
-      params:{id},
-      url:`${baseURL}locals/is-booked-appointment`,
-    }
-    return response(config)
-  }
-
+  
   export async function addSchedule(data){
     const config = {
       method: "post",
