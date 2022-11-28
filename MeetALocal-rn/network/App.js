@@ -69,6 +69,15 @@ const baseURL= `${address}/api/v1.0.0/`
     return response(config)
   }
 
+  export async function deletePost(data){
+    const config = {
+      method: "delete",
+      data,
+      url:`${baseURL}users/post`,
+    }
+    return response(config)
+  }
+
   export async function getComments(id){
     const config = {
       method: "get",
