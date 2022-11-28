@@ -157,6 +157,8 @@ class ForeignerController extends Controller
                 'review'=>$request->review
             ]
         ));
+        $review['name']=Auth::user()->name;
+        $review['profile_picture']=Auth::user()->profile_picture;
         return response()->json([
             'data' => $review,
             'message' =>'ok',
