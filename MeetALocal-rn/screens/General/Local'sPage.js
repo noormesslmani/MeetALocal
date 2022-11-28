@@ -12,7 +12,6 @@ import { address } from '../../constants/address';
 import call from 'react-native-phone-call';
 import { Rating} from 'react-native-ratings';
 import { getReviews } from '../../network/App';
-import ReviewModal from '../../components/Modals/ReviewModal';
 import { colors } from '../../constants/colors';
 import AppointmentsModal from '../../components/Modals/AppointmentModal';
 import ImagesSlider from '../../components/General/Carousel';
@@ -23,7 +22,6 @@ import WideButton from '../../components/Buttons/wideButtons';
 import { useIsFocused } from '@react-navigation/native';
 import EventCard from '../../components/Cards/EventCard';
 import ImageViewer from '../../components/General/ImageView';
-import { ReviewsContext } from '../../context/ReviewsContext';
 import { EventsContext } from '../../context/EventsContext';
 const LocalPage=({navigation})=> {
   //user's info
@@ -31,7 +29,7 @@ const LocalPage=({navigation})=> {
   const item =route.params.item;
 
   const { user, setUser} = useContext(UserContext);
-  const {events, setEvents}= useContext(EventsContext)
+  const {events, setEvents, reviews, setReviews}= useContext(EventsContext)
 
   //likes
   const [isFavorite, SetIsFavorite]=useState(false);
@@ -39,7 +37,6 @@ const LocalPage=({navigation})=> {
 
 
   //reviews
-  const { reviews, setReviews} = useContext(ReviewsContext);
   const [average, setAverage]= useState(null);
   const [stars, setStars]=useState([]);
 

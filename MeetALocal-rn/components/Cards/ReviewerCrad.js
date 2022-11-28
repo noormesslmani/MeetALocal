@@ -5,13 +5,13 @@ import { useContext } from "react";
 import { Rating} from 'react-native-ratings';
 import ReviewerCardStyle from './Styles/ReviewerCardStyle';
 import { UserContext } from '../../context/UserContext';
-import { ReviewsContext } from '../../context/ReviewsContext';
+import { EventsContext } from '../../context/EventsContext';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { deleteReview } from '../../network/App';
 const ReviewCard=({review, id,setIsReviewed })=> {
   //card displaying review
   const { user, setUser} = useContext(UserContext);
-  const {reviews, setReviews}= useContext(ReviewsContext)
+  const {reviews, setReviews}= useContext(EventsContext)
  
   const handleDelete=async ()=>{
     const result = await deleteReview({local_id:id});
