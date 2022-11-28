@@ -23,13 +23,14 @@ import WideButton from '../../components/Buttons/wideButtons';
 import { useIsFocused } from '@react-navigation/native';
 import EventCard from '../../components/Cards/EventCard';
 import ImageViewer from '../../components/General/ImageView';
+import { ReviewsContext } from '../../context/ReviewsContext';
 const LocalPage=({navigation})=> {
   //user's info
   const route = useRoute();
   const item =route.params.item;
 
   const { user, setUser} = useContext(UserContext);
-
+  
   //likes
   const [isFavorite, SetIsFavorite]=useState(false);
   const [likes, setLikes]= useState(item.likes);
@@ -38,8 +39,8 @@ const LocalPage=({navigation})=> {
   const [events, setEvents]=useState([]);
 
   //reviews
+  const { reviews, setReviews} = useContext(ReviewsContext);
   const [average, setAverage]= useState(null);
-  const [reviews, setReviews]=useState([]);
   const [stars, setStars]=useState([]);
   
   const [reviewModalVisible, setReviewModalVisible]=useState(false);
@@ -148,7 +149,7 @@ const LocalPage=({navigation})=> {
 
  //navigate to reviews( access for foreigners only)
   const handleReviews=()=>{
-    user.type_id==2 && navigation.navigate('reviews',{average, reviews, id:item.id});
+    user.type_id==2 && navigation.navigate('reviews',{average,id:item.id});
   }
   return (
     <ScrollView contentContainerStyle={{paddingBottom:50}} showsVerticalScrollIndicator={false}>
