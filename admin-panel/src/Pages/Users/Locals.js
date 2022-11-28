@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { useNavigate, NavLink } from "react-router-dom";
 import '../../Constants/Flex.css'
 import Header from '../../Components/Header/Header';
@@ -11,19 +11,19 @@ import {getSearches, getUsers} from '../../Network/Api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight} from '@fortawesome/free-solid-svg-icons'
 import { faArrowLeft} from '@fortawesome/free-solid-svg-icons'
+import { UsersContext } from '../../Context/UsersContext';
 import Search from '../../Components/Search/Search';
 const Locals=()=> {
     const [isLoading, setIsLoading]= useState(true)
-    const [data, setData]=useState([])
     const [page, setPage]=useState(1)
     const [currentPage, setCurrentPage]=useState(1)
-    const [banLoading, setBanLoading]= useState(false)
     const [searchInput, setSearchInput]=useState('')
     const [pressed, setPressed]=useState(false)
 
+    const {users, setUsers}=useContext(UsersContext);
     useEffect(()=>{
         !pressed && getLocals()
-    },[page, banLoading, pressed])
+    },[page, pressed])
 
     const getSearchedLocals=async()=>{
         setIsLoading(true)
@@ -38,7 +38,7 @@ const Locals=()=> {
                 setPage(page-1)
             }
             else{
-            setData(result.data.data)
+            setUsers(result.data.data)
             setCurrentPage(page)}
         }
         setIsLoading(false)
@@ -57,7 +57,7 @@ const Locals=()=> {
                 setPage(page-1)
             }
             else{
-            setData(result.data.data)
+            setUsers(result.data.data)
             setCurrentPage(page)}
         }
         setIsLoading(false)
@@ -80,7 +80,7 @@ const Locals=()=> {
       if (e.key === 'Enter') {
         setPage(1)
         setCurrentPage(1)
-        setData([])
+        setUsers([])
         setPressed(true)
       }
     }
@@ -100,7 +100,7 @@ const Locals=()=> {
                 <NavLink to='/banned-locals' className='banned-link' onClick={()=>setPressed(false)}>Banned</NavLink>
                 </div>
                 {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
-                {!isLoading && <UsersTable data={data} setBanLoading={setBanLoading}/>}
+                {!isLoading && <UsersTable data={users} banned={false} />}
                 {!isLoading && <div className='flex align-center justify-center arrow-contianer'>
                     <FontAwesomeIcon icon={faArrowLeft} color='rgba(140,87,186,1)' className='arrow' onClick={hanldePrev}/>
                     <p>{currentPage}</p>

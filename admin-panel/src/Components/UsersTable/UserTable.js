@@ -1,25 +1,26 @@
-import React, {useState, useEffect} from 'react';
-import { useNavigate } from "react-router-dom";
+import React, {useState, useEffect, useContext} from 'react';
 import './UserTable.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBan } from '@fortawesome/free-solid-svg-icons'
 import { toggleBans } from '../../Network/Api';
-import { Bounce } from "react-activity";
 import "react-activity/dist/library.css";
-const UsersTable=({data, setBanLoading})=> {
-    const handleBan=(id)=>{
-        toggleBan(id)
+import { UsersContext } from '../../Context/UsersContext';
+const UsersTable=({banned})=> {
+    const {users, setUsers}=useContext(UsersContext)
+    const handleBan=(user)=>{
+        toggleBan(user)
     }
-    const toggleBan= async(id)=>{
-        setBanLoading(true)
+    const toggleBan= async(user)=>{
         const data={
-            user_id:id
+            user_id:user.id
         }
         const result =await toggleBans(data)
         if (result.success){
-            setBanLoading(false)
+            banned?setUsers(users.filter(item=>item!=user)):
+            setUsers(users.map(item=>item==user?({...item,ban:!user.ban}):item))
         }
     }
+
   return(
         <div className="table-container">
             <table>
@@ -31,14 +32,14 @@ const UsersTable=({data, setBanLoading})=> {
                     <th className='date-row'>Joined At</th>
                     <th className='ban-row'>Ban</th>
                 </tr>
-                {data.map((user, index)=>
+                {users.map((user, index)=>
                     {return (<tr key={index}>
                         <td>{user.name}</td>
                         <td>{user.email}</td>
                         <td>{user.gender}</td>
                         <td>{user.country}</td>
                         <td>{user.created_at.slice(0,11)}</td>
-                        <td><FontAwesomeIcon icon={faBan} size='lg' color={user.ban? 'red':'green'} className='ban-icon' onClick={()=>handleBan(user.id)}/></td>
+                        <td><FontAwesomeIcon icon={faBan} size='lg' color={user.ban? 'red':'green'} className='ban-icon' onClick={()=>handleBan(user)}/></td>
                     </tr>)}
                 )}
             </table>
