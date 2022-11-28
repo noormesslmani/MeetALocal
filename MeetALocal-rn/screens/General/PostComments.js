@@ -21,6 +21,10 @@ const PostComments=({navigation})=> {
     const [newComment, setNewComment]=useState(null);
     const [commentAdded, setCommentAdded]=useState(false);
    
+    useEffect(()=>{
+      getPostComments();
+    },[])
+    
     //get comments on a post
     useEffect(()=>{
       if(commentAdded){
@@ -47,7 +51,6 @@ const PostComments=({navigation})=> {
         setData(result.data.data);
       }
     }
-    
     const addNewComment= async()=>{
       const result = await addComment({post_id: item.id,content: newComment});
       if (result.success){
