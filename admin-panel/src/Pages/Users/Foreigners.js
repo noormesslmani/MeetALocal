@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { useNavigate, NavLink } from "react-router-dom";
 import '../../Constants/Flex.css'
 import Header from '../../Components/Header/Header';
 import NavBar from '../../Components/NavBar/NavBar';
 import '../Home/Home.css'
-import { render } from "react-dom";
 import { Bounce } from "react-activity";
 import "react-activity/dist/library.css";
 import UsersTable from '../../Components/UsersTable/UserTable';
@@ -13,18 +12,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight} from '@fortawesome/free-solid-svg-icons'
 import { faArrowLeft} from '@fortawesome/free-solid-svg-icons'
 import Search from '../../Components/Search/Search';
+import { UsersContext } from '../../Context/UsersContext';
 const Foreigners=()=> {
     const [isLoading, setIsLoading]= useState(true)
-    const [banLoading, setBanLoading]= useState(false)
-    const [data, setData]=useState(null)
+
+
     const [page, setPage]=useState(1)
     const [currentPage, setCurrentPage]=useState(1)
     const [searchInput, setSearchInput]=useState('')
     const [pressed, setPressed]=useState(false)
 
+    const {users, setUsers}=useContext(UsersContext);
+
     useEffect(()=>{
         !pressed && getForeigners()
-    },[page, banLoading, pressed])
+    },[page, pressed])
 
     useEffect(()=>{
         pressed && getSearchedForeigners() 
@@ -43,7 +45,7 @@ const Foreigners=()=> {
                 setPage(page-1)
             }
             else{
-            setData(result.data.data)
+            setUsers(result.data.data)
             setCurrentPage(page)}
         }
         setIsLoading(false)
@@ -61,7 +63,7 @@ const Foreigners=()=> {
                 setPage(page-1)
             }
             else{
-            setData(result.data.data)
+            setUsers(result.data.data)
             setCurrentPage(page)}
         }
         setIsLoading(false)
@@ -79,7 +81,7 @@ const Foreigners=()=> {
         if (e.key === 'Enter') {
           setPage(1)
           setCurrentPage(1)
-          setData([])
+          setUsers([])
           setPressed(true)
         }
     }
@@ -99,7 +101,7 @@ const Foreigners=()=> {
                 <NavLink to='/banned-foreigners' className='banned-link' onClick={()=>setPressed(false)}>Banned</NavLink>
                 </div>
                 {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
-                {!isLoading && <UsersTable data={data} setBanLoading={setBanLoading} />}
+                {!isLoading && <UsersTable data={users} banned={false} />}
                 {!isLoading && <div className='flex align-center justify-center arrow-contianer'>
                     <FontAwesomeIcon icon={faArrowLeft} color='rgba(140,87,186,1)' className='arrow' onClick={hanldePrev}/>
                     <p>{currentPage}</p>
