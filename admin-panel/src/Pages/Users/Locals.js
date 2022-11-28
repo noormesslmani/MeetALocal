@@ -17,14 +17,13 @@ const Locals=()=> {
     const [isLoading, setIsLoading]= useState(true)
     const [page, setPage]=useState(1)
     const [currentPage, setCurrentPage]=useState(1)
-    const [banLoading, setBanLoading]= useState(false)
     const [searchInput, setSearchInput]=useState('')
     const [pressed, setPressed]=useState(false)
 
     const {users, setUsers}=useContext(UsersContext);
     useEffect(()=>{
         !pressed && getLocals()
-    },[page, banLoading, pressed])
+    },[page, pressed])
 
     const getSearchedLocals=async()=>{
         setIsLoading(true)
@@ -101,7 +100,7 @@ const Locals=()=> {
                 <NavLink to='/banned-locals' className='banned-link' onClick={()=>setPressed(false)}>Banned</NavLink>
                 </div>
                 {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
-                {!isLoading && <UsersTable data={users} setBanLoading={setBanLoading}/>}
+                {!isLoading && <UsersTable data={users} banned={false} />}
                 {!isLoading && <div className='flex align-center justify-center arrow-contianer'>
                     <FontAwesomeIcon icon={faArrowLeft} color='rgba(140,87,186,1)' className='arrow' onClick={hanldePrev}/>
                     <p>{currentPage}</p>

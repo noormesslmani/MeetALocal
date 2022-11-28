@@ -18,10 +18,9 @@ const BannedForeigners=()=> {
     const [isLoading, setIsLoading]= useState(true)
     const [page, setPage]=useState(1)
     const [currentPage, setCurrentPage]=useState(1)
-    const [banLoading, setBanLoading]= useState(false)
     useEffect(()=>{
         getBannedLocals()
-    },[page, banLoading])
+    },[page])
     
     const getBannedLocals= async()=>{
         setIsLoading(true)
@@ -57,7 +56,7 @@ const BannedForeigners=()=> {
                 <NavLink to='/banned-foreigners' className='banned-link'>Banned</NavLink>
                 </div>
                 {isLoading && <Bounce color='rgba(140,87,186,0.7)'/>}
-                {!isLoading && <UsersTable data={users.filter((item)=>item.type_id==2)} setBanLoading={setBanLoading}/>}
+                {!isLoading && <UsersTable data={users.filter((item)=>item.type_id==2)} banned={true} />}
                 {!isLoading && <div className='flex align-center justify-center arrow-contianer'>
                     <FontAwesomeIcon icon={faArrowLeft} color='rgba(140,87,186,1)' className='arrow' onClick={hanldePrev}/>
                     <p>{currentPage}</p>
