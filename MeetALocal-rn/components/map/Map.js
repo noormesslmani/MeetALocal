@@ -1,6 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {useRef} from 'react';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-import {Marker, Callout} from 'react-native-maps';
+import {Marker} from 'react-native-maps';
 import { colors } from '../../constants/colors';
 import MapCard from '../Cards/MapCard';
 import MapStyle from './Styles/MapStyle';

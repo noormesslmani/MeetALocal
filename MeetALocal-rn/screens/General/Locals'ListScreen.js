@@ -2,7 +2,7 @@ import { View, FlatList, SafeAreaView, ActivityIndicator } from 'react-native';
 import React from 'react';
 import HomeStyles from './Styles/HomeStyles';
 import { useState, useEffect, useContext } from "react";
-import { UserContext } from '../../App';
+import { UserContext } from '../../context/UserContext';
 import LocalsStyles from './Styles/LocalsPageStyles';
 import FilterModal from '../../components/Modals/FilterModal';
 import LocalCard from '../../components/Cards/LocalCard';

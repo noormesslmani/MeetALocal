@@ -3,7 +3,7 @@ import React from 'react';
 import styles from './Styles/AuthScreensStyle';
 import { TextInput, Avatar } from 'react-native-paper';
 import { useState, useContext } from "react";
-import { UserContext } from '../../App';
+import { UserContext } from '../../context/UserContext';
 import AuthButton from '../../components/Buttons/AuthButton';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";

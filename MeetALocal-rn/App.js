@@ -1,12 +1,15 @@
 import 'react-native-gesture-handler';
 import * as React from "react";
 import RootNavigation from './navigation/MainStack';
-import { createContext, useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import {Notify} from './notifications/Notifications'
 import AsyncStorage from "@react-native-async-storage/async-storage";
-export const UserContext = createContext();
+import UserContextProvider from './context/UserContext';
+import EventsContextProvider from './context/EventsContext';
+import BookingsContextProvider from './context/BookingsContext';
+import ReviewsContextProvider from './context/ReviewsContext';
 export default function App() {
-  const [user,setUser]=useState({})
+ 
   const [expoPushToken, setExpoPushToken] = useState('');
   const [notifications, setNotifications] = useState(false);
   const notificationListener = useRef();
@@ -23,8 +26,15 @@ export default function App() {
   }
 
   return(
-    <UserContext.Provider value={{user, setUser}}>
-      <RootNavigation/>
-    </UserContext.Provider>
+    <UserContextProvider>
+      <EventsContextProvider>
+        <BookingsContextProvider>
+          <ReviewsContextProvider>
+            <RootNavigation/>
+          </ReviewsContextProvider>
+        </BookingsContextProvider>
+      </EventsContextProvider>
+    </UserContextProvider>
+    
   )
 }

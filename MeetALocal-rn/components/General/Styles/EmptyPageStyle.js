@@ -5,7 +5,7 @@ const EmptyPageStyle = StyleSheet.create({
         alignItems:"center", 
         justifyContent:"center", 
         position:"absolute",
-        top:'50%',
+        top:0.25*windowHeight,
         left:0,
         right:0,
     },
