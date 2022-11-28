@@ -95,6 +95,14 @@ const baseURL= `${address}/api/v1.0.0/`
     return response(config)
   }
 
+  export async function deleteComment(data){
+    const config = {
+      method: "delete",
+      data,
+      url:`${baseURL}users/comment`,
+    }
+    return response(config)
+  }
   export async function toggleSaveEvent(data){
     const config = {
       method: "post",
