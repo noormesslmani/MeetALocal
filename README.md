@@ -119,6 +119,9 @@ Here's a brief high-level overview of the tech stacks the app uses:
 | ----------| ----------| ----------|
 | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/visiting-local's-profile.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/locations.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/search.gif" width="250"> | 
 
+| Bookings |
+| ----------| 
+| <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/bookings.gif" width="250"> |
 
 
 ### Common:
