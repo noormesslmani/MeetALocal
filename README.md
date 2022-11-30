@@ -187,7 +187,11 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    npm start
    ```
-3. Scan the generated QR code with your camera (ios) or through the Expo Go application (android)
+3. Place your IP address in constants/address
+
+4. Create an [API key](https://developers.google.com/maps/documentation/javascript/get-api-key) and place it in .env file
+
+5. Scan the generated QR code with your camera (ios) or through the Expo Go application (android)
 
 #### To Run The Desktop App
 
@@ -196,7 +200,9 @@ To get a local copy up and running follow these simple example steps.
    cd MeetALocal/admin-panel
    npm install
    ```
-2. Run the start up command
+2. Place your IP address in Network/API
+
+3. Run the start up command
    ```sh
    npm start
    ```
@@ -222,7 +228,7 @@ To get a local copy up and running follow these simple example steps.
    ```
 6. Start the Server
    ```sh
-   php artisan serve
+   php artisan serve --port 8000 --host "Your IP"
    ```
 
 
