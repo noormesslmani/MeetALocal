@@ -17,10 +17,14 @@ const SearchScreen=({navigation})=> {
   const [searchQuery, setSearchQuery] = useState(null);
   const [searched, setSearched]=useState(false);
   
-  navigation.setOptions({
-    headerTitle: () => <Searchbar placeholder="Search" onChangeText={setSearchQuery}
-    value={searchQuery} style={{width:widths.width8}} 
-    />,  headerTitleAlign: 'center'  });
+  
+    
+    useEffect(()=>{
+      navigation.setOptions({
+        headerTitle: () => <Searchbar placeholder="Search" onChangeText={setSearchQuery}
+        value={searchQuery} style={{width:widths.width8}} 
+        />,  headerTitleAlign: 'center'  });
+    },[searchQuery])
     
     //reset data
     useFocusEffect(
