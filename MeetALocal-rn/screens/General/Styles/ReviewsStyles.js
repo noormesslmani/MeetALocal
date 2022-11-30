@@ -6,7 +6,8 @@ const ReviewStyles = StyleSheet.create({
     container:{
         width:widths.width,
         flex:1,
-        alignItems:"center"
+        alignItems:"center",
+        paddingTop:40,
     },
     averageContainer:{
         alignItems:"center",

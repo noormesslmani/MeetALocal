@@ -78,9 +78,9 @@ const HomeStack=()=>{
         />
         <Stack.Screen  name="reviews" component={Reviews}
         options={{
-          headerLeft: () => (<BackArrow type={1} navigation={navigation}/>),
+          headerLeft: () => (<BackArrow type={2} navigation={navigation}/>),
             headerBackVisible:false, headerTitle:"Reviews", headerTitleAlign:"center",
-            headerShadowVisible:false,
+            headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false,
         }}
         />
         <Stack.Screen  name="locals" component={Locals}   options={{ 

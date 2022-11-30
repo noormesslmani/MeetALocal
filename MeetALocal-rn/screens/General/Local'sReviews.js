@@ -11,6 +11,7 @@ import ReviewCard from '../../components/Cards/ReviewerCrad';
 import ReviewStyles from './Styles/ReviewsStyles';
 import WideButton from '../../components/Buttons/wideButtons';
 import { EventsContext } from '../../context/EventsContext';
+import WavyBack from '../../components/General/WavyBackground';
 const Reviews=({navigation})=>{
     //Screen accessible to foreingers only
 
@@ -52,6 +53,7 @@ const Reviews=({navigation})=>{
   
     return (
         <View style={ReviewStyles.container}>
+            <WavyBack/>
             <View style={ReviewStyles.averageContainer}>
                 <Text style={ReviewStyles.averageText}>{average}/5</Text>
                 <Rating size={40} startingValue={average} imageSize={40} readonly />
@@ -59,7 +61,7 @@ const Reviews=({navigation})=>{
             </View>
             
             {isReviewed && user.type_id==2 && !isLoading?<WideButton text='Reviewed' icon='star-o' color={colors.gold} handlePress={null} />:user.type_id==2 && !isLoading?<WideButton text='Add Review' icon='star' color={colors.gold} handlePress={()=>setReviewModalVisible(true)} />: null}
-            <Text>Reviews</Text>
+            <Text style={{color:'grey'}}>Reviews</Text>
             <View style={ReviewStyles.separator} />
             {isLoading && <ActivityIndicator  color={colors.violet} /> }
             {user.type_id==2 && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} id={id} setIsReviewed={setIsReviewed} />}
