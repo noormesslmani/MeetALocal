@@ -20,9 +20,11 @@ const SigninScreen= ({ navigation })=> {
 
   //Validate email first
   const handleSubmit= async ()=>{
-    setInvalidEmail(false);
     if(! email.match(emailFormat))
       setInvalidEmail(true);
+      setTimeout(() => {
+          setInvalidEmail(false);
+       }, 1500);
     else{
       setIsLoading(true);
       const result =await signin({email, password,});
