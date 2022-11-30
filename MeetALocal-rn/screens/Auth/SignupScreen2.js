@@ -9,9 +9,6 @@ import CountryPicker from '../../components/General/CountryPicker';
 const SignupScreen2 = ({navigation}) => {
   //route parameters
   const route = useRoute();
-  const fullName= route.params.fullName;
-  const phone= route.params.phone;
-  const dob =route.params.dob;
   
   const [nationality, setNationality]=useState(null);
   const [country, setCountry]=useState(null);
@@ -46,7 +43,7 @@ const SignupScreen2 = ({navigation}) => {
       }, 1500);
     }
     else{
-      navigation.navigate('signup-third', {fullName, phone, dob, nationality, country, language});
+      navigation.navigate('signup-third', {...route.params, nationality, country, language});
     }
   }
 

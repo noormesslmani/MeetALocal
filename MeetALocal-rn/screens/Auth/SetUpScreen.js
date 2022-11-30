@@ -19,14 +19,6 @@ const { user, setUser} = useContext(UserContext);
 //route parameters
 const route = useRoute();
 const type= route.params.type;
-const fullName= route.params.fullName;
-const phone= route.params.phone;
-const dob =route.params.dob;
-const country= route.params.country;
-const nationality =route.params.nationality;
-const language = route.params.language;
-const email= route.params.email;
-const password= route.params.password;
 
 const [isLoading, setIsLoading]=useState(false);
 
@@ -50,7 +42,7 @@ const handleSubmit=()=>{
       register();
     }
     else if(type=='Local'){
-      navigation.navigate('setup-map',{gender, base64, ext, about, type, fullName,phone,dob,country,nationality,language,email,password});
+      navigation.navigate('setup-map',{...route.params,gender, base64, ext, about});
     }
   }
 }
@@ -66,14 +58,14 @@ const handleFemale=()=>{
 const register= async()=>{
   setIsLoading(true);
   const data = {
-    name: fullName,
-    email,
-    password,
-    nationality,
-    residence: country,
-    phone: parseInt(phone),
-    date_of_birth: dob,
-    languages: language,
+    name: route.params.fullName,
+    email: route.params.email,
+    password: route.params.password,
+    nationality: route.params.nationality,
+    residence: route.params.country,
+    phone: parseInt(route.params.phone),
+    date_of_birth: route.params.dob,
+    languages: route.params.language,
     type,
     gender,
     photo: base64,

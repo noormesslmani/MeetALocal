@@ -17,20 +17,6 @@ const Categories=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const route = useRoute();
     //route parameters
-    const base64= route.params.base64;
-    const gender= route.params.gender;
-    const ext= route.params.ext;
-    const latitude=route.params.lat;
-    const longitude= route.params.lng;
-    const about= route.params.about;
-    const fullName= route.params.fullName;
-    const phone= route.params.phone;
-    const dob =route.params.dob;
-    const country= route.params.country;
-    const nationality =route.params.nationality;
-    const language = route.params.language;
-    const email= route.params.email;
-    const password= route.params.password;
 
     const [categories, setCategories]=useState([]);
     const [fees, setFees]=useState(0);
@@ -81,23 +67,23 @@ const Categories=({navigation})=> {
     const register= async()=>{
         setIsLoading(true)
         const data = {
-            name:fullName,
-            email,
-            password,
-            about,
-            nationality,
-            residence:country,
-            date_of_birth:dob,
-            languages:language,
-            phone: parseInt(phone),
+            name: route.params.fullName,
+            email: route.params.email,
+            password: route.params.password,
+            about: route.params.about,
+            nationality: route.params.nationality,
+            residence: route.params.country,
+            date_of_birth: route.params.dob,
+            languages: route.params.language,
+            phone: parseInt(route.params.phone),
             type: 'Local',
-            gender,
-            photo: base64,
-            ext,
+            gender: route.params.gender,
+            photo: route.params.base64,
+            ext: route.params.ext,
             fees,
             categories,
-            latitude,
-            longitude,
+            latitude: route.params.lat,
+            longitude: route.params.lng,
           };
         const result = await registerAccount(data);
         if (result.success){

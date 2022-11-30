@@ -11,12 +11,6 @@ import { emailFormat, passFormat } from '../../constants/expressions';
 const SignupScreen3 = ({navigation}) => {
   //route parameters
   const route = useRoute();
-  const fullName= route.params.fullName;
-  const phone= route.params.phone;
-  const dob =route.params.dob;
-  const country= route.params.country;
-  const nationality =route.params.nationality;
-  const language = route.params.language;
   
   const [email, setEmail]=useState('');
   const [password, setPassword]=useState('');
@@ -48,7 +42,7 @@ const SignupScreen3 = ({navigation}) => {
     }
     else
     {
-      navigation.navigate('user-type',{fullName,email,password,nationality,country,phone,dob,language})
+      navigation.navigate('user-type',{...route.params,email,password})
     }
   }
 

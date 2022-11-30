@@ -7,23 +7,15 @@ import { useRoute } from '@react-navigation/native';
 const UserTypeScreen=({navigation})=> {
   //route parameters
   const route = useRoute();
-  const fullName= route.params.fullName;
-  const phone= route.params.phone;
-  const dob =route.params.dob;
-  const country= route.params.country;
-  const nationality =route.params.nationality;
-  const language = route.params.language;
-  const email= route.params.email;
-  const password= route.params.password;
 
   //local type
   const handleLocal=()=>{
-      navigation.navigate('setup',{fullName,phone,dob,country,nationality,language,email,password,type:'Local'});
+      navigation.navigate('setup',{...route.params,type:'Local'});
   }
 
   //foreigner type
   const handleForeigner=()=>{
-      navigation.navigate('setup',{fullName,phone,dob,country,nationality,language,email,password,type:'Foreigner'});
+      navigation.navigate('setup',{...route.params,type:'Foreigner'});
   }
   return (
     <View style={styles.backgroundUserType}>
