@@ -222,11 +222,8 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    php artisan migrate
    ```
-5. Run the seeder
-   ```sh
-   php artisan db:seed
-   ```
-6. Start the Server
+   
+5. Start the Server
    ```sh
    php artisan serve --port 8000 --host "Your IP"
    ```
