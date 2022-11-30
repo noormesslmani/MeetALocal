@@ -102,9 +102,9 @@ Here's a brief high-level overview of the tech stacks the app uses:
 | ----------| ----------| ----------| 
 | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/registration.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/event-creation.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/notifications.gif" width="250"> | 
 
-|  Appointment creation/deletion | Profile  | 
-| ----------| ----------|
-| <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/appointment-addition-deletion.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/local's-profile.gif" width="250"> |
+|  Appointment creation/deletion | Profile 1  | Profile 2 |
+| ----------| ----------| ----------|
+| <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/appointment-addition-deletion.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/local's-profile.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/local's-profile-2.gif" width="250"> | 
 
 
 ### Foreigner:
@@ -115,13 +115,13 @@ Here's a brief high-level overview of the tech stacks the app uses:
 | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/locals-list.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/events.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/foreigner's-profile.gif" width="250"> | 
 
 
-| Local's profile | Locations on Map | Search |
+| Local's profile 1 | Local's profile 2 | Locations on Map | 
 | ----------| ----------| ----------|
-| <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/visiting-local's-profile.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/locations.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/search.gif" width="250"> | 
+| <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/visiting-local's-profile.gif" width="250"> |  <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/visiting-local's-profile-2.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/locations.gif" width="250"> |  
 
-| Bookings |
-| ----------| 
-| <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/bookings.gif" width="250"> |
+| Bookings |  Search |
+| ----------| ----------| 
+| <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/bookings.gif" width="250"> |  <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/search.gif" width="250"> |
 
 
 ### Common:
@@ -131,9 +131,9 @@ Here's a brief high-level overview of the tech stacks the app uses:
 | ----------| ----------| ----------| 
 | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/chat.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/new-post.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/comments.gif" width="250"> | 
 
-| Chats |
-| ----------|
-| <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/chats.jpeg" width="250"> |
+| Chats | Invalid Credentails |
+| ----------| ----------|
+| <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/chats.jpeg" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/invalid-credentials.jpeg" width="250"> |
 
 
 ### Admin:
