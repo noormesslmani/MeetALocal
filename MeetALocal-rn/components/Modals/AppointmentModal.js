@@ -18,6 +18,7 @@ const AppointmentsModal=({navigation, setModalVisible, modalVisible, id, setAppo
 
   useEffect(()=>{
     if(modalVisible){
+    setSelected(null)
     getAvailalbeAppointments();
 
     }
