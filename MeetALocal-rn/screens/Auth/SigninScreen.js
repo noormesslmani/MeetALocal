@@ -9,6 +9,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { colors } from '../../constants/colors';
 import { signin } from '../../network/Auth';
 import { emailFormat } from '../../constants/expressions';
+import FlashMessage from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 const SigninScreen= ({ navigation })=> {
   const { user, setUser} = useContext(UserContext);
   const [email, setEmail]=useState('');
@@ -20,11 +22,12 @@ const SigninScreen= ({ navigation })=> {
 
   //Validate email first
   const handleSubmit= async ()=>{
-    if(! email.match(emailFormat))
+    if(! email.match(emailFormat)){
       setInvalidEmail(true);
       setTimeout(() => {
-          setInvalidEmail(false);
-       }, 1500);
+        setInvalidEmail(false);
+     }, 1500);
+    }
     else{
       setIsLoading(true);
       const result =await signin({email, password,});
@@ -36,18 +39,25 @@ const SigninScreen= ({ navigation })=> {
         });
         navigation.navigate('app');
       }
-      else{
-        setIsLoading(false);
-        setLoginFail(true);
-        setTimeout(() => {
-          setLoginFail(false);
-        }, 1500);
+      if(result.error.response.data.data=='Unauthorized'){
+        showMessage({
+          message: "Invalid Email/password",
+          type: "fail",
+        });
       }
+      else if(result.error.response.data.data=='account banned'){
+        showMessage({
+          message: "Account is banned!",
+          type: "fail",
+        });
+      }
+      setIsLoading(false)
     }
   }
  
   return (
     <View style={styles.background}>
+      <FlashMessage position="top" />
       <KeyboardAwareScrollView style={styles.scrollView} scrollEnabled={false}  showsVerticalScrollIndicator={false}>
         <View style={styles.mainContainer}>
         <View style={[styles.formContainer, styles.shadowProp]}>
