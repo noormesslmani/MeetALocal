@@ -16,6 +16,8 @@ import { isEventBooked, toggleBookedEvent } from '../../network/App';
 import { sendNotification, Notify } from '../../notifications/Notifications';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { EventsContext } from '../../context/EventsContext';
+import FlashMessage from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 const EventModal=({navigation, modalVisible, setModalVisible, item, choice})=> {
     const { user, setUser} = useContext(UserContext);
     const { events, setEvents} = useContext(EventsContext);
@@ -37,20 +39,26 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice})=> {
     },[modalVisible]);
    
     //hanlde toggle save
-    const handleSave=()=>{
-      toggleSave();
-    }
-
-    const toggleSave= async()=>{
+    const handleSave=async ()=>{
       const result = await toggleSaveEvent({event_id: item.id,});
       if (result.success){
         if(choice==2){
           setEvents(events.filter(event=> event!=item));
         }
+        isSaved?showMessage(
+          {
+          message: "Event unsaved",
+          type: "success",
+          }
+        ):showMessage(
+          {
+          message: "  Event saved",
+          type: "success",
+          }
+        );
         setIsSaved(! isSaved);
       }
     }
-    
 
     //check if event is saved
     const isSavedEvent= async()=>{
@@ -105,6 +113,7 @@ const EventModal=({navigation, modalVisible, setModalVisible, item, choice})=> {
         onRequestClose={() => {
         setModalVisible(!modalVisible);
         }}>
+        <FlashMessage position="top" />
         <View style={EventModalStyle.centeredView}>
         <View style={EventModalStyle.modalView}>
             <Image source={item.photo?{ uri:`${address}/${item.photo}`}: require('../../assets/blank-profile.webp')} style={EventModalStyle.image}/>

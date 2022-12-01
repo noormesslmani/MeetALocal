@@ -7,7 +7,7 @@ import { address } from '../../constants/address';
 import { colors } from '../../constants/colors';
 import { EventsContext } from '../../context/EventsContext';
 import { deletePost } from '../../network/App';
-const PostCard=({navigation, item, viewOwn})=> {
+const PostCard=({navigation, item, viewOwn, setPostDeleted})=> {
     const {posts, setPosts}=useContext(EventsContext);
     const [totalComments, setTotalComments]=useState(item.comments);
     const handlePost=()=>{
@@ -17,6 +17,7 @@ const PostCard=({navigation, item, viewOwn})=> {
         const result=await deletePost({id:item.id});
         if(result.success){
             setPosts(posts.filter(post=>post!=item));
+            setPostDeleted(true)
         }
     }
 

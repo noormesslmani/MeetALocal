@@ -8,7 +8,7 @@ import { colors } from '../../constants/colors';
 import ReviewModalStyle from './Styles/ReviewModalStyle';
 import { TextInput } from 'react-native-paper';
 import { EventsContext } from '../../context/EventsContext';
-const ReviewModal=({setModalVisible, modalVisible, id, setIsReviewed})=> {
+const ReviewModal=({setModalVisible, modalVisible, id, setReviewAdded})=> {
     const [review, setReview]=useState(null);
     const [rating,setRating]=useState(3);
     const [isLoading, setIsLoading]=useState(false);
@@ -35,7 +35,7 @@ const ReviewModal=({setModalVisible, modalVisible, id, setIsReviewed})=> {
       if (result.success){
         setIsLoading(false);
         setModalVisible(false);
-        setIsReviewed(true)
+        setReviewAdded(true)
         setReviews(reviews=>[...reviews,result.data.data ])
 
       }

@@ -15,6 +15,8 @@ import ListHeader from '../../components/General/ListHeaders';
 import EmptyPage from '../../components/General/EmptyPage';
 import AddIcon from '../../components/General/AddIcon';
 import { EventsContext } from '../../context/EventsContext';
+import FlashMessage from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 const Posts=({navigation})=> {
 
   //Either view all posts or own posts
@@ -38,8 +40,9 @@ const Posts=({navigation})=> {
   const [isLoading, setIsLoading]= useState(false);
   const [page, setPage]=useState(0);
   
-  //hanlde addition of new post
+  //hanlde addition or deletion of post
   const [postAdded, setPostAdded]=useState(false);
+  const [postDeleted, setPostDeleted]=useState(false);
 
   useEffect(() => {
     if(!viewOwn){
@@ -69,8 +72,26 @@ const Posts=({navigation})=> {
     if(postAdded){
       getPosts();
       setPostAdded(false);
+      showMessage(
+        {
+        message: "Post successfully added",
+        type: "success",
+        }
+      );
     }
   },[postAdded])
+
+  useEffect(()=>{
+    if(postDeleted){
+      showMessage(
+        {
+        message: "Post deleted",
+        type: "success",
+        }
+      );
+    setPostDeleted(true)
+    }
+  },[postDeleted])
 
   //get posts when the page changes (20 per page)
   const isFocused = useIsFocused();
@@ -140,6 +161,7 @@ const Posts=({navigation})=> {
   }
   return (
       <View style={PostsStyles.container}>
+        <FlashMessage position="top" />
         {viewOwn && <AddIcon handlePress={()=>setNewPostModalVisible(true)} />}
         <View style={PostsStyles.view}>
             <AppButton text='All Posts' handlePress={handleViewAll} type={viewOwn?2:1} />
@@ -152,7 +174,7 @@ const Posts=({navigation})=> {
         {!isLoading && posts.length==0? <EmptyPage />:null}
           <FlatList
             data={posts}
-            renderItem={({ item }) => (<PostCard item={item} navigation={navigation} key={item.id} viewOwn={viewOwn} />)}
+            renderItem={({ item }) => (<PostCard item={item} navigation={navigation} key={item.id} viewOwn={viewOwn} setPostDeleted={setPostDeleted} />)}
             keyExtractor={item => item.id}
             style={PostsStyles.list}
             contentContainerStyle={{ paddingBottom: 300}}

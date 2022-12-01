@@ -12,6 +12,8 @@ import ReviewStyles from './Styles/ReviewsStyles';
 import WideButton from '../../components/Buttons/wideButtons';
 import { EventsContext } from '../../context/EventsContext';
 import WavyBack from '../../components/General/WavyBackground';
+import FlashMessage from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 const Reviews=({navigation})=>{
     //Screen accessible to foreingers only
 
@@ -24,6 +26,8 @@ const Reviews=({navigation})=>{
 
     const [isReviewed, setIsReviewed]=useState(false);
     const [isLoading, setIsLoading]=useState(false);
+    const [reviewAdded, setReviewAdded]=useState(false);
+    const [reviewDeleted, setReviewDeleted]=useState(false)
 
     const { user, setUser} = useContext(UserContext);
     const { reviews, setReviews} = useContext(EventsContext);
@@ -50,9 +54,34 @@ const Reviews=({navigation})=>{
         }
         else setAverage(0)
     },[reviews]); 
-  
+
+    useEffect(()=>{
+        if(reviewAdded){
+            setIsReviewed(true);
+            setReviewAdded(false);
+            showMessage(
+                {
+                message: "Review successfully added",
+                type: "success",
+                }
+            );
+        }
+        if(reviewDeleted){
+            setIsReviewed(false);
+            setReviewDeleted(false);
+            showMessage(
+                {
+                message: "Review deleted",
+                type: "success",
+                }
+            );
+
+        }
+    },[reviewAdded, reviewDeleted])
+    
     return (
         <View style={ReviewStyles.container}>
+            <FlashMessage position="top" />
             <WavyBack/>
             <View style={ReviewStyles.averageContainer}>
                 <Text style={ReviewStyles.averageText}>{average}/5</Text>
@@ -64,9 +93,9 @@ const Reviews=({navigation})=>{
             <Text style={{color:'grey'}}>Reviews</Text>
             <View style={ReviewStyles.separator} />
             {isLoading && <ActivityIndicator  color={colors.violet} /> }
-            {user.type_id==2 && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} id={id} setIsReviewed={setIsReviewed} />}
+            {user.type_id==2 && <ReviewModal modalVisible={reviewModalVisible} setModalVisible={setReviewModalVisible} id={id} setReviewAdded={setReviewAdded} />}
             <ScrollView>
-                {reviews.length>0 && reviews.map((review, index)=><ReviewCard review={review} key={index} id={id} setIsReviewed={setIsReviewed} />)}
+                {reviews.length>0 && reviews.map((review, index)=><ReviewCard review={review} key={index} id={id} setReviewDeleted={setReviewDeleted} />)}
             </ScrollView>
         </View>
     )
