@@ -70,8 +70,9 @@ const NewPostModal=({navigation, modalVisible, setModalVisible, setPostAdded })=
         onRequestClose={() => {
         setModalVisible(!modalVisible);}}>
         <View style={NewPostModalStyle.centeredView}>
+        <KeyboardAwareScrollView style={{width:"100%"}} showsVerticalScrollIndicator={false} scrollEnabled={false} >
             <View style={NewPostModalStyle.modalView}>
-            <KeyboardAwareScrollView style={{width:"100%"}}>
+          
               <View style={{alignItems:"center", width:"100%"}}>
                 <Text style={NewPostModalStyle.title}>Create New Post</Text>
                 <View style={NewPostModalStyle.contentContainer}>
@@ -108,8 +109,9 @@ const NewPostModal=({navigation, modalVisible, setModalVisible, setPostAdded })=
                   <AppButton text={'Cancel'} handlePress={()=>setModalVisible(false)} />
                 </View>
                 </View>
-                </KeyboardAwareScrollView>
+               
             </View>
+            </KeyboardAwareScrollView>
         </View>
     </Modal>
   )

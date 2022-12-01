@@ -12,7 +12,7 @@ const NewPostModalStyle = StyleSheet.create({
       backgroundColor: 'rgba(0,0,0,0.5)', 
       },
       modalView: {
-        marginTop: 0.1*windowHeight,
+        marginTop: 0.2*windowHeight,
         backgroundColor: "white",
         width:widths.width,
         flex:0.8,
