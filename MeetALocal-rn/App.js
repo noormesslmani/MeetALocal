@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import * as React from "react";
 import RootNavigation from './navigation/MainStack';
 import { useState, useRef, useEffect } from "react";
-import {Notify} from './notifications/Notifications'
+import {Notify} from './Notifications/Notifications'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import UserContextProvider from './context/UserContext';
 import EventsContextProvider from './context/EventsContext';

@@ -10,7 +10,7 @@ import { UserContext } from '../../context/UserContext';
 import DatePicker from '../General/datePicker';
 import AppButton from '../Buttons/AppButtons';
 import { createNewEvent } from '../../network/App';
-import { sendNotification } from '../../notifications/Notifications';
+import { sendNotification } from '../../Notifications/Notifications';
 import { colors } from '../../constants/colors';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CategoryPicker from '../General/CategoryPicker';

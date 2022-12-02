@@ -13,7 +13,7 @@ import { colors } from '../../constants/colors';
 import { Button} from 'react-native-paper';
 import EventModalStyle from './Styles/EventModalStyle';
 import { isEventBooked, toggleBookedEvent } from '../../network/App';
-import { sendNotification, Notify } from '../../notifications/Notifications';
+import { sendNotification, Notify } from '../../Notifications/Notifications';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { EventsContext } from '../../context/EventsContext';
 import FlashMessage from "react-native-flash-message";

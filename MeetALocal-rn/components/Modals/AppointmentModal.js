@@ -5,7 +5,7 @@ import { colors } from '../../constants/colors';
 import AppointmentButton from '../Buttons/AppointmentButton';
 import { getAppointments, toggleBookAppointment } from '../../network/App';
 import AppButton from '../Buttons/AppButtons';
-import { sendNotification, Notify } from '../../notifications/Notifications';
+import { sendNotification, Notify } from '../../Notifications/Notifications';
 import AppointmentsModalStyle from './Styles/AppointmentModalStyle';
 import { getToken } from '../../network/Notifications';
 import { UserContext } from '../../context/UserContext';
