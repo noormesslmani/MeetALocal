@@ -215,15 +215,19 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    cd MeetALocal/MeetALocal-Backend
    ```
-3. Inside the .env file in your backend folder
+3.Install dependencies
+   ```sh
+   composer install 
+   ```
+4. Rename .env.example to .env and inside the .env file 
    - Insert the db name as follow -> DB_DATABASE= -> DB_DATABASE=meetalocal
    
-4. Run migration
+5. Run migration
    ```sh
    php artisan migrate
    ```
    
-5. Start the Server
+6. Start the Server
    ```sh
    php artisan serve --port 8000 --host "Your IP"
    ```
