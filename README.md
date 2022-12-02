@@ -215,7 +215,7 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    cd MeetALocal/MeetALocal-Backend
    ```
-3.Install dependencies
+3. Install dependencies
    ```sh
    composer install 
    ```
