@@ -39,7 +39,7 @@ const SigninScreen= ({ navigation })=> {
         });
         navigation.navigate('app');
       }
-      if(result.error.response.data.data=='Unauthorized'){
+      else if(result.error.response.data.data=='Unauthorized'){
         showMessage({
           message: "Invalid Email/password",
           type: "fail",
