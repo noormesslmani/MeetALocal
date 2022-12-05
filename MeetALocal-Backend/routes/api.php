@@ -45,6 +45,8 @@ Route::group(['prefix' => 'v1.0.0'], function () {
                 Route::post('/appointment', [LocalController::class, 'addAppointment']);
                 Route::get('/appointments', [LocalController::class, 'getAppointments']);
                 Route::delete('/appointment', [LocalController::class, 'deleteAppointment']);
+                Route::get('/notifications', [LocalController::class, 'getNotifications']);
+                Route::delete('/notifications', [LocalController::class, 'deleteNotifications']);
             });
         });
         Route::group(['prefix' => 'admins'], function () {

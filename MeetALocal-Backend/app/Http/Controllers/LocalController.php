@@ -169,4 +169,20 @@ class LocalController extends Controller
             'message' => 'ok',
         ], 201);
     }
+
+    public function getNotifications(){
+        return response()->json([
+            'message' => 'ok',
+            'data'=> Notification::where('to_id',auth::id())->latest()->get(),
+        ], 201);
+    }
+
+    public function deleteNotifications(){
+        Notification::where('to_id',auth::id())->delete();
+        return response()->json([
+            'message' => 'ok',
+        ], 201);
+    }
 }
+
+
