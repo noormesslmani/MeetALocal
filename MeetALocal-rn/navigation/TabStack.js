@@ -15,6 +15,7 @@ import LocalProfile from '../screens/Profile/LocalProfile'
 import Bookings from '../screens/General/ForeignerBookings';
 import ForeignerProfile from '../screens/Profile/ForeignersProfile';
 import Schedules from "../screens/General/Local'sSchedules";
+import Notifications from '../screens/General/NotificationsScreen';
 const TabNavigation=()=>{
     const Tab = createBottomTabNavigator();
     const { user, setUser} = useContext(UserContext);
@@ -65,6 +66,7 @@ const TabNavigation=()=>{
         }}
         
       />}
+    
       {user.type_id==2 && <Tab.Screen
         name="bookings"
         component={Bookings}
@@ -93,6 +95,19 @@ const TabNavigation=()=>{
             </View>)
         }}
       />
+      {user.type_id==1 && <Tab.Screen
+        name="notifications"
+        component={Notifications}
+        options={{
+          tabBarLabel: 'Notifications',
+          tabBarIcon: ({ color, size }) => (
+            <Icon name="bell" color={color} size={size} />
+          ),
+          headerTitle:"Notification", headerTitleAlign:"center", 
+          headerBackVisible:false,  headerStyle:{backgroundColor: colors.lightViolet}, headerShadowVisible:false,
+        }}
+        
+      />}
        {user.type_id==1 && <Tab.Screen
         name="profile"
         component={LocalProfile}
