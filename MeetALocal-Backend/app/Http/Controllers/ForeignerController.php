@@ -210,31 +210,50 @@ class ForeignerController extends Controller
 
     //toggling event booking
     public function toggleBookedEvent(Request $request){
-        if(EventBooking::where('user_id',Auth::id())->where('event_id',$request->event_id)->exists())
-                EventBooking::where('user_id',Auth::id())->where('event_id',$request->event_id)->delete();
-        else{
-            EventBooking::create([
-                'user_id' => Auth::id(),
-                'event_id'=> $request->event_id,
-            ]);
+        if(EventBooking::where('user_id',Auth::id())->where('event_id',$request->event_id)->exists()){
+            EventBooking::where('user_id',Auth::id())->where('event_id',$request->event_id)->delete();
+            return response()->json([
+                'message' => 'ok',
+            ], 201);
         }
+        EventBooking::create([
+            'user_id' => Auth::id(),
+            'event_id'=> $request->event_id,
+        ]);
+        $notification= Notification::create([
+            'from_id'=>Auth::id(),
+            'to_id'=>Event::find($request->event_id)->organizer_id,
+            'content'=>'Your event '.Event::find($request->event_id)->title.' was booked by '.Auth::user()->name,
+        ]);
         return response()->json([
             'message' => 'ok',
+            'data'=>$notification
         ], 201);
     }
 
     //toggling appointment booking
     public function toggleBookedAppointment(Request $request){
-        if(BookedAppointment::where('booker_id',Auth::id())->where('appointment_id',$request->appointment_id)->exists())
+        if(BookedAppointment::where('booker_id',Auth::id())->where('appointment_id',$request->appointment_id)->exists()){
             BookedAppointment::where('booker_id',Auth::id())->where('appointment_id',$request->appointment_id)->delete();
-        else{
-            BookedAppointment::create([
-                'booker_id' => Auth::id(),
-                'appointment_id'=> $request->appointment_id,
-            ]);
+            return response()->json([
+                'message' => 'ok',
+            ], 201);
         }
+        $appointment=Appointment::find($request->appointment_id);
+        BookedAppointment::create([
+            'booker_id' => Auth::id(),
+            'appointment_id'=> $request->appointment_id,
+        ]);
+
+        $notification= Notification::create([
+            'from_id'=>Auth::id(),
+            'to_id'=>$appointment->local_id,
+            'content'=>'The appointment on '.$appointment->date. ' from '.$appointment->start_time.' till '.$appointment->end_time.' was booked by '.Auth::user()->name, 
+        ]);
+
         return response()->json([
             'message' => 'ok',
+            'data'=>$notification
         ], 201);
     }
     
