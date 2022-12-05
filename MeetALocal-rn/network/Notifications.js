@@ -18,3 +18,17 @@ export async function saveToken(data){
     }
     return response(config)
   }
+  export async function getNotifications(){
+    const config = {
+      method: "get",
+      url:`${baseURL}locals/notifications`,
+    }
+    return response(config)
+  }
+  export async function deleteNotifications(){
+    const config = {
+      method: "delete",
+      url:`${baseURL}locals/notifications`,
+    }
+    return response(config)
+  }
