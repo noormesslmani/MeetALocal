@@ -1,19 +1,22 @@
 import { View, Text, Image, Pressable, ActivityIndicator } from 'react-native'
 import React from 'react';
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { colors } from '../../constants/colors';
 import { getNotifications, deleteNotifications } from '../../network/Notifications';
 import EmptyPage from '../../components/General/EmptyPage';
 import { widths } from '../../constants/dimensions';
 import Notification from '../../components/General/Notification';
+import { useFocusEffect } from '@react-navigation/native';
 const Notifications=({navigation})=> {
 
     const [notifications, setNotifications]=useState([]);
     const [isLoading, setIsLoading]=useState(false);
-    useEffect(()=>{
-        getAllNotifications();
-    },[]);
+    useFocusEffect(
+        useCallback(() => {
+            getAllNotifications();
+    }, []), );
+    
    const getAllNotifications= async()=>{
     setIsLoading(true);
     const result= await getNotifications();
