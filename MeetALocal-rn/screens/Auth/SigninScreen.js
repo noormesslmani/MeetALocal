@@ -39,13 +39,13 @@ const SigninScreen= ({ navigation })=> {
         });
         navigation.navigate('app');
       }
-      else if(result.error.response.data.data=='Unauthorized'){
+      else if(result.error.response.data.message=='Unauthorized'){
         showMessage({
           message: "Invalid Email/password",
           type: "fail",
         });
       }
-      else if(result.error.response.data.data=='account banned'){
+      else if(result.error.response.data.message=='account banned'){
         showMessage({
           message: "Account is banned!",
           type: "fail",
