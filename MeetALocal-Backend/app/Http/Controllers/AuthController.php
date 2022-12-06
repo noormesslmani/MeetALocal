@@ -36,12 +36,12 @@ class AuthController extends Controller
         }
 
         if (! $token = auth()->attempt($validator->validated())) {
-            return response()->json(['data' => 'Unauthorized'], 401);
+            return response()->json(['message' => 'Unauthorized'], 401);
         }
         $user=Auth::user();
         if(Ban::where('banned_id',$user->id)->exists()){
             return response()->json([
-                "data"=>'account banned'
+                "message"=>'account banned'
             ], 404);
         }
         if($user->type_id!=3)
