@@ -102,9 +102,13 @@ Here's a brief high-level overview of the tech stacks the app uses:
 | ----------| ----------| ----------| 
 | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/registration.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/event-creation.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/notifications.gif" width="250"> | 
 
-|  Appointment creation/deletion | Profile 1  | Profile 2 |
+|  Notifications 2 | Appointment creation/deletion | Profile 1 |
 | ----------| ----------| ----------|
-| <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/appointment-addition-deletion.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/local's-profile.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/local's-profile-2.gif" width="250"> | 
+| <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/notifications2.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/appointment-addition-deletion.gif" width="250"> | <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/local's-profile.gif" width="250"> |
+
+| Profile 2 |
+| ----------| 
+| <img src="https://github.com/noormesslmani/MeetALocal/blob/main/readme/mobile-app/local's-profile-2.gif" width="250"> | 
 
 
 ### Foreigner:
