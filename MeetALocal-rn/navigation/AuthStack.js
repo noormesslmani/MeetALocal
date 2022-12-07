@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import SetUpScreen from '../screens/Auth/SetUpScreen';
-import SigninScreen from '../screens/Auth/SigninScreen';
-import SetUpMap from '../screens/Auth/SetUpMapScreen';
-import SignupScreen from '../screens/Auth/SignupScreen';
-import SignupScreen2 from '../screens/Auth/SignupScreen2';
-import SignupScreen3 from '../screens/Auth/SignupScreen3';
-import Categories from '../screens/Auth/Categories';
-import UserTypeScreen from '../screens/Auth/UserTypeScreen';
+import SetUpScreen from '../screens/Auth/Common/SetUpScreen';
+import SigninScreen from '../screens/Auth/Common/SiginScreen';
+import SetUpMap from '../screens/Auth/Local/SetUpMapScreen';
+import SignupScreen from '../screens/Auth/Common/SignUpScreen1';
+import SignupScreen2 from '../screens/Auth/Common/SignUpScreen2';
+import SignupScreen3 from '../screens/Auth/Common/SignUpScreen3';
+import Categories from '../screens/Auth/Local/CategoriesScreen';
+import UserTypeScreen from '../screens/Auth/Common/UserTypeScreen';
 import Logo from '../components/Header/Logo';
 import BackArrow from '../components/Header/BackArrow';
 import { colors } from '../constants/colors';
