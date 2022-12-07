@@ -1,16 +1,16 @@
 import { View, FlatList, SafeAreaView, ActivityIndicator, Text } from 'react-native';
 import React from 'react';
-import HomeStyles from './Styles/HomeStyles';
+import HomeStyles from '../Styles/HomeStyles';
 import { useState, useEffect, useCallback } from "react";
-import LocalCard from '../../components/Cards/LocalCard';
+import LocalCard from '../../../components/Cards/LocalCard';
 import { Searchbar } from 'react-native-paper';
-import { colors } from '../../constants/colors';
-import { widths } from '../../constants/dimensions';
-import WavyBack from '../../components/General/WavyBackground';
-import { searchLocals } from '../../network/App';
+import { colors } from '../../../constants/colors';
+import { widths } from '../../../constants/dimensions';
+import WavyBack from '../../../components/General/WavyBackground';
+import { searchLocals } from '../../../network/App';
 import { useFocusEffect } from '@react-navigation/native';
-import SearchPageStyles from './Styles/SearchPageStyles';
-import EmptyPage from '../../components/General/EmptyPage';
+import SearchPageStyles from '../Styles/SearchPageStyles';
+import EmptyPage from '../../../components/General/EmptyPage';
 const SearchScreen=({navigation})=> {
   const [data, setdata]=useState(null);
   const [isLoading, setIsLoading]= useState(false);

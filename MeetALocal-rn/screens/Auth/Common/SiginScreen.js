@@ -1,14 +1,14 @@
 import { View, Text, ActivityIndicator } from 'react-native';
 import { TextInput } from 'react-native-paper';
 import React from 'react';
-import styles from './Styles/AuthScreensStyle';
+import styles from '../Styles/AuthScreensStyle';
 import { useState,  useContext } from "react";
-import { UserContext } from '../../context/UserContext';
-import AuthButton from '../../components/Buttons/AuthButton';
+import { UserContext } from '../../../context/UserContext';
+import AuthButton from '../../../components/Buttons/AuthButton';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { colors } from '../../constants/colors';
-import { signin } from '../../network/Auth';
-import { emailFormat } from '../../constants/expressions';
+import { colors } from '../../../constants/colors';
+import { signin } from '../../../network/Auth';
+import { emailFormat } from '../../../constants/expressions';
 import FlashMessage from "react-native-flash-message";
 import { showMessage } from "react-native-flash-message";
 const SigninScreen= ({ navigation })=> {

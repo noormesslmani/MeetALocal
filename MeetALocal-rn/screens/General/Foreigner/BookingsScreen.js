@@ -1,14 +1,14 @@
 import { View, FlatList,  ActivityIndicator} from 'react-native';
 import React from 'react';
-import { colors } from '../../constants/colors';
-import { getBookedAppointments } from '../../network/App';
+import { colors } from '../../../constants/colors';
+import { getBookedAppointments } from '../../../network/App';
 import { useState, useCallback, useContext } from "react";
-import ScheduleCard from '../../components/Cards/ScheduleCard';
-import ScheduleStyles from './Styles/ScheduleScreenStyles';
-import WavyBack from '../../components/General/WavyBackground';
+import ScheduleCard from '../../../components/Cards/ScheduleCard';
+import ScheduleStyles from '../Styles/ScheduleScreenStyles';
+import WavyBack from '../../../components/General/WavyBackground';
 import { useFocusEffect} from '@react-navigation/native';
-import { BookingsContext } from '../../context/BookingsContext';
-import EmptyPage from '../../components/General/EmptyPage';
+import { BookingsContext } from '../../../context/BookingsContext';
+import EmptyPage from '../../../components/General/EmptyPage';
 const Bookings=({navigation})=> {
   const { bookings, setBookings} = useContext(BookingsContext);
 

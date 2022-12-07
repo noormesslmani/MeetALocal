@@ -1,19 +1,19 @@
 import { View, SafeAreaView, FlatList, ActivityIndicator } from 'react-native';
 import React from 'react';
 import { useState, useEffect, useContext } from "react";
-import { UserContext } from '../../context/UserContext';
-import EventsStyles from './Styles/EventsPageStyles';
-import FilterModal from '../../components/Modals/FilterModal';
-import NewEventModal from '../../components/Modals/NewEventModal';
-import EventCard from '../../components/Cards/EventCard';
-import {getAllEvents, getSavedEvents, getOwnEvents, getBookedEvents} from '../../network/App';
-import Filters from '../../components/Header/Filters';
-import { colors } from '../../constants/colors';
-import AppButton from '../../components/Buttons/AppButtons';
-import ListHeader from '../../components/General/ListHeaders';
-import EmptyPage from '../../components/General/EmptyPage';
-import AddIcon from '../../components/General/AddIcon';
-import {EventsContext} from '../../context/EventsContext';
+import { UserContext } from '../../../context/UserContext';
+import EventsStyles from '../Styles/EventsPageStyles';
+import FilterModal from '../../../components/Modals/FilterModal';
+import NewEventModal from '../../../components/Modals/NewEventModal';
+import EventCard from '../../../components/Cards/EventCard';
+import {getAllEvents, getSavedEvents, getOwnEvents, getBookedEvents} from '../../../network/App';
+import Filters from '../../../components/Header/Filters';
+import { colors } from '../../../constants/colors';
+import AppButton from '../../../components/Buttons/AppButtons';
+import ListHeader from '../../../components/General/ListHeaders';
+import EmptyPage from '../../../components/General/EmptyPage';
+import AddIcon from '../../../components/General/AddIcon';
+import {EventsContext} from '../../../context/EventsContext';
 const Events=({navigation})=> {
   //user's choice
   const [choice, setChoice]=useState(1);

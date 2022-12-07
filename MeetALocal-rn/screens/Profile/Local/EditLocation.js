@@ -1,11 +1,11 @@
 import { View, Text} from 'react-native';
 import React from 'react';
 import { useState } from "react";
-import Map from '../../components/map/Map';
+import Map from '../../../components/map/Map';
 import { useRoute } from '@react-navigation/native';
-import ProfileStyles from './ProfileStyles/ProfileStyles';
+import ProfileStyles from '../ProfileStyles/ProfileStyles';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import AppButton from '../../components/Buttons/AppButtons';
+import AppButton from '../../../components/Buttons/AppButtons';
 const EditLocation=({navigation})=> {
     const route = useRoute();
     const [lat, setLat]=useState(route.params.lat);
@@ -39,4 +39,3 @@ const EditLocation=({navigation})=> {
   )
 }
 export default EditLocation
-

@@ -1,28 +1,28 @@
 import { View, Text, TouchableOpacity, Image, ScrollView, Pressable, Linking } from 'react-native';
 import React from 'react';
-import { UserContext } from '../../context/UserContext';
+import { UserContext } from '../../../context/UserContext';
 import { useState, useEffect, useContext } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useRoute } from '@react-navigation/native';
-import LocalProfileStyles from './Styles/LocalProfileStyles';
-import { categoryIcons } from '../../constants/categories';
-import Map from '../../components/Header/Map';
-import { CheckFavoriteLocals, toggleFavoriteLocals, getLocalsEvents } from '../../network/App';
-import { address } from '../../constants/address';
+import LocalProfileStyles from '../Styles/LocalProfileStyles';
+import { categoryIcons } from '../../../constants/categories';
+import Map from '../../../components/Header/Map';
+import { CheckFavoriteLocals, toggleFavoriteLocals, getLocalsEvents } from '../../../network/App';
+import { address } from '../../../constants/address';
 import call from 'react-native-phone-call';
 import { Rating} from 'react-native-ratings';
-import { getReviews } from '../../network/App';
-import { colors } from '../../constants/colors';
-import AppointmentsModal from '../../components/Modals/AppointmentModal';
-import ImagesSlider from '../../components/General/Carousel';
+import { getReviews } from '../../../network/App';
+import { colors } from '../../../constants/colors';
+import AppointmentsModal from '../../../components/Modals/AppointmentModal';
+import ImagesSlider from '../../../components/General/Carousel';
 import { Avatar } from 'react-native-paper';
 import { Button} from 'react-native-paper';
-import ProfileCard from '../../components/Cards/ProfileCard';
-import WideButton from '../../components/Buttons/wideButtons';
+import ProfileCard from '../../../components/Cards/ProfileCard';
+import WideButton from '../../../components/Buttons/wideButtons';
 import { useIsFocused } from '@react-navigation/native';
-import EventCard from '../../components/Cards/EventCard';
-import ImageViewer from '../../components/General/ImageView';
-import { EventsContext } from '../../context/EventsContext';
+import EventCard from '../../../components/Cards/EventCard';
+import ImageViewer from '../../../components/General/ImageView';
+import { EventsContext } from '../../../context/EventsContext';
 const LocalPage=({navigation})=> {
   //user's info
   const route = useRoute();
@@ -150,7 +150,7 @@ const LocalPage=({navigation})=> {
         <View style={LocalProfileStyles.mainContainer}>
 
           <View style={LocalProfileStyles.imageContainer}>
-            <TouchableOpacity onPress={()=>setImageView(true)} ><Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={LocalProfileStyles.image}/></TouchableOpacity>
+            <TouchableOpacity onPress={()=>setImageView(true)} ><Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../../assets/blank-profile.webp')} style={LocalProfileStyles.image}/></TouchableOpacity>
             <View style={{margin:15}}>
               <Text style={LocalProfileStyles.name}>{item.name}</Text>
               <View style={{flexDirection:"row"}}><Text style={LocalProfileStyles.country}>{item.country} </Text>{user.type_id==2 && <Map handleMap={handleMap} small={true} />}</View>

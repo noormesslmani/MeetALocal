@@ -1,10 +1,10 @@
 import { View} from 'react-native';
 import React from 'react';
 import { useState, useEffect } from "react";
-import LocalsMapStyles from './Styles/LocalMapsStyles';
+import LocalsMapStyles from '../Styles/LocalMapsStyles';
 import { useRoute } from '@react-navigation/native';
-import Map from '../../components/map/Map';
-import MapSearch from '../../components/map/MapSearch';
+import Map from '../../../components/map/Map';
+import MapSearch from '../../../components/map/MapSearch';
 const LocalsMap=({navigation})=> {
     const route = useRoute();
 

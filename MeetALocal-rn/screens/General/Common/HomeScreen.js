@@ -1,12 +1,12 @@
 import { View, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { useContext, useState } from "react";
-import HomeStyles from './Styles/HomeStyles';
-import { UserContext } from '../../context/UserContext';
-import { address } from '../../constants/address';
-import HomeCard from '../../components/Cards/HomeCard';
-import WavyBack from '../../components/General/WavyBackground';
-import ImageViewer from '../../components/General/ImageView';
+import HomeStyles from '../Styles/HomeStyles';
+import { UserContext } from '../../../context/UserContext';
+import { address } from '../../../constants/address';
+import HomeCard from '../../../components/Cards/HomeCard';
+import WavyBack from '../../../components/General/WavyBackground';
+import ImageViewer from '../../../components/General/ImageView';
 const Home=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const handleLocals=()=>{
@@ -25,7 +25,7 @@ const Home=({navigation})=> {
     <View style={HomeStyles.container}>
         <WavyBack/>
         <TouchableOpacity onPress={()=>setImageView(true)} >
-        <Image source={user.profile_picture?{ uri:`${address}/${user.profile_picture}`}: require('../../assets/blank-profile.webp')} style={HomeStyles.photo }/>
+        <Image source={user.profile_picture?{ uri:`${address}/${user.profile_picture}`}: require('../../../assets/blank-profile.webp')} style={HomeStyles.photo }/>
         </TouchableOpacity>
         <HomeCard label={'Locals'} handlePress={handleLocals}/>
         <HomeCard label={'Events'} handlePress={handleEvents}/>

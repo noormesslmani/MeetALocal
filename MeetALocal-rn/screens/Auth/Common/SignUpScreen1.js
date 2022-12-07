@@ -2,11 +2,11 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { TextInput } from 'react-native-paper';
 import { useState, useEffect} from "react";
-import AuthButton from '../../components/Buttons/AuthButton';
-import DatePicker from '../../components/General/datePicker';
-import styles from './Styles/AuthScreensStyle';
+import AuthButton from '../../../components/Buttons/AuthButton';
+import DatePicker from '../../../components/General/datePicker';
+import styles from '../Styles/AuthScreensStyle';
 import PhoneInput from "react-native-phone-number-input";
-import { colors } from '../../constants/colors';
+import { colors } from '../../../constants/colors';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 const SignupScreen = ({navigation}) => {
@@ -108,5 +108,3 @@ const SignupScreen = ({navigation}) => {
 }
 
 export default SignupScreen
-
-

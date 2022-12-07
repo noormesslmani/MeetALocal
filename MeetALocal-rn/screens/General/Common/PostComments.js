@@ -2,15 +2,15 @@ import { View, Text, Image, Pressable, TextInput, KeyboardAvoidingView, Touchabl
 import React from 'react';
 import { useState, useEffect, useContext } from "react";
 import Icon from 'react-native-vector-icons/FontAwesome'
-import Comment from '../../components/General/Comment';
-import { getComments, addComment, userProfile } from '../../network/App';
+import Comment from '../../../components/General/Comment';
+import { getComments, addComment, userProfile } from '../../../network/App';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import CommentsStyles from './Styles/CommentsStyles';
+import CommentsStyles from '../Styles/CommentsStyles';
 import { useRoute } from '@react-navigation/native';
-import { address } from '../../constants/address';
-import { colors } from '../../constants/colors';
-import { UserContext } from '../../context/UserContext';
-import { EventsContext } from '../../context/EventsContext';
+import { address } from '../../../constants/address';
+import { colors } from '../../../constants/colors';
+import { UserContext } from '../../../context/UserContext';
+import { EventsContext } from '../../../context/EventsContext';
 const PostComments=({navigation})=> {
     const route = useRoute();
     const { user, setUser} = useContext(UserContext);
@@ -64,7 +64,7 @@ const PostComments=({navigation})=> {
         <KeyboardAvoidingView style={CommentsStyles.centeredView}>
             <View style={CommentsStyles.headerContainer}>
                 <View style={{flexDirection:"row"}}>
-                <TouchableOpacity onPress={handleUser}><Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={CommentsStyles.image} /></TouchableOpacity>
+                <TouchableOpacity onPress={handleUser}><Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../../assets/blank-profile.webp')} style={CommentsStyles.image} /></TouchableOpacity>
                     <View>
                         <Text style={CommentsStyles.userName}>{item.name}</Text>
                         <Text style={CommentsStyles.userCountry}>{item.country}</Text>

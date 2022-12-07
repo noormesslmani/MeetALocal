@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useContext } from 'react';
 import {ActivityIndicator, ScrollView, View } from 'react-native';
-import { UserContext } from '../../context/UserContext';
-import { database } from "../../firebase";
-import { colors } from '../../constants/colors';
-import MessageCard from '../../components/Cards/MessageCard'
+import { UserContext } from '../../../context/UserContext';
+import { database } from "../../../firebase";
+import { colors } from '../../../constants/colors';
+import MessageCard from '../../../components/Cards/MessageCard'
 import { useFocusEffect } from '@react-navigation/native';
-import ChatScreenStyles from './Styles/ChatScreenStyles';
+import ChatScreenStyles from '../Styles/ChatScreenStyles';
 import {
   collection,
   orderBy,

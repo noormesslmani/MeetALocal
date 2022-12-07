@@ -1,9 +1,9 @@
 import React, { useState, useCallback, useEffect, useContext } from 'react';
 import { Image, View, Text } from 'react-native';
 import { GiftedChat } from 'react-native-gifted-chat';
-import { UserContext } from '../../context/UserContext';
-import { database } from "../../firebase";
-import { address } from '../../constants/address';
+import { UserContext } from '../../../context/UserContext';
+import { database } from "../../../firebase";
+import { address } from '../../../constants/address';
 import {
     collection,
     orderBy,
@@ -16,8 +16,8 @@ import {
     updateDoc
 } from "firebase/firestore";
 import { useRoute } from '@react-navigation/native';
-import BackArrow from '../../components/Header/BackArrow';
-import ChatScreenStyles from './Styles/ChatScreenStyles';
+import BackArrow from '../../../components/Header/BackArrow';
+import ChatScreenStyles from '../Styles/ChatScreenStyles';
 const ChatScreen=({navigation})=> {
     //route parameters
     const route = useRoute(); 
@@ -93,7 +93,7 @@ const ChatScreen=({navigation})=> {
         navigation.setOptions({
             headerLeft: () => <><BackArrow type={1} navigation={navigation} />
             <View style={ChatScreenStyles.imageContainer}>
-                <Image source={image?{ uri:`${address}/${image}`}: require('../../assets/blank-profile.webp')} style={ChatScreenStyles.image}/>
+                <Image source={image?{ uri:`${address}/${image}`}: require('../../../assets/blank-profile.webp')} style={ChatScreenStyles.image}/>
                 <Text>{name}</Text>
             </View>
             </>,

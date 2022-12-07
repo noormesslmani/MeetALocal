@@ -2,11 +2,11 @@ import { View, Text, Image, ScrollView, Pressable } from 'react-native';
 import React from 'react';
 import { useEffect} from "react";
 import { useRoute } from '@react-navigation/native';
-import LocalProfileStyles from './Styles/LocalProfileStyles';
-import { address } from '../../constants/address';
-import { colors } from '../../constants/colors';
-import BackArrow from '../../components/Header/BackArrow';
-import ProfileCard from '../../components/Cards/ProfileCard';
+import LocalProfileStyles from '../Styles/LocalProfileStyles';
+import { address } from '../../../constants/address';
+import { colors } from '../../../constants/colors';
+import BackArrow from '../../../components/Header/BackArrow';
+import ProfileCard from '../../../components/Cards/ProfileCard';
 const ForeignerPage=({navigation})=> {
   //user's info
   const route = useRoute();
@@ -31,7 +31,7 @@ return (
         <View style={LocalProfileStyles.mainContainer}>
 
           <View style={LocalProfileStyles.imageContainer}>
-            <Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../assets/blank-profile.webp')} style={LocalProfileStyles.image}/>
+            <Image source={item.profile_picture?{ uri:`${address}/${item.profile_picture}`}: require('../../../assets/blank-profile.webp')} style={LocalProfileStyles.image}/>
             <View style={{margin:15}}>
               <Text style={LocalProfileStyles.name}>{item.name}</Text>
               <Pressable style={LocalProfileStyles.message} onPress={handleMessage}><Text style={{color:"white"}}>Message</Text></Pressable>

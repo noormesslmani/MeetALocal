@@ -1,16 +1,16 @@
 import { View, Text, TouchableOpacity, FlatList,  ActivityIndicator} from 'react-native';
 import React from 'react';
 import { useState, useEffect, useCallback, useContext } from "react";
-import { getSchedule } from '../../network/App';
-import { colors } from '../../constants/colors';
-import ScheduleCard from '../../components/Cards/ScheduleCard';
-import ScheduleStyles from './Styles/ScheduleScreenStyles';
+import { getSchedule } from '../../../network/App';
+import { colors } from '../../../constants/colors';
+import ScheduleCard from '../../../components/Cards/ScheduleCard';
+import ScheduleStyles from '../Styles/ScheduleScreenStyles';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import WavyBack from '../../components/General/WavyBackground';
+import WavyBack from '../../../components/General/WavyBackground';
 import { useFocusEffect} from '@react-navigation/native';
-import ScheduleModal from '../../components/Modals/NewScheduleModal';
-import { BookingsContext } from '../../context/BookingsContext';
-import EmptyPage from '../../components/General/EmptyPage';
+import ScheduleModal from '../../../components/Modals/NewScheduleModal';
+import { BookingsContext } from '../../../context/BookingsContext';
+import EmptyPage from '../../../components/General/EmptyPage';
 const Schedules=({navigation})=> {
 
   //This screen is for locals

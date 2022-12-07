@@ -2,9 +2,9 @@ import { View, Text, TouchableOpacity} from 'react-native'
 import React from 'react';
 import { useState, useEffect} from "react";
 import { useRoute } from '@react-navigation/native';
-import styles from './Styles/AuthScreensStyle';
+import styles from '../Styles/AuthScreensStyle';
 import * as Location from 'expo-location';
-import Map from '../../components/map/Map';
+import Map from '../../../components/map/Map';
 const SetUpMap=({navigation})=> {
     const route = useRoute();
   

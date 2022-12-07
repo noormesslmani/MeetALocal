@@ -1,24 +1,24 @@
 import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
 import React from 'react';
-import { UserContext } from '../../context/UserContext';
+import { UserContext } from '../../../context/UserContext';
 import { useState, useEffect, useContext } from "react";
-import ProfileStyles from './ProfileStyles/ProfileStyles';
+import ProfileStyles from '../ProfileStyles/ProfileStyles';
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { address } from '../../constants/address';
-import { colors } from '../../constants/colors';
-import AppButton from '../../components/Buttons/AppButtons';
-import { categoryIcons } from '../../constants/categories';
-import ImagesSlider from '../../components/General/Carousel';
-import WavyBack from '../../components/General/WavyBackground';
-import { getReviews } from '../../network/App';
+import { address } from '../../../constants/address';
+import { colors } from '../../../constants/colors';
+import AppButton from '../../../components/Buttons/AppButtons';
+import { categoryIcons } from '../../../constants/categories';
+import ImagesSlider from '../../../components/General/Carousel';
+import WavyBack from '../../../components/General/WavyBackground';
+import { getReviews } from '../../../network/App';
 import { Rating} from 'react-native-ratings';
-import ReviewCard from '../../components/Cards/ReviewerCrad';
+import ReviewCard from '../../../components/Cards/ReviewerCrad';
 import { Button} from 'react-native-paper';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import HighlightsModal from '../../components/Modals/HighlightsModal';
-import ProfileCard from '../../components/Cards/ProfileCard';
-import ImageViewer from '../../components/General/ImageView';
+import HighlightsModal from '../../../components/Modals/HighlightsModal';
+import ProfileCard from '../../../components/Cards/ProfileCard';
+import ImageViewer from '../../../components/General/ImageView';
 const LocalProfile=({navigation})=> {
   const { user, setUser} = useContext(UserContext);
   const [image, setImage]= useState(null);
@@ -87,7 +87,7 @@ const LocalProfile=({navigation})=> {
     <View style={ProfileStyles.container}>
 
         <WavyBack/>
-        <TouchableOpacity onPress={()=>setImageView(true)}><Image source={image?{ uri:`${address}/${image}`}: require('../../assets/blank-profile.webp')} style={{ width: 200, height: 200, borderRadius:100, marginTop:20 }} /></TouchableOpacity>
+        <TouchableOpacity onPress={()=>setImageView(true)}><Image source={image?{ uri:`${address}/${image}`}: require('../../../assets/blank-profile.webp')} style={{ width: 200, height: 200, borderRadius:100, marginTop:20 }} /></TouchableOpacity>
         <Text style={ProfileStyles.name}>{user.name}</Text>
         <AppButton handlePress={handleEdit} text={'Edit profile'} />
       

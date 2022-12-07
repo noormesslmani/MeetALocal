@@ -1,20 +1,20 @@
 import { View, FlatList, SafeAreaView, ActivityIndicator } from 'react-native';
 import React from 'react';
-import HomeStyles from './Styles/HomeStyles';
+import HomeStyles from '../Styles/HomeStyles';
 import { useState, useEffect, useContext } from "react";
-import { UserContext } from '../../context/UserContext';
-import LocalsStyles from './Styles/LocalsPageStyles';
-import FilterModal from '../../components/Modals/FilterModal';
-import LocalCard from '../../components/Cards/LocalCard';
-import Filters from '../../components/Header/Filters';
-import { getLocals, getFavorites } from '../../network/App';
-import Map from '../../components/Header/Map';
-import { colors } from '../../constants/colors';
-import ListFooter from '../../components/General/ListFooter';
+import { UserContext } from '../../../context/UserContext';
+import LocalsStyles from '../Styles/LocalsPageStyles';
+import FilterModal from '../../../components/Modals/FilterModal';
+import LocalCard from '../../../components/Cards/LocalCard';
+import Filters from '../../../components/Header/Filters';
+import { getLocals, getFavorites } from '../../../network/App';
+import Map from '../../../components/Header/Map';
+import { colors } from '../../../constants/colors';
+import ListFooter from '../../../components/General/ListFooter';
 import {  useIsFocused } from '@react-navigation/native';
-import AppButton from '../../components/Buttons/AppButtons';
-import EmptyPage from '../../components/General/EmptyPage';
-import ListHeader from '../../components/General/ListHeaders';
+import AppButton from '../../../components/Buttons/AppButtons';
+import EmptyPage from '../../../components/General/EmptyPage';
+import ListHeader from '../../../components/General/ListHeaders';
 const Locals=({navigation})=> {
   //data fitltering
   const [country, setCountry]=useState('all');

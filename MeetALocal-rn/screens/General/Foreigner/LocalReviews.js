@@ -1,17 +1,17 @@
 import { View, Text, ScrollView,  ActivityIndicator } from 'react-native';
 import React from 'react';
-import { UserContext } from '../../context/UserContext';
+import { UserContext } from '../../../context/UserContext';
 import { useState, useEffect, useContext } from "react";
 import { useRoute } from '@react-navigation/native';
 import { Rating, } from 'react-native-ratings';
-import { checkReviewed} from '../../network/App';
-import ReviewModal from '../../components/Modals/ReviewModal';
-import { colors } from '../../constants/colors';
-import ReviewCard from '../../components/Cards/ReviewerCrad';
-import ReviewStyles from './Styles/ReviewsStyles';
-import WideButton from '../../components/Buttons/wideButtons';
-import { EventsContext } from '../../context/EventsContext';
-import WavyBack from '../../components/General/WavyBackground';
+import { checkReviewed} from '../../../network/App';
+import ReviewModal from '../../../components/Modals/ReviewModal';
+import { colors } from '../../../constants/colors';
+import ReviewCard from '../../../components/Cards/ReviewerCrad';
+import ReviewStyles from '../Styles/ReviewsStyles';
+import WideButton from '../../../components/Buttons/wideButtons';
+import { EventsContext } from '../../../context/EventsContext';
+import WavyBack from '../../../components/General/WavyBackground';
 import FlashMessage from "react-native-flash-message";
 import { showMessage } from "react-native-flash-message";
 const Reviews=({navigation})=>{

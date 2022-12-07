@@ -1,11 +1,11 @@
 import { View, Text, KeyboardAvoidingView } from 'react-native';
 import React from 'react';
-import styles from './Styles/AuthScreensStyle';
+import styles from '../Styles/AuthScreensStyle';
 import { useState } from "react";
-import AuthButton from '../../components/Buttons/AuthButton';
+import AuthButton from '../../../components/Buttons/AuthButton';
 import { useRoute } from '@react-navigation/native';
-import LanguagePicker from '../../components/General/LanguagePicker';
-import CountryPicker from '../../components/General/CountryPicker';
+import LanguagePicker from '../../../components/General/LanguagePicker';
+import CountryPicker from '../../../components/General/CountryPicker';
 const SignupScreen2 = ({navigation}) => {
   //route parameters
   const route = useRoute();

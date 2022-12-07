@@ -1,18 +1,18 @@
 import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import React from 'react';
-import styles from './Styles/AuthScreensStyle';
+import styles from '../Styles/AuthScreensStyle';
 import { TextInput, Avatar } from 'react-native-paper';
 import { useState, useContext } from "react";
-import { UserContext } from '../../context/UserContext';
-import AuthButton from '../../components/Buttons/AuthButton';
+import { UserContext } from '../../../context/UserContext';
+import AuthButton from '../../../components/Buttons/AuthButton';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import UploadImage from '../../components/General/UploadImage';
-import { colors } from '../../constants/colors';
-import { widths } from '../../constants/dimensions';
-import WavyBack from '../../components/General/WavyBackground';
-import { registerAccount } from '../../network/Auth';
+import UploadImage from '../../../components/General/UploadImage';
+import { colors } from '../../../constants/colors';
+import { widths } from '../../../constants/dimensions';
+import WavyBack from '../../../components/General/WavyBackground';
+import { registerAccount } from '../../../network/Auth';
 
 const SetUpScreen=({navigation})=> {
 const { user, setUser} = useContext(UserContext);
@@ -101,8 +101,8 @@ return (
         <Text>Gender *</Text>
         {genderUnset?<Text style={styles.error}>Please select your gender</Text>:null}
         <View style={styles.genderContainer}>
-          <TouchableOpacity onPress={handleMale}><Avatar.Icon size={0.25*widths.width} style={[styles.genderAvatar, gender=='Male'?styles.selectedGender: null]} icon={()=><Image source={require('../../assets/male.png')} style={styles.genderIcon} />} /></TouchableOpacity>
-          <TouchableOpacity onPress={handleFemale}><Avatar.Icon size={0.25*widths.width} style={[styles.genderAvatar, gender=='Female'?styles.selectedGender: null]} icon={()=><Image source={require('../../assets/female.png')} style={styles.genderIcon} />} /></TouchableOpacity>
+          <TouchableOpacity onPress={handleMale}><Avatar.Icon size={0.25*widths.width} style={[styles.genderAvatar, gender=='Male'?styles.selectedGender: null]} icon={()=><Image source={require('../../../assets/male.png')} style={styles.genderIcon} />} /></TouchableOpacity>
+          <TouchableOpacity onPress={handleFemale}><Avatar.Icon size={0.25*widths.width} style={[styles.genderAvatar, gender=='Female'?styles.selectedGender: null]} icon={()=><Image source={require('../../../assets/female.png')} style={styles.genderIcon} />} /></TouchableOpacity>
         </View>
         {isLoading && <ActivityIndicator color={colors.violet} />}
         <View style={{position:"absolute", bottom:20}}>

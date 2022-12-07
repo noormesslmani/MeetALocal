@@ -1,18 +1,18 @@
 import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-native';
 import React from 'react';
-import styles from './Styles/AuthScreensStyle';
+import styles from '../Styles/AuthScreensStyle';
 import { useState, useEffect, useContext } from "react";
-import { UserContext } from '../../context/UserContext';
-import AuthButton from '../../components/Buttons/AuthButton';
+import { UserContext } from '../../../context/UserContext';
+import AuthButton from '../../../components/Buttons/AuthButton';
 import { useRoute } from '@react-navigation/native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import FeesSlider from '../../components/General/Slider';
-import { colors } from '../../constants/colors';
-import { categoryIcons } from '../../constants/categories';
+import FeesSlider from '../../../components/General/Slider';
+import { colors } from '../../../constants/colors';
+import { categoryIcons } from '../../../constants/categories';
 import { Avatar } from 'react-native-paper';
-import { widths } from '../../constants/dimensions';
-import WavyBack from '../../components/General/WavyBackground';
-import { registerAccount } from '../../network/Auth';
+import { widths } from '../../../constants/dimensions';
+import WavyBack from '../../../components/General/WavyBackground';
+import { registerAccount } from '../../../network/Auth';
 const Categories=({navigation})=> {
     const { user, setUser} = useContext(UserContext);
     const route = useRoute();
